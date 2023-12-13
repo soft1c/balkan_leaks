@@ -4,16 +4,67 @@ const port = 3000;
 const path = require('path');
 const multer = require('multer');
 const sqlite3 = require('sqlite3');
+const session = require('express-session');
+
+const fileTypeToDir = {
+  image: 'images',
+  video: 'videos',
+  audio: 'audio',
+  text: 'text',
+};
+
+app.use(
+  session({
+    secret: 'your-secret-key', // Change this to a secure secret key
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+const ip_adrese = new sqlite3.Database('user_ips.db', (err) => {
+  if (err) {
+    console.error('Error opening database:', err.message);
+  } else {
+    console.log('Connected to the database.');
+    db.run(`
+      CREATE TABLE IF NOT EXISTS user_ips (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        ip_address TEXT NOT NULL,
+        login_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+  }
+});
+
+
+app.use((req, res, next) => {
+  const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  req.session.ipAddress = ipAddress;
+  next();
+});
+
+app.get('/user_ips', (req, res) => {
+  db.all('SELECT * FROM user_ips ORDER BY login_time DESC', (err, rows) => {
+    if (err) {
+      console.error('Error retrieving IP addresses from the database:', err.message);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
 
 
 const uploadDir = path.join(__dirname, 'uploads/media');
-
+app.use('/uploads/media', express.static(uploadDir));
 const imageDir = path.join(uploadDir, 'images');
 const videoDir = path.join(uploadDir, 'videos');
 const audioDir = path.join(uploadDir, 'audio');
 const textDir = path.join(uploadDir, 'text');
 
 app.use(express.urlencoded({ extended: true })); 
+
 
 
 const db = new sqlite3.Database(path.join(__dirname, 'baza.db'), (err) => {
@@ -115,11 +166,25 @@ app.get('/ljudi', (req, res) => {
   });
 });
 
+app.get('/zadnjih_6',(req,res)=>{
+  const query  = 'SELECT * FROM ljudi ORDER BY id DESC LIMIT 6';
+  db.all(query, (err, rows) => {
+    if (err) {
+      console.error('Greška prilikom dohvata svih ljudi:', err);
+      res.status(500).json({ message: 'Došlo je do greške prilikom dohvata svih ljudi.' });
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
+
+
 app.get('/get_file/:id', (req, res) => {
   const osobaId = req.params.id;
 
   const query = `
-    SELECT fFileovi.*, ljudi.ime, ljudi.prezime
+    SELECT fileovi.*, ljudi.ime, ljudi.prezime
     FROM fileovi
     JOIN ljudi ON fileovi.ljudiId = ljudi.id
     WHERE ljudi.id = ?;
@@ -154,6 +219,83 @@ app.post('/dodaj-fajl', upload.single('file'), (req, res) => {
   });
 });
 
+app.get('/osoba/:id', (req, res) => {
+  const osobaId = req.params.id;
+
+  // Dohvati osnovne informacije o osobi
+  const osobaQuery = 'SELECT * FROM ljudi WHERE id = ?';
+  db.get(osobaQuery, [osobaId], (err, osoba) => {
+    if (err) {
+      console.error('Greška prilikom dohvata osobe:', err);
+      res.status(500).json({ message: 'Došlo je do greške prilikom dohvata osobe.' });
+    } else {
+      if (!osoba) {
+        res.status(404).json({ message: 'Osoba nije pronađena.' });
+      } else {
+        // Dohvati fajlove vezane za osobu
+        const fajloviQuery = 'SELECT * FROM fileovi WHERE LjudiId = ?';
+        db.all(fajloviQuery, [osobaId], (err, fajlovi) => {
+          if (err) {
+            console.error('Greška prilikom dohvata fajlova za osobu:', err);
+            res.status(500).json({ message: 'Došlo je do greške prilikom dohvata fajlova za osobu.' });
+          } else {
+            // Prikazi HTML stranicu sa detaljima osobe i povezanim fajlovima
+            res.send(`
+            <h1>${osoba.ime} ${osoba.prezime}</h1>
+            <p>Datum rođenja: ${osoba.datumRodjenja}</p>
+            <p>Mjesto rođenja: ${osoba.mjestoRodjenja}</p>
+            <p>Datum smrti: ${osoba.datumSmrti || 'N/A'}</p>
+            <p>Opis: ${osoba.opis || 'Nema opisa.'}</p>
+            <img src="/uploads/media/images/${osoba.slikaUrl}" alt="${osoba.ime} ${osoba.prezime}">
+            <h2>Fajlovi:</h2>
+            <ul>
+              ${fajlovi.map(fajl => {
+                const dirName = fileTypeToDir[fajl.fileType] || 'unknown';
+                return `<li><a href="/uploads/media/${dirName}/${fajl.filePath}" download>${fajl.fileType} - ${fajl.filePath}</a></li>`;
+              }).join('')}
+            </ul>
+            `);
+          }
+        });
+
+      
+      }
+    }
+  });
+});
+
+app.get('/uploads/media/:type/:filePath', (req, res) => {
+  const type = req.params.type;
+  const filePath = req.params.filePath;
+  const absolutePath = path.join(__dirname, 'uploads/media', type, filePath);
+
+  // Postavljanje HTTP zaglavlja za preuzimanje fajla
+  res.setHeader('Content-disposition', 'attachment; filename=' + filePath);
+
+  // Postavljanje odgovarajućeg Content-type zaglavlja na osnovu tipa fajla
+  let contentType;
+  switch (type) {
+    case 'images':
+      contentType = 'image/*';
+      break;
+    case 'videos':
+      contentType = 'video/*';
+      break;
+    case 'audio':
+      contentType = 'audio/*';
+      break;
+    case 'text':
+      contentType = 'text/plain';
+      break;
+    default:
+      contentType = 'application/octet-stream';
+      break;
+  }
+  res.setHeader('Content-type', contentType);
+
+  // Slanje fajla kao odgovor
+  res.sendFile(absolutePath);
+});
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
