@@ -16,7 +16,8 @@ const createPeopleTable = `
     datumRodjenja DATE,
     mjestoRodjenja TEXT ,
     datumSmrti DATE,
-    slikaUrl TEXT
+    slikaUrl TEXT,
+    opis TEXT
   );
 `;
 

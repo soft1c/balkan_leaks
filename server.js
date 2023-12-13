@@ -75,7 +75,7 @@ app.post('/upload/:type', upload.single('file'), (req, res) => {
 });
 
 app.post('/admin/dodaj', upload.single('slika'), (req, res) => {
-  const { ime, prezime, datumRodjenja, mjestoRodjenja, datumSmrti } = req.body;
+  const { ime, prezime, datumRodjenja, mjestoRodjenja, datumSmrti,opis } = req.body;
   const slikaUrl = req.file ? req.file.filename : null;
   console.log(slikaUrl);
   console.log(req.body);
@@ -87,11 +87,11 @@ app.post('/admin/dodaj', upload.single('slika'), (req, res) => {
   console.log(slikaUrl);
 
   const query = `
-    INSERT INTO ljudi (ime, prezime, datumRodjenja, mjestoRodjenja, datumSmrti, slikaUrl)
-    VALUES (?, ?, ?, ?, ?, ?)
+    INSERT INTO ljudi (ime, prezime, datumRodjenja, mjestoRodjenja, datumSmrti, slikaUrl, opis)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
   `;
 
-  db.run(query, [ime, prezime, datumRodjenja, mjestoRodjenja, datumSmrti || null, slikaUrl], function (err) {
+  db.run(query, [ime, prezime, datumRodjenja, mjestoRodjenja, datumSmrti || null, slikaUrl, opis], function (err) {
     if (err) {
       console.error('Greška prilikom dodavanja osobe:', err.message);
       res.status(500).json({ message: 'Došlo je do greške prilikom dodavanja osobe.' });

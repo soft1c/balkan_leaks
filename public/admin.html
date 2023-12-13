@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Media Upload</title>
+  <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
 </head>
 <body>
   <form action="/admin/dodaj" method="post" enctype="multipart/form-data">
@@ -30,6 +31,17 @@
     <label for="slika">Slika osobe:</label>
     <input type="file" name="slika" accept="image/*" required>
     <br>
+    <label for="opis">Opis:</label>
+    <br>
+    <textarea name="opis" id="opis"></textarea>
+
+<script>
+  ClassicEditor
+    .create(document.querySelector('#opis'))
+    .catch(error => {
+      console.error(error);
+    });
+</script>
   
     <button type="submit">Dodaj osobu</button>
   </form>
