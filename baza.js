@@ -9,7 +9,7 @@ const db = new sqlite3.Database(dbPath);
 
 // SQL upit za stvaranje tabele "Ljudi"
 const createPeopleTable = `
-  CREATE TABLE IF NOT EXISTS ljudi (
+  CREATE TABLE  ljudi (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     ime TEXT ,
     prezime TEXT ,
@@ -22,11 +22,12 @@ const createPeopleTable = `
 
 // SQL upit za stvaranje tabele "Fileovi"
 const createFilesTable = `
-  CREATE TABLE IF NOT EXISTS fileovi (
+  CREATE TABLE  fileovi (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    filePath TEXT NOT NULL,
+    filePath TEXT,
     LjudiId INTEGER,
-    FOREIGN KEY (LjudiId) REFERENCES Ljudi(id) ON DELETE CASCADE
+    fileType TEXT,
+    FOREIGN KEY (LjudiId) REFERENCES Ljudi(id)
   );
 `;
 

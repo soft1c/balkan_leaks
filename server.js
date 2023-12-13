@@ -102,6 +102,59 @@ app.post('/admin/dodaj', upload.single('slika'), (req, res) => {
 });
 
 
+app.get('/ljudi', (req, res) => {
+  const query = 'SELECT * FROM ljudi';
+
+  db.all(query, (err, rows) => {
+    if (err) {
+      console.error('Greška prilikom dohvata svih ljudi:', err);
+      res.status(500).json({ message: 'Došlo je do greške prilikom dohvata svih ljudi.' });
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
+app.get('/get_file/:id', (req, res) => {
+  const osobaId = req.params.id;
+
+  const query = `
+    SELECT fFileovi.*, ljudi.ime, ljudi.prezime
+    FROM fileovi
+    JOIN ljudi ON fileovi.ljudiId = ljudi.id
+    WHERE ljudi.id = ?;
+  `;
+
+  db.all(query, [osobaId], (err, rows) => {
+    if (err) {
+      console.error('Greška prilikom dohvata fajlova za osobu:', err);
+      res.status(500).json({ message: 'Došlo je do greške prilikom dohvata fajlova za osobu.' });
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
+app.post('/dodaj-fajl', upload.single('file'), (req, res) => {
+  console.log(req.body);
+  const { licnost, tipFajla ,file} = req.body;
+
+  const query = `
+    INSERT INTO fileovi (filePath,LjudiId,fileType)
+    VALUES (?, ?, ?)
+  `;
+
+  db.run(query, [file, licnost, tipFajla], function (err) {
+    if (err) {
+      console.error('Greška prilikom dodavanja fajla:', err.message);
+      res.status(500).json({ message: 'Došlo je do greške prilikom dodavanja fajla.' });
+    } else {
+      res.status(201).json({ message: 'Fajl dodan uspješno!', noviFajl: this.lastID });
+    }
+  });
+});
+
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
