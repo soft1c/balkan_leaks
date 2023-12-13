@@ -4,6 +4,7 @@ const port = 3000;
 const path = require('path');
 const multer = require('multer');
 const sqlite3 = require('sqlite3');
+const session = require('express-session');
 
 const fileTypeToDir = {
   image: 'images',
@@ -12,8 +13,48 @@ const fileTypeToDir = {
   text: 'text',
 };
 
+app.use(
+  session({
+    secret: 'your-secret-key', // Change this to a secure secret key
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
-// Dodaj middleware za serviranje statičkih fajlova
+const ip_adrese = new sqlite3.Database('user_ips.db', (err) => {
+  if (err) {
+    console.error('Error opening database:', err.message);
+  } else {
+    console.log('Connected to the database.');
+    db.run(`
+      CREATE TABLE IF NOT EXISTS user_ips (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        ip_address TEXT NOT NULL,
+        login_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+  }
+});
+
+
+app.use((req, res, next) => {
+  const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  req.session.ipAddress = ipAddress;
+  next();
+});
+
+app.get('/user_ips', (req, res) => {
+  db.all('SELECT * FROM user_ips ORDER BY login_time DESC', (err, rows) => {
+    if (err) {
+      console.error('Error retrieving IP addresses from the database:', err.message);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
+
 
 const uploadDir = path.join(__dirname, 'uploads/media');
 app.use('/uploads/media', express.static(uploadDir));

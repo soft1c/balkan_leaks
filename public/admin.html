@@ -70,6 +70,28 @@
 
     <button type="button" onclick="uploadMedia()">Upload</button>
   </form>
+  <h2>IP Addresses and Login Times:</h2>
+  <ul id="ipList"></ul>
+  <script>
+    function fetchUserIPs() {
+      fetch('/user_ips')
+        .then(response => response.json())
+        .then(data => {
+          const ipList = document.getElementById('ipList');
+          ipList.innerHTML = ''; // Clear the existing list
+
+          data.forEach(entry => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `IP Address: ${entry.ip_address}, Login Time: ${entry.login_time}`;
+            ipList.appendChild(listItem);
+          });
+        })
+        .catch(error => console.error(error));
+    }
+
+    // Fetch IP addresses on page load
+    fetchUserIPs();
+  </script>
 
   <script>
     function uploadMedia() {
