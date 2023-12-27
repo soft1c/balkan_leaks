@@ -3,8 +3,21 @@ const app = express();
 const port = 3000;
 const path = require('path');
 const multer = require('multer');
-const sqlite3 = require('sqlite3');
+const mysql = require('mysql2');
 const session = require('express-session');
+const dbConfig= require('./konfiguracija.js');
+
+app.use(express.json());
+// Create a connection pool
+const pool = mysql.createPool({
+  host: 'localhost',
+  user: 'user',
+  database: 'osobe',
+  password: '12345678'
+});
+
+// Promisify for Node.js async/await.
+const db = pool.promise();
 
 const fileTypeToDir = {
   image: 'images',
@@ -21,12 +34,12 @@ app.use(
   })
 );
 
-const ip_adrese = new sqlite3.Database('user_ips.db', (err) => {
+/* const ip_adrese = new sqlite3.Database('user_ips.db', (err) => {
   if (err) {
     console.error('Error opening database:', err.message);
   } else {
     console.log('Connected to the database.');
-    db.run(`
+    db.execute(`
       CREATE TABLE IF NOT EXISTS user_ips (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         ip_address TEXT NOT NULL,
@@ -34,7 +47,7 @@ const ip_adrese = new sqlite3.Database('user_ips.db', (err) => {
       )
     `);
   }
-});
+}); */
 
 
 app.use((req, res, next) => {
@@ -44,15 +57,16 @@ app.use((req, res, next) => {
 });
 
 app.get('/user_ips', (req, res) => {
-  db.all('SELECT * FROM user_ips ORDER BY login_time DESC', (err, rows) => {
-    if (err) {
+  dbConfig.query('SELECT * FROM user_ips ORDER BY login_time DESC')
+    .then(([rows]) => {
+      res.json(rows);
+    })
+    .catch(err => {
       console.error('Error retrieving IP addresses from the database:', err.message);
       res.status(500).json({ message: 'Internal Server Error' });
-    } else {
-      res.json(rows);
-    }
-  });
+    });
 });
+
 
 
 
@@ -66,14 +80,6 @@ const textDir = path.join(uploadDir, 'text');
 app.use(express.urlencoded({ extended: true })); 
 
 
-
-const db = new sqlite3.Database(path.join(__dirname, 'baza.db'), (err) => {
-  if (err) {
-    console.error('Greška prilikom povezivanja s bazom:', err.message);
-  } else {
-    console.log('Veza s bazom uspostavljena uspješno.');
-  }
-});
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -126,8 +132,10 @@ app.post('/upload/:type', upload.single('file'), (req, res) => {
 });
 
 app.post('/admin/dodaj', upload.single('slika'), (req, res) => {
-  const { ime, prezime, datumRodjenja, mjestoRodjenja, datumSmrti,opis } = req.body;
+  const { ime, prezime, datumRodjenja, mjestoRodjenja, datumSmrti, opis } = req.body;
   const slikaUrl = req.file ? req.file.filename : null;
+
+  // Log statements for debugging
   console.log(slikaUrl);
   console.log(req.body);
   console.log(ime);
@@ -142,21 +150,35 @@ app.post('/admin/dodaj', upload.single('slika'), (req, res) => {
     VALUES (?, ?, ?, ?, ?, ?, ?)
   `;
 
-  db.run(query, [ime, prezime, datumRodjenja, mjestoRodjenja, datumSmrti || null, slikaUrl, opis], function (err) {
-    if (err) {
+  dbConfig.execute(query, [ime, prezime, datumRodjenja, mjestoRodjenja, datumSmrti || null, slikaUrl, opis])
+    .then(([result]) => {
+      res.status(201).json({ message: 'Osoba dodana uspješno!', novaOsoba: result.insertId });
+    })
+    .catch(err => {
       console.error('Greška prilikom dodavanja osobe:', err.message);
       res.status(500).json({ message: 'Došlo je do greške prilikom dodavanja osobe.' });
-    } else {
-      res.status(201).json({ message: 'Osoba dodana uspješno!', novaOsoba: this.lastID });
-    }
-  });
+    });
 });
+
 
 
 app.get('/ljudi', (req, res) => {
   const query = 'SELECT * FROM ljudi';
 
-  db.all(query, (err, rows) => {
+  dbConfig.query(query)
+    .then(([rows]) => {
+      res.json(rows);
+    })
+    .catch(err => {
+      console.error('Greška prilikom dohvata svih ljudi:', err);
+      res.status(500).json({ message: 'Došlo je do greške prilikom dohvata svih ljudi.' });
+    });
+});
+
+
+app.get('/zadnjih_11',(req,res)=>{
+  const query  = 'SELECT * FROM ljudi ORDER BY id DESC LIMIT 11';
+  db.execute(query, (err, rows) => {
     if (err) {
       console.error('Greška prilikom dohvata svih ljudi:', err);
       res.status(500).json({ message: 'Došlo je do greške prilikom dohvata svih ljudi.' });
@@ -166,16 +188,54 @@ app.get('/ljudi', (req, res) => {
   });
 });
 
-app.get('/zadnjih_6',(req,res)=>{
-  const query  = 'SELECT * FROM ljudi ORDER BY id DESC LIMIT 6';
-  db.all(query, (err, rows) => {
-    if (err) {
-      console.error('Greška prilikom dohvata svih ljudi:', err);
-      res.status(500).json({ message: 'Došlo je do greške prilikom dohvata svih ljudi.' });
-    } else {
-      res.json(rows);
-    }
-  });
+
+app.post('/odaberi-osobu-mjeseca', (req, res) => {
+  const { osobaId } = req.body;
+  console.log(osobaId);
+
+  // Prvo brišemo prethodnu osobu mjeseca
+  const deleteQuery = 'DELETE FROM osobaMjeseca';
+
+  dbConfig.execute(deleteQuery)
+    .then(() => {
+      // Nakon brisanja, unesemo novu osobu mjeseca
+      const insertQuery = 'INSERT INTO osobaMjeseca (osobaId) VALUES (?)';
+      return dbConfig.execute(insertQuery, [osobaId]);
+    })
+    .then(() => {
+      res.status(201).json({ message: 'Osoba mjeseca je uspješno ažurirana!' });
+    })
+    .catch(err => {
+      console.error('Greška prilikom ažuriranja osobe mjeseca:', err.message);
+      res.status(500).json({ message: 'Došlo je do greške prilikom ažuriranja osobe mjeseca.' });
+    });
+});
+
+app.get('/osobaMjeseca', (req, res) => {
+  const queryOsobaMjeseca = 'SELECT osobaId FROM osobaMjeseca ORDER BY id DESC LIMIT 1';
+
+  db.execute(queryOsobaMjeseca)
+    .then(([rows]) => {
+      // Provjerite postoji li rezultat
+      if (rows.length > 0) {
+        const osobaId = rows[0].osobaId;
+        const queryOsoba = 'SELECT * FROM ljudi WHERE id = ?';
+
+        return db.execute(queryOsoba, [osobaId]);
+      } else {
+        res.status(404).json({ message: 'Osoba mjeseca nije pronađena.' });
+        return Promise.reject('Osoba mjeseca nije pronađena.');
+      }
+    })
+    .then(([rows]) => {
+      res.json(rows[0] || {});
+    })
+    .catch(err => {
+      if (err !== 'Osoba mjeseca nije pronađena.') {
+        console.error('Greška prilikom dohvata osobe mjeseca:', err);
+        res.status(500).json({ message: 'Došlo je do greške prilikom dohvata osobe mjeseca.' });
+      }
+    });
 });
 
 
@@ -190,7 +250,7 @@ app.get('/get_file/:id', (req, res) => {
     WHERE ljudi.id = ?;
   `;
 
-  db.all(query, [osobaId], (err, rows) => {
+  db.execute(query, [osobaId], (err, rows) => {
     if (err) {
       console.error('Greška prilikom dohvata fajlova za osobu:', err);
       res.status(500).json({ message: 'Došlo je do greške prilikom dohvata fajlova za osobu.' });
@@ -200,16 +260,69 @@ app.get('/get_file/:id', (req, res) => {
   });
 });
 
+app.post('/odaberi-istaknute-osobe', (req, res) => {
+  const { featuredIds } = req.body;
+
+  // Provjeravamo jesu li svi ID-ovi prisutni
+  if (featuredIds.length !== 4 || featuredIds.some(id => !id)) {
+    return res.status(400).json({ message: 'Nedostaju ID-ovi istaknutih osoba.' });
+  }
+
+  // SQL upit za umetanje novih ID-ova istaknutih osoba
+  const insertQuery = `
+    INSERT INTO featuredPersons (person1_id, person2_id, person3_id, person4_id)
+    VALUES (?, ?, ?, ?)
+  `;
+
+  // Izvršavanje upita
+  dbConfig.execute(insertQuery, featuredIds)
+    .then(() => {
+      res.status(201).json({ message: 'Istaknute osobe su uspješno odabrane i spremljene!' });
+    })
+    .catch(err => {
+      console.error('Greška prilikom spremanja istaknutih osoba:', err.message);
+      res.status(500).json({ message: 'Došlo je do greške prilikom spremanja istaknutih osoba.' });
+    });
+});
+
+app.get('/get_featured_persons', (req, res) => {
+  const query = 'SELECT * FROM featuredPersons ORDER BY id DESC LIMIT 1';
+
+  dbConfig.execute(query)
+    .then(([rows]) => {
+      if (rows.length === 0) {
+        return res.status(404).json({ message: 'Istaknute osobe nisu pronađene.' });
+      }
+
+      // Dohvat ID-ova istaknutih osoba
+      const featuredIds = rows[0];
+      const personIds = [featuredIds.person1_id, featuredIds.person2_id, featuredIds.person3_id, featuredIds.person4_id];
+
+      // Kreiranje upita za dohvat detalja svake istaknute osobe
+      const detailsQuery = 'SELECT * FROM ljudi WHERE id IN (?, ?, ?, ?)';
+
+      return dbConfig.execute(detailsQuery, personIds);
+    })
+    .then(([persons]) => {
+      res.json(persons);
+    })
+    .catch(err => {
+      console.error('Greška prilikom dohvata detalja istaknutih osoba:', err);
+      res.status(500).json({ message: 'Došlo je do greške prilikom dohvata detalja istaknutih osoba.' });
+    });
+});
+
+
 app.post('/dodaj-fajl', upload.single('file'), (req, res) => {
   console.log(req.body);
   const { licnost, tipFajla ,file} = req.body;
 
   const query = `
-    INSERT INTO fileovi (filePath,LjudiId,fileType)
+    INSERT INTO osobe.fileovi (filePath,LjudiId,fileType)
     VALUES (?, ?, ?)
   `;
 
-  db.run(query, [file, licnost, tipFajla], function (err) {
+  db.execute(query, [file, licnost, tipFajla], function (err) {
     if (err) {
       console.error('Greška prilikom dodavanja fajla:', err.message);
       res.status(500).json({ message: 'Došlo je do greške prilikom dodavanja fajla.' });
@@ -219,12 +332,58 @@ app.post('/dodaj-fajl', upload.single('file'), (req, res) => {
   });
 });
 
+app.get('/get_recent_persons', (req, res) => {
+  const excludeQuery = `
+    SELECT osobaId FROM osobaMjeseca
+    UNION
+    SELECT person1_id AS osobaId FROM featuredPersons
+    UNION
+    SELECT person2_id AS osobaId FROM featuredPersons
+    UNION
+    SELECT person3_id AS osobaId FROM featuredPersons
+    UNION
+    SELECT person4_id AS osobaId FROM featuredPersons
+  `;
+
+  dbConfig.execute(excludeQuery)
+    .then(([excludedIds]) => {
+      const excludedIdsList = excludedIds.map(row => row.osobaId);
+
+      if (excludedIdsList.length === 0) {
+        // Ako nema isključenih ID-ova, samo dohvatite nedavne osobe
+        const recentPersonsQuery = `
+          SELECT * FROM ljudi
+          ORDER BY id DESC
+          LIMIT 6
+        `;
+        return dbConfig.execute(recentPersonsQuery);
+      } else {
+        // Ako ima isključenih ID-ova, koristite ih u upitu
+        const recentPersonsQuery = `
+          SELECT * FROM ljudi
+          WHERE id NOT IN (${excludedIdsList.join(", ")})
+          ORDER BY id DESC
+          LIMIT 6
+        `;
+        return dbConfig.execute(recentPersonsQuery);
+      }
+    })
+    .then(([recentPersons]) => {
+      res.json(recentPersons);
+    })
+    .catch(err => {
+      console.error('Greška prilikom dohvata nedavnih osoba:', err);
+      res.status(500).json({ message: 'Došlo je do greške prilikom dohvata nedavnih osoba.' });
+    });
+});
+
+
 app.get('/osoba/:id', (req, res) => {
   const osobaId = req.params.id;
 
   // Dohvati osnovne informacije o osobi
   const osobaQuery = 'SELECT * FROM ljudi WHERE id = ?';
-  db.get(osobaQuery, [osobaId], (err, osoba) => {
+  db.execute(osobaQuery, [osobaId], (err, osoba) => {
     if (err) {
       console.error('Greška prilikom dohvata osobe:', err);
       res.status(500).json({ message: 'Došlo je do greške prilikom dohvata osobe.' });
@@ -234,7 +393,7 @@ app.get('/osoba/:id', (req, res) => {
       } else {
         // Dohvati fajlove vezane za osobu
         const fajloviQuery = 'SELECT * FROM fileovi WHERE LjudiId = ?';
-        db.all(fajloviQuery, [osobaId], (err, fajlovi) => {
+        db.execute(fajloviQuery, [osobaId], (err, fajlovi) => {
           if (err) {
             console.error('Greška prilikom dohvata fajlova za osobu:', err);
             res.status(500).json({ message: 'Došlo je do greške prilikom dohvata fajlova za osobu.' });

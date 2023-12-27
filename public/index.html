@@ -1,295 +1,266 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="icon" type="image/png" href="/IMG/favicon.ico" />
-		<title>WikiLeaks</title>
+<head>
+    <link rel="stylesheet" href="/css/pocetna_style.css">
+    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f2f2f2;
+    }
 
-		<link href="../public/css/submit.css" rel="stylesheet">
-		<link href="../public/css/index.css" rel="stylesheet">
-		<link href="../public/css/styles-footer.css" rel="stylesheet">
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-	</head>
-<body class="home">
-<nav id="menu" class="side-nav rub">
-  <div class="menu-wrapper">
-    <a class="close-btn nav-element" href="#"></a>
-      <ul class="first-level">
-            <li>
-              <a class=" leaks-menu-item" href="https://wikileaks.org/-Leaks-.html">Leaks</a>
-            </li>
-            <li>
-              <a class=" news-menu-item" href="https://wikileaks.org/-News-.html">News</a>
-            </li>
-            <li>
-              <a class=" about-menu-item" href="https://wikileaks.org/What-is-WikiLeaks.html">About</a>
-          </li>
-          <li>
-            <a class=" partners-menu-item" href="https://wikileaks.org/-Partners-.html">Partners</a>
-          </li>
-      </ul>
-    <aside class="friends mobile-only">
+    #logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
 
-        <ul class="first-level">
-                <li>
-                <a href="https://our.wikileaks.org" target="_blank">our.wikileaks.org</a>
-                </li>
-                <li>
-                <a href="https://www.torproject.org/" target="_blank">Tor Project</a>
-                </li>
-                <li>
-                <a href="https://tails.boum.org/" target="_blank">Tails</a>
-                </li>
-                <li>
-                <a href="https://www.couragefound.org/" target="_blank">Courage</a>
-                </li>
-                <li>
-                <a href="https://www.bitcoin.org/" target="_blank">Bitcoin</a>
-                </li>
-        
-        </ul>
+    #donate-btn {
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
 
-    </aside>
-    <aside class="social mobile-only">
-      <ul>
-        <li>
-          <a href="https://www.facebook.com/wikileaks" class="nav-element" target="_blank" alt="Facebook">
-            <img class="img-responsive" src="/static/img/fb-logo.png" alt="Facebook" title="Facebook page" />
-          </a>
-        </li>
-        <li>
-          <a href="https://twitter.com/wikileaks" class="nav-element" target="_blank" alt="Twitter">
-            <img class="img-responsive" src="/static/img/twitter-logo.png" alt="Twitter" title="Twitter page" />
-          </a>
-        </li>
-      </ul>
-    </aside>
-  </div>
-</nav>
+    #search-bar {
+      width: 50%;
+      padding: 10px;
+      margin: 20px auto;
+      display: block;
+    }
 
-<section class="hero-section">
-    <div class="container">
-      <div class="px-4 my-5 text-center">
-        <img class="d-block mx-auto mb-4" src="https://4.bp.blogspot.com/-7OHSFmygfYQ/VtLSb1xe8kI/AAAAAAAABjI/FxaRp5xW2JQ/s320/logo.png" alt="" width="90" height="90">
-        <h1 class="display-5 fw-bold">Balkan Leaks</h1>
-        <div class="col-lg-12 mx-auto">
-          <p class="lead mb-4">"Balkan Leaks" je online platforma posvećena dijeljenju informacija i dokumenata vezanih uz različite aspekte društva, politike, ili gospodarstva na Balkanu. Korisnici mogu doprinijeti platformi putem anonimnih prijava, omogućujući tako objavu materijala koji bi inače mogao ostati skriven od očiju javnosti.</p>
-        </div>
-    </div>
-    </div>
-</section>
-		<div class="content">
-			
-            <div class="home-container">
-				<div class="search-box">
-					<form class="search-form" action="https://search.wikileaks.org/" method="get">
-						<input class="search-query" type="text" name="q" value="" placeholder="Search Keywords">
-            <button class="btn-search" type="submit"></button>
-					</form>
-				</div>
+
+
+    .fixed-text {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      padding: 8px;
+      box-sizing: border-box;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      text-align: center;
+    }
+
+    footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    
+  </style>
+</head>
+<body>
+
+  <header>
+    <div id="logo">My Blog</div>
+    <button id="donate-btn">Donate</button>
+  </header>
+<br><br><br><br>
+  <input type="text" id="search-bar" placeholder="Search...">
+
+  <br><br>
+
+
+
+
+
+  <section id="osobaMjeseca" class="cards-wrapper" style="display:flex; justify-content: center; padding: 0px;">
+    <!-- Dinamički sadržaj osobe mjeseca će biti umetnut ovdje -->
+  </section>
+  
+  <section id="istaknuteOsobe" style="gap: 5px;" class="cards-wrapper">
+    <!-- Istaknute osobe će biti dodane ovdje dinamički -->
+  </section>
+
+  <section id="ostaleOsobe" style="gap: 5px; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; padding:0;" class="cards-wrapper horizonal-scroll">
+    <!-- Nedavno dodane osobe će biti dodane ovdje dinamički -->
+  </section>
+  
+
+
+  <script>
+    function fetchOsobaMjeseca() {
+      fetch('/osobaMjeseca')
+        .then(response => response.json())
+        .then(osoba => {
+          
+          const baseUrl = '/uploads/media/images/';
+          const osobaMjesecaHTML = `
+            <div class="card-grid-space">
+              <div class="num"></div>
+              <a class="card" href="https://codetheweb.blog/2017/10/09/basic-types-of-html-tags/" style="--bg-img: url(${baseUrl}${osoba.slikaUrl})">
+                <div>
+                  <h1>${osoba.ime} ${osoba.prezime}</h1>
+                  <p>${osoba.opis}</p>
+                  <!-- Pretpostavka je da datum nije dostupan ili nije relevantan -->
+                  <div class="tags">
+                    <div class="tag">Pjevačica</div> <!-- Ova oznaka možda treba biti dinamička -->
+                  </div>
+                </div>
+              </a>
             </div>
-            
-            <ul class="tag-navigation">
-                    <li ><a href="+-Intelligence-+.html">Estrada</a></li>
-                    
-                    <li ><a href="+-Global-Economy-+.html">Luksuz</a></li>
-                    
-                    <li ><a href="+-International-Politics-+.html">Životni stil</a></li>
-                    
-                    <li ><a href="+-Corporations-+.html">Sport</a></li>
-                    
-                    <li ><a href="+-Government-+.html">Puls poznatih</a></li>
-                    
-                    <li ><a href="+-War-Military-+.html">Politika</a></li>
-                    
-            </ul> 
+          `;
+  
+          document.getElementById('osobaMjeseca').innerHTML = osobaMjesecaHTML;
+        })
+        .catch(error => console.error('Došlo je do greške:', error));
+    }
+    function fetchIstaknuteOsobe() {
+    fetch('/get_featured_persons')
+      .then(response => response.json())
+      .then(istaknuteOsobe => {
+        const baseUrl = '/uploads/media/images/';
+        let cardsHtml = '';
 
-            <h1>Izdvojeno</h1>
-			<ul class="grid">
-				<li class="tile rub34 featured double-sized with-image">
-					<a href="/intolerancenetwork/">
-                        <div class="teaser">
-                            <img class="spip_logos" alt="" src="https://ocdn.eu/pulscms-transforms/1/C_Vk9kpTURBXy9kYzg1M2I5YWEyMzJkODU0ZjkwYzc1NWNkOTg1NWNiMy5qcGeRkwLNBLAA3gABoTAF" width="360" height="240" />
-                        </div>
-                        <div class="text">
-                            <h2 class="title">Estrada</h2>
-                            <div class="intro">
-                                <p>(VIDEO) "MNOGO SAM JA GORE BOMBE U ŽIVOTU PREŽIVELA DA BIH SE PLAŠILA DOJAVA" Ceca Ražnatović se oglasila nakon drame na RTS: "Ludaci, manijaci i psihopate treba da odgovaraju"</p>
-                            </div>
-                            <div class="timestamp art715">14 Decembar 2023</div>
-                        </div>
-				    </a>
-				</li>
+        istaknuteOsobe.forEach(osoba => {
+          console.log(`${baseUrl}${osoba.slikaUrl}`);
+          cardsHtml += `
+            <div class="card-grid-space">
+              <div class="num"></div>
+              <a class="card" href="#" style="width:300px; --bg-img: url(${baseUrl}${osoba.slikaUrl})">
+                <div>
+                  <h1>${osoba.ime} ${osoba.prezime}</h1>
+                  <p>${osoba.opis}</p>
+                  <div class="date">Datum objave</div> <!-- Trebate prilagoditi ovaj dio -->
+                  <div class="tags">
+                    <div class="tag">Tag</div> <!-- Trebate prilagoditi ovaj dio -->
+                  </div>
+                </div>
+              </a>
+            </div>
+          `;
+        });
 
-				<li class="tile rub33 featured with-image">
-					<a href="https://wikileaks.org/fishrot/">
-						<div class="teaser">
-							<img class="spip_logos" alt="" src="https://ocdn.eu/pulscms-transforms/1/l8kk9kpTURBXy9mYTY2ZjlkMDAzMTc0MTVkNjRiYTc4MzRkNDg4ZTk0YS5qcGeRkwLNBLAA3gABoTAF" width="360" height="240" />
-						</div>
-						<div class="text">
-							<h2 class="title">Luksuz</h2>
-							<div class="intro">
-								<p>(VIDEO) SAMO KVADRAT KOŠTA 10.000 EVRA Prve fotke nekretnine Saše Popovića, kupio ceo sprat u Opatiji: Privatna rampa, obezbeđenje, bazen i POGLED KOJI PUCA</p>
-							</div>
-							<div class="timestamp art716">12 November 2019</div>
-						</div>
-					</a>
-				</li>
+        document.getElementById('istaknuteOsobe').innerHTML = cardsHtml;
+      })
+      .catch(error => console.error('Došlo je do greške:', error));
+  }
+  function fetchNedavnoDodaneOsobe() {
+    fetch('/get_recent_persons')
+      .then(response => response.json())
+      .then(osobe => {
+        const baseUrl = '/uploads/media/images/';
+        let cardsHtml = '';
+        
 
-				<li class="tile rub34 featured with-image">
-					<a href="/opcw-douma/#OPCW-DOUMA%20-%20Release%20Part%204">
-						<div class="teaser">
-							<img class="spip_logos" alt="" src="https://www.sd.rs/sites/default/files/styles/full_article_image/public/a/t/2021/04/17/daliborka.jpg" width="360" height="240" />
-						</div>
-						<div class="text">
-							<h2 class="title">Estrada</h2>
-							<div class="intro">
-								<p>Ova srpska pevačica je PROFESORKA KNJIŽEVNOSTI: Odlučila da napusti estradu zbog "VULGARIZACIJE"</p>
-							</div>
-							<div class="timestamp art715">12 Septembar 2023</div>
-						</div>
-					</a>
-				</li>
+        osobe.forEach(osoba => {
+          console.log(`${baseUrl}${osoba.slikaUrl}`);
+          cardsHtml += `
+            <div class="card-grid-space">
+              <div class="num"></div>
+              <a class="card" href="#" style="width:200px; --bg-img: url(${baseUrl}${osoba.slikaUrl})">
+                <div>
+                  <h1>${osoba.ime} ${osoba.prezime}</h1>
+                  <div class="date">Datum objave</div> <!-- Trebate prilagoditi ovaj dio -->
+                  <div class="tags">
+                    <div class="tag">Tag</div> <!-- Trebate prilagoditi ovaj dio -->
+                  </div>
+                </div>
+              </a>
+            </div>
+          `;
+        });
 
-				<li class="tile rub34 featured with-image">
-					<a href="/popeorders/">
-						<div class="teaser">
-							<img class="spip_logos" alt="" src="https://sportal.blic.rs/storage/images/2023/12/14/21:33:01_2023121421323621116_original_am-l.webp" width="360" height="240" />
-						</div>
-						<div class="text">
-							<h2 class="title">Nogomet</h2>
-							<div class="intro">
-								<p>Umjesto senzacije – blamaža! TSC primio pet komada od Olimpijakosa i završio užasnu misiju u Evropi</p>
-							</div>
-							<div class="timestamp art708">28 Novembar 2023</div>
-						</div>
-					</a>
-				</li>
+        document.getElementById('ostaleOsobe').innerHTML = cardsHtml;
+      })
+      .catch(error => console.error('Došlo je do greške:', error));
+  }
 
-				<li class="tile rub34 featured with-image">
-					<a href="https://shoppinglist.wikileaks.org">
-						<div class="teaser">
-							<img class="spip_logos" alt="" src="https://ocdn.eu/pulscms-transforms/1/Qzok9kuTURBXy81MTU2OTE2Zi01MjgwLTRjOGQtYmU0NS04NjM5NjYwMTgzZjguanBlZ5GTBc0C0M0B4N4AAaEwBQ" width="360" height="240" />
-						</div>
-						<div class="text">
-							<h2 class="title">Životni stil</h2>
-							<div class="intro">
-								<p>Žena kojoj nedostaju INTIMNI ODNOSI ponaša se upravo ovako: Ovi znaci odaju APSTINENCIJU i lako ih je prepoznati</p>
-							</div>
-							<div class="timestamp art706">21 Novembar 2023</div>
-						</div>
-					</a>
-				</li>
+  // Poziv funkcije prilikom učitavanja stranice
+  fetchNedavnoDodaneOsobe();
 
-				<li class="tile rub34 featured with-image">
-					<a href="/amazon-atlas/">
-						<div class="teaser">
-							<img class="spip_logos" alt="" src="https://ocdn.eu/pulscms-transforms/1/d4ek9kpTURBXy9lZjY0NGFhMDhhZGI1OTA5NzhiMmUzZmM1NGIwMjQ1Yy5qcGeRkwLNAp4A3gABoTAF" width="360" height="240" />
-						</div>
-						<div class="text">
-							<h2 class="title">Puls Pozatih</h2>
-							<div class="intro">
-								<p>Čuveni DŽOI pojavio se prvi put u javnosti nakon SAHRANE Metjua Perija: Njegovo lice reklo milion reči, omiljenog glumca teško ko je prepoznao</p>
-							</div>
-							<div class="timestamp art704">11 October 2021</div>
-						</div>
-					</a>
-				</li>
+  // Poziv funkcije prilikom učitavanja stranice
+  fetchIstaknuteOsobe();
+  
+    // Poziv funkcije prilikom učitavanja stranice
+    fetchOsobaMjeseca();
+  </script>
 
-				<li class="tile rub34 featured with-image">
-					<a href="/dealmaker/Al-Yousef/">
-						<div class="teaser">
-							<img class="spip_logos" alt="" src="https://ocdn.eu/pulscms-transforms/1/sPxk9kpTURBXy82MDFiZjQyNWE4YzI4MGQwNGZkODNlMjdmNmY0NGExZi5qcGeRkwLNAp4A3gABoTAF" width="360" height="240" />
-						</div>
-						<div class="text">
-							<h2 class="title">Ljepota</h2>
-							<div class="intro">
-								<p>Gori instagram zbog LICA ADRIJANE LIME: Ljudi su ubeđeni da se fatalna Brazilka OPERISALA i ni za živu glavu ne mogu da je prepoznaju na OVOM SNIMKU</p>
-							</div>
-							<div class="timestamp art703">28 September 2023</div>
-						</div>
-					</a>
-				</li>
-
-            </ul>
-		</div>
-    </div>
-	
-
-<link href="../nova/styles-footer.css" rel="stylesheet">
-<footer id="page-footer" class="footer-recommendations">
-  <div class="footer-wrapper">
-    <div class="recommendation-container">
-      <a href="#" class="top">Top</a>
-      
-        <ul class="recommendation-links">
-                <li class="recommendation">
-                    <a href="https://our.wikileaks.org" target="_blank">
-                        <div class="teaser">
-                            <img class="spip_logos" alt="" src="https://wikileaks.org/IMG/arton401.png" width="360" height="240" />
-                        </div> 
-                        <p>Dobrodošli na Balkan Leaks - vašu centralnu destinaciju za transparentnost i dijeljenje ključnih informacija na Balkanu.</p>
-                    </a>
-                </li>
-            </li>
-                <li class="recommendation">
-                    <a href="https://www.torproject.org/" target="_blank">
-                        <div class="teaser">
-                            <img class="spip_logos" alt="" src="https://wikileaks.org/IMG/arton666.png" width="360" height="240" />
-                        </div>
-                        <p>Istražujemo, dijelimo i rasvjetljujemo važne aspekte društva, pružajući vam uvid u bitne događaje i pitanja na našoj regiji.</p>
-                    </a>
-                </li>
-            </li>
-                <li class="recommendation">
-                    <a href="https://tails.boum.org/" target="_blank">
-                        <div class="teaser">
-                            <img class="spip_logos" alt="" src="https://wikileaks.org/IMG/arton405.png" width="360" height="240" />
-                        </div>
-                        <p>Balkan Leaks je vaša otvorena knjiga događanja, potičući aktivno sudjelovanje i dijalog među našim članovima zajednice.</p>
-                    </a>
-                </li>
-            </li>
-                <li class="recommendation">
-                    <a href="https://www.couragefound.org/" target="_blank">
-                        <div class="teaser">
-                            <img class="spip_logos" alt="" src="https://wikileaks.org/IMG/arton404.png" width="360" height="240" />
-                        </div>
-                        <p>Vaša podrška čini našu misiju mogućom – otkrivanje istine i promicanje otvorenog dijaloga o ključnim temama koje oblikuju naše društvo.</p>
-                    </a>
-                </li>
-            </li>
-                <li class="recommendation">
-                    <a href="https://www.bitcoin.org/" target="_blank">
-                        <div class="teaser">
-                            <img class="spip_logos" alt="" src="https://wikileaks.org/IMG/arton403.png" width="360" height="240" />
-                        </div>
-                        <p>Pratite nas kako biste ostali informirani o najnovijim dešavanjima i istraživanjima koja oblikuju Balkan.</p>
-                    </a>
-                </li>
-            </li>
-        </ul>
-      
-      <ul class="social-links">
-        <li>
-          <a href="https://www.facebook.com/wikileaks" target="_blank" alt="Facebook">
-            <img src="https://wikileaks.org/static/img/fb-logo.png" alt="Facebook" title="Facebook page" />
-          </a>
-        </li>
-        <li>
-          <a href="https://twitter.com/wikileaks" target="_blank" alt="Twitter">
-            <img src="https://wikileaks.org/static/img/twitter-logo.png" alt="Twitter" title="Twitter page" />
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</footer>
+  
 
 
   
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<br><br><br><br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <footer>
+    &copy; 2023 My Blog. All rights reserved.
+  </footer>
+
+
+
+
+
+
+
 </body>
 </html>

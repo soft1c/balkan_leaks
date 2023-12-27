@@ -72,7 +72,62 @@
   </form>
   <h2>IP Addresses and Login Times:</h2>
   <ul id="ipList"></ul>
+
+  <h2>Osoba Mjeseca</h2>
+  <form id="osobaMjesecaForm">
+    <label for="osobaMjeseca">Izaberite Osobu Mjeseca:</label>
+    <select name="osobaMjeseca" id="osobaMjeseca" required>
+     
+    </select>
+    <br>
+    <button type="button" onclick="odaberiOsobuMjeseca()">Odaberi</button>
+  </form>
+
+  <h2>Istaknute Osobe</h2>
+<form id="featuredPersonsForm">
+  <label for="featuredPerson1">Osoba 1:</label>
+  <select name="featuredPerson1" id="featuredPerson1" required></select>
+  <br>
+
+  <label for="featuredPerson2">Osoba 2:</label>
+  <select name="featuredPerson2" id="featuredPerson2" required></select>
+  <br>
+
+  <label for="featuredPerson3">Osoba 3:</label>
+  <select name="featuredPerson3" id="featuredPerson3" required></select>
+  <br>
+
+  <label for="featuredPerson4">Osoba 4:</label>
+  <select name="featuredPerson4" id="featuredPerson4" required></select>
+  <br>
+
+  <button type="button" onclick="odaberiIstaknuteOsobe()">Odaberi Istaknute Osobe</button>
+</form>
+
   <script>
+    function odaberiIstaknuteOsobe() {
+  const featuredIds = [
+    document.getElementById('featuredPerson1').value,
+    document.getElementById('featuredPerson2').value,
+    document.getElementById('featuredPerson3').value,
+    document.getElementById('featuredPerson4').value
+  ];
+
+  fetch('/odaberi-istaknute-osobe', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ featuredIds: featuredIds })
+  })
+  .then(response => response.json())
+  .then(data => {
+    alert('Istaknute osobe su uspješno odabrane!');
+  })
+  .catch(error => {
+    console.error('Došlo je do greške:', error);
+  });
+}
     function fetchUserIPs() {
       fetch('/user_ips')
         .then(response => response.json())
@@ -144,14 +199,63 @@
       .then(response => response.json())
       .then(data => {
         const licnostSelect = document.getElementById('licnost');
+        const licnostMjesecaSelect = document.getElementById('osobaMjeseca');
+        const licnost1=document.getElementById('featuredPerson1');
+        const licnost2=document.getElementById('featuredPerson2'); 
+        const licnost3=document.getElementById('featuredPerson3');
+        const licnost4=document.getElementById('featuredPerson4');
         data.forEach(licnost => {
           const option = document.createElement('option');
+          const option1 = document.createElement('option');
+          const option2=document.createElement('option');
+          const option3=document.createElement('option');
+          const option4=document.createElement('option');
+          const option5=document.createElement('option');
+          option2.value = licnost.id; // Postavite vrednost opcije na ID ličnosti
+          option2.text = `${licnost.ime} ${licnost.prezime}`;
+          option3.value = licnost.id; // Postavite vrednost opcije na ID ličnosti
+          option3.text = `${licnost.ime} ${licnost.prezime}`;
+          option4.value = licnost.id; // Postavite vrednost opcije na ID ličnosti
+          option4.text = `${licnost.ime} ${licnost.prezime}`;
+
+          option5.value = licnost.id; // Postavite vrednost opcije na ID ličnosti
+          option5.text = `${licnost.ime} ${licnost.prezime}`;
+
           option.value = licnost.id; // Postavite vrednost opcije na ID ličnosti
           option.text = `${licnost.ime} ${licnost.prezime}`;
+          option1.value = licnost.id; // Postavite vrednost opcije na ID ličnosti
+          option1.text = `${licnost.ime} ${licnost.prezime}`;
           licnostSelect.add(option);
+          licnostMjesecaSelect.add(option1);
+          licnost1.add(option2);
+          licnost2.add(option3);
+          licnost3.add(option4);
+          licnost4.add(option5);
         });
       })
       .catch(error => console.error(error));
+  </script>
+  
+  <script>
+    function odaberiOsobuMjeseca() {
+      const osobaMjesecaSelect = document.getElementById('osobaMjeseca');
+      const odabranaOsoba = osobaMjesecaSelect.value;
+        console.log(odabranaOsoba + " je odabrana osoba");
+      fetch('/odaberi-osobu-mjeseca', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ osobaId: odabranaOsoba })
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert('Osoba mjeseca je uspješno odabrana!');
+      })
+      .catch(error => {
+        console.error('Došlo je do greške:', error);
+      });
+    }
   </script>
 </body>
 </html>
