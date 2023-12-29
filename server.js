@@ -188,6 +188,9 @@ app.get('/zadnjih_11',(req,res)=>{
   });
 });
 
+app.get('/podstranica', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'podstranica.html'));
+})
 
 app.post('/odaberi-osobu-mjeseca', (req, res) => {
   const { osobaId } = req.body;
