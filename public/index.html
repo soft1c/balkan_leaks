@@ -123,7 +123,7 @@
           const osobaMjesecaHTML = `
             <div class="card-grid-space">
               <div class="num"></div>
-              <a class="card" href="https://codetheweb.blog/2017/10/09/basic-types-of-html-tags/" style="--bg-img: url(${baseUrl}${osoba.slikaUrl})">
+              <a class="card" href="/podstranica/${osoba.id}" style="--bg-img: url(${baseUrl}${osoba.slikaUrl})">
                 <div>
                   <h1>${osoba.ime} ${osoba.prezime}</h1>
                   <p>${osoba.opis}</p>
@@ -148,23 +148,22 @@
         let cardsHtml = '';
 
         istaknuteOsobe.forEach(osoba => {
-          console.log(`${baseUrl}${osoba.slikaUrl}`);
-          cardsHtml += `
-            <div class="card-grid-space">
-              <div class="num"></div>
-              <a class="card" href="#" style="width:300px; --bg-img: url(${baseUrl}${osoba.slikaUrl})">
-                <div>
-                  <h1>${osoba.ime} ${osoba.prezime}</h1>
-                  <p>${osoba.opis}</p>
-                  <div class="date">Datum objave</div> <!-- Trebate prilagoditi ovaj dio -->
-                  <div class="tags">
-                    <div class="tag">Tag</div> <!-- Trebate prilagoditi ovaj dio -->
-                  </div>
-                </div>
-              </a>
-            </div>
-          `;
-        });
+  cardsHtml += `
+    <div class="card-grid-space">
+      <div class="num"></div>
+      <a class="card" href="/podstranica/${osoba.id}" style="width:300px; --bg-img: url(${baseUrl}${osoba.slikaUrl})">
+        <div>
+          <h1>${osoba.ime} ${osoba.prezime}</h1>
+          <p>${osoba.opis}</p>
+          <div class="date">Datum objave</div>
+          <div class="tags">
+            <div class="tag">Tag</div>
+          </div>
+        </div>
+      </a>
+    </div>
+  `;
+});
 
         document.getElementById('istaknuteOsobe').innerHTML = cardsHtml;
       })
@@ -178,23 +177,24 @@
         let cardsHtml = '';
         
 
+        
         osobe.forEach(osoba => {
-          console.log(`${baseUrl}${osoba.slikaUrl}`);
-          cardsHtml += `
-            <div class="card-grid-space">
-              <div class="num"></div>
-              <a class="card" href="#" style="width:200px; --bg-img: url(${baseUrl}${osoba.slikaUrl})">
-                <div>
-                  <h1>${osoba.ime} ${osoba.prezime}</h1>
-                  <div class="date">Datum objave</div> <!-- Trebate prilagoditi ovaj dio -->
-                  <div class="tags">
-                    <div class="tag">Tag</div> <!-- Trebate prilagoditi ovaj dio -->
-                  </div>
-                </div>
-              </a>
-            </div>
-          `;
-        });
+  cardsHtml += `
+    <div class="card-grid-space">
+      <div class="num"></div>
+      <a class="card" href="/podstranica/${osoba.id}" style="width:200px; --bg-img: url(${baseUrl}${osoba.slikaUrl})">
+        <div>
+          <h1>${osoba.ime} ${osoba.prezime}</h1>
+          <div class="date">Datum objave</div>
+          <div class="tags">
+            <div class="tag">Tag</div>
+          </div>
+        </div>
+      </a>
+    </div>
+  `;
+});
+
 
         document.getElementById('ostaleOsobe').innerHTML = cardsHtml;
       })
