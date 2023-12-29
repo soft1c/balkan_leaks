@@ -459,6 +459,25 @@ app.get('/uploads/media/:type/:filePath', (req, res) => {
   res.sendFile(absolutePath);
 });
 
+app.get('/api/osoba/:id', async (req, res) => {
+  const osobaId = req.params.id;
+
+  try {
+    const [osoba] = await db.execute('SELECT * FROM ljudi WHERE id = ?', [osobaId]);
+    if (osoba.length === 0) {
+      return res.status(404).json({ message: 'Osoba nije pronađena.' });
+    }
+    res.json(osoba[0]);
+  } catch (err) {
+    console.error('Greška prilikom dohvata osobe:', err);
+    res.status(500).json({ message: 'Došlo je do greške prilikom dohvata osobe.' });
+  }
+});
+
+app.get('/podstranica/:id', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'podstranica.html'));
+});
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
