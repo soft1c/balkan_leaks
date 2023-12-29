@@ -69,19 +69,42 @@
       width: 100%;
     }
     
+    .search-results {
+
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50%;
+      margin-top: 10px;
+      background-color: white;
+      box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+
+  .search-result-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .search-result-item:last-child {
+    border-bottom: none;
+  }
+
+  .search-result-item a {
+    text-decoration: none;
+    color: black;
+    display: block;
+  }
+
+  .search-result-item a:hover {
+    background-color: #f8f8f8;
+  }
     
+  #osobaMjeseca {
+  position: relative;
+  z-index: 1; /* Lower z-index than search-results */
+}
 
-
-
-
-
-
-
-
-
-
-    
-    
   </style>
 </head>
 <body>
@@ -92,7 +115,7 @@
   </header>
 <br><br><br><br>
   <input type="text" id="search-bar" placeholder="Search...">
-
+  <div id="searchResults" class="search-results"></div>
   <br><br>
 
 
@@ -209,58 +232,60 @@
   
     // Poziv funkcije prilikom učitavanja stranice
     fetchOsobaMjeseca();
+    let searchTimeoutToken;
+
+  function handleSearch() {
+    const searchTerm = document.getElementById('search-bar').value;
+
+    clearTimeout(searchTimeoutToken); // Clear existing timeout
+
+    if (searchTerm.length > 2) {
+      // Set a new timeout
+      searchTimeoutToken = setTimeout(() => {
+        fetch(`/search?q=${encodeURIComponent(searchTerm)}`)
+          .then(response => response.json())
+          .then(results => {
+            displaySearchResults(results);
+          })
+          .catch(error => console.error('Search error:', error));
+      }, 300); // Adjust 300ms to your liking
+    } else {
+      clearSearchResults();
+    }
+  }
+  function displaySearchResults(results) {
+  const resultsContainer = document.getElementById('searchResults');
+  resultsContainer.innerHTML = ''; // Clear existing results
+
+  if (results.length === 0) {
+    // No results found
+    resultsContainer.innerHTML = '<div class="search-result-item">Nema ponuđenih osoba</div>';
+  } else {
+    // Display results
+    results.forEach(person => {
+      const personElement = document.createElement('div');
+      personElement.className = 'search-result-item';
+      personElement.innerHTML = `<a href="/podstranica/${person.id}">${person.ime} ${person.prezime} - ${person.mjestoRodjenja}</a>`;
+      resultsContainer.appendChild(personElement);
+    });
+  }
+}
+
+  // Function to clear search results
+  function clearSearchResults() {
+    document.getElementById('searchResults').innerHTML = '';
+  }
+
+  // Event listener for search bar input
+  document.getElementById('search-bar').addEventListener('input', handleSearch);
+
   </script>
 
-  
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
 <br><br><br><br><br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   
   <footer>
     &copy; 2023 My Blog. All rights reserved.
   </footer>
-
-
-
-
-
-
 
 </body>
 </html>

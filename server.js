@@ -6,6 +6,10 @@ const multer = require('multer');
 const mysql = require('mysql2');
 const session = require('express-session');
 const dbConfig= require('./konfiguracija.js');
+const fs = require('fs'); 
+
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use(express.json());
 // Create a connection pool
@@ -26,13 +30,15 @@ const fileTypeToDir = {
   text: 'text',
 };
 
-app.use(
-  session({
-    secret: 'your-secret-key', // Change this to a secure secret key
-    resave: false,
-    saveUninitialized: true,
-  })
-);
+app.use(session({
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // For HTTPS: set secure: true
+}));
+
+app.use(express.urlencoded({ extended: true }));
+
 
 /* const ip_adrese = new sqlite3.Database('user_ips.db', (err) => {
   if (err) {
@@ -48,6 +54,25 @@ app.use(
     `);
   }
 }); */
+
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
+
+
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  console.log(req.body);
+
+  // Validate credentials
+  // For example purposes, using hardcoded credentials. Replace with your authentication logic.
+  if(username === 'admin' && password === 'password') {
+      req.session.loggedIn = true;
+      res.redirect('/admin');
+  } else {
+      res.send('Invalid username or password');
+  }
+});
 
 
 app.use((req, res, next) => {
@@ -86,41 +111,48 @@ const storage = multer.diskStorage({
     let uploadPath;
     switch (req.params.type) {
       case 'image':
-        uploadPath = imageDir;
+        uploadPath = path.join(__dirname, 'public', 'uploads', 'media', 'images');
         break;
       case 'video':
-        uploadPath = videoDir;
+        uploadPath = path.join(__dirname, 'public', 'uploads', 'media', 'videos');
         break;
       case 'audio':
-        uploadPath = audioDir;
+        uploadPath = path.join(__dirname, 'public', 'uploads', 'media', 'audio');
         break;
       case 'text':
-        uploadPath = textDir;
+        uploadPath = path.join(__dirname, 'public', 'uploads', 'media', 'text');
         break;
       default:
-        // Ako type nije postavljen ili nije prepoznat, koristi 'images' direktorij
-        uploadPath = imageDir;
+        uploadPath = path.join(__dirname, 'public', 'uploads', 'media', 'images');
         break;
     }
+    // Ensure the directory exists or create it
+    fs.mkdirSync(uploadPath, { recursive: true });
     cb(null, uploadPath);
   },
   filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    cb(null, file.originalname + '-' + uniqueSuffix + path.extname(file.originalname));
-  },
+    // Replace spaces with hyphens
+    const sanitizedFilename = file.originalname.replace(/\s+/g, '-');
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, sanitizedFilename + '-' + uniqueSuffix + path.extname(file.originalname));
+  }
 });
 
 const upload = multer({ storage: storage });
 
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+  if(req.session.loggedIn) {
+      res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+  } else {
+      res.redirect('/login');
+  }
 });
+
 
 app.post('/upload/:type', upload.single('file'), (req, res) => {
   if (!req.file) {
@@ -315,25 +347,31 @@ app.get('/get_featured_persons', (req, res) => {
     });
 });
 
-
 app.post('/dodaj-fajl', upload.single('file'), (req, res) => {
-  console.log(req.body);
-  const { licnost, tipFajla ,file} = req.body;
+  // Now, req.file contains the modified filename
+  const { licnost, tipFajla } = req.body;
+  const file = req.file; // req.file is the multer file object
+
+  if (!file) {
+    return res.status(400).json({ message: 'No file uploaded.' });
+  }
 
   const query = `
-    INSERT INTO osobe.fileovi (filePath,LjudiId,fileType)
+    INSERT INTO osobe.fileovi (filePath, LjudiId, fileType)
     VALUES (?, ?, ?)
   `;
 
-  db.execute(query, [file, licnost, tipFajla], function (err) {
+  // Use file.filename to get the name of the file on the disk
+  db.execute(query, [file.filename, licnost, tipFajla], function (err) {
     if (err) {
-      console.error('Greška prilikom dodavanja fajla:', err.message);
-      res.status(500).json({ message: 'Došlo je do greške prilikom dodavanja fajla.' });
+      console.error('Error adding file:', err.message);
+      res.status(500).json({ message: 'Error occurred while adding the file.' });
     } else {
-      res.status(201).json({ message: 'Fajl dodan uspješno!', noviFajl: this.lastID });
+      res.status(201).json({ message: 'File added successfully!', newFileId: this.lastID });
     }
   });
 });
+
 
 app.get('/get_recent_persons', (req, res) => {
   const excludeQuery = `
@@ -380,51 +418,29 @@ app.get('/get_recent_persons', (req, res) => {
     });
 });
 
-
-app.get('/osoba/:id', (req, res) => {
+app.get('/osoba/:id', async (req, res) => {
   const osobaId = req.params.id;
 
-  // Dohvati osnovne informacije o osobi
-  const osobaQuery = 'SELECT * FROM ljudi WHERE id = ?';
-  db.execute(osobaQuery, [osobaId], (err, osoba) => {
-    if (err) {
-      console.error('Greška prilikom dohvata osobe:', err);
-      res.status(500).json({ message: 'Došlo je do greške prilikom dohvata osobe.' });
-    } else {
-      if (!osoba) {
-        res.status(404).json({ message: 'Osoba nije pronađena.' });
-      } else {
-        // Dohvati fajlove vezane za osobu
-        const fajloviQuery = 'SELECT * FROM fileovi WHERE LjudiId = ?';
-        db.execute(fajloviQuery, [osobaId], (err, fajlovi) => {
-          if (err) {
-            console.error('Greška prilikom dohvata fajlova za osobu:', err);
-            res.status(500).json({ message: 'Došlo je do greške prilikom dohvata fajlova za osobu.' });
-          } else {
-            // Prikazi HTML stranicu sa detaljima osobe i povezanim fajlovima
-            res.send(`
-            <h1>${osoba.ime} ${osoba.prezime}</h1>
-            <p>Datum rođenja: ${osoba.datumRodjenja}</p>
-            <p>Mjesto rođenja: ${osoba.mjestoRodjenja}</p>
-            <p>Datum smrti: ${osoba.datumSmrti || 'N/A'}</p>
-            <p>Opis: ${osoba.opis || 'Nema opisa.'}</p>
-            <img src="/uploads/media/images/${osoba.slikaUrl}" alt="${osoba.ime} ${osoba.prezime}">
-            <h2>Fajlovi:</h2>
-            <ul>
-              ${fajlovi.map(fajl => {
-                const dirName = fileTypeToDir[fajl.fileType] || 'unknown';
-                return `<li><a href="/uploads/media/${dirName}/${fajl.filePath}" download>${fajl.fileType} - ${fajl.filePath}</a></li>`;
-              }).join('')}
-            </ul>
-            `);
-          }
-        });
-
-      
-      }
+  try {
+    const [osoba] = await db.execute('SELECT * FROM ljudi WHERE id = ?', [osobaId]);
+    if (osoba.length === 0) {
+      return res.status(404).json({ message: 'Osoba nije pronađena.' });
     }
-  });
+
+    const [fajlovi] = await db.execute('SELECT * FROM fileovi WHERE LjudiId = ?', [osobaId]);
+    // Combine the person data with their files into one JSON object
+    const result = {
+      ...osoba[0],
+      fajlovi: fajlovi
+    };
+
+    res.json(result);
+  } catch (err) {
+    console.error('Greška prilikom dohvata osobe:', err);
+    res.status(500).json({ message: 'Došlo je do greške prilikom dohvata osobe.' });
+  }
 });
+
 
 app.get('/uploads/media/:type/:filePath', (req, res) => {
   const type = req.params.type;
@@ -472,6 +488,25 @@ app.get('/api/osoba/:id', async (req, res) => {
     console.error('Greška prilikom dohvata osobe:', err);
     res.status(500).json({ message: 'Došlo je do greške prilikom dohvata osobe.' });
   }
+});
+
+app.get('/search', (req, res) => {
+  const searchTerm = req.query.q;
+  
+  // Protect against SQL injection
+  const query = `
+      SELECT * FROM ljudi 
+      WHERE ime LIKE ? OR prezime LIKE ? OR mjestoRodjenja LIKE ? OR YEAR(datumRodjenja) LIKE ?
+  `;
+
+  dbConfig.execute(query, [`%${searchTerm}%`, `%${searchTerm}%`, `%${searchTerm}%`, `%${searchTerm}%`])
+      .then(([results]) => {
+          res.json(results);
+      })
+      .catch(err => {
+          console.error('Search error:', err);
+          res.status(500).json({ message: 'Error occurred during search.' });
+      });
 });
 
 app.get('/podstranica/:id', (req, res) => {

@@ -1,31 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../public/css/login.css">
     <title>Login</title>
 </head>
 <body>
-    <section class="login-box">
-        <h2>Prijavi se</h2>
-        <form>
-            <div class="user-box">
-                <input type="text" name="" required="">
-                <label>Korisničko ime</label>
-            </div>
-            <div class="user-box">
-                <input type="password" name="" required="">
-                <label>Šifra</label>
-            </div>
-            <a href="#">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                Submit
-            </a>
-        </form>
-    </section>
+    <form action="/login" method="post">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
 </body>
 </html>

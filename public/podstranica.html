@@ -9,11 +9,11 @@
     <link rel="icon" type="image/png" href="/IMG/favicon.ico" />
     <title>Balkan Leaks</title>
 
-    <link href="../public/css/application.css" rel="stylesheet">
+    <link href="/css/application.css" rel="stylesheet">
     <link href="/css/search.css" rel="stylesheet">
     <link href="/css/tr.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../public/css/daterangepicker.css" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/daterangepicker.css" />
     <link href="/css/styles_topnav.css" rel="stylesheet">
     <link href="/css/styles_sidenav.css" rel="stylesheet">
 </head>
@@ -45,12 +45,14 @@
           <div class="col-xs-12 col-sm-12 col-md-12 container-text" id="right-pane">
             <div class="leak-header">
               <div class="title-area" >
-                <h1 class="leak-title" id="ime">Halid Bešlić</h1>
-			        </div>
-			        <div class="press-release">
-                <img src="img1.jpg" height: auto; width="300px";   style="float: left; padding: 0 15px;" />
-			          <p style="margin: 20px;" class="paragraf-slika">Amaterski se počeo baviti glazbom, odnosno pjevanjem još kao učenik osnovne škole, kroz razna kulturno umjetnička društva, a najduže vremena je proveo u KUD “Zijo Dizdarević”. To je potrajalo sve do odsluženja vojne obveze u bivšoj SFRJ. Nakon povratka iz vojske svoju glazbenu karijeru je više aktivirao kroz nastupe u poznatim sarajevskim i drugim restoranima, što je potrajalo nekih 5-6 godina. Prvu singl-ploču snimio je 1979. godine od kada počinje njegov uzlazni put uspjeha i popularnosti na bosanskoj, odnosno balkanskoj glazbenoj sceni. Rezultat njegovog rada od 1979. godine do 2023. je 19 snimljenih albuma, kao i dva albuma uživo. <a href="/intolerancenetwork/press-release">Pročitaj više</a></p>
+                <h1 class="leak-title" id="ime">Loading...</h1>
               </div>
+              <div class="press-release">
+                <img src="" height="auto" width="300px" style="float: left; padding: 0 15px;" id="personImage" />
+                <p style="margin: 20px;" class="paragraf-slika" id="personDescription">Loading...</p>
+              </div>
+              <br style="clear: both;">
+            </div>
 			        <br style="clear: both;">
       </div>
 
@@ -166,6 +168,35 @@
 
 
         }
+    </script>
+    <script>
+      // Use this function to fetch person data on page load
+      window.onload = function() {
+    const pathParts = window.location.pathname.split('/');
+    const osobaId = pathParts[pathParts.length - 1];
+
+    fetch(`/osoba/${osobaId}`)
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('ime').textContent = `${data.ime} ${data.prezime}`;
+        // Set the innerHTML of the description to render HTML content
+        document.getElementById('personDescription').innerHTML = data.opis || 'Opis nije dostupan.';
+        document.getElementById('personImage').setAttribute('src', `/uploads/media/images/${data.slikaUrl}`);
+        // Add date and place of birth (and death if applicable) before the description
+        const bioInfoHtml = `
+          <p>Datum rođenja: ${new Date(data.datumRodjenja).toLocaleDateString()}</p>
+          <p>Mjesto rođenja: ${data.mjestoRodjenja}</p>
+          ${data.datumSmrti ? `<p>Datum smrti: ${new Date(data.datumSmrti).toLocaleDateString()}</p>` : ''}
+        `;
+        // Insert biography info HTML before the description
+        document.getElementById('personDescription').insertAdjacentHTML('afterbegin', bioInfoHtml);
+      })
+      .catch(error => {
+        console.error('Error fetching person data:', error);
+        document.getElementById('ime').textContent = 'Error loading data.';
+        document.getElementById('personDescription').textContent = 'Could not retrieve person details.';
+      });
+  };
     </script>
 
 
