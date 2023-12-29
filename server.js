@@ -490,6 +490,26 @@ app.get('/api/osoba/:id', async (req, res) => {
   }
 });
 
+app.post('/admin/delete', async (req, res) => {
+  const { ids } = req.body; // ids should be an array of person IDs
+
+  if (!ids || ids.length === 0) {
+    return res.status(400).json({ message: 'No IDs provided' });
+  }
+
+  try {
+    // The query should be structured to match the number of IDs
+    const placeholders = ids.map(() => '?').join(', ');
+    const query = `DELETE FROM ljudi WHERE id IN (${placeholders})`;
+
+    await db.execute(query, ids);
+    res.json({ message: 'Persons deleted successfully' });
+  } catch (err) {
+    console.error('Error deleting persons:', err.message);
+    res.status(500).json({ message: 'Error occurred during deletion' });
+  }
+});
+
 app.get('/search', (req, res) => {
   const searchTerm = req.query.q;
   

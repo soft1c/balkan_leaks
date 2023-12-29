@@ -105,6 +105,23 @@
   <button type="button" onclick="odaberiIstaknuteOsobe()">Odaberi Istaknute Osobe</button>
 </form>
 
+
+<table id="persons-table">
+  <thead>
+    <tr>
+      <th>Select</th>
+      <th>Name</th>
+      <!-- other headers -->
+    </tr>
+  </thead>
+  <tbody id="persons-list">
+    <!-- Persons will be added here -->
+  </tbody>
+</table>
+
+<button id="delete-button">Delete Selected</button>
+
+
   <script>
     function odaberiIstaknuteOsobe() {
   const featuredIds = [
@@ -257,6 +274,42 @@
         console.error('Došlo je do greške:', error);
       });
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+  fetch('/ljudi')
+    .then(response => response.json())
+    .then(data => {
+      const personsList = document.getElementById('persons-list');
+      data.forEach(person => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td><input type="checkbox" class="person-checkbox" value="${person.id}"></td>
+          <td>${person.ime} ${person.prezime}</td>
+          <!-- other data columns -->
+        `;
+        personsList.appendChild(row);
+      });
+    })
+    .catch(error => console.error('Error:', error));
+});
+document.getElementById('delete-button').addEventListener('click', () => {
+  const checkedBoxes = document.querySelectorAll('.person-checkbox:checked');
+  const idsToDelete = Array.from(checkedBoxes).map(box => box.value);
+
+  fetch('/admin/delete', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ ids: idsToDelete })
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data.message);
+    // Refresh the page or remove the deleted rows from the table
+  })
+  .catch(error => console.error('Error:', error));
+});
   </script>
 </body>
 </html>
