@@ -11,9 +11,9 @@ app.use(express.json());
 // Create a connection pool
 const pool = mysql.createPool({
   host: 'localhost',
-  user: 'user',
+  user: 'admin',
   database: 'osobe',
-  password: '12345678'
+  password: 'password'
 });
 
 // Promisify for Node.js async/await.
