@@ -1,0 +1,54 @@
+#files-container {
+    /* Black background */
+    color: #fff; /* White text color */
+    padding: 15px; /* Padding inside the box */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow effect */
+    margin-top: 20px; /* Space above the box */
+  }
+  
+  #file-filters button {
+    /* Darker background for buttons */
+    color: #fff; /* White text color for buttons */
+    border: none; /* Remove default border */
+    padding: 8px 16px; /* Padding inside buttons */
+    margin-right: 10px; /* Space between buttons */
+    cursor: pointer; /* Cursor changes to hand icon */
+    border-radius: 4px; /* Rounded corners for buttons */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+  }
+  
+  #file-filters button:hover {
+    background-color: #363636; /* Slightly lighter background on hover */
+  }
+  
+  #files-list {
+    list-style-type: none; /* Remove default list style */
+    padding: 0; /* Remove default padding */
+    margin-top: 15px; /* Space above the list */
+  }
+  
+  #files-list li {
+    color:#363636;
+    margin-bottom: 10px; /* Space between list items */
+  }
+  
+  #files-list a {
+    color: #4CAF50; /* Color for download links */
+    text-decoration: none; /* Remove underline from links */
+  }
+  
+  #files-list a:hover {
+    text-decoration: underline; /* Underline on hover for links */
+  }
+
+  .file-preview {
+    display: none; /* Hide by default */
+    margin-top: 10px;
+  }
+  
+  /* Additional styles for video and audio elements */
+  video, audio {
+    max-width: 100%;
+    height: auto;
+  }

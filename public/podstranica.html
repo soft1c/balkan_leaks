@@ -15,7 +15,9 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/daterangepicker.css" />
     <link href="/css/styles_topnav.css" rel="stylesheet">
+    
     <link href="/css/styles_sidenav.css" rel="stylesheet">
+    <link href="/css/style_file.css" rel="stylesheet">
 </head>
 <body>
 <div class="top-navigation">
@@ -56,82 +58,19 @@
 			        <br style="clear: both;">
       </div>
 
-<div class="tabbable">
-    <ul class="leak-navigation">
-        <li class="in active"><a href="/intolerancenetwork" >Pretraži</a></li>
-        <li class="in"><a href="/intolerancenetwork/tree/" >Svi dokumenti</a></li>
-    </ul>
-
-    <div class="tab-content">
-        <div class="tab-pane fade in active" id="search_mail">
-          <form action="#searchresult" method="get" id="searchform">
-            <div class="search-form">
-              <div class="input-section">
-                <input type="text" name="q" value="" placeholder="(Ime, Prezime, Datum rođenja, mjesto rođenja)" />
-                <p class="query-note" style="padding-top: 15px;">
-
-                  <a class="btn btn-primary" data-toggle="collapse" href="#helptext" role="button" aria-expanded="false" aria-controls="collapsehelp">Dodatni filteri</a></p>
-
-                <div class="collapse" id="helptext">
-                  <div class="card card-body">
-                    <p>Search operators can help narrow your search with a lot of flexibility. Some operators can also allow you to be more vague in your search parameters - for instance by specifying that all matching documents must contain a certain number of some given words. </p>
-                    <p>The operators must be typed into the usual search box, and most of them can be combined with other search operators. </p>
-                    <p>You can read detailed description of most of the operators and how to use them on <a href="https://search.wikileaks.org/info">Search WikiLeaks page</a>. Here are few most common examples.</p>
-                  </div>
-                  <div class="card card-body">
-                    <h3>Search operators</h3>
-
-                    <p>There is a number of fields you can use to filter documents in this set.</p>
-                    <p><strong>@file_type</strong> find files based on their type, for example "@file_type pdf" will find PDF files</p>
-                    <p><strong>@file_name</strong> will search for given filename</p>
-                    <p><strong>@file_path</strong> will search with full path</p>
-                    <p><strong>@file_folder</strong> will search for files contained within named folder</p>
-
-                  </div>
-
-                </div>
-              </div>
-
-            </div>
-
-
-            <div class="form-inline">
-              <button class="button-face green" type="submit">Pretraži</button>
-              <div class="sort-results">
-                <div class="sort">
-                  Prikazuje
-                  <select name="count" id="count" class="form-control">
-                      <option value="10" >10</option>
-                      <option value="20" >20</option>
-                      <option value="50" selected="selected">50</option>
-                      <option value="100" >100</option>
-                      <option value="200" >200</option>
-                  </select>
-                  Rezultata po stranici
-                </div>
-                <div class="sort">
-                  Sortiraj po
-                  <select name="sort" class="form-control">
-                    <option value="0" >Popularnosti</option>
-                    <option value="3" >Redoslijedom slova: A do Z</option>
-                    <option value="4" >Redoslijedom slova: Z do A</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </form>
+      <div id="files-container">
+        <h3>Attached Files</h3>
+        <div id="file-filters">
+          <button onclick="filterFiles('all')">All</button>
+          <button onclick="filterFiles('text')">Text</button>
+          <button onclick="filterFiles('video')">Video</button>
+          <button onclick="filterFiles('audio')">Audio</button>
+          <button onclick="filterFiles('image')">Images</button>
         </div>
-
-
-
-    </div>
-</div>
-
-
-          </div>
-        </div>
+        <ul id="files-list" class="">
+          <!-- Files will be listed here -->
+        </ul>
       </div>
-    </div>
     <script src="/bootstrap/js/jquery.min.js"></script>
 	  <script src="/bootstrap/js/bootstrap.min.js"></script>
     <script src="/calendar/moment.min.js"></script>
@@ -170,6 +109,7 @@
         }
     </script>
     <script>
+      let allFiles = [];
       // Use this function to fetch person data on page load
       window.onload = function() {
     const pathParts = window.location.pathname.split('/');
@@ -179,24 +119,80 @@
       .then(response => response.json())
       .then(data => {
         document.getElementById('ime').textContent = `${data.ime} ${data.prezime}`;
-        // Set the innerHTML of the description to render HTML content
         document.getElementById('personDescription').innerHTML = data.opis || 'Opis nije dostupan.';
         document.getElementById('personImage').setAttribute('src', `/uploads/media/images/${data.slikaUrl}`);
-        // Add date and place of birth (and death if applicable) before the description
+
         const bioInfoHtml = `
           <p>Datum rođenja: ${new Date(data.datumRodjenja).toLocaleDateString()}</p>
           <p>Mjesto rođenja: ${data.mjestoRodjenja}</p>
           ${data.datumSmrti ? `<p>Datum smrti: ${new Date(data.datumSmrti).toLocaleDateString()}</p>` : ''}
         `;
-        // Insert biography info HTML before the description
-        document.getElementById('personDescription').insertAdjacentHTML('afterbegin', bioInfoHtml);
+        document.getElementById('personDescription').insertAdjacentHTML('beforebegin', bioInfoHtml);
+
+        // Display files
+        allFiles = data.fajlovi; // Store all files
+      displayPersonFiles(allFiles);
+        
       })
       .catch(error => {
         console.error('Error fetching person data:', error);
         document.getElementById('ime').textContent = 'Error loading data.';
         document.getElementById('personDescription').textContent = 'Could not retrieve person details.';
       });
-  };
+};
+
+function displayPersonFiles(files) {
+  const filesList = document.getElementById('files-list');
+  filesList.innerHTML = ''; // Clear existing list
+
+  files.forEach(file => {
+  const listItem = document.createElement('li');
+  listItem.innerHTML = `
+    ${file.filePath} 
+    <a href="/uploads/media/${file.fileType}/${file.filePath}" download="${file.filePath}">Download</a>
+    <button onclick="previewFile('${file.fileType}', '${file.filePath}')">Preview</button>
+    <div id="preview-${file.filePath}" class="file-preview"></div>
+  `;
+  filesList.appendChild(listItem);
+});
+}
+function filterFiles(fileType) {
+  if (fileType === 'all') {
+    displayPersonFiles(allFiles);
+  } else {
+    const filteredFiles = allFiles.filter(file => file.fileType === fileType);
+    displayPersonFiles(filteredFiles);
+  }
+}
+function previewFile(type, filename) {
+  const previewDiv = document.getElementById(`preview-${filename}`);
+  
+  // Clear previous content
+  previewDiv.innerHTML = '';
+
+  if (type === 'text') {
+    // For text files, fetch content and display the first few lines
+    fetch(`/uploads/media/text/${filename}`)
+      .then(response => response.text())
+      .then(text => {
+        previewDiv.innerHTML = `<p>${text.split('\n').slice(0, 5).join('<br>')}</p>`;
+        previewDiv.style.display = 'block';
+      });
+  } else if (type === 'video') {
+    // For video files, create a video player
+    previewDiv.innerHTML = `<video controls src="/uploads/media/video/${filename}"></video>`;
+    previewDiv.style.display = 'block';
+  } else if (type === 'audio') {
+    // For audio files, create an audio player
+    previewDiv.innerHTML = `<audio controls src="/uploads/media/audio/${filename}"></audio>`;
+    previewDiv.style.display = 'block';
+  } else if (type === 'images') {
+    // For image files, display the image
+    previewDiv.innerHTML = `<img src="/uploads/media/images/${filename}" alt="${filename}" style="max-width: 100%; height: auto;">`;
+    previewDiv.style.display = 'block';
+  }
+}
+
     </script>
 
 

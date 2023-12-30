@@ -34,7 +34,7 @@ app.use(session({
   secret: 'your-secret-key',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false } // For HTTPS: set secure: true
+  cookie: { secure: false } 
 }));
 
 app.use(express.urlencoded({ extended: true }));
@@ -159,8 +159,30 @@ app.post('/upload/:type', upload.single('file'), (req, res) => {
     return res.status(400).json({ message: 'No file uploaded.' });
   }
 
-  const mediaType = req.params.type;
-  res.json({ message: `${mediaType} uploaded successfully!`, filename: req.file.filename });
+  // Extract additional data from request
+  let { licnost, tipFajla } = req.body;
+  console.log(req.body);
+  const file = req.file; // req.file is the multer file object
+  console.log("Licnost: " ,licnost);
+  console.log(tipFajla);
+  console.log(file.filename);
+  if (Array.isArray(licnost)) {
+    licnost = licnost[0];
+}
+  // Use file.filename to get the name of the file on the disk
+  const query = `
+    INSERT INTO osobe.fileovi (filePath, LjudiId, fileType)
+    VALUES (?, ?, ?)
+  `;
+
+  db.execute(query, [file.filename, licnost, tipFajla])
+    .then(() => {
+      res.status(201).json({ message: 'File uploaded and added to database successfully!', filename: file.filename });
+    })
+    .catch(err => {
+      console.error('Error adding file to the database:', err.message);
+      res.status(500).json({ message: 'Error occurred while adding the file to the database.' });
+    });
 });
 
 app.post('/admin/dodaj', upload.single('slika'), (req, res) => {

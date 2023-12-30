@@ -168,28 +168,29 @@
 
   <script>
     function uploadMedia() {
-      const typeSelect = document.getElementById('type');
-      const selectedType = typeSelect.value;
-      const licnostSelect = document.getElementById('licnost');
-      const selectedLicnost = licnostSelect.value;
-      const uploadUrl = `/upload/${selectedType}`;
+  const typeSelect = document.getElementById('type');
+  const selectedType = typeSelect.value;
+  const licnostSelect = document.getElementById('licnost');
+  const selectedLicnost = licnostSelect.value;
+  const uploadUrl = `/upload/${selectedType}`;
 
-      const formData = new FormData(document.getElementById('uploadForm'));
-      formData.append('licnost', selectedLicnost);
+  const formData = new FormData(document.getElementById('uploadForm'));
+  formData.append('licnost', selectedLicnost);
+  formData.append('tipFajla', selectedType);
 
-      fetch(uploadUrl, {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        dodajFajlUBazu(selectedLicnost, selectedType, data.filename);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-    }
+  fetch(uploadUrl, {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    alert('Fajl uspešno uploadovan i dodat u bazu podataka.');
+  })
+  .catch(error => {
+    console.error('Došlo je do greške:', error);
+  });
+}
 
     function dodajFajlUBazu(licnost, tipFajla, filePath) {
       console.log("Pokusava nesto");
