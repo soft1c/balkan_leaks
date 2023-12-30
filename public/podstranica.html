@@ -25,19 +25,16 @@
       <a href="#menu" class="mobile-only hot-dog nav-element">
       </a>
     <div class="nav-logo">
-      <a href="https://wikileaks.org">
+      <a href="https://google.com">
         <h1>Balkan Leaks</h1>
       </a>
     </div>
     <div class="action-buttons">
-      <a class="button-face support-link" href="." target="_blank">Početna</a>
+      <a class="button-face support-link" onclick="goBack()">Početna</a>
 
-      <a class="button-face submit-link" href="#submit">Pretraži</a>
+      
     </div>
-    <form class="global-search" method="get" action="https://search.wikileaks.org/">
-      <input type="text" name="q" placeholder="Search">
-      <button class="btn-search" type="submit"></button>
-    </form>
+    
     <div class="main-nav">
     </div>
   </nav>
@@ -150,7 +147,7 @@ function displayPersonFiles(files) {
   listItem.innerHTML = `
     ${file.filePath} 
     <a href="/uploads/media/${file.fileType}/${file.filePath}" download="${file.filePath}">Download</a>
-    <button onclick="previewFile('${file.fileType}', '${file.filePath}')">Preview</button>
+
     <div id="preview-${file.filePath}" class="file-preview"></div>
   `;
   filesList.appendChild(listItem);
@@ -193,6 +190,11 @@ function previewFile(type, filename) {
   }
 }
 
+    </script>
+    <script>
+      function goBack() {
+        window.history.back();
+      }
     </script>
 
 

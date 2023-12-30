@@ -451,6 +451,17 @@ app.get('/get_recent_persons', (req, res) => {
 });
 
 
+app.get('/daj_sve',(req,res)=>{
+  db.all('SELECT * FROM ljudi',[],(err,rows)=>{
+    if(err){
+      console.error('Greška prilikom dohvata svih osoba:', err);
+      return res.status(500).json({ message: 'Došlo je do greške prilikom dohvata svih osoba.' });
+    }
+    res.json(rows);
+  })
+});
+
+
 app.get('/osoba/:id', (req, res) => {
   const osobaId = req.params.id;
 

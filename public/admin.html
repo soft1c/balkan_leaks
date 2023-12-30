@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
+  
   <form action="/admin/dodaj" method="post" enctype="multipart/form-data">
     <label for="ime">Ime:</label>
     <input type="text" name="ime" required>
@@ -106,20 +107,6 @@
 </form>
 
 
-<table id="persons-table">
-  <thead>
-    <tr>
-      <th>Select</th>
-      <th>Name</th>
-      <!-- other headers -->
-    </tr>
-  </thead>
-  <tbody id="persons-list">
-    <!-- Persons will be added here -->
-  </tbody>
-</table>
-
-<button id="delete-button">Delete Selected</button>
 
 
   <script>

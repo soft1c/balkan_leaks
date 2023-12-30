@@ -201,3 +201,144 @@ a {
     margin: 0;
   }
 }
+
+.top-navigation {
+  background-color: #fff;
+  border-bottom: 1px solid #dedede;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  left: 0;
+  line-height: 1.9;
+  padding: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 26; }
+  @media screen and (max-width: 769px) {
+    .top-navigation {
+      border: 0; }
+      .top-navigation .nav-element {
+        height: 40px; }
+      .top-navigation h1 {
+        line-height: 1.2em; }
+      .top-navigation .global-search {
+        border-radius: 0;
+        height: 40px;
+        margin: 0;
+        width: 100%; }
+        .top-navigation .global-search input {
+          height: 100%; } }
+  .home .top-navigation {
+    border-bottom: 0; }
+  .top-navigation .navbar {
+    background-color: #fff;
+    background-image: none;
+    border: 0;
+    box-shadow: none;
+    font-size: inherit;
+    margin-bottom: 0;
+    min-height: 0; }
+    @media screen and (max-width: 769px) {
+      .top-navigation .navbar {
+        font-size: .8em; } }
+    .top-navigation .navbar li > a,
+    .top-navigation .navbar a:active,
+    .top-navigation .navbar a:focus,
+    .top-navigation .navbar a:hover {
+      text-decoration: none; }
+  .top-navigation .main-nav {
+    float: left; }
+  .top-navigation .action-buttons {
+    float: right;
+    padding-right: .5em; }
+  .top-navigation .support-link {
+    padding: .55em .75em; }
+  .top-navigation .submit-link {
+    background: #5c727d;
+    color: #fff;
+    padding: .55em .75em; }
+  .top-navigation .donate-link {
+    background-color: #e5332a;
+    color: #fff; }
+  .top-navigation .first-level {
+    display: inline-block; }
+    .top-navigation .first-level li {
+      display: inline-block;
+      margin: 0; }
+  .top-navigation .nav-logo {
+    background: url("/static/img/wl-logo.png") 0% 50% no-repeat;
+    background-size: 1.4em;
+    display: inline-block;
+    float: left;
+    letter-spacing: 0;
+    margin-left: .5em;
+    padding: .9em 1.8em; }
+    @media screen and (max-width: 769px) {
+      .top-navigation .nav-logo {
+        margin-left: 0;
+        padding-right: 0; } }
+    .top-navigation .nav-logo:hover {
+      background-color: transparent; }
+    .top-navigation .nav-logo h1 {
+      background: none;
+      border-bottom: 0;
+      font-size: 1.9em;
+      font-weight: normal;
+      line-height: 1.1em;
+      margin: 0 auto;
+      padding: 0; }
+  .top-navigation .img-responsive {
+    margin: 0 auto;
+    max-height: 100%; }
+  .top-navigation .global-search {
+    float: right;
+    margin: .7em 0;
+    padding: .55em; }
+    @media screen and (max-width: 769px) {
+      .top-navigation .global-search {
+        border-bottom: solid 1px #dedede;
+        border-top: solid 1px #ebebeb;
+        margin: 0;
+        width: 100%; } }
+    .home .top-navigation .global-search {
+      display: none; }
+    .wlsearch .top-navigation .global-search {
+      display: none; }
+    .top-navigation .global-search input {
+      border: 0;
+      border-bottom: solid 2px #4d5f69;
+      color: #7d939f;
+      font-family: inherit;
+      font-weight: normal;
+      letter-spacing: 2px;
+      line-height: 1.9;
+      outline: 0;
+      width: 120px; }
+      @media screen and (max-width: 769px) {
+        .top-navigation .global-search input {
+          border: 0;
+          width: 85%; } }
+    .top-navigation .global-search input,
+    .top-navigation .global-search button {
+      display: block;
+      float: left;
+      font-size: inherit; }
+    .top-navigation .global-search .btn-search {
+      background: url("../img/magnifier-green.png") center center no-repeat;
+      background-size: 100%;
+      border: 0;
+      display: inline-block;
+      float: right;
+      height: 1em;
+      margin: .3em .2em 0;
+      width: 1em; }
+      @media screen and (max-width: 769px) {
+        .top-navigation .global-search .btn-search {
+          border: 0;
+          height: 1.5em;
+          margin-top: .2em;
+          width: 1.5em; } }
+      .top-navigation .global-search .btn-search.btn {
+        background-color: transparent;
+        border: 0;
+        border-radius: 0; }

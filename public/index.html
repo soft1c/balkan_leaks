@@ -2,6 +2,15 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="/css/pocetna_style.css">
+    <link href="/css/application.css" rel="stylesheet">
+    <link href="/css/search.css" rel="stylesheet">
+    <link href="/css/tr.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/daterangepicker.css" />
+    <link href="/css/styles_topnav.css" rel="stylesheet">
+    
+    <link href="/css/styles_sidenav.css" rel="stylesheet">
+    <link href="/css/style_file.css" rel="stylesheet">
     
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -107,7 +116,7 @@
 }
 
   div.scrollmenu {
-  background-color: #989898;
+  background-color: #ffffff;
   overflow: auto;
   white-space: nowrap;
 }
@@ -130,10 +139,20 @@ div.scrollmenu a:hover {
 </head>
 <body>
 
-  <header>
-    <div id="logo">My Blog</div>
-    <button id="donate-btn">Donate</button>
-  </header>
+  <div class="top-navigation">
+    <nav class="navbar">
+        <a href="#menu" class="mobile-only hot-dog nav-element">
+        </a>
+      <div class="nav-logo">
+        <a href="https://google.com">
+          <h1>Balkan Leaks</h1>
+        </a>
+      </div>
+     
+      <div class="main-nav">
+      </div>
+    </nav>
+  </div>
 <br><br><br><br>
   <input type="text" id="search-bar" placeholder="Search...">
   <div id="searchResults" class="search-results"></div>
@@ -173,9 +192,7 @@ div.scrollmenu a:hover {
                   <h1>${osoba.ime} ${osoba.prezime}</h1>
                   <p>${osoba.opis}</p>
                   <!-- Pretpostavka je da datum nije dostupan ili nije relevantan -->
-                  <div class="tags">
-                    <div class="tag">Pjevačica</div> <!-- Ova oznaka možda treba biti dinamička -->
-                  </div>
+                  
                 </div>
               </a>
             </div>
@@ -200,10 +217,8 @@ div.scrollmenu a:hover {
         <div>
           <h1>${osoba.ime} ${osoba.prezime}</h1>
           <p>${osoba.opis}</p>
-          <div class="date">Datum objave</div>
-          <div class="tags">
-            <div class="tag">Tag</div>
-          </div>
+          
+          
         </div>
       </a>
     </div>
@@ -222,10 +237,8 @@ div.scrollmenu a:hover {
       <a class="card" href="/podstranica/${osoba.id}" style="width:300px; --bg-img: url(${baseUrl}${osoba.slikaUrl})">
         <div>
           <h1>${osoba.ime} ${osoba.prezime}</h1>
-          <div class="date">Datum objave</div>
-          <div class="tags">
-            <div class="tag">Tag</div>
-          </div>
+          
+          
         </div>
       </a>
     </div>
@@ -252,7 +265,7 @@ function setupInfiniteScroll(osobe) {
 }
 
 function fetchNedavnoDodaneOsobe() {
-  fetch('/get_recent_persons')
+  fetch('/daj_sve')
     .then(response => response.json())
     .then(osobe => {
       let cardsHtml = osobe.map(generatePersonHTML).join('');
