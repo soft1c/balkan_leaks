@@ -6,75 +6,344 @@
   <title>Media Upload</title>
   <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
   <link rel="stylesheet" href="css/admin.css">
+
+  <style>
+    .form-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .form-group {
+    flex: 1;
+    margin-right: 10px; /* Adjust the spacing between the fields */
+  }
+
+  .form-group:last-child {
+    margin-right: 0;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  input[type="text"],
+  input[type="date"],
+  input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .image-upload-container {
+    flex-basis: 45%; /* Adjust the width as needed */
+    margin-right: 10px;
+  }
+
+  .image-upload-box {
+    width: 150px; /* Set a fixed width */
+    height: 150px; /* Set the same fixed height for 1:1 aspect ratio */
+    border: 2px dashed #ccc;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: white;
+    overflow: hidden; /* Hide overflow to maintain the square shape */
+    position: relative; /* Set position to relative for absolute positioning of the image */
+  }
+
+  .image-upload-box p {
+    position: absolute;
+    z-index: 1; /* Ensure the text appears above the image */
+  }
+
+  #imagePreview {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Ensure the image maintains aspect ratio */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto; /* Center the image within the box */
+  }
+
+  input[type="file"] {
+    display: none; /* Hide the actual file input */
+  }
+
+  
+  .form-row {
+  display: flex;
+  flex-wrap: wrap; /* This will allow items to wrap to the next line on small screens */
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.form-group, .image-upload-container, .text-editor-container {
+  flex: 1;
+  margin-right: 10px; /* Adjust the spacing between the fields */
+  min-width: 0; /* This prevents flex items from growing beyond their content size */
+}
+
+.form-group:last-child, .text-editor-container {
+  margin-right: 0;
+}
+
+/* Styles for image upload box remain unchanged */
+
+.text-editor-container {
+  display: flex;
+  flex-direction: column;
+  margin-right: 0;
+}
+
+/* Ensure the editor fits within the container */
+.ck-editor__editable_inline {
+  max-width: 100%;
+}
+
+/* Add custom styles for CKEditor to ensure it doesn't overflow its container */
+.ck.ck-editor__main > .ck-editor__editable {
+  height: 150px; /* or whatever height you want to give */
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+  }
+
+  .form-group, .image-upload-container, .text-editor-container {
+    width: 100%; /* On small screens, take up full width */
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .ck.ck-editor__main > .ck-editor__editable {
+    height: auto; /* Allow the editor to adjust its height */
+  }
+}
+
+.image-upload-container {
+  flex: 0 0 calc(33.333% - 10px); /* subtract the margin from the width */
+  margin-right: 10px; /* Maintain the gap on the right side */
+}
+
+/* Adjust the text editor container to take 2/3 of the space */
+.text-editor-container {
+  flex: 0 0 calc(66.666% - 10px); /* subtract the margin from the width */
+}
+
+.image-upload-box {
+  width: 100%; /* Make the image upload box fill the container */
+  height: 235px; /* Set the fixed height */
+  /* Other styles remain the same... */
+}
+
+/* Ensure the editor fills the container and has the same height as the image box */
+.ck-editor__editable_inline {
+  max-width: 100%;
+  height: 150px; /* Set the height to be the same as the image upload box */
+}
+
+/* Remove the height from the #opis to let CKEditor manage it */
+#opis {
+  /* Remove the fixed height style */
+  resize: none; /* Optional: Prevent manual resizing */
+}
+
+.button-container {
+  text-align: center; /* Centers the button inside the container */
+}
+
+.submit-button {
+  margin: 0 auto;
+  padding: 15px 30px; /* Increase the padding to make the button larger */
+  font-size: 1.2em; /* Optionally increase the font size */
+  border-radius: 5px; /* Rounded corners */
+  border: none; /* Remove border */
+  background-color: #919191; /* Bootstrap primary color for example */
+  color: white; /* Text color */
+  cursor: pointer; /* Cursor to pointer to indicate it's clickable */
+  outline: none; /* Remove outline to keep the design clean */
+}
+
+.submit-button:hover {
+  background-color: #454545; /* Darker shade when hovered */
+}
+
+.half-width {
+  flex: 1; /* Take up half of the space */
+}
+
+.full-width {
+  flex: 0 0 100%; /* Take up full width */
+}
+
+/* Ensure half-width elements sit side by side */
+@media (min-width: 600px) {
+  .half-width {
+    margin-right: 10px;
+  }
+
+  .half-width:last-child {
+    margin-right: 0;
+  }
+}
+
+/* Adjust the button container to center the button */
+.button-container {
+  display: flex;
+  justify-content: center; /* Center button horizontally */
+  margin-top: 20px; /* Provide some spacing from the elements above */
+}
+
+/* Adjust the button style if necessary */
+.submit-button {
+  padding: 10px 20px; /* Larger padding for a larger button */
+  font-size: 1em; /* Adjust font size as needed */
+  /* Other styles remain unchanged */
+}
+
+/* For smaller screens, ensure elements stack vertically */
+@media (max-width: 599px) {
+  .form-group {
+    width: 100%; /* Each element takes full width */
+    margin-bottom: 10px; /* Add space between stacked elements */
+  }
+
+  .half-width, .full-width {
+    margin-right: 0; /* Remove margin on the right since it's full width */
+  }
+}
+
+#file-name {
+  margin-left: 10px; /* Add some space between the button and the text */
+  /* Any additional styles you want to apply to the filename text */
+}
+  </style>
 </head>
 <body>
-  
-  <form action="/admin/dodaj" method="post" enctype="multipart/form-data">
-    <label for="ime">Ime:</label>
-    <input type="text" name="ime" required>
-    <br>
+  <div class="sidebar">
+    <a href="#" class="tablink" onclick="openTab(event, 'AddPerson')">Add Person</a>
+    <a href="#" class="tablink" onclick="openTab(event, 'UploadMedia')">Upload Media</a>
+    <a href="#" class="tablink" onclick="openTab(event, 'IPAddresses')">IP Addresses</a>
+    <a href="#" class="tablink" onclick="openTab(event, 'PersonOfTheMonth')">Person of the Month</a>
+    <a href="#" class="tablink" onclick="openTab(event, 'FeaturedPersons')">Featured Persons</a>
+    <!-- Add more links for new functionalities here -->
+  </div>
+  <div id="AddPerson" class="tabcontent">
     
-    <label for="prezime">Prezime:</label>
-    <input type="text" name="prezime" required>
-    <br>
-  
-    <label for="datumRodjenja">Datum rođenja:</label>
-    <input type="date" name="datumRodjenja" required>
-    <br>
-  
-    <label for="mjestoRodjenja">Mjesto rođenja:</label>
-    <input type="text" name="mjestoRodjenja" required>
-    <br>
-  
-    <label for="datumSmrti">Datum smrti:</label>
-    <input type="date" name="datumSmrti">
-    <br>
-  
-    <label for="slika">Slika osobe:</label>
-    <input type="file" name="slika" accept="image/*" required>
-    <br>
-    <label for="opis">Opis:</label>
-    <br>
-    <textarea name="opis" id="opis"></textarea>
+  <form action="/admin/dodaj" method="post" enctype="multipart/form-data">
+    <h1>Add a Person</h1>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="ime">Ime:</label>
+        <input type="text" name="ime" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="ime">Prezime:</label>
+        <input type="text" name="prezime" required>
+      </div>
+    </div>
+    
+    <div class="form-row">
+      <div class="form-group">
+        <label for="datumRodjenja">Datum rođenja:</label>
+        <input type="date" id="datumRodjenja" name="datumRodjenja" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="mjestoRodjenja">Mjesto rođenja:</label>
+        <input type="text" id="mjestoRodjenja" name="mjestoRodjenja" required>
+      </div>
 
-<script>
-  ClassicEditor
-    .create(document.querySelector('#opis'))
-    .catch(error => {
-      console.error(error);
-    });
-</script>
+      <div class="form-group">
+        <label for="datumSmrti">Datum smrti (opcionalno):</label>
+        <input type="date" id="datumSmrti" name="datumSmrti">
+      </div>
+    </div> 
+    
+    <div class="form-row">
+      <div class="form-group image-upload-container">
+        <div class="image-upload-box" onclick="document.getElementById('slika').click()">
+          <p>Upload Picture</p>
+          <input type="file" id="slika" name="slika" accept="image/*" required onchange="previewImage(event)">
+          <img id="imagePreview" src="" alt="Image preview" style="display:none;">
+        </div>
+      </div>
+      
+      <div class="form-group text-editor-container">
+        
+        <textarea name="opis" id="opis"></textarea>
+        <script>
+          ClassicEditor
+            .create(document.querySelector('#opis'))
+            .catch(error => {
+              console.error(error);
+            });
+        </script>
+      </div>
+    </div>
+    
+
   
-    <button type="submit">Dodaj osobu</button>
+    <div class="form-row button-container">
+      <button type="submit" class="submit-button">Dodaj osobu</button>
+    </div>
   </form>
+  </div>
 
-  <h1>Upload Media</h1>
 
-  <form id="uploadForm" enctype="multipart/form-data">
-    <label for="licnost">Izaberite ličnost:</label>
-    <select name="licnost" id="licnost" required>
-      <!-- Ovde će biti dinamički dodate opcije sa nazivima ličnosti -->
-    </select>
-    <br>
 
-    <label for="file">Izaberite fajl:</label>
-    <input type="file" name="file" id="file" required>
-    <br>
+  <div id="UploadMedia" class="tabcontent">
+    <h1>Upload Media</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="licnost">Izaberite ličnost:</label>
+          <select name="licnost" id="licnost" required>
+            <!-- Dynamically generated options will go here -->
+          </select>
+        </div>
+      
+        <div class="form-group">
+          <label for="type">Izaberite tip fajla:</label>
+          <select name="type" id="type" required>
+            <option value="image">Slika</option>
+            <option value="video">Video</option>
+            <option value="audio">Audio</option>
+            <option value="text">Tekst</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="form-row">
+  <div class="form-group">
+    <input type="file" id="file" name="file" required style="display: none;" onchange="updateFilename()">
+    <button type="button" class="file-upload-button" onclick="document.getElementById('file').click();">Izaberite fajl</button>
+    <span id="file-name"></span> <!-- Placeholder for the file name -->
+  </div>
+</div>
+      
+      <div class="form-row button-container">
+        <button type="button" onclick="uploadMedia()" class="submit-button">Upload</button>
+      </div>
+    </form>
+  </div>
 
-    <label for="type">Izaberite tip fajla:</label>
-    <select name="type" id="type" required>
-      <option value="image">Slika</option>
-      <option value="video">Video</option>
-      <option value="audio">Audio</option>
-      <option value="text">Tekst</option>
-    </select>
-    <br>
-
-    <button type="button" onclick="uploadMedia()">Upload</button>
-  </form>
+  <div id="IPAddresses" class="tabcontent">
   <h2>IP Addresses and Login Times:</h2>
   <ul id="ipList"></ul>
-
+  </div>
+  
+  <div id="PersonOfTheMonth" class="tabcontent">
   <h2>Osoba Mjeseca</h2>
   <form id="osobaMjesecaForm">
     <label for="osobaMjeseca">Izaberite Osobu Mjeseca:</label>
@@ -84,7 +353,10 @@
     <br>
     <button type="button" onclick="odaberiOsobuMjeseca()">Odaberi</button>
   </form>
+  </div>
 
+
+  <div id="FeaturedPersons" class="tabcontent">
   <h2>Istaknute Osobe</h2>
 <form id="featuredPersonsForm">
   <label for="featuredPerson1">Osoba 1:</label>
@@ -105,6 +377,7 @@
 
   <button type="button" onclick="odaberiIstaknuteOsobe()">Odaberi Istaknute Osobe</button>
 </form>
+</div>
 
 
 
@@ -299,5 +572,43 @@ document.getElementById('delete-button').addEventListener('click', () => {
   .catch(error => console.error('Error:', error));
 });
   </script>
+
+<script>
+  function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+  document.querySelector('.tablink').click();
+});
+
+function previewImage(event) {
+  var reader = new FileReader();
+  reader.onload = function() {
+    var image = document.getElementById('imagePreview');
+    image.src = reader.result;
+    image.style.display = 'block';
+    document.querySelector('.image-upload-box p').style.display = 'none'; // Hide the 'Upload Picture' text
+  };
+  reader.readAsDataURL(event.target.files[0]);
+}
+function updateFilename() {
+  var fileInput = document.getElementById('file');
+  var fileName = fileInput.files[0].name;
+  document.getElementById('file-name').textContent = fileName; // Update the placeholder with the file name
+}
+  </script>
+
+
 </body>
 </html>
