@@ -569,7 +569,7 @@ app.post('/admin/delete', (req, res) => {
 
 app.get('/search', (req, res) => {
   const searchTerm = req.query.q;
-
+  console.log(searchTerm);
   // Protect against SQL injection
   const query = `
     SELECT * FROM ljudi 
@@ -581,7 +581,50 @@ app.get('/search', (req, res) => {
       console.error('Search error:', err);
       return res.status(500).json({ message: 'Error occurred during search.' });
     }
+    console.log(rows);
     res.json(rows);
+  });
+});
+
+app.post('/admin/update/:id', upload.single('slika'), (req, res) => {
+  const osobaId = req.params.id;
+  const { ime, prezime, datumRodjenja, mjestoRodjenja, datumSmrti, opisEdit } = req.body;
+  console.log(req.body);
+  let slikaUrl = req.file ? `/uploads/media/images/${req.file.filename}` : undefined;
+
+  let query = `UPDATE ljudi SET 
+                 ime = ?,
+                 prezime = ?, 
+                 datumRodjenja = ?, 
+                 mjestoRodjenja = ?, 
+                 datumSmrti = ?, 
+                 opis = ? 
+               WHERE id = ?`;
+
+  let queryParams = [ime, prezime, datumRodjenja, mjestoRodjenja, datumSmrti || null, opisEdit, osobaId];
+
+  // If a new image was uploaded, add it to the query and params
+  if (slikaUrl) {
+    query = `UPDATE ljudi SET 
+               ime = ?,
+               prezime = ?, 
+               datumRodjenja = ?, 
+               mjestoRodjenja = ?, 
+               datumSmrti = ?, 
+               opis = ?, 
+               slikaUrl = ?
+             WHERE id = ?`;
+    queryParams.push(slikaUrl);
+    queryParams.push(osobaId); // Push the ID again as the last parameter
+  }
+
+  db.run(query, queryParams, function(err) {
+    if (err) {
+      console.error('Error updating person:', err.message);
+      res.status(500).send('Error updating person');
+    } else {
+      res.status(200).send({ message: 'Person updated successfully', changes: this.changes });
+    }
   });
 });
 

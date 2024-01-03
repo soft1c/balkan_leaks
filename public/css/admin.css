@@ -278,3 +278,230 @@ ul li {
             background-color: #454545;
             color: white;
           }
+        
+          .form-row {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 20px;
+        }
+      
+        .form-group {
+          flex: 1;
+          margin-right: 10px; /* Adjust the spacing between the fields */
+        }
+      
+        .form-group:last-child {
+          margin-right: 0;
+        }
+      
+        label {
+          display: block;
+          margin-bottom: 5px;
+        }
+      
+        input[type="text"],
+        input[type="date"],
+        input[type="file"] {
+          width: 100%;
+          padding: 8px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+        }
+      
+        .image-upload-container {
+          flex-basis: 45%; /* Adjust the width as needed */
+          margin-right: 10px;
+        }
+      
+        .image-upload-box {
+          width: 150px; /* Set a fixed width */
+          height: 150px; /* Set the same fixed height for 1:1 aspect ratio */
+          border: 2px dashed #ccc;
+          border-radius: 4px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          background-color: white;
+          overflow: hidden; /* Hide overflow to maintain the square shape */
+          position: relative; /* Set position to relative for absolute positioning of the image */
+        }
+      
+        .image-upload-box p {
+          position: absolute;
+          z-index: 1; /* Ensure the text appears above the image */
+        }
+      
+        #imagePreview {
+          max-width: 100%;
+          max-height: 100%;
+          object-fit: contain; /* Ensure the image maintains aspect ratio */
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          margin: auto; /* Center the image within the box */
+        }
+      
+        input[type="file"] {
+          display: none; /* Hide the actual file input */
+        }
+      
+        
+        .form-row {
+        display: flex;
+        flex-wrap: wrap; /* This will allow items to wrap to the next line on small screens */
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      
+      .form-group, .image-upload-container, .text-editor-container {
+        flex: 1;
+        margin-right: 10px; /* Adjust the spacing between the fields */
+        min-width: 0; /* This prevents flex items from growing beyond their content size */
+      }
+      
+      .form-group:last-child, .text-editor-container {
+        margin-right: 0;
+      }
+      
+      /* Styles for image upload box remain unchanged */
+      
+      .text-editor-container {
+        display: flex;
+        flex-direction: column;
+        margin-right: 0;
+      }
+      
+      /* Ensure the editor fits within the container */
+      .ck-editor__editable_inline {
+        max-width: 100%;
+      }
+      
+      /* Add custom styles for CKEditor to ensure it doesn't overflow its container */
+      .ck.ck-editor__main > .ck-editor__editable {
+        height: 150px; /* or whatever height you want to give */
+      }
+      
+      @media (max-width: 768px) {
+        .form-row {
+          flex-direction: column;
+        }
+      
+        .form-group, .image-upload-container, .text-editor-container {
+          width: 100%; /* On small screens, take up full width */
+          margin-right: 0;
+          margin-bottom: 10px;
+        }
+      
+        .ck.ck-editor__main > .ck-editor__editable {
+          height: auto; /* Allow the editor to adjust its height */
+        }
+      }
+      
+      .image-upload-container {
+        flex: 0 0 calc(33.333% - 10px); /* subtract the margin from the width */
+        margin-right: 10px; /* Maintain the gap on the right side */
+      }
+      
+      /* Adjust the text editor container to take 2/3 of the space */
+      .text-editor-container {
+        flex: 0 0 calc(66.666% - 10px); /* subtract the margin from the width */
+      }
+      
+      .image-upload-box {
+        width: 100%; /* Make the image upload box fill the container */
+        height: 235px; /* Set the fixed height */
+        /* Other styles remain the same... */
+      }
+      
+      /* Ensure the editor fills the container and has the same height as the image box */
+      .ck-editor__editable_inline {
+        max-width: 100%;
+        height: 150px; /* Set the height to be the same as the image upload box */
+      }
+      
+      /* Remove the height from the #opis to let CKEditor manage it */
+      #opis {
+        /* Remove the fixed height style */
+        resize: none; /* Optional: Prevent manual resizing */
+      }
+      
+      .button-container {
+        text-align: center; /* Centers the button inside the container */
+      }
+      
+      .submit-button {
+        margin: 0 auto;
+        padding: 15px 30px; /* Increase the padding to make the button larger */
+        font-size: 1.2em; /* Optionally increase the font size */
+        border-radius: 5px; /* Rounded corners */
+        border: none; /* Remove border */
+        background-color: #919191; /* Bootstrap primary color for example */
+        color: white; /* Text color */
+        cursor: pointer; /* Cursor to pointer to indicate it's clickable */
+        outline: none; /* Remove outline to keep the design clean */
+      }
+      
+      .submit-button:hover {
+        background-color: #454545; /* Darker shade when hovered */
+      }
+      
+      .half-width {
+        flex: 1; /* Take up half of the space */
+      }
+      
+      .full-width {
+        flex: 0 0 100%; /* Take up full width */
+      }
+      
+      /* Ensure half-width elements sit side by side */
+      @media (min-width: 600px) {
+        .half-width {
+          margin-right: 10px;
+        }
+      
+        .half-width:last-child {
+          margin-right: 0;
+        }
+      }
+      
+      /* Adjust the button container to center the button */
+      .button-container {
+        display: flex;
+        justify-content: center; /* Center button horizontally */
+        margin-top: 20px; /* Provide some spacing from the elements above */
+      }
+      
+      /* Adjust the button style if necessary */
+      .submit-button {
+        padding: 10px 20px; /* Larger padding for a larger button */
+        font-size: 1em; /* Adjust font size as needed */
+        /* Other styles remain unchanged */
+      }
+      
+      /* For smaller screens, ensure elements stack vertically */
+      @media (max-width: 599px) {
+        .form-group {
+          width: 100%; /* Each element takes full width */
+          margin-bottom: 10px; /* Add space between stacked elements */
+        }
+      
+        .half-width, .full-width {
+          margin-right: 0; /* Remove margin on the right since it's full width */
+        }
+      }
+      
+      #file-name {
+        margin-left: 10px; /* Add some space between the button and the text */
+        /* Any additional styles you want to apply to the filename text */
+      }
+
+      #slikaId {
+        width: 100%; /* Or the width of your container */
+        height: auto; /* Or a fixed height if you prefer */
+        object-fit: contain;
+        background-color: white; /* This will fill the extra space with white if the aspect ratios do not match */
+      }
+       

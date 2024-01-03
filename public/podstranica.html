@@ -116,6 +116,7 @@
       .then(response => response.json())
       .then(data => {
         document.getElementById('ime').textContent = `${data.ime} ${data.prezime}`;
+        console.log(data);
         document.getElementById('personDescription').innerHTML = data.opis || 'Opis nije dostupan.';
         document.getElementById('personImage').setAttribute('src', `/uploads/media/images/${data.slikaUrl}`);
 
