@@ -438,3 +438,35 @@ function deleteModerator(){
   })
 };
 
+document.addEventListener('DOMContentLoaded', (event) => {
+  const logoutButton = document.getElementById('odjava');
+  console.log(logoutButton); // Provjerite da li postoji button u DOM-u
+
+  if (logoutButton) {
+    logoutButton.addEventListener('click', function() {
+      console.log('Logout clicked'); // Ova linija bi trebala biti ispisana u konzolu kada kliknete dugme
+      fetch('/logout', {
+        method: 'POST'
+      })
+      .then(() => {
+        window.location.href = '/login.html';
+      })
+      .catch(error => {
+        console.error('Došlo je do greške prilikom odjave:', error);
+      });
+    });
+  }
+});
+
+function logout(){
+  console.log('Logout clicked'); // Ova linija bi trebala biti ispisana u konzolu kada kliknete dugme
+      fetch('/logout', {
+        method: 'POST'
+      })
+      .then(() => {
+        window.location.href = '/login.html';
+      })
+      .catch(error => {
+        console.error('Došlo je do greške prilikom odjave:', error);
+      });
+    };

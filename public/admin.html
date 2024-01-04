@@ -8,6 +8,23 @@
   <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
+  <div class="top-navigation">
+    <nav class="navbar">
+        <a href="#menu" class="mobile-only hot-dog nav-element">
+        </a>
+      <div class="nav-logo">
+        <a href="https://google.com">
+          <h1>BIPKD</h1>
+        </a>
+      </div>
+      <div class="action-buttons">
+        <button id="odjava" class="button-face support-link" onclick="logout()">Log Out</button>
+      </div>
+      
+      <div class="main-nav">
+      </div>
+    </nav>
+  </div>
   <script src="js/admin.js"></script>
   <div class="sidebar">
     <a href="#" class="tablink" onclick="openTab(event, 'AddPerson')">Add Person</a>
@@ -159,9 +176,10 @@
 </form>
 </div>
 <div id="EditPersons" class="tabcontent">
+  
   <h2>Edit Persons</h2>
   <!-- Dropdown for selecting a person -->
-  <select id="personSelect" onchange="populateEditForm()">
+  <select style ="width:30%; height: 30px" id="personSelect" onchange="populateEditForm()">
     <option value="">Select a Person...</option>
     <!-- Options will be dynamically populated here -->
   </select>
@@ -172,7 +190,7 @@
   <form id="editPersonForm" style="display:none;">
     <h1>Edit Person Details</h1>
     
-    <h1>Add a Person</h1>
+    
     <div class="form-row">
       <div class="form-group">
         <label for="ime">Ime:</label>
@@ -262,5 +280,6 @@
   </form>
 
 </div>
+<script src="js/admin.js"></script>
 </body>
 </html>

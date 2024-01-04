@@ -50,7 +50,8 @@ let db = new sqlite3.Database('./baza.db', (err) => {
         }else{
             console.log('Kreirano ');
 
-        }});
+        }
+    });
     }
 });
 

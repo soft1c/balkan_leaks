@@ -690,6 +690,20 @@ app.post('/admin/deleteModerator', (req, res) => {
   });
 });
 
+app.post('/logout', function(req, res) {
+  console.log('Logout');
+  req.session.destroy(function(err) {
+    if(err) {
+      console.error('Došlo je do greške prilikom odjave:', err);
+      return res.status(500).send('Došlo je do greške prilikom odjave');
+    }
+
+    // Sesija je uništena, preusmjerite na login.html
+    res.clearCookie('connect.sid'); // Ovo je ime cookieja koje Express koristi za sesije
+    res.redirect('/login.html');
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
