@@ -1,3 +1,35 @@
+document.addEventListener('DOMContentLoaded', function() {
+  fetch('/get-role')
+    .then(response => response.json())
+    .then(data => {
+      var manageModsTab = document.getElementById('ManageModerators1');
+      if (data.role === 'admin') {
+        manageModsTab.style.display = 'block';
+      } else {
+        manageModsTab.style.display = 'none';
+      }
+    })
+    .catch(error => console.error('Error fetching role:', error));
+
+    fetchModerators();
+});
+
+function fetchModerators() {
+  fetch('/moderatori')
+    .then(response => response.json())
+    .then(moderators => {
+      const modSelect = document.getElementById('moderatorSelect');
+      moderators.forEach(mod => {
+        console.log(mod);
+        const option = document.createElement('option');
+        option.value = mod.id; // Pretpostavljamo da svaki moderator ima ID
+        option.textContent = mod.username; // Pretpostavljamo da svaki moderator ima username
+        modSelect.appendChild(option);
+      });
+    })
+    .catch(error => console.error('Error fetching moderators:', error));
+}
+
 function odaberiIstaknuteOsobe() {
   const featuredIds = [
     document.getElementById('featuredPerson1').value,
@@ -26,7 +58,7 @@ function odaberiIstaknuteOsobe() {
         .then(response => response.json())
         .then(data => {
           const ipList = document.getElementById('ipList');
-          ipList.innerHTML = ''; // Clear the existing list
+          ipList.innerHTML = ''; 
 
           data.forEach(entry => {
             const listItem = document.createElement('li');
@@ -188,24 +220,25 @@ document.getElementById('delete-button').addEventListener('click', () => {
   })
   .catch(error => console.error('Error:', error));
 });
-  
-  function openTab(evt, tabName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablink");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
+function openTab(evt, tabName) {
+  console.log(tabName);
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+    console.log(tabcontent[i]);
   }
-
-  document.addEventListener("DOMContentLoaded", function() {
-  document.querySelector('.tablink').click();
-});
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  var selectedTab = document.getElementById(tabName);
+  if (selectedTab.style.display != "block") {
+    console.log(selectedTab);
+    selectedTab.style.display = "block";
+  }
+  evt.currentTarget.className += " active";
+}
 
 function previewImage(event) {
   var reader = new FileReader();
@@ -371,3 +404,37 @@ function submitEditForm() {
     alert('Failed to update the person');
   });
 }
+
+
+function addModerator() {
+  const username = document.getElementById('modUsername').value;
+  const password = document.getElementById('modPassword').value;
+
+  fetch('/admin/addModerator', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ username, password })
+  })
+  .then(response => response.json())
+  .then(data => {
+    alert('Moderator je uspješno dodan');
+  })
+};
+
+function deleteModerator(){
+  const id = document.getElementById('moderatorSelect').value;
+  fetch('/admin/deleteModerator', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ id })
+  })
+  .then(response => response.json())
+  .then(data => {
+    alert('Moderator je obrisan');
+  })
+};
+

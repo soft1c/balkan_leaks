@@ -16,6 +16,7 @@
     <a href="#" class="tablink" onclick="openTab(event, 'PersonOfTheMonth')">Person of the Month</a>
     <a href="#" class="tablink" onclick="openTab(event, 'FeaturedPersons')">Featured Persons</a>
     <a href="#" class="tablink" onclick="openTab(event, 'EditPersons')">Edit Persons</a>
+    <a id="ManageModerators1" href="#" class="tablink" onclick="openTab(event, 'ManageModerators')" >Manage Moderators</a>
     
   </div>
   <div id="AddPerson" class="tabcontent"> 
@@ -224,6 +225,42 @@
       <button type="button" onclick="submitEditForm()" class="submit-button">Update Person</button>
     </div>
   </form>
+</div>
+
+<div id="ManageModerators" class="tabcontent">
+  <h1>Add a Moderator</h1>
+  <form id="addModeratorForm">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="modUsername">Username:</label>
+        <input type="text" id="modUsername" name="username" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="modPassword">Password:</label>
+        <input type="password" id="modPassword" name="password" required>
+      </div>
+    </div>
+
+    <div class="form-row button-container">
+      <button type="button" onclick="addModerator()" class="submit-button">Add Moderator</button>
+    </div>
+  </form>
+
+
+  <h1>Delete a Moderator</h1>
+  <form id="deleteModeratorForm">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="moderatorSelect">Select Moderator:</label>
+        <select id="moderatorSelect" required></select>
+      </div>
+    </div>
+    <div class="form-row button-container">
+      <button type="button" onclick="deleteModerator()" class="submit-button">Delete Moderator</button>
+    </div>
+  </form>
+
 </div>
 </body>
 </html>

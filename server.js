@@ -73,15 +73,34 @@ app.get('/login', (req, res) => {
 
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
-  console.log(req.body);
-
-  // Validate credentials
-  // For example purposes, using hardcoded credentials. Replace with your authentication logic.
-  if(username === 'admin' && password === 'password') {
-      req.session.loggedIn = true;
-      res.redirect('/admin');
+  console.log(username, password);
+  // Provjerite da li su kredencijali za admina
+  if (username === "admin" && password === "password") {
+    console.log('Admin logged in');
+    req.session.role = 'admin';
+    req.session.loggedIn = true;
+    res.redirect('/admin');
   } else {
-      res.send('Invalid username or password');
+    // Provjerite da li su kredencijali za moderatora
+    db.get('SELECT * FROM moderatori WHERE username = ? AND password = ?', [username, password], (err, row) => {
+      if (err) {
+        res.status(500).send('Server error');
+      } else if (row) {
+        req.session.role = 'moderator';
+        req.session.loggedIn = true;
+        res.redirect('/admin');
+      } else {
+        res.send('Invalid username or password');
+      }
+    });
+  }
+});
+
+app.get('/get-role', (req, res) => {
+  if (req.session.role) {
+    res.json({ role: req.session.role });
+  } else {
+    res.status(401).json({ message: 'Not logged in' });
   }
 });
 
@@ -631,6 +650,44 @@ app.post('/admin/update/:id', upload.single('slika'), (req, res) => {
 
 app.get('/podstranica/:id', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'podstranica.html'));
+});
+
+app.get('/moderatori',(req,res)=>{
+  db.all('SELECT * FROM moderatori', (err, rows) => {
+    if(err){
+      console.error('Error retrieving moderators:', err.message);
+      res.status(500).send('Error retrieving moderators');
+    }else{
+      res.status(200).send(rows);
+    }
+  });
+})
+
+app.post('/admin/addModerator',(req,res)=>{
+  const {username,password}=req.body;
+
+  db.run('INSERT INTO moderatori (username, password) VALUES (?, ?)', [username, password], function(err) {
+    if(err){
+      console.error('Error adding moderator:', err.message);
+      res.status(500).send('Error adding moderator');
+    }else{
+      res.status(200).send({message: 'Moderator added successfully', changes: this.changes});
+    }
+  });
+});
+
+
+app.post('/admin/deleteModerator', (req, res) => {
+  const { id } = req.body; 
+  console.log(id);// ids should be an array of moderator IDs
+  db.run('DELETE FROM moderatori WHERE id IN (?)', [id], function(err) {
+    if(err){
+      console.error('Error deleting moderator:', err.message);
+      res.status(500).send('Error deleting moderator');
+    }else{
+      res.status(200).send({message: 'Moderator deleted successfully', changes: this.changes});
+    }
+  });
 });
 
 app.listen(port, () => {

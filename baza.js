@@ -39,6 +39,18 @@ let db = new sqlite3.Database('./baza.db', (err) => {
                 console.log("Tabela 'osobaMjeseca' uspješno kreirana.");
             }
         });
+
+        db.run(`CREATE TABLE IF NOT EXISTS moderatori (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT,
+            password TEXT   
+        )`, (err)=>{
+            if(err){
+            console.error(err.message);
+        }else{
+            console.log('Kreirano ');
+
+        }});
     }
 });
 
