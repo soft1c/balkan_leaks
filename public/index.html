@@ -355,4 +355,16 @@ function fetchNedavnoDodaneOsobe() {
   </footer>
 
 </body>
+<script>
+  // This script calls the record-entry endpoint when the page loads
+  window.onload = function() {
+      fetch('/record-entry')
+          .then(response => {
+              if (!response.ok) {
+                  console.error('Failed to record entry');
+              }
+          })
+          .catch(error => console.error('Error:', error));
+  };
+</script>
 </html>

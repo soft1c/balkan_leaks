@@ -657,3 +657,32 @@ ul li {
         background-color: transparent;
         border: 0;
         border-radius: 0; }
+
+
+        .data-container {
+          display: flex;
+          justify-content: center;
+          margin: 20px;
+      }
+      
+      .data-block {
+          background-color: #fff;
+          padding: 20px;
+          margin: 10px;
+          border-radius: 8px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          width: 300px; /* Adjust as necessary */
+      }
+      
+      .scrollable-list {
+          max-height: 200px; /* Adjust as necessary */
+          overflow-y: auto;
+          list-style-type: none;
+          padding: 0;
+      }
+      
+      .scrollable-list li {
+          border-bottom: 1px solid #eee;
+          padding: 5px;
+      }
+      

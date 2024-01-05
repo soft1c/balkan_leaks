@@ -8,6 +8,7 @@ const session = require('express-session');
 const dbConfig= require('./konfiguracija.js');
 const fs = require('fs'); 
 const sqlite3= require('sqlite3').verbose();
+const cookieParser = require('cookie-parser');
 
 const db = new sqlite3.Database('./baza.db', sqlite3.OPEN_READWRITE, (err) => {
   if (err) {
@@ -21,7 +22,7 @@ const db = new sqlite3.Database('./baza.db', sqlite3.OPEN_READWRITE, (err) => {
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+app.use(cookieParser());
 app.use(express.json());
 // Create a connection pool
 const pool = mysql.createPool({
@@ -50,21 +51,27 @@ app.use(session({
 
 app.use(express.urlencoded({ extended: true }));
 
+function logVisit(req, res, next) {
+  if (!req.cookies.visited) {
+    
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    const loginTime = new Date().toISOString();
+    console.log(ip);
+    console.log(loginTime);
 
-/* const ip_adrese = new sqlite3.Database('user_ips.db', (err) => {
-  if (err) {
-    console.error('Error opening database:', err.message);
-  } else {
-    console.log('Connected to the database.');
-    db.execute(`
-      CREATE TABLE IF NOT EXISTS user_ips (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        ip_address TEXT NOT NULL,
-        login_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      )
-    `);
+    db.run(`INSERT INTO visits (ip, loginTime) VALUES (?, ?)`, [ip, loginTime], function(err) {
+      if (err) {
+        return console.error(err.message);
+      }
+      console.log(`A visit from ${ip} was logged.`);
+    });
+    res.cookie('visited', 'yes', { maxAge: 1000000 }); 
   }
-}); */
+
+  next();
+}
+
+app.use(logVisit);
 
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'login.html'));
@@ -74,14 +81,12 @@ app.get('/login', (req, res) => {
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
   console.log(username, password);
-  // Provjerite da li su kredencijali za admina
   if (username === "admin" && password === "password") {
     console.log('Admin logged in');
     req.session.role = 'admin';
     req.session.loggedIn = true;
     res.redirect('/admin');
   } else {
-    // Provjerite da li su kredencijali za moderatora
     db.get('SELECT * FROM moderatori WHERE username = ? AND password = ?', [username, password], (err, row) => {
       if (err) {
         res.status(500).send('Server error');
@@ -112,18 +117,62 @@ app.use((req, res, next) => {
 });
 
 app.get('/user_ips', (req, res) => {
-  const query = 'SELECT * FROM user_ips ORDER BY login_time DESC';
+  const query = 'SELECT * FROM visits ORDER BY loginTime DESC';
   db.all(query, [], (err, rows) => {
       if (err) {
           console.error('Error retrieving IP addresses from the database:', err.message);
           res.status(500).json({ message: 'Internal Server Error' });
       } else {
+
           res.json(rows);
       }
   });
 });
 
 
+app.get('/record-entry', (req, res) => {
+  db.run('INSERT INTO user_entries (timestamp) VALUES (CURRENT_TIMESTAMP)', [], (err) => {
+    if (err) {
+      res.status(500).send('Error recording entry');
+    } else {
+      res.status(200).send('Entry recorded');
+    }
+  });
+});
+
+
+app.get('/visit-counts', function(req, res) {
+  const totalVisitsQuery = "SELECT COUNT(*) AS total FROM visits;";
+  const dailyVisitsQuery = "SELECT COUNT(*) AS today FROM visits WHERE date(loginTime) = date('now');";
+  const weeklyVisitsQuery = "SELECT COUNT(*) AS last_week FROM visits WHERE date(loginTime) >= date('now', '-7 days');";
+
+  // Assuming you are using sqlite3 and db is your database instance
+  db.serialize(() => {
+      db.get(totalVisitsQuery, (err, totalResult) => {
+          if (err) {
+              console.error('Error fetching total visits:', err);
+              return res.status(500).send('Error fetching total visits');
+          }
+          db.get(dailyVisitsQuery, (err, dailyResult) => {
+              if (err) {
+                  console.error('Error fetching daily visits:', err);
+                  return res.status(500).send('Error fetching daily visits');
+              }
+              db.get(weeklyVisitsQuery, (err, weeklyResult) => {
+                  if (err) {
+                      console.error('Error fetching weekly visits:', err);
+                      return res.status(500).send('Error fetching weekly visits');
+                  }
+                  res.json({
+                      total: totalResult.total,
+                      today: dailyResult.today,
+                      last_week: weeklyResult.last_week
+                  });
+              });
+          });
+      });
+  });
+});
 
 
 const uploadDir = path.join(__dirname, 'uploads/media');
@@ -697,8 +746,6 @@ app.post('/logout', function(req, res) {
       console.error('Došlo je do greške prilikom odjave:', err);
       return res.status(500).send('Došlo je do greške prilikom odjave');
     }
-
-    // Sesija je uništena, preusmjerite na login.html
     res.clearCookie('connect.sid'); // Ovo je ime cookieja koje Express koristi za sesije
     res.redirect('/login.html');
   });

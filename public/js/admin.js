@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
+  fetchEntryStats();
+  
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
   fetch('/get-role')
     .then(response => response.json())
     .then(data => {
@@ -62,7 +68,7 @@ function odaberiIstaknuteOsobe() {
 
           data.forEach(entry => {
             const listItem = document.createElement('li');
-            listItem.textContent = `IP Address: ${entry.ip_address}, Login Time: ${entry.login_time}`;
+            listItem.textContent = `IP Address: ${entry.ip}, Login Time: ${entry.loginTime}`;
             ipList.appendChild(listItem);
           });
         })
@@ -470,3 +476,20 @@ function logout(){
         console.error('Došlo je do greške prilikom odjave:', error);
       });
     };
+
+
+    function fetchEntryStats() {
+      console.log('Fetching entry stats...');
+      fetch('/visit-counts')
+          .then(response => response.json())
+          .then(data => {
+              console.log(data);
+              document.getElementById('dailyCount').textContent = "Today's Visits: " + data.today;
+              document.getElementById('weeklyCount').textContent = "Last Week's Visits: " + data.last_week;
+              document.getElementById('allTimeCount').textContent = "Total Visits: " + data.total;
+          })
+          .catch(error => console.error('Error fetching entry stats:', error));
+  }
+    
+    // Call this function when the admin page loads
+    

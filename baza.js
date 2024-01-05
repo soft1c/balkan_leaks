@@ -51,9 +51,29 @@ let db = new sqlite3.Database('./baza.db', (err) => {
             console.log('Kreirano ');
 
         }
+
+        db.run(`CREATE TABLE IF NOT EXISTS visits (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            ip TEXT NOT NULL,
+            loginTime TEXT NOT NULL
+          )`,(err)=>{
+            if(err){
+                console.error(err.message);
+            }else{
+                console.log('Kreirano ip ');
+            }
+          });
+
+          db.run(`CREATE TABLE IF NOT EXISTS user_entries (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+          )`);
     });
     }
+    
 });
+
+
 
 // Zatvorite bazu podataka
 db.close((err) => {
