@@ -6,6 +6,8 @@
   <title>Media Upload</title>
   <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
   <link rel="stylesheet" href="css/admin.css">
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
 </head>
 <body>
   <div class="top-navigation">
@@ -34,6 +36,7 @@
     <a href="#" class="tablink" onclick="openTab(event, 'FeaturedPersons')">Featured Persons</a>
     <a href="#" class="tablink" onclick="openTab(event, 'EditPersons')">Edit Persons</a>
     <a id="ManageModerators1" href="#" class="tablink" onclick="openTab(event, 'ManageModerators')" >Manage Moderators</a>
+
     
   </div>
   <div id="AddPerson" class="tabcontent"> 
@@ -79,26 +82,38 @@
       
       <div class="form-group text-editor-container">
         
-        <textarea name="opis" id="opis"></textarea>
-        <script>
-          ClassicEditor
-            .create(document.querySelector('#opis'))
-            .catch(error => {
-              console.error(error);
-            });
-        </script>
+        <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+        <div id="editor">
+        </div>
+<!-- Initialize Quill editor -->
+<script>
+  var toolbarOptions = [
+  ['bold', 'italic', 'underline'],
+  [{ 'header': 1 }, { 'header': 2 }],
+  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+  [{ 'size': ['small', false, 'large', 'huge'] }],
+  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+  [{ 'color': [] }, { 'background': [] }],
+  [{ 'font': [] }],
+  [{ 'align': [] }]
+];
+
+var quill = new Quill('#editor', {
+  modules: {
+    toolbar: toolbarOptions
+  },
+  theme: 'snow'
+});
+</script>
       </div>
     </div>
     
-
-  
     <div class="form-row button-container">
       <button type="submit" class="submit-button">Dodaj osobu</button>
     </div>
   </form>
   </div>
-
-
 
   <div id="UploadMedia" class="tabcontent">
     <h1>Upload Media</h1>
@@ -252,9 +267,12 @@
     
     <div class="form-row button-container">
       <button type="button" onclick="submitEditForm()" class="submit-button">Update Person</button>
+      <button type="button" onclick="deletePerson()" class="submit-button delete-button">Delete Person</button>
     </div>
   </form>
 </div>
+
+
 
 <div id="ManageModerators" class="tabcontent">
   <h1>Add a Moderator</h1>
@@ -291,6 +309,9 @@
   </form>
 
 </div>
+
+
+
 <script src="js/admin.js"></script>
 </body>
 </html>

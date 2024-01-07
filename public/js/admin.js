@@ -490,6 +490,33 @@ function logout(){
           })
           .catch(error => console.error('Error fetching entry stats:', error));
   }
+
+
+  function deletePerson() {
+    const personId = document.getElementById('personSelect').value;
+    if (!personId) {
+      alert('No person selected.');
+      return;
+    }
+    if (confirm('Are you sure you want to delete this person?')) {
+      fetch('/obrisi_osobu', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: personId })
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert('Person deleted successfully');
+        // Refresh the person list or navigate away
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to delete the person');
+      });
+    }
+  }
     
     // Call this function when the admin page loads
     

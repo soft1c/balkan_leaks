@@ -751,6 +751,33 @@ app.post('/logout', function(req, res) {
   });
 });
 
+app.post('/obrisi_osobu', (req, res) => {
+  const { id } = req.body;
+  db.run('DELETE FROM ljudi WHERE id = ?', [id], function(err) {
+    if(err){
+      console.error('Error deleting person:', err.message);
+      res.status(500).send('Error deleting person');
+    }else{
+      res.status(200).send({message: 'Person deleted successfully', changes: this.changes});
+    }
+  });
+});
+
+app.post('/change_password', (req, res) => {
+  const { id, password } = req.body;
+  db.run('UPDATE ljudi SET password = ? WHERE id = ?', [password, id], function(err) {
+    if(err){
+      console.error('Error changing password:', err.message);
+      res.status(500).send('Error changing password');
+    }else{
+      res.status(200).send({message: 'Password changed successfully', changes: this.changes});
+    }
+  });
+});
+
+
+
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
