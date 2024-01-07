@@ -258,16 +258,17 @@ function openTab(evt, tabName) {
   evt.currentTarget.className += " active";
 }
 
+
+
 function previewImage(event) {
-  var reader = new FileReader();
+  const reader = new FileReader();
   reader.onload = function() {
-    var image = document.getElementById('imagePreview');
-    image.src = reader.result;
-    image.style.display = 'block';
-    document.querySelector('.image-upload-box p').style.display = 'none'; // Hide the 'Upload Picture' text
+    const output = document.getElementById('slikaId');
+    output.src = reader.result;
   };
   reader.readAsDataURL(event.target.files[0]);
 }
+
 function updateFilename() {
   var fileInput = document.getElementById('file');
   var fileName = fileInput.files[0].name;
@@ -348,15 +349,16 @@ function populateEditForm() {
         }
 
         // Destroy existing CKEditor instance if it exists
-        if (window.quillInstance) {
-          window.quillInstance.destroy(); // Destroy the existing Quill instance
+        if (!window.quillInstance) {
+          // If not, create a new instance
+          window.quillInstance = new Quill('#opisEdit', {
+            modules: {
+              toolbar: toolbarOptions
+            },
+            theme: 'snow'
+          });
         }
-        window.quillInstance = new Quill('#opisEdit', {
-          modules: {
-            toolbar: toolbarOptions
-          },
-          theme: 'snow'
-        });
+        // Now, set the content of the editor
         window.quillInstance.root.innerHTML = data.opis;
       })
       .catch(error => {

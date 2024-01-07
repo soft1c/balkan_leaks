@@ -720,15 +720,15 @@ app.post('/admin/update/:id', upload.single('slika'), (req, res) => {
   const osobaId = req.params.id;
   const { ime, prezime, opis } = req.body;
   console.log(req.body);
-  console.log('opis ',opis);
-  let slikaUrl = req.file ? `/uploads/media/images/${req.file.filename}` : undefined;
+  console.log('opis ', opis);
+  let slikaUrl = req.file ? `${req.file.filename}` : null;
 
   let query = `UPDATE ljudi SET 
                  ime = ?,
                  prezime = ?, 
-                 opis = ? 
+                 opis = ?
                WHERE id = ?`;
-
+  
   let queryParams = [ime, prezime, opis, osobaId];
 
   // If a new image was uploaded, add it to the query and params
@@ -739,8 +739,7 @@ app.post('/admin/update/:id', upload.single('slika'), (req, res) => {
                opis = ?, 
                slikaUrl = ?
              WHERE id = ?`;
-    queryParams.push(slikaUrl);
-    queryParams.push(osobaId); // Push the ID again as the last parameter
+    queryParams = [ime, prezime, opis, slikaUrl, osobaId]; // Note the order of parameters
   }
 
   db.run(query, queryParams, function(err) {
