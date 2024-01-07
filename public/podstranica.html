@@ -120,12 +120,6 @@
         document.getElementById('personDescription').innerHTML = data.opis || 'Opis nije dostupan.';
         document.getElementById('personImage').setAttribute('src', `/uploads/media/images/${data.slikaUrl}`);
 
-        const bioInfoHtml = `
-          <p>Datum rođenja: ${new Date(data.datumRodjenja).toLocaleDateString()}</p>
-          <p>Mjesto rođenja: ${data.mjestoRodjenja}</p>
-          ${data.datumSmrti ? `<p>Datum smrti: ${new Date(data.datumSmrti).toLocaleDateString()}</p>` : ''}
-        `;
-        document.getElementById('personDescription').insertAdjacentHTML('beforebegin', bioInfoHtml);
 
         // Display files
         allFiles = data.fajlovi; // Store all files
