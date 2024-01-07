@@ -1,24 +1,36 @@
 document.addEventListener('DOMContentLoaded', function() {
   fetchEntryStats();
-  
-});
-
-
-document.addEventListener('DOMContentLoaded', function() {
+  fetchAdmins();
   fetch('/get-role')
     .then(response => response.json())
     .then(data => {
       var manageModsTab = document.getElementById('ManageModerators1');
-      if (data.role === 'admin') {
+      var ManageAdminsTab=document.getElementById('ManageAdmins1');
+      if(data.role==='owner'){
         manageModsTab.style.display = 'block';
+        ManageAdminsTab.style.display = 'block';
+      }
+      else if (data.role === 'admin') {
+        console.log('admin');
+        manageModsTab.style.display = 'block';
+        ManageAdminsTab.style.display = 'none';
       } else {
         manageModsTab.style.display = 'none';
+        ManageAdminsTab.style.display = 'none';
       }
     })
     .catch(error => console.error('Error fetching role:', error));
 
     fetchModerators();
 });
+document.addEventListener('DOMContentLoaded', function() {
+  var form = document.getElementById('AddPersonForm'); // Pretpostavimo da je ovo ID vaše forme
+  form.onsubmit = function() {
+    console.log(opis);
+    var opis = quill.root.innerHTML; // Uzima HTML sadržaj Quill editora
+    document.getElementById('hiddenOpis1').value = opis; // Postavlja sadržaj u skriveni textarea
+  };
+}); 
 
 function fetchModerators() {
   fetch('/moderatori')
@@ -326,9 +338,7 @@ function populateEditForm() {
         // Populate the form fields with the data
         document.getElementById('imeEdit').value = data.ime;
         document.getElementById('prezimeEdit').value = data.prezime;
-        document.getElementById('datumRodjenjaEdit').value = data.datumRodjenja;
-        document.getElementById('mjestoRodjenjaEdit').value = data.mjestoRodjenja;
-        document.getElementById('datumSmrtiEdit').value = data.datumSmrti || '';
+        
 
         if (data.slikaUrl) {
           let path = 'uploads/media/images/' + data.slikaUrl;
@@ -338,17 +348,16 @@ function populateEditForm() {
         }
 
         // Destroy existing CKEditor instance if it exists
-        if (window.editorInstance) {
-          window.editorInstance.destroy()
-            .then(() => {
-              createEditor(data.opis);
-            })
-            .catch(error => {
-              console.error('Error destroying the CKEditor:', error);
-            });
-        } else {
-          createEditor(data.opis);
+        if (window.quillInstance) {
+          window.quillInstance.destroy(); // Destroy the existing Quill instance
         }
+        window.quillInstance = new Quill('#opisEdit', {
+          modules: {
+            toolbar: toolbarOptions
+          },
+          theme: 'snow'
+        });
+        window.quillInstance.root.innerHTML = data.opis;
       })
       .catch(error => {
         console.error('Failed to fetch person details:', error);
@@ -359,17 +368,7 @@ function populateEditForm() {
   }
 }
 
-function createEditor(data) {
-  ClassicEditor
-    .create(document.querySelector('#opisEdit'))
-    .then(editor => {
-      window.editorInstance = editor;
-      editor.setData(data);
-    })
-    .catch(error => {
-      console.error('Error initializing the CKEditor:', error);
-    });
-}
+
 
 function submitEditForm() {
   const personId = document.getElementById('personSelect').value;
@@ -378,9 +377,9 @@ function submitEditForm() {
     return;
   }
   console.log(personId);
-  if (window.editorInstance) {
-    const opisEditData = window.editorInstance.getData();
-    document.getElementById('opisEdit').value = opisEditData;
+  if (window.quillInstance) {
+    const opisEditData = window.quillInstance.root.innerHTML;
+    document.getElementById('hiddenOpis').value = opisEditData; // Update the hidden textarea
   }
 
   const form = document.getElementById('editPersonForm');
@@ -518,5 +517,53 @@ function logout(){
     }
   }
     
-    // Call this function when the admin page loads
-    
+  function fetchAdmins() {
+    fetch('/admini')
+      .then(response => response.json())
+      .then(admins => {
+        const adminSelect = document.getElementById('adminSelect');
+        admins.forEach(admin => {
+          console.log(admin);
+          const option = document.createElement('option');
+          option.value = admin.id; // Pretpostavljamo da svaki moderator ima ID
+          option.textContent = admin.username; // Pretpostavljamo da svaki moderator ima username
+          adminSelect.appendChild(option);
+        });
+      })
+      .catch(error => console.error('Error fetching admins :', error));
+  }
+  
+
+
+function addAdmin() {
+  const username = document.getElementById('adminUsername').value;
+  const password = document.getElementById('adminPassword').value;
+  console.log(username, password);
+
+  fetch('/admin/addAdmin', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ username, password })
+  })
+  .then(response => response.json())
+  .then(data => {
+    alert('Admin je uspješno dodan');
+  })
+}
+
+function deleteAdmin(){
+  const id = document.getElementById('adminSelect').value;
+  fetch('/admin/deleteAdmin', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ id })
+  })
+  .then(response => response.json())
+  .then(data => {
+    alert('Admin je obrisan');
+  })
+}

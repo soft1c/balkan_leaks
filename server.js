@@ -80,25 +80,48 @@ app.get('/login', (req, res) => {
 
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
-  console.log(username, password);
-  if (username === "admin" && password === "password") {
-    console.log('Admin logged in');
-    req.session.role = 'admin';
-    req.session.loggedIn = true;
-    res.redirect('/admin');
-  } else {
-    db.get('SELECT * FROM moderatori WHERE username = ? AND password = ?', [username, password], (err, row) => {
-      if (err) {
-        res.status(500).send('Server error');
-      } else if (row) {
-        req.session.role = 'moderator';
-        req.session.loggedIn = true;
-        res.redirect('/admin');
-      } else {
-        res.send('Invalid username or password');
-      }
-    });
-  }
+
+  // Provjeravanje da li su uneseni kredencijali za ownera
+  db.get('SELECT * FROM owners WHERE username = ? AND password = ?', [username, password], (ownerErr, ownerRow) => {
+    if (ownerErr) {
+      console.error(ownerErr);
+      res.status(500).send('Server error');
+    } else if (ownerRow) {
+      console.log('Owner logged in');
+      req.session.role = 'owner';
+      req.session.loggedIn = true;
+      res.redirect('/admin');
+    } else {
+      // Ako owner kredencijali nisu pronađeni, provjerava se tabela admini
+      db.get('SELECT * FROM admini WHERE username = ? AND password = ?', [username, password], (adminErr, adminRow) => {
+        if (adminErr) {
+          console.error(adminErr);
+          res.status(500).send('Server error');
+        } else if (adminRow) {
+          console.log('Admin logged in');
+          req.session.role = 'admin';
+          req.session.loggedIn = true;
+          res.redirect('/admin');
+        } else {
+          // Ako ni admin kredencijali nisu pronađeni, provjerava se tabela moderators
+          db.get('SELECT * FROM moderators WHERE username = ? AND password = ?', [username, password], (modErr, modRow) => {
+            if (modErr) {
+              console.error(modErr);
+              res.status(500).send('Server error');
+            } else if (modRow) {
+              console.log('Moderator logged in');
+              req.session.role = 'moderator';
+              req.session.loggedIn = true;
+              res.redirect('/admin');
+            } else {
+              // Ako ni owner, ni admin, ni moderator kredencijali nisu pronađeni, vraća se greška
+              res.send('Invalid username or password');
+            }
+          });
+        }
+      });
+    }
+  });
 });
 
 app.get('/get-role', (req, res) => {
@@ -259,14 +282,15 @@ app.post('/upload/:type', upload.single('file'), (req, res) => {
 });
 
 app.post('/admin/dodaj', upload.single('slika'), (req, res) => {
-  const { ime, prezime, datumRodjenja, mjestoRodjenja, datumSmrti, opis } = req.body;
+  const { ime, prezime, opis1 } = req.body;
+  console.log(req.body);
   const slikaUrl = req.file ? req.file.filename : null;
 
   // Log statements for debugging
-  console.log('Dodavanje nove osobe:', ime, prezime, datumRodjenja, mjestoRodjenja, datumSmrti, slikaUrl, opis);
+  console.log('Dodavanje nove osobe:', ime, prezime, slikaUrl, opis1);
 
-  const query = 'INSERT INTO ljudi (ime, prezime, datumRodjenja, mjestoRodjenja, datumSmrti, slikaUrl, opis) VALUES (?, ?, ?, ?, ?, ?, ?)';
-  db.run(query, [ime, prezime, datumRodjenja, mjestoRodjenja, datumSmrti || null, slikaUrl, opis], function(err) {
+  const query = 'INSERT INTO ljudi (ime, prezime, slikaUrl, opis) VALUES (?, ?, ?, ?)';
+  db.run(query, [ime, prezime, slikaUrl, opis1], function(err) {
     if (err) {
       console.error('Greška prilikom dodavanja osobe:', err.message);
       res.status(500).json({ message: 'Došlo je do greške prilikom dodavanja osobe.' });
@@ -363,6 +387,44 @@ app.get('/osobaMjeseca', (req, res) => {
   });
 });
 
+app.post('/admin/addAdmin',(req,res)=>{
+  console.log(req.body);
+  const {username, password} = req.body;
+  const insertQuery = 'INSERT INTO admini (username, password) VALUES (?, ?)';
+  db.run(insertQuery, [username, password], function(err) {
+    if (err) {
+      console.error('Greška prilikom dodavanja admina:', err.message);
+
+    } else {
+      res.status(200).send({message: 'Admin added successfully', changes: this.changes});
+    }
+});
+});
+
+app.post('/admin/deleteAdmin', (req, res) => {
+  const { id } = req.body;
+  db.run('DELETE FROM admini WHERE id = ?', [id], function(err) {
+    if(err){
+      console.error('Error deleting admin:', err.message);
+      res.status(500).send('Error deleting admin');
+    }else{
+      res.status(200).send({message: 'Admin deleted successfully', changes: this.changes});
+    }
+  });
+
+});
+
+
+app.get('/admini', (req, res) => {
+  db.all('SELECT * FROM admini', (err, rows) => {
+    if(err){
+      console.error('Error retrieving admins:', err.message);
+      res.status(500).send('Error retrieving admins');
+    }else{
+      res.status(200).send(rows);
+    }
+  });
+});
 
 
 app.get('/get_file/:id', (req, res) => {
@@ -641,7 +703,7 @@ app.get('/search', (req, res) => {
   // Protect against SQL injection
   const query = `
     SELECT * FROM ljudi 
-    WHERE ime LIKE ? OR prezime LIKE ? OR mjestoRodjenja LIKE ? OR strftime('%Y', datumRodjenja) LIKE ?
+    WHERE ime LIKE ? OR prezime LIKE ?
   `;
 
   db.all(query, [`%${searchTerm}%`, `%${searchTerm}%`, `%${searchTerm}%`, `%${searchTerm}%`], (err, rows) => {
@@ -656,29 +718,24 @@ app.get('/search', (req, res) => {
 
 app.post('/admin/update/:id', upload.single('slika'), (req, res) => {
   const osobaId = req.params.id;
-  const { ime, prezime, datumRodjenja, mjestoRodjenja, datumSmrti, opisEdit } = req.body;
+  const { ime, prezime, opis } = req.body;
   console.log(req.body);
+  console.log('opis ',opis);
   let slikaUrl = req.file ? `/uploads/media/images/${req.file.filename}` : undefined;
 
   let query = `UPDATE ljudi SET 
                  ime = ?,
                  prezime = ?, 
-                 datumRodjenja = ?, 
-                 mjestoRodjenja = ?, 
-                 datumSmrti = ?, 
                  opis = ? 
                WHERE id = ?`;
 
-  let queryParams = [ime, prezime, datumRodjenja, mjestoRodjenja, datumSmrti || null, opisEdit, osobaId];
+  let queryParams = [ime, prezime, opis, osobaId];
 
   // If a new image was uploaded, add it to the query and params
   if (slikaUrl) {
     query = `UPDATE ljudi SET 
                ime = ?,
                prezime = ?, 
-               datumRodjenja = ?, 
-               mjestoRodjenja = ?, 
-               datumSmrti = ?, 
                opis = ?, 
                slikaUrl = ?
              WHERE id = ?`;
@@ -781,3 +838,4 @@ app.post('/change_password', (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
+

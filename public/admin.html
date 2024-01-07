@@ -36,11 +36,12 @@
     <a href="#" class="tablink" onclick="openTab(event, 'FeaturedPersons')">Featured Persons</a>
     <a href="#" class="tablink" onclick="openTab(event, 'EditPersons')">Edit Persons</a>
     <a id="ManageModerators1" href="#" class="tablink" onclick="openTab(event, 'ManageModerators')" >Manage Moderators</a>
+    <a id="ManageAdmins1" href="#" class="tablink" onclick="openTab(event, 'ManageAdmins')" >Manage Admins</a>
 
     
   </div>
   <div id="AddPerson" class="tabcontent"> 
-  <form action="/admin/dodaj" method="post" enctype="multipart/form-data">
+  <form id="AddPersonForm" action="/admin/dodaj" method="post" enctype="multipart/form-data">
     <h1>Add a Person</h1>
     <div class="form-row">
       <div class="form-group">
@@ -54,22 +55,7 @@
       </div>
     </div>
     
-    <div class="form-row">
-      <div class="form-group">
-        <label for="datumRodjenja">Datum rođenja:</label>
-        <input type="date" id="datumRodjenja" name="datumRodjenja" required>
-      </div>
-      
-      <div class="form-group">
-        <label for="mjestoRodjenja">Mjesto rođenja:</label>
-        <input type="text" id="mjestoRodjenja" name="mjestoRodjenja" required>
-      </div>
-
-      <div class="form-group">
-        <label for="datumSmrti">Datum smrti (opcionalno):</label>
-        <input type="date" id="datumSmrti" name="datumSmrti">
-      </div>
-    </div> 
+  
     
     <div class="form-row">
       <div class="form-group image-upload-container">
@@ -85,6 +71,8 @@
         <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
         <div id="editor">
         </div>
+
+        <textarea name="opis1" id="hiddenOpis1" style="display:none;"></textarea>
 <!-- Initialize Quill editor -->
 <script>
   var toolbarOptions = [
@@ -212,7 +200,6 @@ var quill = new Quill('#editor', {
   
 
   
-  <!-- The form for editing a person's details -->
   <form id="editPersonForm" style="display:none;">
     <h1>Edit Person Details</h1>
     
@@ -229,22 +216,7 @@ var quill = new Quill('#editor', {
       </div>
     </div>
     
-    <div class="form-row">
-      <div class="form-group">
-        <label for="datumRodjenja">Datum rođenja:</label>
-        <input type="date" id="datumRodjenjaEdit" name="datumRodjenja" required>
-      </div>
-      
-      <div class="form-group">
-        <label for="mjestoRodjenja">Mjesto rođenja:</label>
-        <input type="text" id="mjestoRodjenjaEdit" name="mjestoRodjenja" required>
-      </div>
 
-      <div class="form-group">
-        <label for="datumSmrti">Datum smrti (opcionalno):</label>
-        <input type="date" id="datumSmrtiEdit" name="datumSmrti">
-      </div>
-    </div> 
     
     <div class="form-row">
       <div class="form-group image-upload-container">
@@ -257,11 +229,11 @@ var quill = new Quill('#editor', {
       
       <div class="form-group text-editor-container">
         
-        <textarea name="opisEdit" id="opisEdit"></textarea>
+        <div id="opisEdit" class="text-editor-container"></div>
         
       </div>
     </div>
-    
+    <textarea name="opis" id="hiddenOpis" style="display:none;"></textarea>
 
   
     
@@ -305,6 +277,43 @@ var quill = new Quill('#editor', {
     </div>
     <div class="form-row button-container">
       <button type="button" onclick="deleteModerator()" class="submit-button">Delete Moderator</button>
+    </div>
+  </form>
+
+</div>
+
+<div id="ManageAdmins" class="tabcontent">
+
+  <h1>Add an Admin</h1>
+  <form id="addAdminForm">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="adminUsername">Username:</label>
+        <input type="text" id="adminUsername" name="username" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="adminPassword">Password:</label>
+        <input type="password" id="adminPassword" name="password" required>
+      </div>
+    </div>
+
+    <div class="form-row button-container">
+      <button type="button" onclick="addAdmin()" class="submit-button">Add Admin</button>
+    </div>
+  </form>
+
+
+  <h1>Delete an Admin</h1>
+  <form id="deleteAdminForm">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="adminSelect">Select Admin:</label>
+        <select id="adminSelect" required></select>
+      </div>
+    </div>
+    <div class="form-row button-container">
+      <button type="button" onclick="deleteAdmin()" class="submit-button">Delete Admin</button>
     </div>
   </form>
 

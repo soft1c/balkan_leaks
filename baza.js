@@ -8,74 +8,26 @@ let db = new sqlite3.Database('./baza.db', (err) => {
     } else {
         console.log('Connected to the SQLite database.');
 
-        // Kreiranje tabele featuredPersons
-        db.run(`CREATE TABLE IF NOT EXISTS featuredPersons (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            person1_id INTEGER NOT NULL,
-            person2_id INTEGER NOT NULL,
-            person3_id INTEGER NOT NULL,
-            person4_id INTEGER NOT NULL,
-            FOREIGN KEY (person1_id) REFERENCES ljudi(id),
-            FOREIGN KEY (person2_id) REFERENCES ljudi(id),
-            FOREIGN KEY (person3_id) REFERENCES ljudi(id),
-            FOREIGN KEY (person4_id) REFERENCES ljudi(id)
-        )`, (err) => {
-            if (err) {
-                console.error(err.message);
-            } else {
-                console.log("Tabela 'featuredPersons' uspješno kreirana.");
-            }
-        });
-
-        // Kreiranje tabele osobaMjeseca
-        db.run(`CREATE TABLE IF NOT EXISTS osobaMjeseca (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            osobaId INTEGER NOT NULL,
-            FOREIGN KEY (osobaId) REFERENCES ljudi(id)
-        )`, (err) => {
-            if (err) {
-                console.error(err.message);
-            } else {
-                console.log("Tabela 'osobaMjeseca' uspješno kreirana.");
-            }
-        });
-
-        db.run(`CREATE TABLE IF NOT EXISTS moderatori (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT,
-            password TEXT   
-        )`, (err)=>{
-            if(err){
-            console.error(err.message);
-        }else{
-            console.log('Kreirano ');
-
-        }
-
-        db.run(`CREATE TABLE IF NOT EXISTS visits (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            ip TEXT NOT NULL,
-            loginTime TEXT NOT NULL
-          )`,(err)=>{
-            if(err){
-                console.error(err.message);
-            }else{
-                console.log('Kreirano ip ');
-            }
-          });
-
-          db.run(`CREATE TABLE IF NOT EXISTS user_entries (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+       
+        db.run(`CREATE TABLE IF NOT EXISTS ljudi_novi (
+            id INTEGER PRIMARY KEY,
+            ime TEXT,
+            prezime TEXT,
+            opis TEXT,
+            slikaUrl TEXT
           )`);
-    });
+        
+          // Kopiranje podataka iz stare tabele u novu (bez nepoželjnih kolona)
+          
+        
+          // Preimenovanje nove tabele u originalno ime
+          db.run(`ALTER TABLE ljudi_novi RENAME TO ljudi`);
+
+      
     }
     
 });
 
-
-
-// Zatvorite bazu podataka
 db.close((err) => {
     if (err) {
         console.error(err.message);
