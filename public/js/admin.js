@@ -65,7 +65,7 @@ function odaberiIstaknuteOsobe() {
   })
   .then(response => response.json())
   .then(data => {
-    alert('Istaknute osobe su uspješno odabrane!');
+    location.reload();
   })
   .catch(error => {
     console.error('Došlo je do greške:', error);
@@ -108,7 +108,7 @@ function odaberiIstaknuteOsobe() {
   .then(response => response.json())
   .then(data => {
     console.log(data);
-    alert('Fajl uspešno uploadovan i dodat u bazu podataka.');
+    location.reload();
   })
   .catch(error => {
     console.error('Došlo je do greške:', error);
@@ -196,7 +196,7 @@ function odaberiIstaknuteOsobe() {
       })
       .then(response => response.json())
       .then(data => {
-        alert('Osoba mjeseca je uspješno odabrana!');
+        location.reload();
       })
       .catch(error => {
         console.error('Došlo je do greške:', error);
@@ -220,24 +220,7 @@ function odaberiIstaknuteOsobe() {
     })
     .catch(error => console.error('Error:', error));
 });
-document.getElementById('delete-button').addEventListener('click', () => {
-  const checkedBoxes = document.querySelectorAll('.person-checkbox:checked');
-  const idsToDelete = Array.from(checkedBoxes).map(box => box.value);
 
-  fetch('/admin/delete', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ ids: idsToDelete })
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log(data.message);
-    
-  })
-  .catch(error => console.error('Error:', error));
-});
 function openTab(evt, tabName) {
   console.log(tabName);
   var i, tabcontent, tablinks;
@@ -404,7 +387,7 @@ function submitEditForm() {
   })
   .then(data => {
     console.log(data);
-    alert('Person updated successfully');
+    location.reload();
   })
   .catch(error => {
     console.error('Error:', error);
@@ -426,7 +409,7 @@ function addModerator() {
   })
   .then(response => response.json())
   .then(data => {
-    alert('Moderator je uspješno dodan');
+    location.reload();
   })
 };
 
@@ -441,7 +424,7 @@ function deleteModerator(){
   })
   .then(response => response.json())
   .then(data => {
-    alert('Moderator je obrisan');
+    location.reload();
   })
 };
 
@@ -509,7 +492,7 @@ function logout(){
       })
       .then(response => response.json())
       .then(data => {
-        alert('Person deleted successfully');
+        location.reload();
         // Refresh the person list or navigate away
       })
       .catch(error => {
@@ -551,7 +534,7 @@ function addAdmin() {
   })
   .then(response => response.json())
   .then(data => {
-    alert('Admin je uspješno dodan');
+    location.reload();
   })
 }
 
@@ -566,6 +549,42 @@ function deleteAdmin(){
   })
   .then(response => response.json())
   .then(data => {
-    alert('Admin je obrisan');
+    location.reload();
   })
+}
+
+
+function changePassword() {
+  var currentPassword = document.getElementById('currentPassword').value;
+  var newPassword = document.getElementById('newPassword').value;
+  var confirmNewPassword = document.getElementById('confirmNewPassword').value;
+
+  if (newPassword !== confirmNewPassword) {
+    alert('Passwords do not match.');
+    return;
+  }
+  fetch('/change_password', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      currentPassword: currentPassword,
+      newPassword: newPassword
+    })
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok ' + response.statusText);
+    }
+  return response.json();
+  })
+  .then(data => {
+    location.reload();
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+  
 }

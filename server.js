@@ -89,6 +89,7 @@ app.post('/login', (req, res) => {
     } else if (ownerRow) {
       console.log('Owner logged in');
       req.session.role = 'owner';
+      req.session.username= username;
       req.session.loggedIn = true;
       res.redirect('/admin');
     } else {
@@ -100,6 +101,7 @@ app.post('/login', (req, res) => {
         } else if (adminRow) {
           console.log('Admin logged in');
           req.session.role = 'admin';
+          req.session.username= username;
           req.session.loggedIn = true;
           res.redirect('/admin');
         } else {
@@ -111,6 +113,7 @@ app.post('/login', (req, res) => {
             } else if (modRow) {
               console.log('Moderator logged in');
               req.session.role = 'moderator';
+              req.session.username= username;
               req.session.loggedIn = true;
               res.redirect('/admin');
             } else {
@@ -820,16 +823,47 @@ app.post('/obrisi_osobu', (req, res) => {
 });
 
 app.post('/change_password', (req, res) => {
-  const { id, password } = req.body;
-  db.run('UPDATE ljudi SET password = ? WHERE id = ?', [password, id], function(err) {
-    if(err){
-      console.error('Error changing password:', err.message);
-      res.status(500).send('Error changing password');
-    }else{
-      res.status(200).send({message: 'Password changed successfully', changes: this.changes});
+    const { oldPassword, newPassword } = req.body;
+    console.log(req.body);
+    const username = req.session.username; // Pretpostavljamo da je korisničko ime spremljeno u sesiji
+    const role = req.session.role; // Pretpostavljamo da je uloga korisnika spremljena u sesiji
+    console.log(role,username);
+    // Odredite ime tablice na temelju uloge
+    let tableName;
+    switch (role) {
+      case 'owner':
+        tableName = 'owners';
+        break;
+      case 'admin':
+        tableName = 'admini';
+        break;
+      case 'moderator':
+        tableName = 'moderatori';
+        break;
+      default:
+        return res.status(401).send('Unauthorized access');
     }
+  console.log(tableName );
+    db.all(`SELECT password FROM ${tableName} WHERE username = ?`, [username], (err, row) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send('Server error');
+      }
+      if (row && row.password === oldPassword) {
+        // Ažurirajte lozinku
+        db.all(`UPDATE ${tableName} SET password = ? WHERE username = ?`, [newPassword, username], (updateErr) => {
+          if (updateErr) {
+            console.error(updateErr);
+            return res.status(500).send('Server error during password update');
+          }
+          res.send('Password updated successfully');
+        });
+      } else {
+        res.send('Invalid old password');
+      }
+    });
   });
-});
+
 
 
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Media Upload</title>
+  <title>BIPKD | Admin</title>
   <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
   <link rel="stylesheet" href="css/admin.css">
   <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
@@ -37,20 +37,19 @@
     <a href="#" class="tablink" onclick="openTab(event, 'EditPersons')">Edit Persons</a>
     <a id="ManageModerators1" href="#" class="tablink" onclick="openTab(event, 'ManageModerators')" >Manage Moderators</a>
     <a id="ManageAdmins1" href="#" class="tablink" onclick="openTab(event, 'ManageAdmins')" >Manage Admins</a>
-
-    
+    <a href="#" class="tablink" onclick="openTab(event, 'ChangePassword')">Change Your Password</a>  
   </div>
   <div id="AddPerson" class="tabcontent"> 
   <form id="AddPersonForm" action="/admin/dodaj" method="post" enctype="multipart/form-data">
     <h1>Add a Person</h1>
     <div class="form-row">
       <div class="form-group">
-        <label for="ime">Ime:</label>
+        <label for="ime">Name:</label>
         <input type="text" name="ime" required>
       </div>
       
       <div class="form-group">
-        <label for="ime">Prezime:</label>
+        <label for="ime">Surname:</label>
         <input type="text" name="prezime" required>
       </div>
     </div>
@@ -73,7 +72,7 @@
         </div>
 
         <textarea name="opis1" id="hiddenOpis1" style="display:none;"></textarea>
-<!-- Initialize Quill editor -->
+
 <script>
   var toolbarOptions = [
   ['bold', 'italic', 'underline'],
@@ -98,7 +97,7 @@ var quill = new Quill('#editor', {
     </div>
     
     <div class="form-row button-container">
-      <button type="submit" class="submit-button">Dodaj osobu</button>
+      <button type="submit" class="submit-button">Add Person</button>
     </div>
   </form>
   </div>
@@ -108,18 +107,18 @@ var quill = new Quill('#editor', {
     <form id="uploadForm" enctype="multipart/form-data">
       <div class="form-row">
         <div class="form-group">
-          <label for="licnost">Izaberite ličnost:</label>
+          <label for="licnost">Choose a person:</label>
           <select name="licnost" id="licnost" required>
           </select>
         </div>
       
         <div class="form-group">
-          <label for="type">Izaberite tip fajla:</label>
+          <label for="type">Choose a type:</label>
           <select name="type" id="type" required>
-            <option value="image">Slika</option>
+            <option value="image">Picture</option>
             <option value="video">Video</option>
             <option value="audio">Audio</option>
-            <option value="text">Tekst</option>
+            <option value="text">Text</option>
           </select>
         </div>
       </div>
@@ -127,7 +126,7 @@ var quill = new Quill('#editor', {
       <div class="form-row">
   <div class="form-group">
     <input type="file" id="file" name="file" required style="display: none;" onchange="updateFilename()">
-    <button type="button" class="file-upload-button" onclick="document.getElementById('file').click();">Izaberite fajl</button>
+    <button type="button" class="file-upload-button" onclick="document.getElementById('file').click();">Choose a file:</button>
     <span id="file-name"></span> <!-- Placeholder for the file name -->
   </div>
 </div>
@@ -155,38 +154,38 @@ var quill = new Quill('#editor', {
   </div>
   
   <div id="PersonOfTheMonth" class="tabcontent">
-  <h2>Osoba Mjeseca</h2>
+  <h2>Person of the month</h2>
   <form id="osobaMjesecaForm">
-    <label for="osobaMjeseca">Izaberite Osobu Mjeseca:</label>
+    <label for="osobaMjeseca">Choose the person of the month:</label>
     <select name="osobaMjeseca" id="osobaMjeseca" required>
      
     </select>
     <br>
-    <button type="button" onclick="odaberiOsobuMjeseca()">Odaberi</button>
+    <button type="button" onclick="odaberiOsobuMjeseca()">Choose</button>
   </form>
   </div>
 
 
   <div id="FeaturedPersons" class="tabcontent">
-  <h2>Istaknute Osobe</h2>
+  <h2>Featured persons:</h2>
 <form id="featuredPersonsForm">
-  <label for="featuredPerson1">Osoba 1:</label>
+  <label for="featuredPerson1">Person 1:</label>
   <select name="featuredPerson1" id="featuredPerson1" required></select>
   <br>
 
-  <label for="featuredPerson2">Osoba 2:</label>
+  <label for="featuredPerson2">Person 2:</label>
   <select name="featuredPerson2" id="featuredPerson2" required></select>
   <br>
 
-  <label for="featuredPerson3">Osoba 3:</label>
+  <label for="featuredPerson3">Person 3:</label>
   <select name="featuredPerson3" id="featuredPerson3" required></select>
   <br>
 
-  <label for="featuredPerson4">Osoba 4:</label>
+  <label for="featuredPerson4">Person 4:</label>
   <select name="featuredPerson4" id="featuredPerson4" required></select>
   <br>
 
-  <button type="button" onclick="odaberiIstaknuteOsobe()">Odaberi Istaknute Osobe</button>
+  <button type="button" onclick="odaberiIstaknuteOsobe()">Choose featured persons</button>
 </form>
 </div>
 <div id="EditPersons" class="tabcontent">
@@ -206,12 +205,12 @@ var quill = new Quill('#editor', {
     
     <div class="form-row">
       <div class="form-group">
-        <label for="ime">Ime:</label>
+        <label for="ime">Name:</label>
         <input type="text" id="imeEdit" name="ime" required>
       </div>
       
       <div class="form-group">
-        <label for="ime">Prezime:</label>
+        <label for="ime">Surname:</label>
         <input type="text" id="prezimeEdit" name="prezime" required>
       </div>
     </div>
@@ -317,6 +316,32 @@ var quill = new Quill('#editor', {
     </div>
   </form>
 
+</div>
+
+<div id="ChangePassword" class="tabcontent">
+  <h1>Change your password</h1>
+  <form id="changePasswordForm">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="currentPassword">Current password: </label>
+        <input type="password" id="currentPassword" name="currentPassword" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="newPassword">New password: </label>
+        <input type="password" id="newPassword" name="newPassword" required>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmNewPassword">Confirm new password: </label>
+        <input type="password" id="confirmNewPassword" name="confirmNewPassword" required>
+      </div>
+    </div>
+
+    <div class="form-row button-container">
+      <button type="button" onclick="changePassword()" class="submit-button">Change password</button>
+    </div>
+  </form>
 </div>
 
 
