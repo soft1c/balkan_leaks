@@ -706,7 +706,7 @@ app.get('/search', (req, res) => {
     WHERE ime LIKE ? OR prezime LIKE ?
   `;
 
-  db.all(query, [`%${searchTerm}%`, `%${searchTerm}%`, `%${searchTerm}%`, `%${searchTerm}%`], (err, rows) => {
+  db.all(query, [`%${searchTerm}%`, `%${searchTerm}%`], (err, rows) => {
     if (err) {
       console.error('Search error:', err);
       return res.status(500).json({ message: 'Error occurred during search.' });
