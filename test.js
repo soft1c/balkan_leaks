@@ -6,7 +6,7 @@ const db=new sqlite3.Database('./baza.db',sqlite3.OPEN_READWRITE,(err)=>{
         throw err;
     }else{
         console.log('Connected to the SQLite database.');
-        const query='SELECT * FROM owners';
+        const query='SELECT * FROM moderatori';
         db.all(query,(err,rows)=>{
             if(err){
                 console.log(err);

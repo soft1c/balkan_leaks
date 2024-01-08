@@ -106,7 +106,7 @@ app.post('/login', (req, res) => {
           res.redirect('/admin');
         } else {
           // Ako ni admin kredencijali nisu pronađeni, provjerava se tabela moderators
-          db.get('SELECT * FROM moderators WHERE username = ? AND password = ?', [username, password], (modErr, modRow) => {
+          db.get('SELECT * FROM moderatori WHERE username = ? AND password = ?', [username, password], (modErr, modRow) => {
             if (modErr) {
               console.error(modErr);
               res.status(500).send('Server error');
@@ -863,9 +863,6 @@ app.post('/change_password', (req, res) => {
       }
     });
   });
-
-
-
 
 
 app.listen(port, () => {
