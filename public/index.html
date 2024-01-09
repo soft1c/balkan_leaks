@@ -238,8 +238,9 @@ main{
   }
   function generatePersonHTML(osoba) {
   const baseUrl = '/uploads/media/images/';
-  const card = document.createElement('div');
+  const card = document.createElement('a'); // Change this to an anchor tag
   card.className = 'card';
+  card.href = `/podstranica/${osoba.id}`; // Set the href attribute
   card.style.setProperty('--bg-img', `url(${baseUrl}${osoba.slikaUrl})`);
   card.innerHTML = `
     <div>
