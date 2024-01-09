@@ -177,8 +177,8 @@ main{
     <!-- Istaknute osobe će biti dodane ovdje dinamički -->
   </section>
 
-  <div class="scrollmenu">
-  <section id="ostaleOsobe" style="gap: 25px; grid-template-columns: repeat(100000, 1fr); padding: 0; background-color: #f2f2f2;" class="cards-wrapper horizonal-scroll">
+  <div style="z-index: -1000;"class="scrollmenu">
+  <section id="ostaleOsobe" style="gap: 25px; grid-template-columns: repeat(100000, 1fr); padding: 0; background-color: #f2f2f2;z-index: -999;" class="cards-wrapper horizontal-scroll">
     <!-- Nedavno dodane osobe će biti dodane ovdje dinamički -->
   </section>
 </div>
@@ -238,35 +238,26 @@ main{
   }
   function generatePersonHTML(osoba) {
   const baseUrl = '/uploads/media/images/';
-  return `
-    <div class="card-grid-space">
-      <div class="num"></div>
-      <a class="card" href="/podstranica/${osoba.id}" style="width:300px; --bg-img: url(${baseUrl}${osoba.slikaUrl})">
-        <div>
-          <h1>${osoba.ime} ${osoba.prezime}</h1>
-          
-          
-        </div>
-      </a>
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.style.setProperty('--bg-img', `url(${baseUrl}${osoba.slikaUrl})`);
+  card.innerHTML = `
+    <div>
+      <h1>${osoba.ime} ${osoba.prezime}</h1>
     </div>
   `;
+  return card;
 }
 
 function setupInfiniteScroll(osobe) {
   const container = document.getElementById('ostaleOsobe');
-  let scrollWidth = container.scrollWidth;
-
+  
   container.addEventListener('scroll', function() {
-    if (container.scrollLeft > scrollWidth - container.offsetWidth) {
-      // Premještanje prvog elementa na kraj kad se dođe do kraja skrola
+    // Check if scrolled to end
+    if (container.scrollWidth - container.scrollLeft === container.clientWidth) {
+      console.log('Scrolled to end of container');
       const firstElement = container.firstChild;
-      container.appendChild(firstElement);
-      container.scrollLeft -= firstElement.offsetWidth;
-    } else if (container.scrollLeft < firstElement.offsetWidth) {
-      // Premještanje zadnjeg elementa na početak kad se dođe do početka skrola
-      const lastElement = container.lastChild;
-      container.insertBefore(lastElement, container.firstChild);
-      container.scrollLeft += lastElement.offsetWidth;
+      container.appendChild(firstElement.cloneNode(true));
     }
   });
 }
@@ -275,9 +266,20 @@ function fetchNedavnoDodaneOsobe() {
   fetch('/daj_sve')
     .then(response => response.json())
     .then(osobe => {
-      let cardsHtml = osobe.map(generatePersonHTML).join('');
-      document.getElementById('ostaleOsobe').innerHTML = cardsHtml; // Dodavanje kartica u kontejner
-      setupInfiniteScroll(osobe); // Postavljanje beskonačnog skrolanja
+      const container = document.getElementById('ostaleOsobe');
+      container.innerHTML = ''; // Clear existing content
+
+      const cardWidth = 300; // Širina jedne karte
+      const gap = 25; // Razmak između karata
+
+      osobe.forEach(osoba => {
+        const personCard = generatePersonHTML(osoba);
+        container.appendChild(personCard);
+      });
+
+      // Postavljanje širine kontejnera
+      const totalWidth = osobe.length * (cardWidth + gap) - gap;
+      container.style.width = `${totalWidth}px`;
     })
     .catch(error => console.error('Došlo je do greške:', error));
 }
