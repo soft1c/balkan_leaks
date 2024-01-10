@@ -201,7 +201,7 @@ main{
                 <div>
                   <h1>${osoba.ime} ${osoba.prezime}</h1>
                   
-                  <!-- Pretpostavka je da datum nije dostupan ili nije relevantan -->
+                
                   
                 </div>
               </a>
@@ -273,7 +273,7 @@ function fetchNedavnoDodaneOsobe() {
       const container = document.getElementById('ostaleOsobe');
       container.innerHTML = ''; // Clear existing content
 
-      const cardWidth = 300; // Širina jedne karte
+      const cardWidth = 9*16; // Širina jedne karte
       const gap = 25; // Razmak između karata
 
       osobe.forEach(osoba => {
@@ -282,8 +282,10 @@ function fetchNedavnoDodaneOsobe() {
       });
 
       // Postavljanje širine kontejnera
-      const totalWidth = osobe.length * (cardWidth + gap) - gap;
+      const totalWidth = osobe.length * (cardWidth + gap) + gap;
       container.style.width = `${totalWidth}px`;
+      container.style.paddingLeft = `${gap/2}px`;
+      container.style.paddingRight = `${gap/2}px`;
     })
     .catch(error => console.error('Došlo je do greške:', error));
 }
