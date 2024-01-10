@@ -344,6 +344,7 @@ a {
         border-radius: 0; }
 
         .horizontal-scroll{
+          
           display: flex;
   flex-direction: row;
   overflow-x: auto;
@@ -352,3 +353,5 @@ a {
   background-color: #f2f2f2;
   z-index: -999;
         }
+
+        

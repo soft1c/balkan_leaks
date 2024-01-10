@@ -178,13 +178,16 @@ main{
   </section>
 
   <div style="z-index: -1000;"class="scrollmenu">
+    
   <section id="ostaleOsobe" style="gap: 25px; grid-template-columns: repeat(100000, 1fr); padding: 0; background-color: #f2f2f2;z-index: -999;" class="cards-wrapper horizontal-scroll">
     <!-- Nedavno dodane osobe će biti dodane ovdje dinamički -->
   </section>
+  
 </div>
 
 
   <script>
+    
     function fetchOsobaMjeseca() {
       fetch('/osobaMjeseca')
         .then(response => response.json())
@@ -341,6 +344,7 @@ function fetchNedavnoDodaneOsobe() {
   document.getElementById('search-bar').addEventListener('input', handleSearch);
 
   document.addEventListener("DOMContentLoaded", function() {
+    
   const scrollContainer = document.getElementById('ostaleOsobe');
   const scrollThreshold = scrollContainer.scrollWidth - scrollContainer.clientWidth;
 
