@@ -297,9 +297,25 @@ div.scrollmenu a:hover {
   .tag-navigation .active a {
     border-bottom: thin solid #cccccc; }
 
+    .gotopbtn
+{
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  background: #333;
+  bottom: 40px;
+  right: 50px;
+  text-decoration: none;
+  text-align: center;
+  line-height: 60px;
+  color: white;
+  font-size: 32
+}
 
-
-
+	  html
+{
+  scroll-behavior: smooth;
+}
 	  
 main{
   flex:1;
@@ -522,6 +538,9 @@ function fetchNedavnoDodaneOsobe() {
 
   </script>
 
+<a href="#" class="gotopbtn">
+  <ion-icon name="arrow-up-outline"></ion-icon>
+</a>
 <br><br><br><br><br>
 
 <footer id="page-footer" class="footer-recommendations">
