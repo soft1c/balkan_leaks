@@ -686,3 +686,6 @@ ul li {
           padding: 5px;
       }
       
+      .nav-logo a img {
+        height: 50px; /* Adjust the size as needed */
+    }

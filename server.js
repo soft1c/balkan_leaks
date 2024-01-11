@@ -317,6 +317,10 @@ app.get('/ljudi', (req, res) => {
 });
 
 
+app.get('/about-us',(req,res)=>{
+  res.sendFile(path.join(__dirname, 'public', 'about-us.html'));
+})
+
 
 app.get('/zadnjih_11', (req, res) => {
   const query = 'SELECT * FROM ljudi ORDER BY id DESC LIMIT 11';

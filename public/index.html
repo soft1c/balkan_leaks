@@ -322,18 +322,100 @@ div.scrollmenu a:hover {
 main{
   flex:1;
 }
+header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header img {
+            height: 50px; /* Adjust logo size as needed */
+            margin-right: 20px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .donate-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+        }
+        .placeholder-text {
+    text-align: center;
+    margin: 20px 0;
+}
+#header-logo {
+    height: 70px; /* Adjust as needed */
+    /* Add more styling if necessary */
+}
+
+
   </style>
 </head>
 <body>
+  <header>
+    <a href="https://bipkd.onrender.com">
+      <img src="logo2.png" alt="Logo" id="header-logo"> <!-- Assign an ID for specific styling -->
+  </a><!-- Moved logo here -->
+    <nav>
+        <a href="/about-us">About Us</a>
+        <a href="/donate">Donate</a>
+    </nav>
+</header>
+<div id="donatePopup" class="donate-popup">
+  <span class="close-btn" id="closeBtn">&times;</span>
+  <p><a href="https://www.paypal.com/donateLink">Donate via PayPal</a></p>
+  <p>Scan this QR code to donate:</p>
+  <img src="placeholder-qr-code.png" alt="QR Code">
+</div>
+
+<script>
+  // JavaScript to handle Donate click
+  document.querySelector('nav a[href="/donate"]').addEventListener('click', function(event) {
+      event.preventDefault(); // Prevents default link behavior
+      var popup = document.getElementById('donatePopup');
+      popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+  });
+  document.getElementById('closeBtn').addEventListener('click', function() {
+            document.getElementById('donatePopup').style.display = 'none';
+        });
+
+</script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 <br><br>
-<div id="logo-under-header">
-  <h1 style="color:black; font:bold; margin:0px; font-size: 48px;">BPIKD</h1>
-  <img style="margin:0px;" src="logo2.png" alt="Logo Under Header">
-
+<div class="placeholder-text">
+  <p>Your placeholder text here...</p>
 </div>
 <br>
 <br><br><br>

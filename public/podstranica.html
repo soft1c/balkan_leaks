@@ -18,27 +18,211 @@
     
     <link href="/css/styles_sidenav.css" rel="stylesheet">
     <link href="/css/style_file.css" rel="stylesheet">
+    <style>
+      header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header img {
+            height: 50px; /* Adjust logo size as needed */
+            margin-right: 20px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .donate-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+        }
+        .placeholder-text {
+    text-align: center;
+    margin: 20px 0;
+}
+#header-logo {
+    height: 70px; /* Adjust as needed */
+    /* Add more styling if necessary */
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    
+    display: flex;
+    flex-direction: column;
+}
+body, .main-content {
+            padding-bottom: 70px; /* Ovde postavite visinu footera plus dodatni prostor */
+        }
+
+        footer {
+    background-color: #333; /* ili bilo koju drugu boju po želji */
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+}
+    .footer-recommendations {
+     /* Fix the footer to the bottom */
+    left: 0; /* Align to the left edge */
+    bottom: 0; /* Align to the bottom edge */
+    width: 100%; /* Set the width to span the full viewport width */
+    background-color: #ebebeb; /* Assuming you want this background color */
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1); /* Optional: Adds a shadow above the footer */
+    z-index: 100; /* Ensures it's above other page content */
+}
+  .footer-recommendations .footer-wrapper {
+    background-color: #ebebeb;
+    
+    margin-top: 40px; }
+  .footer-recommendations .recommendation-container {
+    max-width: 1100px;
+
+    margin-left: auto;
+    margin-right: auto;
+    clear: both;
+    text-align: center; }
+    .footer-recommendations .recommendation-container::after {
+      clear: both;
+      content: "";
+      display: table; }
+  .footer-recommendations .top {
+    background: url("/static/img/arrow-up.png") 50% 30% no-repeat #fff;
+    background-size: 1.3em;
+    border: #cccccc 1px solid;
+    border-radius: 40px;
+    color: #555555;
+    display: inline-block;
+    height: 80px;
+    padding: 40px 0;
+    position: relative;
+    text-align: center;
+    top: -40px;
+    width: 80px; }
+  .footer-recommendations .recommendation-links li {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 14.70196%;
+    font-size: 1em;
+    text-align: center; }
+    .footer-recommendations .recommendation-links li:last-child {
+      margin-right: 0; }
+    .footer-recommendations .recommendation-links li a {
+      color: #555555; }
+    .footer-recommendations .recommendation-links li p {
+      line-height: 1.43em;
+      text-indent: 0; }
+    .footer-recommendations .recommendation-links li .teaser {
+      display: table-cell;
+      height: 120px;
+      vertical-align: middle; }
+      .footer-recommendations .recommendation-links li .teaser .spip_logos {
+        height: auto;
+        width: 100%; }
+  .footer-recommendations .recommendation-links .recommendation:first-child {
+    margin-left: 8.5298%; }
+  .footer-recommendations .social-links {
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    clear: both;
+    padding: 3em 0;
+    width: 100%; }
+    .footer-recommendations .social-links::after {
+      clear: both;
+      content: "";
+      display: table; }
+    .footer-recommendations .social-links li {
+      display: inline-block;
+      padding: 1em; }
+      .footer-recommendations .social-links li img {
+        height: 1.4em; }
+
+@media screen and (max-width: 769px) {
+  .partners .content {
+    margin-left: 0%;
+    float: left;
+    display: block;
+    margin-right: 38.19821%;
+    width: 100%; }
+    .partners .content:last-child {
+      margin-right: 0; } }
+.partners .content li {
+  display: inline-block; }
+  .partners .content li span {
+    display: table-cell;
+    height: 130px;
+    text-align: center;
+    vertical-align: middle;
+    width: 150px; }
+    @media screen and (max-width: 500px) {
+      .partners .content li span {
+        width: 140px; } 
+        .footer-recommendations .recommendation-links li {
+          width: 80%;
+          padding: 0;
+          margin:0;
+          text-align: center;
+          display: inline-block;
+          border:0;
+          
+          
+          
+        }
+      }
+      
+    body, html {
+    
+    margin: 0;
+}
+.main-content {
+    /* Add a bottom margin equal to the footer's height plus some extra space */
+    margin-bottom: 150px; /* Adjust this value as needed */
+    flex: 1 0 auto; /* This ensures that the .main-content will expand to fill available space */
+}
+    </style>
 </head>
 <body>
-<div class="top-navigation">
-  <nav class="navbar">
-      <a href="#menu" class="mobile-only hot-dog nav-element">
-      </a>
-    <div class="nav-logo">
-      <a href="https://google.com">
-        <h1>BIPKD</h1>
-      </a>
-    </div>
-    <div class="action-buttons">
-      <a class="button-face support-link" onclick="goBack()">Return</a>
-
-      
-    </div>
-    
-    <div class="main-nav">
-    </div>
-  </nav>
-</div>
+  <header>
+    <a href="https://bipkd.onrender.com">
+      <img src="/logo2.png" alt="Logo" id="header-logo"> <!-- Assign an ID for specific styling -->
+  </a><!-- Moved logo here -->
+    <nav>
+        <a href="/about-us">About Us</a>
+        <a href="/donate">Donate</a>
+    </nav>
+</header>
+<div class="main-content">
       <div class="content">
         <div class="container-fluid row-fluid">
           <div class="col-xs-12 col-sm-12 col-md-12 container-text" id="right-pane">
@@ -192,7 +376,7 @@ function previewFile(type, filename) {
       }
     </script>
 
-
+        </div>
 
 
 </body>
