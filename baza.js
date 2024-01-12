@@ -1,55 +1,37 @@
 const sqlite3 = require('sqlite3').verbose();
-const path = require('path');
 
-// Putanja do SQLite baze podataka
-const dbPath = path.join(__dirname, 'baza.db');
-
-// Kreiranje veze s bazom podataka
-const db = new sqlite3.Database(dbPath);
-
-// SQL upit za stvaranje tabele "Ljudi"
-const createPeopleTable = `
-  CREATE TABLE  ljudi (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    ime TEXT ,
-    prezime TEXT ,
-    datumRodjenja DATE,
-    mjestoRodjenja TEXT ,
-    datumSmrti DATE,
-    slikaUrl TEXT,
-    opis TEXT
-  );
-`;
-
-// SQL upit za stvaranje tabele "Fileovi"
-const createFilesTable = `
-  CREATE TABLE  fileovi (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    filePath TEXT,
-    LjudiId INTEGER,
-    fileType TEXT,
-    FOREIGN KEY (LjudiId) REFERENCES Ljudi(id)
-  );
-`;
-
-// Izvršavanje SQL upita za stvaranje tabela
-db.serialize(() => {
-  db.run(createPeopleTable, (err) => {
+// Otvorite bazu podataka (ili je kreirajte ako ne postoji)
+let db = new sqlite3.Database('./baza.db', (err) => {
     if (err) {
-      console.error('Greška prilikom stvaranja tabele "Ljudi":', err);
+        console.error(err.message);
+        throw err;
     } else {
-      console.log('Tabela "Ljudi" je uspješno stvorena.');
-    }
-  });
+        console.log('Connected to the SQLite database.');
 
-  db.run(createFilesTable, (err) => {
-    if (err) {
-      console.error('Greška prilikom stvaranja tabele "Fileovi":', err);
-    } else {
-      console.log('Tabela "Fileovi" je uspješno stvorena.');
+       
+        db.run(`CREATE TABLE IF NOT EXISTS ljudi_novi (
+            id INTEGER PRIMARY KEY,
+            ime TEXT,
+            prezime TEXT,
+            opis TEXT,
+            slikaUrl TEXT
+          )`);
+        
+          // Kopiranje podataka iz stare tabele u novu (bez nepoželjnih kolona)
+          
+        
+          // Preimenovanje nove tabele u originalno ime
+          db.run(`ALTER TABLE ljudi_novi RENAME TO ljudi`);
+
+      
     }
-  });
+    
 });
 
-// Zatvaranje veze s bazom podataka nakon izvršavanja upita
-db.close();
+db.close((err) => {
+    if (err) {
+        console.error(err.message);
+    } else {
+        console.log('Connection to the SQLite database closed.');
+    }
+});
