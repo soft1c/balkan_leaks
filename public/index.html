@@ -7,9 +7,11 @@
     <link href="/css/tr.css" rel="stylesheet">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/daterangepicker.css" />
+    
     <link href="/css/styles_topnav.css" rel="stylesheet">
     <link href="/css/wlks.css" rel="stylesheet">
-    
+    <script src="https://kit.fontawesome.com/a59b9b09ab.js" crossorigin="anonymous"></script>
+
     <link href="/css/styles_sidenav.css" rel="stylesheet">
     <link href="/css/style_file.css" rel="stylesheet">
     
@@ -378,7 +380,7 @@ header {
   </style>
 </head>
 <body>
-  <div class="top-navigation">
+  <div style="border-bottom: 0px;" class="top-navigation">
     <nav class="navbar">
         <a href="#menu" class="mobile-only hot-dog nav-element">
         </a>
@@ -433,7 +435,7 @@ header {
         <ul class="first-level">
   
 
-          
+
               <li>
                 <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
               </li>
@@ -471,7 +473,7 @@ header {
       </aside>
     </div>
   </nav>
-<br><br><br><br><br>
+<br><br>
 
 <script>
   // JavaScript to handle Donate click
@@ -490,9 +492,6 @@ header {
 
 
 
-<div class="placeholder-text">
-  <p style="margin-bottom: 0px;"><b>BPIKD</b></p>
-</div>
 <br>
 
 
@@ -521,21 +520,70 @@ header {
   <section id="osobaMjeseca" class="cards-wrapper" style="display:flex; justify-content: center; padding: 0px;">
     <!-- Dinamički sadržaj osobe mjeseca će biti umetnut ovdje -->
   </section>
-  
-  <section id="istaknuteOsobe" style="gap: 25px;" class="cards-wrapper">
+  <br>
+  <section id="istaknuteOsobe" style="gap: 25px; " class="cards-wrapper">
     <!-- Istaknute osobe će biti dodane ovdje dinamički -->
   </section>
 
-
+  
   <div class="cards-container" >
-  <div style="z-index: -1000;"class="scrollmenu">
+  
+    <button  class="left" onclick="leftScroll()">
+      <i class="fas fa-angle-double-left"></i>
+    </button>
+  <div style="z-index: -1000; "class="scrollmenu">
     
-  <section id="ostaleOsobe" style="gap: 25px; grid-template-columns: repeat(100000, 1fr); padding: 0; z-index: -999; justify-content: center;" class="cards-wrapper horizontal-scroll">
+  <section id="ostaleOsobe" style="gap: 25px; grid-template-columns: repeat(100000, 1fr); padding: 0; z-index: -999; justify-content: center; display: flex;" class="cards-wrapper horizontal-scroll">
     <!-- Nedavno dodane osobe će biti dodane ovdje dinamički -->
   </section>
-  
+  <button class="right" onclick="rightScroll()">
+    <i class="fas fa-angle-double-right"></i>
+  </button>
+
+
 </div>
-</div>
+</div>   
+<script>document.addEventListener("DOMContentLoaded", function () {
+  const scrollImages = document.querySelector(".scrollmenu");
+  const scrollLength = scrollImages.scrollWidth - scrollImages.clientWidth;
+  const leftButton = document.querySelector(".left");
+  const rightButton = document.querySelector(".right");
+
+  function checkScroll() {
+    const currentScroll = scrollImages.scrollLeft;
+    if (currentScroll === 0) {
+      leftButton.setAttribute("disabled", "true");
+      rightButton.removeAttribute("disabled");
+    } else if (currentScroll === scrollLength) {
+      rightButton.setAttribute("disabled", "true");
+      leftButton.removeAttribute("disabled");
+    } else {
+      leftButton.removeAttribute("disabled");
+      rightButton.removeAttribute("disabled");
+    }
+  }
+
+  scrollImages.addEventListener("scroll", checkScroll);
+  window.addEventListener("resize", checkScroll);
+  checkScroll();
+
+  function leftScroll() {
+    scrollImages.scrollBy({
+      left: -200,
+      behavior: "smooth"
+    });
+  }
+
+  function rightScroll() {
+    scrollImages.scrollBy({
+      left: 200,
+      behavior: "smooth"
+    });
+  }
+
+  leftButton.addEventListener("click", leftScroll);
+  rightButton.addEventListener("click", rightScroll);
+});</script>
 
   <script>
     
