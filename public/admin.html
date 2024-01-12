@@ -3,314 +3,364 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Media Upload</title>
+  <title>BIPKD | Admin</title>
   <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
   <link rel="stylesheet" href="css/admin.css">
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
 </head>
 <body>
-  <form action="/admin/dodaj" method="post" enctype="multipart/form-data">
-    <label for="ime">Ime:</label>
-    <input type="text" name="ime" required>
-    <br>
+  <div class="top-navigation">
+    <nav class="navbar">
+        <a href="#menu" class="mobile-only hot-dog nav-element">
+        </a>
+      <div class="nav-logo">
+        
+          <h1>Admin panel</h1>
+        
+      </div>
+      <div class="action-buttons">
+        <button id="odjava" class="button-face support-link" onclick="logout()">Log Out</button>
+      </div>
+      
+      <div class="main-nav">
+      </div>
+    </nav>
+  </div>
+  <script src="js/admin.js"></script>
+  <div class="sidebar">
+    <a href="#" class="tablink" onclick="openTab(event, 'AddPerson')">Add Person</a>
+    <a href="#" class="tablink" onclick="openTab(event, 'UploadMedia')">Upload Media</a>
+    <a href="#" class="tablink" onclick="openTab(event, 'IPAddresses')">IP Addresses</a>
+    <a href="#" class="tablink" onclick="openTab(event, 'PersonOfTheMonth')">Person of the Month</a>
+    <a href="#" class="tablink" onclick="openTab(event, 'FeaturedPersons')">Featured Persons</a>
+    <a href="#" class="tablink" onclick="openTab(event, 'EditPersons')">Edit Persons</a>
+    <a id="ManageModerators1" href="#" class="tablink" onclick="openTab(event, 'ManageModerators')" >Manage Moderators</a>
+    <a id="ManageAdmins1" href="#" class="tablink" onclick="openTab(event, 'ManageAdmins')" >Manage Admins</a>
+    <a href="#" class="tablink" onclick="openTab(event, 'ChangePassword')">Change Your Password</a>  
+  </div>
+  <div id="AddPerson" class="tabcontent"> 
+  <form id="AddPersonForm" action="/admin/dodaj" method="post" enctype="multipart/form-data">
+    <h1>Add a Person</h1>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="ime">Name:</label>
+        <input type="text" name="ime" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="ime">Surname:</label>
+        <input type="text" name="prezime" required>
+      </div>
+    </div>
     
-    <label for="prezime">Prezime:</label>
-    <input type="text" name="prezime" required>
-    <br>
   
-    <label for="datumRodjenja">Datum rođenja:</label>
-    <input type="date" name="datumRodjenja" required>
-    <br>
-  
-    <label for="mjestoRodjenja">Mjesto rođenja:</label>
-    <input type="text" name="mjestoRodjenja" required>
-    <br>
-  
-    <label for="datumSmrti">Datum smrti:</label>
-    <input type="date" name="datumSmrti">
-    <br>
-  
-    <label for="slika">Slika osobe:</label>
-    <input type="file" name="slika" accept="image/*" required>
-    <br>
-    <label for="opis">Opis:</label>
-    <br>
-    <textarea name="opis" id="opis"></textarea>
+    
+    <div class="form-row">
+      <div class="form-group image-upload-container">
+        <div class="image-upload-box" onclick="document.getElementById('slika').click()">
+          <p>Upload Picture</p>
+          <input type="file" id="slika" name="slika" accept="image/*" required onchange="previewImage(event)">
+          <img id="imagePreview" src="" alt="Image preview" style="display:none;">
+        </div>
+      </div>
+      
+      <div class="form-group text-editor-container">
+        
+        <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+        <div id="editor">
+        </div>
+
+        <textarea name="opis1" id="hiddenOpis1" style="display:none;"></textarea>
 
 <script>
-  ClassicEditor
-    .create(document.querySelector('#opis'))
-    .catch(error => {
-      console.error(error);
-    });
+  var toolbarOptions = [
+  ['bold', 'italic', 'underline'],
+  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+  [{ 'size': ['small', false, 'large', 'huge'] }],
+
+  ['link'],
+  [{ 'color': [] }, { 'background': [] }],
+  [{ 'font': [] }],
+  [{ 'align': [] }]
+];
+
+var Link = Quill.import('formats/link');
+
+class MyLink extends Link {
+  static create(value) {
+    let node = super.create(value);
+    // Dodaje 'http://' ako link ne počinje sa 'http://' ili 'https://'
+    if (!value.startsWith('http://') && !value.startsWith('https://')) {
+      node.setAttribute('href', 'http://' + value);
+    }
+    return node;
+  }
+}
+
+Quill.register(MyLink);
+
+var quill = new Quill('#editor', {
+  modules: {
+    toolbar: toolbarOptions
+  },
+  theme: 'snow'
+});
+
 </script>
+      </div>
+    </div>
+    
+    <div class="form-row button-container">
+      <button type="submit" class="submit-button">Add Person</button>
+    </div>
+  </form>
+  </div>
+
+  <div id="UploadMedia" class="tabcontent">
+    <h1>Upload Media</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="licnost">Choose a person:</label>
+          <select name="licnost" id="licnost" required>
+          </select>
+        </div>
+      
+        <div class="form-group">
+          <label for="type">Choose a type:</label>
+          <select name="type" id="type" required>
+            <option value="image">Picture</option>
+            <option value="video">Video</option>
+            <option value="audio">Audio</option>
+            <option value="text">Text</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="form-row">
+  <div class="form-group">
+    <input type="file" id="file" name="file" required style="display: none;" onchange="updateFilename()">
+    <button type="button" class="file-upload-button" onclick="document.getElementById('file').click();">Choose a file:</button>
+    <span id="file-name"></span> <!-- Placeholder for the file name -->
+  </div>
+</div>
+      
+      <div class="form-row button-container">
+        <button type="button" onclick="uploadMedia()" class="submit-button">Upload</button>
+      </div>
+    </form>
+  </div>
+
+  <div id="IPAddresses" class="tabcontent">
+    <div class="data-container">
+      <div id="ip-addresses" class="data-block">
+          <h2>IP Addresses:</h2>
+          <ul id="ipList" class="scrollable-list"></ul>
+      </div>
   
-    <button type="submit">Dodaj osobu</button>
-  </form>
-
-  <h1>Upload Media</h1>
-
-  <form id="uploadForm" enctype="multipart/form-data">
-    <label for="licnost">Izaberite ličnost:</label>
-    <select name="licnost" id="licnost" required>
-      <!-- Ovde će biti dinamički dodate opcije sa nazivima ličnosti -->
-    </select>
-    <br>
-
-    <label for="file">Izaberite fajl:</label>
-    <input type="file" name="file" id="file" required>
-    <br>
-
-    <label for="type">Izaberite tip fajla:</label>
-    <select name="type" id="type" required>
-      <option value="image">Slika</option>
-      <option value="video">Video</option>
-      <option value="audio">Audio</option>
-      <option value="text">Tekst</option>
-    </select>
-    <br>
-
-    <button type="button" onclick="uploadMedia()">Upload</button>
-  </form>
-  <h2>IP Addresses and Login Times:</h2>
-  <ul id="ipList"></ul>
-
-  <h2>Osoba Mjeseca</h2>
+      <div id="visit-stats" class="data-block">
+          <h2>Visit Statistics:</h2>
+          <p id="dailyCount">Today's Visits: Loading...</p>
+          <p id="weeklyCount">Last Week's Visits: Loading...</p>
+          <p id="allTimeCount">Total Visits: Loading...</p>
+      </div>
+  </div>
+  </div>
+  
+  <div id="PersonOfTheMonth" class="tabcontent">
+  <h2>Person of the month</h2>
   <form id="osobaMjesecaForm">
-    <label for="osobaMjeseca">Izaberite Osobu Mjeseca:</label>
+    <label for="osobaMjeseca">Choose the person of the month:</label>
     <select name="osobaMjeseca" id="osobaMjeseca" required>
      
     </select>
     <br>
-    <button type="button" onclick="odaberiOsobuMjeseca()">Odaberi</button>
+    <button type="button" onclick="odaberiOsobuMjeseca()">Choose</button>
   </form>
+  </div>
 
-  <h2>Istaknute Osobe</h2>
+
+  <div id="FeaturedPersons" class="tabcontent">
+  <h2>Featured persons:</h2>
 <form id="featuredPersonsForm">
-  <label for="featuredPerson1">Osoba 1:</label>
+  <label for="featuredPerson1">Person 1:</label>
   <select name="featuredPerson1" id="featuredPerson1" required></select>
   <br>
 
-  <label for="featuredPerson2">Osoba 2:</label>
+  <label for="featuredPerson2">Person 2:</label>
   <select name="featuredPerson2" id="featuredPerson2" required></select>
   <br>
 
-  <label for="featuredPerson3">Osoba 3:</label>
+  <label for="featuredPerson3">Person 3:</label>
   <select name="featuredPerson3" id="featuredPerson3" required></select>
   <br>
 
-  <label for="featuredPerson4">Osoba 4:</label>
+  <label for="featuredPerson4">Person 4:</label>
   <select name="featuredPerson4" id="featuredPerson4" required></select>
   <br>
 
-  <button type="button" onclick="odaberiIstaknuteOsobe()">Odaberi Istaknute Osobe</button>
+  <button type="button" onclick="odaberiIstaknuteOsobe()">Choose featured persons</button>
 </form>
-
-
-<table id="persons-table">
-  <thead>
-    <tr>
-      <th>Select</th>
-      <th>Name</th>
-      <!-- other headers -->
-    </tr>
-  </thead>
-  <tbody id="persons-list">
-    <!-- Persons will be added here -->
-  </tbody>
-</table>
-
-<button id="delete-button">Delete Selected</button>
-
-
-  <script>
-    function odaberiIstaknuteOsobe() {
-  const featuredIds = [
-    document.getElementById('featuredPerson1').value,
-    document.getElementById('featuredPerson2').value,
-    document.getElementById('featuredPerson3').value,
-    document.getElementById('featuredPerson4').value
-  ];
-
-  fetch('/odaberi-istaknute-osobe', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ featuredIds: featuredIds })
-  })
-  .then(response => response.json())
-  .then(data => {
-    alert('Istaknute osobe su uspješno odabrane!');
-  })
-  .catch(error => {
-    console.error('Došlo je do greške:', error);
-  });
-}
-    function fetchUserIPs() {
-      fetch('/user_ips')
-        .then(response => response.json())
-        .then(data => {
-          const ipList = document.getElementById('ipList');
-          ipList.innerHTML = ''; // Clear the existing list
-
-          data.forEach(entry => {
-            const listItem = document.createElement('li');
-            listItem.textContent = `IP Address: ${entry.ip_address}, Login Time: ${entry.login_time}`;
-            ipList.appendChild(listItem);
-          });
-        })
-        .catch(error => console.error(error));
-    }
-
-    // Fetch IP addresses on page load
-    fetchUserIPs();
-  </script>
-
-  <script>
-    function uploadMedia() {
-  const typeSelect = document.getElementById('type');
-  const selectedType = typeSelect.value;
-  const licnostSelect = document.getElementById('licnost');
-  const selectedLicnost = licnostSelect.value;
-  const uploadUrl = `/upload/${selectedType}`;
-
-  const formData = new FormData(document.getElementById('uploadForm'));
-  formData.append('licnost', selectedLicnost);
-  formData.append('tipFajla', selectedType);
-
-  fetch(uploadUrl, {
-    method: 'POST',
-    body: formData
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);
-    alert('Fajl uspešno uploadovan i dodat u bazu podataka.');
-  })
-  .catch(error => {
-    console.error('Došlo je do greške:', error);
-  });
-}
-
-    function dodajFajlUBazu(licnost, tipFajla, filePath) {
-      console.log("Pokusava nesto");
-      const uploadUrl = '/dodaj-fajl';
-      const formData = new FormData();
-      formData.append('licnost', licnost);
-      formData.append('tipFajla', tipFajla);
-      formData.append('file', filePath);
-      console.log(formData);
-      fetch(uploadUrl, {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        
-      })
-      .catch(error => {
-        console.error(error);
-      });
-    }
-
-    fetch('/ljudi')
-      .then(response => response.json())
-      .then(data => {
-        const licnostSelect = document.getElementById('licnost');
-        const licnostMjesecaSelect = document.getElementById('osobaMjeseca');
-        const licnost1=document.getElementById('featuredPerson1');
-        const licnost2=document.getElementById('featuredPerson2'); 
-        const licnost3=document.getElementById('featuredPerson3');
-        const licnost4=document.getElementById('featuredPerson4');
-        data.forEach(licnost => {
-          const option = document.createElement('option');
-          const option1 = document.createElement('option');
-          const option2=document.createElement('option');
-          const option3=document.createElement('option');
-          const option4=document.createElement('option');
-          const option5=document.createElement('option');
-          option2.value = licnost.id; // Postavite vrednost opcije na ID ličnosti
-          option2.text = `${licnost.ime} ${licnost.prezime}`;
-          option3.value = licnost.id; // Postavite vrednost opcije na ID ličnosti
-          option3.text = `${licnost.ime} ${licnost.prezime}`;
-          option4.value = licnost.id; // Postavite vrednost opcije na ID ličnosti
-          option4.text = `${licnost.ime} ${licnost.prezime}`;
-
-          option5.value = licnost.id; // Postavite vrednost opcije na ID ličnosti
-          option5.text = `${licnost.ime} ${licnost.prezime}`;
-
-          option.value = licnost.id; // Postavite vrednost opcije na ID ličnosti
-          option.text = `${licnost.ime} ${licnost.prezime}`;
-          option1.value = licnost.id; // Postavite vrednost opcije na ID ličnosti
-          option1.text = `${licnost.ime} ${licnost.prezime}`;
-          licnostSelect.add(option);
-          licnostMjesecaSelect.add(option1);
-          licnost1.add(option2);
-          licnost2.add(option3);
-          licnost3.add(option4);
-          licnost4.add(option5);
-        });
-      })
-      .catch(error => console.error(error));
-  </script>
+</div>
+<div id="EditPersons" class="tabcontent">
   
-  <script>
-    function odaberiOsobuMjeseca() {
-      const osobaMjesecaSelect = document.getElementById('osobaMjeseca');
-      const odabranaOsoba = osobaMjesecaSelect.value;
-        console.log(odabranaOsoba + " je odabrana osoba");
-      fetch('/odaberi-osobu-mjeseca', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ osobaId: odabranaOsoba })
-      })
-      .then(response => response.json())
-      .then(data => {
-        alert('Osoba mjeseca je uspješno odabrana!');
-      })
-      .catch(error => {
-        console.error('Došlo je do greške:', error);
-      });
-    }
+  <h2>Edit Persons</h2>
+  <!-- Dropdown for selecting a person -->
+  <select style ="width:30%; height: 30px" id="personSelect" onchange="populateEditForm()">
+    <option value="">Select a Person...</option>
+    <!-- Options will be dynamically populated here -->
+  </select>
+  
 
-    document.addEventListener('DOMContentLoaded', function() {
-  fetch('/ljudi')
-    .then(response => response.json())
-    .then(data => {
-      const personsList = document.getElementById('persons-list');
-      data.forEach(person => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td><input type="checkbox" class="person-checkbox" value="${person.id}"></td>
-          <td>${person.ime} ${person.prezime}</td>
-          <!-- other data columns -->
-        `;
-        personsList.appendChild(row);
-      });
-    })
-    .catch(error => console.error('Error:', error));
-});
-document.getElementById('delete-button').addEventListener('click', () => {
-  const checkedBoxes = document.querySelectorAll('.person-checkbox:checked');
-  const idsToDelete = Array.from(checkedBoxes).map(box => box.value);
+  
+  <form id="editPersonForm" style="display:none;">
+    <h1>Edit Person Details</h1>
+    
+    
+    <div class="form-row">
+      <div class="form-group">
+        <label for="ime">Name:</label>
+        <input type="text" id="imeEdit" name="ime" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="ime">Surname:</label>
+        <input type="text" id="prezimeEdit" name="prezime" required>
+      </div>
+    </div>
+    
 
-  fetch('/admin/delete', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ ids: idsToDelete })
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log(data.message);
-    // Refresh the page or remove the deleted rows from the table
-  })
-  .catch(error => console.error('Error:', error));
-});
-  </script>
+    
+    <div class="form-row">
+      <div class="form-group image-upload-container">
+        <div class="image-upload-box" onclick="document.getElementById('slikaEdit').click()">
+          <p>Upload Picture</p>
+          <input type="file" id="slikaEdit" name="slika" accept="image/*" required onchange="previewImage(event)">
+          <img id="slikaId" src="" alt="Image preview" style="display:none;">
+        </div>
+      </div>
+      
+      <div class="form-group text-editor-container">
+        
+        <div id="opisEdit" class="text-editor-container"></div>
+        
+      </div>
+    </div>
+    <textarea name="opis" id="hiddenOpis" style="display:none;"></textarea>
+
+  
+    
+    <div class="form-row button-container">
+      <button type="button" onclick="submitEditForm()" class="submit-button">Update Person</button>
+      <button type="button" onclick="deletePerson()" class="submit-button delete-button">Delete Person</button>
+    </div>
+  </form>
+</div>
+
+
+
+<div id="ManageModerators" class="tabcontent">
+  <h1>Add a Moderator</h1>
+  <form id="addModeratorForm">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="modUsername">Username:</label>
+        <input type="text" id="modUsername" name="username" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="modPassword">Password:</label>
+        <input type="password" id="modPassword" name="password" required>
+      </div>
+    </div>
+
+    <div class="form-row button-container">
+      <button type="button" onclick="addModerator()" class="submit-button">Add Moderator</button>
+    </div>
+  </form>
+
+
+  <h1>Delete a Moderator</h1>
+  <form id="deleteModeratorForm">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="moderatorSelect">Select Moderator:</label>
+        <select id="moderatorSelect" required></select>
+      </div>
+    </div>
+    <div class="form-row button-container">
+      <button type="button" onclick="deleteModerator()" class="submit-button">Delete Moderator</button>
+    </div>
+  </form>
+
+</div>
+
+<div id="ManageAdmins" class="tabcontent">
+
+  <h1>Add an Admin</h1>
+  <form id="addAdminForm">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="adminUsername">Username:</label>
+        <input type="text" id="adminUsername" name="username" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="adminPassword">Password:</label>
+        <input type="password" id="adminPassword" name="password" required>
+      </div>
+    </div>
+
+    <div class="form-row button-container">
+      <button type="button" onclick="addAdmin()" class="submit-button">Add Admin</button>
+    </div>
+  </form>
+
+
+  <h1>Delete an Admin</h1>
+  <form id="deleteAdminForm">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="adminSelect">Select Admin:</label>
+        <select id="adminSelect" required></select>
+      </div>
+    </div>
+    <div class="form-row button-container">
+      <button type="button" onclick="deleteAdmin()" class="submit-button">Delete Admin</button>
+    </div>
+  </form>
+
+</div>
+
+<div id="ChangePassword" class="tabcontent">
+  <h1>Change your password</h1>
+  <form id="changePasswordForm">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="currentPassword">Current password: </label>
+        <input type="password" id="currentPassword" name="currentPassword" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="newPassword">New password: </label>
+        <input type="password" id="newPassword" name="newPassword" required>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmNewPassword">Confirm new password: </label>
+        <input type="password" id="confirmNewPassword" name="confirmNewPassword" required>
+      </div>
+    </div>
+
+    <div class="form-row button-container">
+      <button type="button" onclick="changePassword()" class="submit-button">Change password</button>
+    </div>
+  </form>
+</div>
+
+
+
+<script src="js/admin.js"></script>
 </body>
 </html>

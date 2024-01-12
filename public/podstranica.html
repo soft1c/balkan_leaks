@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="/IMG/favicon.ico" />
-    <title>Balkan Leaks</title>
+    <title>BPIKD</title>
 
     <link href="/css/application.css" rel="stylesheet">
     <link href="/css/search.css" rel="stylesheet">
@@ -15,40 +15,304 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/daterangepicker.css" />
     <link href="/css/styles_topnav.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/wlks.css">
     
     <link href="/css/styles_sidenav.css" rel="stylesheet">
     <link href="/css/style_file.css" rel="stylesheet">
+    <style>
+      header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header img {
+            height: 50px; /* Adjust logo size as needed */
+            margin-right: 20px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .donate-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+        }
+        .placeholder-text {
+    text-align: center;
+    margin: 20px 0;
+}
+#header-logo {
+    height: 70px; /* Adjust as needed */
+    /* Add more styling if necessary */
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    
+    display: flex;
+    flex-direction: column;
+}
+body, .main-content {
+            padding-bottom: 70px; /* Ovde postavite visinu footera plus dodatni prostor */
+        }
+
+        footer {
+    background-color: #333; /* ili bilo koju drugu boju po želji */
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+}
+    .footer-recommendations {
+     /* Fix the footer to the bottom */
+    left: 0; /* Align to the left edge */
+    bottom: 0; /* Align to the bottom edge */
+    width: 100%; /* Set the width to span the full viewport width */
+    background-color: #ebebeb; /* Assuming you want this background color */
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1); /* Optional: Adds a shadow above the footer */
+    z-index: 100; /* Ensures it's above other page content */
+}
+  .footer-recommendations .footer-wrapper {
+    background-color: #ebebeb;
+    
+    margin-top: 40px; }
+  .footer-recommendations .recommendation-container {
+    max-width: 1100px;
+
+    margin-left: auto;
+    margin-right: auto;
+    clear: both;
+    text-align: center; }
+    .footer-recommendations .recommendation-container::after {
+      clear: both;
+      content: "";
+      display: table; }
+  .footer-recommendations .top {
+    background: url("/static/img/arrow-up.png") 50% 30% no-repeat #fff;
+    background-size: 1.3em;
+    border: #cccccc 1px solid;
+    border-radius: 40px;
+    color: #555555;
+    display: inline-block;
+    height: 80px;
+    padding: 40px 0;
+    position: relative;
+    text-align: center;
+    top: -40px;
+    width: 80px; }
+  .footer-recommendations .recommendation-links li {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 14.70196%;
+    font-size: 1em;
+    text-align: center; }
+    .footer-recommendations .recommendation-links li:last-child {
+      margin-right: 0; }
+    .footer-recommendations .recommendation-links li a {
+      color: #555555; }
+    .footer-recommendations .recommendation-links li p {
+      line-height: 1.43em;
+      text-indent: 0; }
+    .footer-recommendations .recommendation-links li .teaser {
+      display: table-cell;
+      height: 120px;
+      vertical-align: middle; }
+      .footer-recommendations .recommendation-links li .teaser .spip_logos {
+        height: auto;
+        width: 100%; }
+  .footer-recommendations .recommendation-links .recommendation:first-child {
+    margin-left: 8.5298%; }
+  .footer-recommendations .social-links {
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    clear: both;
+    padding: 3em 0;
+    width: 100%; }
+    .footer-recommendations .social-links::after {
+      clear: both;
+      content: "";
+      display: table; }
+    .footer-recommendations .social-links li {
+      display: inline-block;
+      padding: 1em; }
+      .footer-recommendations .social-links li img {
+        height: 1.4em; }
+
+@media screen and (max-width: 769px) {
+  .partners .content {
+    margin-left: 0%;
+    float: left;
+    display: block;
+    margin-right: 38.19821%;
+    width: 100%; }
+    .partners .content:last-child {
+      margin-right: 0; } }
+.partners .content li {
+  display: inline-block; }
+  .partners .content li span {
+    display: table-cell;
+    height: 130px;
+    text-align: center;
+    vertical-align: middle;
+    width: 150px; }
+    @media screen and (max-width: 500px) {
+      .partners .content li span {
+        width: 140px; } 
+        .footer-recommendations .recommendation-links li {
+          width: 80%;
+          padding: 0;
+          margin:0;
+          text-align: center;
+          display: inline-block;
+          border:0;
+          
+          
+          
+        }
+      }
+      
+    body, html {
+    
+    margin: 0;
+}
+.main-content {
+    /* Add a bottom margin equal to the footer's height plus some extra space */
+    margin-bottom: 150px; /* Adjust this value as needed */
+    flex: 1 0 auto; /* This ensures that the .main-content will expand to fill available space */
+}
+    </style>
 </head>
 <body>
-<div class="top-navigation">
-  <nav class="navbar">
-      <a href="#menu" class="mobile-only hot-dog nav-element">
-      </a>
-    <div class="nav-logo">
-      <a href="https://wikileaks.org">
-        <h1>Balkan Leaks</h1>
-      </a>
-    </div>
-    <div class="action-buttons">
-      <a class="button-face support-link" href="." target="_blank">Početna</a>
+  <div class="top-navigation">
+    <nav class="navbar">
+        <a href="#menu" class="mobile-only hot-dog nav-element">
+        </a>
+      <div class="nav-logo">
+        <a href="https://bpikd.onrender.com">
+        
+        </a>
+      </div>
+      <div class="action-buttons">
 
-      <a class="button-face submit-link" href="#submit">Pretraži</a>
-    </div>
-    <form class="global-search" method="get" action="https://search.wikileaks.org/">
-      <input type="text" name="q" placeholder="Search">
-      <button class="btn-search" type="submit"></button>
-    </form>
-    <div class="main-nav">
+        <a class="button-face donate-link" href="/donate">Donate</a>
+        <div id="donatePopup" class="donate-popup">
+          <span class="close-btn" id="closeBtn">&times;</span>
+          <p><a href="https://www.paypal.com/donateLink">Donate via PayPal</a></p>
+          <p>Scan this QR code to donate:</p>
+          <img src="https://www.qrstuff.com/images/default_qrcode.png" width="50%" height="50%" alt="QR Code">
+        </div>
+        <a class="button-face submit-link" href="#submit">Submit</a>
+      </div>
+
+      <div class="main-nav">
+  
+          <ul class="first-level">
+  
+              <li>
+                <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
+              </li>
+  
+              <li>
+                <a class=" news-menu-item" href="/news.html">News</a>
+              </li>
+  
+              <li>
+                <a class=" about-menu-item" href="/about.html">About</a>
+              </li>
+  
+              <li>
+                <a class=" partners-menu-item" href="/partners.html">Partners</a>
+              </li>
+  
+          </ul>
+  
+      </div>
+    </nav>
+  </div>
+  
+  <nav id="menu" class="side-nav rub">
+    <div class="menu-wrapper">
+      <a class="close-btn nav-element" href="#"></a>
+  
+        <ul class="first-level">
+  
+              <li>
+                <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
+              </li>
+  
+              <li>
+                <a class=" news-menu-item" href="/news.html">News</a>
+              </li>
+  
+              <li>
+                <a class=" about-menu-item" href="/about.html">About</a>
+  
+            </li>
+  
+            <li>
+              <a class=" partners-menu-item" href="/partners.html">Partners</a>
+  
+            </li>
+  
+        </ul>
+  
+   
+      <aside class="social mobile-only">
+        <ul>
+          <li>
+            <a href="https://www.facebook.com/wikileaks" class="nav-element" target="_blank" alt="Facebook">
+              <img class="img-responsive" src="/static/img/fb-logo.png" alt="Facebook" title="Facebook page" />
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/wikileaks" class="nav-element" target="_blank" alt="Twitter">
+              <img class="img-responsive" src="/static/img/twitter-logo.png" alt="Twitter" title="Twitter page" />
+            </a>
+          </li>
+        </ul>
+      </aside>
     </div>
   </nav>
-</div>
+  <br><br><br><br>
+<div class="main-content">
       <div class="content">
         <div class="container-fluid row-fluid">
           <div class="col-xs-12 col-sm-12 col-md-12 container-text" id="right-pane">
             <div class="leak-header">
-              <div class="title-area" >
-                <h1 class="leak-title" id="ime">Loading...</h1>
-              </div>
+              <h1 style="text-align: center;"class="title-area" id="ime">
+                
+              </h1>
               <div class="press-release">
                 <img src="" height="auto" width="300px" style="float: left; padding: 0 15px;" id="personImage" />
                 <p style="margin: 20px;" class="paragraf-slika" id="personDescription">Loading...</p>
@@ -59,7 +323,7 @@
       </div>
 
       <div id="files-container">
-        <h3>Attached Files</h3>
+        <h3 style="color:black;">Attached Files</h3>
         <div id="file-filters">
           <button onclick="filterFiles('all')">All</button>
           <button onclick="filterFiles('text')">Text</button>
@@ -119,15 +383,10 @@
       .then(response => response.json())
       .then(data => {
         document.getElementById('ime').textContent = `${data.ime} ${data.prezime}`;
+        console.log(data);
         document.getElementById('personDescription').innerHTML = data.opis || 'Opis nije dostupan.';
         document.getElementById('personImage').setAttribute('src', `/uploads/media/images/${data.slikaUrl}`);
 
-        const bioInfoHtml = `
-          <p>Datum rođenja: ${new Date(data.datumRodjenja).toLocaleDateString()}</p>
-          <p>Mjesto rođenja: ${data.mjestoRodjenja}</p>
-          ${data.datumSmrti ? `<p>Datum smrti: ${new Date(data.datumSmrti).toLocaleDateString()}</p>` : ''}
-        `;
-        document.getElementById('personDescription').insertAdjacentHTML('beforebegin', bioInfoHtml);
 
         // Display files
         allFiles = data.fajlovi; // Store all files
@@ -150,7 +409,7 @@ function displayPersonFiles(files) {
   listItem.innerHTML = `
     ${file.filePath} 
     <a href="/uploads/media/${file.fileType}/${file.filePath}" download="${file.filePath}">Download</a>
-    <button onclick="previewFile('${file.fileType}', '${file.filePath}')">Preview</button>
+
     <div id="preview-${file.filePath}" class="file-preview"></div>
   `;
   filesList.appendChild(listItem);
@@ -194,8 +453,13 @@ function previewFile(type, filename) {
 }
 
     </script>
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+    </script>
 
-
+        </div>
 
 
 </body>

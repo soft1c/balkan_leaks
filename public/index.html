@@ -2,15 +2,27 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="/css/pocetna_style.css">
+    <link href="/css/application.css" rel="stylesheet">
+    <link href="/css/search.css" rel="stylesheet">
+    <link href="/css/tr.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/daterangepicker.css" />
+    <link href="/css/styles_topnav.css" rel="stylesheet">
+    <link href="/css/wlks.css" rel="stylesheet">
+    
+    <link href="/css/styles_sidenav.css" rel="stylesheet">
+    <link href="/css/style_file.css" rel="stylesheet">
     
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
   <style>
     body {
       font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f2f2f2;
+      background-color: #fff;
     }
 
     header {
@@ -36,12 +48,7 @@
       cursor: pointer;
     }
 
-    #search-bar {
-      width: 50%;
-      padding: 10px;
-      margin: 20px auto;
-      display: block;
-    }
+ 
 
 
 
@@ -60,11 +67,11 @@
     }
 
     footer {
-      background-color: #333;
+      
       color: #fff;
       text-align: center;
       padding: 10px;
-      position: fixed;
+      
       bottom: 0;
       width: 100%;
     }
@@ -107,7 +114,7 @@
 }
 
   div.scrollmenu {
-  background-color: #333;
+  background-color: #ffffff;
   overflow: auto;
   white-space: nowrap;
 }
@@ -124,20 +131,385 @@ div.scrollmenu a:hover {
   background-color: #777;
 }
 
+          #logo-under-header {
+            text-align: center;
+            margin: 20px;
+        }
+
+        #logo-under-header img {
+            width: 200px; /* Adjust the width as needed */
+        }
+.footer-recommendations {
+  clear: both;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: normal;
+  padding-top: 1px;
+  
+  width: 100%; }
+  .footer-recommendations .footer-wrapper {
+    background-color: #ebebeb;
+    
+    margin-top: 40px; }
+  .footer-recommendations .recommendation-container {
+    max-width: 1100px;
+
+    margin-left: auto;
+    margin-right: auto;
+    clear: both;
+    text-align: center; }
+    .footer-recommendations .recommendation-container::after {
+      clear: both;
+      content: "";
+      display: table; }
+  .footer-recommendations .top {
+    background: url("/static/img/arrow-up.png") 50% 30% no-repeat #fff;
+    background-size: 1.3em;
+    border: #cccccc 1px solid;
+    border-radius: 40px;
+    color: #555555;
+    display: inline-block;
+    height: 80px;
+    padding: 40px 0;
+    position: relative;
+    text-align: center;
+    top: -40px;
+    width: 80px; }
+  .footer-recommendations .recommendation-links li {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 14.70196%;
+    font-size: 1em;
+    text-align: center; }
+    .footer-recommendations .recommendation-links li:last-child {
+      margin-right: 0; }
+    .footer-recommendations .recommendation-links li a {
+      color: #555555; }
+    .footer-recommendations .recommendation-links li p {
+      line-height: 1.43em;
+      text-indent: 0; }
+    .footer-recommendations .recommendation-links li .teaser {
+      display: table-cell;
+      height: 120px;
+      vertical-align: middle; }
+      .footer-recommendations .recommendation-links li .teaser .spip_logos {
+        height: auto;
+        width: 100%; }
+  .footer-recommendations .recommendation-links .recommendation:first-child {
+    margin-left: 8.5298%; }
+  .footer-recommendations .social-links {
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    clear: both;
+    padding: 3em 0;
+    width: 100%; }
+    .footer-recommendations .social-links::after {
+      clear: both;
+      content: "";
+      display: table; }
+    .footer-recommendations .social-links li {
+      display: inline-block;
+      padding: 1em; }
+      .footer-recommendations .social-links li img {
+        height: 1.4em; }
+
+@media screen and (max-width: 769px) {
+  .partners .content {
+    margin-left: 0%;
+    float: left;
+    display: block;
+    margin-right: 38.19821%;
+    width: 100%; }
+    .partners .content:last-child {
+      margin-right: 0; } }
+.partners .content li {
+  display: inline-block; }
+  .partners .content li span {
+    display: table-cell;
+    height: 130px;
+    text-align: center;
+    vertical-align: middle;
+    width: 150px; }
+    @media screen and (max-width: 500px) {
+      .partners .content li span {
+        width: 140px; } 
+        .footer-recommendations .recommendation-links li {
+          width: 80%;
+          padding: 0;
+          margin:0;
+          text-align: center;
+          display: inline-block;
+          border:0;
+          
+          
+          
+        }
+      }
+
+.container-text p[id]::before,
+.container-text a[name]::before {
+  content: ' ';
+  display: block;
+  height: 70px;
+  margin-top: -70px;
+  visibility: hidden; }
+.container-text img {
+  padding: 0 .5em .5em 0; }
+
+.text-content {
+  margin-top: 2em; }
+
+.title-link a {
+  color: #093a41; }
+  .title-link a:hover {
+    color: #7d939f; }
+
+.home .tag-navigation {
+  text-align: center; }
+
+.tag-navigation {
+  margin: 2em 0; }
+  @media screen and (max-width: 769px) {
+    .tag-navigation {
+      margin: 0; } }
+  @media screen and (max-width: 999px) {
+    .tag-navigation {
+      line-height: 3em; } }
+  .tag-navigation li {
+    display: inline;
+    white-space: nowrap; }
+  .tag-navigation a {
+    color: #093a41;
+    font-weight: bold;
+    padding: 1em; }
+    @media screen and (max-width: 999px) {
+      .tag-navigation a {
+        padding: .2em .5em; } }
+  .tag-navigation a:hover,
+  .tag-navigation a:active,
+  .tag-navigation .active a {
+    background-color: #f7f7f7;
+    border-radius: 5px 5px 0 0; }
+  .tag-navigation a:active,
+  .tag-navigation .active a {
+    border-bottom: thin solid #cccccc; }
+
+    .gotopbtn
+{
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  background: #333;
+  bottom: 40px;
+  right: 50px;
+  text-decoration: none;
+  text-align: center;
+  line-height: 60px;
+  color: white;
+  font-size: 32
+}
+
+	  html
+{
+  scroll-behavior: smooth;
+}
+	  
+main{
+  flex:1;
+}
+header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header img {
+            height: 50px; /* Adjust logo size as needed */
+            margin-right: 20px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .donate-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+        }
+        .placeholder-text {
+    text-align: center;
+    font-size: 68px;
+    margin: 0;
+}
+#header-logo {
+    height: 70px; /* Adjust as needed */
+    /* Add more styling if necessary */
+}
 
 
   </style>
 </head>
 <body>
+  <div class="top-navigation">
+    <nav class="navbar">
+        <a href="#menu" class="mobile-only hot-dog nav-element">
+        </a>
+      <div class="nav-logo">
+        <a href="https://bpikd.onrender.com">
+        
+        </a>
+      </div>
+      <div class="action-buttons">
 
-  <header>
-    <div id="logo">My Blog</div>
-    <button id="donate-btn">Donate</button>
-  </header>
-<br><br><br><br>
-  <input type="text" id="search-bar" placeholder="Search...">
-  <div id="searchResults" class="search-results"></div>
-  <br><br>
+        <a class="button-face donate-link" href="/donate">Donate</a>
+        <div id="donatePopup" class="donate-popup">
+          <span class="close-btn" id="closeBtn">&times;</span>
+          <p><a href="https://www.paypal.com/donateLink">Donate via PayPal</a></p>
+          <p>Scan this QR code to donate:</p>
+          <img src="https://www.qrstuff.com/images/default_qrcode.png" width="50%" height="50%" alt="QR Code">
+        </div>
+        <a class="button-face submit-link" href="#submit">Submit</a>
+      </div>
+
+      <div class="main-nav">
+  
+          <ul class="first-level">
+  
+              <li>
+                <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
+              </li>
+  
+              <li>
+                <a class=" news-menu-item" href="/news.html">News</a>
+              </li>
+  
+              <li>
+                <a class=" about-menu-item" href="/about.html">About</a>
+              </li>
+  
+              <li>
+                <a class=" partners-menu-item" href="/partners.html">Partners</a>
+              </li>
+  
+          </ul>
+  
+      </div>
+    </nav>
+  </div>
+  
+  <nav id="menu" class="side-nav rub">
+    <div class="menu-wrapper">
+      <a class="close-btn nav-element" href="#"></a>
+  
+        <ul class="first-level">
+  
+              <li>
+                <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
+              </li>
+  
+              <li>
+                <a class=" news-menu-item" href="/news.html">News</a>
+              </li>
+  
+              <li>
+                <a class=" about-menu-item" href="/about.html">About</a>
+  
+            </li>
+  
+            <li>
+              <a class=" partners-menu-item" href="/partners.html">Partners</a>
+  
+            </li>
+  
+        </ul>
+  
+   
+      <aside class="social mobile-only">
+        <ul>
+          <li>
+            <a href="https://www.facebook.com/wikileaks" class="nav-element" target="_blank" alt="Facebook">
+              <img class="img-responsive" src="/static/img/fb-logo.png" alt="Facebook" title="Facebook page" />
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/wikileaks" class="nav-element" target="_blank" alt="Twitter">
+              <img class="img-responsive" src="/static/img/twitter-logo.png" alt="Twitter" title="Twitter page" />
+            </a>
+          </li>
+        </ul>
+      </aside>
+    </div>
+  </nav>
+<br><br><br><br><br>
+
+<script>
+  // JavaScript to handle Donate click
+  document.querySelector('nav a[href="/donate"]').addEventListener('click', function(event) {
+      event.preventDefault(); // Prevents default link behavior
+      var popup = document.getElementById('donatePopup');
+      popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+  });
+  document.getElementById('closeBtn').addEventListener('click', function() {
+            document.getElementById('donatePopup').style.display = 'none';
+        });
+
+</script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+<div class="placeholder-text">
+  <p style="margin-bottom: 0px;"><b>BPIKD</b></p>
+</div>
+<br>
+
+
+	<div style="padding: 0 1em 0em" class="content">
+			
+            <div class="home-container">
+				<div class="search-box">
+					<form class="search-form" action="" method="get">
+            
+						<input class="search-query" type="text" name="q" value="" id="search-bar" placeholder="Search...">
+            
+            <div id="searchResults" class="search-results"></div>
+            <button class="btn-search" type="submit"></button>
+					</form>
+				</div>
+        
+            </div>
+          </div>
+
+<br><br>
 
 
 
@@ -147,18 +519,23 @@ div.scrollmenu a:hover {
     <!-- Dinamički sadržaj osobe mjeseca će biti umetnut ovdje -->
   </section>
   
-  <section id="istaknuteOsobe" style="gap: 5px;" class="cards-wrapper">
+  <section id="istaknuteOsobe" style="gap: 25px;" class="cards-wrapper">
     <!-- Istaknute osobe će biti dodane ovdje dinamički -->
   </section>
 
-  <div class="scrollmenu">
-  <section id="ostaleOsobe" style="gap: 25px; grid-template-columns: repeat(100000, 1fr); padding: 0;" class="cards-wrapper horizonal-scroll">
+
+  <div class="cards-container" >
+  <div style="z-index: -1000;"class="scrollmenu">
+    
+  <section id="ostaleOsobe" style="gap: 25px; grid-template-columns: repeat(100000, 1fr); padding: 0; z-index: -999; justify-content: center;" class="cards-wrapper horizontal-scroll">
     <!-- Nedavno dodane osobe će biti dodane ovdje dinamički -->
   </section>
+  
+</div>
 </div>
 
-
   <script>
+    
     function fetchOsobaMjeseca() {
       fetch('/osobaMjeseca')
         .then(response => response.json())
@@ -171,11 +548,9 @@ div.scrollmenu a:hover {
               <a class="card" href="/podstranica/${osoba.id}" style="--bg-img: url(${baseUrl}${osoba.slikaUrl})">
                 <div>
                   <h1>${osoba.ime} ${osoba.prezime}</h1>
-                  <p>${osoba.opis}</p>
-                  <!-- Pretpostavka je da datum nije dostupan ili nije relevantan -->
-                  <div class="tags">
-                    <div class="tag">Pjevačica</div> <!-- Ova oznaka možda treba biti dinamička -->
-                  </div>
+                  
+                
+                  
                 </div>
               </a>
             </div>
@@ -196,14 +571,12 @@ div.scrollmenu a:hover {
   cardsHtml += `
     <div class="card-grid-space">
       <div class="num"></div>
-      <a class="card" href="/podstranica/${osoba.id}" style="--bg-img: url(${baseUrl}${osoba.slikaUrl})">
+      <a class="card" href="/podstranica/${osoba.id}" style=" --bg-img: url(${baseUrl}${osoba.slikaUrl})">
         <div>
           <h1>${osoba.ime} ${osoba.prezime}</h1>
-          <p>${osoba.opis}</p>
-          <div class="date">Datum objave</div>
-          <div class="tags">
-            <div class="tag">Tag</div>
-          </div>
+          
+          
+          
         </div>
       </a>
     </div>
@@ -214,39 +587,55 @@ div.scrollmenu a:hover {
       })
       .catch(error => console.error('Došlo je do greške:', error));
   }
-  function fetchNedavnoDodaneOsobe() {
-    fetch('/get_recent_persons')
-      .then(response => response.json())
-      .then(osobe => {
-        const baseUrl = '/uploads/media/images/';
-        let cardsHtml = '';
-        
-
-        
-        osobe.forEach(osoba => {
-  cardsHtml += `
-  
-    <div class="card-grid-space">
-      <div class="num"></div>
-      <a class="card" href="/podstranica/${osoba.id}" style="--bg-img: url(${baseUrl}${osoba.slikaUrl})">
-        <div>
-          <h1>${osoba.ime} ${osoba.prezime}</h1>
-          <div class="date">Datum objave</div>
-          <div class="tags">
-            <div class="tag">Tag</div>
-          </div>
-        </div>
-      </a>
+  function generatePersonHTML(osoba) {
+  const baseUrl = '/uploads/media/images/';
+  const card = document.createElement('a'); // Change this to an anchor tag
+  card.className = 'card';
+  card.href = `/podstranica/${osoba.id}`; // Set the href attribute
+  card.style.setProperty('--bg-img', `url(${baseUrl}${osoba.slikaUrl})`);
+  card.innerHTML = `
+    <div>
+      <h1>${osoba.ime} ${osoba.prezime}</h1>
     </div>
-    
   `;
-});
+  return card;
+}
 
+function setupInfiniteScroll(osobe) {
+  const container = document.getElementById('ostaleOsobe');
+  
+  container.addEventListener('scroll', function() {
+    // Check if scrolled to end
+    if (container.scrollWidth - container.scrollLeft === container.clientWidth) {
+      console.log('Scrolled to end of container');
+      const firstElement = container.firstChild;
+      container.appendChild(firstElement.cloneNode(true));
+    }
+  });
+}
 
-        document.getElementById('ostaleOsobe').innerHTML = cardsHtml;
-      })
-      .catch(error => console.error('Došlo je do greške:', error));
-  }
+function fetchNedavnoDodaneOsobe() {
+  fetch('/daj_sve')
+    .then(response => response.json())
+    .then(osobe => {
+      const container = document.getElementById('ostaleOsobe');
+      container.innerHTML = ''; // Clear existing content
+
+      const gap = 25; // Razmak između karata
+
+      osobe.forEach(osoba => {
+        const personCard = generatePersonHTML(osoba);
+        container.appendChild(personCard);
+      });
+
+      // Postavljanje širine kontejnera
+      const totalWidth = osobe.length * (cardWidth + gap) + gap;
+      container.style.width = `${totalWidth}px`;
+      container.style.paddingLeft = `${gap/2}px`;
+      container.style.paddingRight = `${gap/2}px`;
+    })
+    .catch(error => console.error('Došlo je do greške:', error));
+}
 
   // Poziv funkcije prilikom učitavanja stranice
   fetchNedavnoDodaneOsobe();
@@ -303,13 +692,110 @@ div.scrollmenu a:hover {
   // Event listener for search bar input
   document.getElementById('search-bar').addEventListener('input', handleSearch);
 
+  document.addEventListener("DOMContentLoaded", function() {
+    
+  const scrollContainer = document.getElementById('ostaleOsobe');
+  const scrollThreshold = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+
+  // Funkcija koja resetuje scroll na početak
+  function resetScroll() {
+    if (scrollContainer.scrollLeft >= scrollThreshold) {
+      // Resetuje scroll na početak
+      scrollContainer.scrollLeft = 0;
+    }
+  }
+
+  // Event listener za scroll događaj
+  scrollContainer.addEventListener('scroll', resetScroll);
+});
+
   </script>
 
-<br><br><br><br><br>
-  
-  <footer>
-    &copy; 2023 My Blog. All rights reserved.
+<a href="#" class="gotopbtn">
+  <ion-icon name="arrow-up-outline"></ion-icon>
+</a>
+
+
+<footer id="page-footer" class="footer-recommendations">
+	<div class="footer-wrapper">
+	  <div class="recommendation-container">
+
+		<br><br><br>
+		  <ul class="recommendation-links">
+				  <li class="recommendation">
+					  <a href="https://our.wikileaks.org" target="_blank">
+						  <div class="teaser">
+							  <img class="spip_logos" alt="" src="logo2.png" width="360" height="240">
+						  </div>
+						  <p></p><p>BPIKD Research Community - user contributed research based on documents published by BPIKD. 
+  </p><p></p>
+					  </a>
+				  </li>
+			  
+				  <li class="recommendation">
+					  <a href="https://www.torproject.org/" target="_blank">
+						  <div class="teaser">
+							  <img class="spip_logos" alt="" src="https://wikileaks.org/IMG/arton401.png" width="360" height="240">
+						  </div>
+						  <p></p><p>Tor is an encrypted anonymising network that makes it harder to intercept internet communications, or see where communications are coming from or going to.
+  </p><p></p>
+					  </a>
+				  </li>
+			  
+				  <li class="recommendation">
+					  <a href="https://tails.boum.org/" target="_blank">
+						  <div class="teaser">
+							  <img class="spip_logos" alt="" src="https://wikileaks.org/IMG/arton405.png" width="360" height="240">
+						  </div>
+						  <p></p><p> Tails is a live operating system, that you can start on almost any computer from a DVD, USB stick, or SD card. It aims at preserving your privacy and anonymity.
+  </p><p></p>
+					  </a>
+				  </li>
+			  
+				  <li class="recommendation">
+					  <a href="https://www.couragefound.org/" target="_blank">
+						  <div class="teaser">
+							  <img class="spip_logos" alt="" src="https://wikileaks.org/IMG/arton404.png" width="360" height="240">
+						  </div>
+						  <p></p><p>The Courage Foundation is an international organisation that supports those who risk life or liberty to make significant contributions to the historical record.
+  </p><p></p>
+					  </a>
+				  </li>
+			  
+				  <li class="recommendation">
+					  <a href="https://www.bitcoin.org/" target="_blank">
+						  <div class="teaser">
+							  <img class="spip_logos" alt="" src="https://wikileaks.org/IMG/arton403.png" width="360" height="240">
+						  </div>
+						  <p></p><p>Bitcoin uses peer-to-peer technology to operate with no central authority or banks; managing transactions and the issuing of bitcoins is carried out collectively by the network.
+  </p><p></p>
+					  </a>
+				  </li>
+			  
+		  </ul>
+		
+
+	  </div>
+	</div>
   </footer>
 
 </body>
+<script>
+  // This script calls the record-entry endpoint when the page loads
+  window.onload = function() {
+      fetch('/record-entry')
+          .then(response => {
+              if (!response.ok) {
+                  console.error('Failed to record entry');
+              }
+          })
+          .catch(error => console.error('Error:', error));
+  };
+</script>
+
+
+
+
+
+
 </html>
