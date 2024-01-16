@@ -861,15 +861,38 @@ app.post('/change_password', (req, res) => {
             return res.status(500).send('Server error during password update');
           }
           res.send('Password updated successfully');
-        });
+        }); 
       } else {
         res.send('Invalid old password');
       }
     });
   });
 
+app.post('/dodaj_vijest',(req,res)=>{
+  console.log(req.body);
+  const {naslov,tekst}=req.body;
+  db.run('INSERT INTO vijesti (naslov,tekst) VALUES (?, ?)', [naslov,tekst], function(err) {
+    if(err){
+      console.error('Error adding news:', err.message);
+      res.status(500).send('Error adding news');
+    }else{
+      res.status(200).send({message: 'News added successfully', changes: this.changes});
+    }
+  });
+});
+
+app.get('/vijesti',(req,res)=>{
+  db.all('SELECT * FROM vijesti', (err, rows) => {
+    if(err){
+      console.error('Error retrieving news:', err.message);
+      res.status(500).send('Error retrieving news');
+    }else{
+      res.status(200).send(rows);
+    }
+  });
+});
+
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
-

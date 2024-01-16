@@ -139,42 +139,11 @@
     
 		<div class="content">
 			
-            <div class="news-articles">
-            <ul>
-                <li>
-                    <h3 class="title"><a href="COP-26.html">Julian Assange and COP26</a></h3>
-                        <div class="timestamp">31 October 2021</div>
-                    <div class="introduction">
-        
-
-
-Julian Assange faces a 175 year prison sentence in the United States for publishing documents, including those which exposed wilful, or otherwise reckless, sabotage of climate action during prior climate...</p>
-                    </div>
-                </li>
-
-                <li>
-                    <h3 class="title"><a href="COP-26.html">Julian Assange and COP26</a></h3>
-                        <div class="timestamp">31 October 2021</div>
-                    <div class="introduction">
-        
-
-
-Julian Assange faces a 175 year prison sentence in the United States for publishing documents, including those which exposed wilful, or otherwise reckless, sabotage of climate action during prior climate...</p>
-                    </div>
-                </li>
-
-                <li>
-                    <h3 class="title"><a href="COP-26.html">Julian Assange and COP26</a></h3>
-                        <div class="timestamp">31 October 2021</div>
-                    <div class="introduction">
-        
-
-
-Julian Assange faces a 175 year prison sentence in the United States for publishing documents, including those which exposed wilful, or otherwise reckless, sabotage of climate action during prior climate...</p>
-                    </div>
-                </li>
-            </ul>
-		</div>
+      <div class="news-articles">
+        <ul id="newsContainer">
+            <!-- News articles will be dynamically inserted here -->
+        </ul>
+    </div>
 </div>
 	
 
@@ -252,7 +221,33 @@ Julian Assange faces a 175 year prison sentence in the United States for publish
     </div>
   </div>
 </footer>
+<script>
+  // Function to fetch news articles from the server
+  function fetchNewsArticles() {
+      fetch('/vijesti')
+          .then(response => response.json())
+          .then(newsArticles => {
+            console.log(newsArticles);
+              const newsContainer = document.getElementById('newsContainer');
+              newsContainer.innerHTML = ''; // Clear existing content
 
+              // Iterate over each news article and create HTML elements
+              newsArticles.forEach(article => {
+                  const listItem = document.createElement('li');
+                  listItem.innerHTML = `
+                      <h3 class="title"><a href="${article.naslov}">${article.title}</a></h3>
+                      
+                      <div class="introduction">${article.tekst.substring(0, 200)}...</div>
+                  `;
+                  newsContainer.appendChild(listItem);
+              });
+          })
+          .catch(error => console.error('Error fetching news:', error));
+  }
+
+  // Call the function on page load
+  document.addEventListener("DOMContentLoaded", fetchNewsArticles);
+</script>
 <script>
     
     function fetchOsobaMjeseca() {

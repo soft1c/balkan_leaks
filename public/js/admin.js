@@ -588,3 +588,42 @@ function changePassword() {
 
   
 }
+
+
+function submitNews() {
+  event.preventDefault();
+
+  var newsTitle = document.getElementById('newsTitle').value;
+
+  var newsContent = quillNews.root.innerHTML;
+  console.log(newsContent, newsTitle);
+  var formData = new FormData();
+  formData.append('title', newsTitle);       // Key: 'title'
+  formData.append('content', newsContent);
+  console.log(formData);
+  fetch('/dodaj_vijest', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        naslov: newsTitle,
+        tekst: newsContent
+      })
+  })
+  .then(response => {
+      if (!response.ok) {
+          throw new Error('Network response was not ok ' + response.statusText);
+      }
+      return response.json();
+  })
+  .then(data => {
+      console.log('Success:', data);
+      alert('News article published successfully!');
+  })
+  .catch((error) => {
+      // Handle errors
+      console.error('Error:', error);
+      alert('Failed to publish news article.');
+  });
+}
