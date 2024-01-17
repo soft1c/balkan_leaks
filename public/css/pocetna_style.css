@@ -20,6 +20,19 @@ a {
   color: inherit;
 }
 
+.cards-container {
+
+  overflow-x: auto;
+ 
+  border-radius: 10px;
+  margin: 20px auto; /* Set margin to auto for horizontal centering */
+  padding: 10px;
+  max-width: calc((7em + 1.5rem) * 6); /* Set the maximum width to accommodate 5 cards */
+  justify-content: center; /* Center the cards horizontally */
+}
+
+
+
 .cards-wrapper {
   display: grid;
   justify-content: center;
@@ -35,11 +48,11 @@ a {
   font-family: 'Heebo';
   --bg-filter-opacity: 0.18;
   background-image: linear-gradient(rgba(0,0,0,var(--bg-filter-opacity)),rgba(0,0,0,var(--bg-filter-opacity))), var(--bg-img);
-  height: 16em;
-  width: 9em;
+  height: 12em;
+  width: 7em;
   font-size: 1.5em;
   color: white;
-  border-radius: 1em;
+  border-radius: 0.2em;
   padding: 1em;
   /*margin: 2em;*/
   display: flex;
@@ -65,7 +78,7 @@ a {
 .card h1 {
   text-align: center;
   margin: 0;
-  font-size: 1.3em;
+  font-size: 1em;
   line-height: 1.2em;
 }
 
@@ -351,7 +364,7 @@ a {
   overflow-x: auto;
   gap: 25px;
   padding: 0;
-  background-color: #f2f2f2;
+
   z-index: -999;
 
 
