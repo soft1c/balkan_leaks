@@ -8,6 +8,7 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/daterangepicker.css" />
     <link href="/css/styles_topnav.css" rel="stylesheet">
+    <link href="/css/wlks.css" rel="stylesheet">
     
     <link href="/css/styles_sidenav.css" rel="stylesheet">
     <link href="/css/style_file.css" rel="stylesheet">
@@ -47,12 +48,7 @@
       cursor: pointer;
     }
 
-    #search-bar {
-      width: 50%;
-      padding: 10px;
-      margin: 20px auto;
-      display: block;
-    }
+ 
 
 
 
@@ -370,7 +366,8 @@ header {
         }
         .placeholder-text {
     text-align: center;
-    margin: 20px 0;
+    font-size: 68px;
+    margin: 0;
 }
 #header-logo {
     height: 70px; /* Adjust as needed */
@@ -381,21 +378,97 @@ header {
   </style>
 </head>
 <body>
-  <header>
-    <a href="https://bipkd.onrender.com">
-      <img src="logo2.png" alt="Logo" id="header-logo"> <!-- Assign an ID for specific styling -->
-  </a><!-- Moved logo here -->
-    <nav>
-        <a href="/about-us">About Us</a>
-        <a href="/donate">Donate</a>
+  <div class="top-navigation">
+    <nav class="navbar">
+        <a href="#menu" class="mobile-only hot-dog nav-element">
+        </a>
+      <div class="nav-logo">
+        <a href="https://bpikd.onrender.com">
+        
+        </a>
+      </div>
+      <div class="action-buttons">
+
+        <a class="button-face donate-link" href="/donate">Donate</a>
+        <div id="donatePopup" class="donate-popup">
+          <span class="close-btn" id="closeBtn">&times;</span>
+          <p><a href="https://www.paypal.com/donateLink">Donate via PayPal</a></p>
+          <p>Scan this QR code to donate:</p>
+          <img src="https://www.qrstuff.com/images/default_qrcode.png" width="50%" height="50%" alt="QR Code">
+        </div>
+        <a class="button-face submit-link" href="#submit">Submit</a>
+      </div>
+
+      <div class="main-nav">
+  
+          <ul class="first-level">
+  
+              <li>
+                <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
+              </li>
+  
+              <li>
+                <a class=" news-menu-item" href="/news.html">News</a>
+              </li>
+  
+              <li>
+                <a class=" about-menu-item" href="/about.html">About</a>
+              </li>
+  
+              <li>
+                <a class=" partners-menu-item" href="/partners.html">Partners</a>
+              </li>
+  
+          </ul>
+  
+      </div>
     </nav>
-</header>
-<div id="donatePopup" class="donate-popup">
-  <span class="close-btn" id="closeBtn">&times;</span>
-  <p><a href="https://www.paypal.com/donateLink">Donate via PayPal</a></p>
-  <p>Scan this QR code to donate:</p>
-  <img src="placeholder-qr-code.png" alt="QR Code">
-</div>
+  </div>
+  
+  <nav id="menu" class="side-nav rub">
+    <div class="menu-wrapper">
+      <a class="close-btn nav-element" href="#"></a>
+  
+        <ul class="first-level">
+  
+              <li>
+                <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
+              </li>
+  
+              <li>
+                <a class=" news-menu-item" href="/news.html">News</a>
+              </li>
+  
+              <li>
+                <a class=" about-menu-item" href="/about.html">About</a>
+  
+            </li>
+  
+            <li>
+              <a class=" partners-menu-item" href="/partners.html">Partners</a>
+  
+            </li>
+  
+        </ul>
+  
+   
+      <aside class="social mobile-only">
+        <ul>
+          <li>
+            <a href="https://www.facebook.com/wikileaks" class="nav-element" target="_blank" alt="Facebook">
+              <img class="img-responsive" src="/static/img/fb-logo.png" alt="Facebook" title="Facebook page" />
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/wikileaks" class="nav-element" target="_blank" alt="Twitter">
+              <img class="img-responsive" src="/static/img/twitter-logo.png" alt="Twitter" title="Twitter page" />
+            </a>
+          </li>
+        </ul>
+      </aside>
+    </div>
+  </nav>
+<br><br><br><br><br>
 
 <script>
   // JavaScript to handle Donate click
@@ -413,15 +486,30 @@ header {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-<br><br>
+
 <div class="placeholder-text">
-  <p>Your placeholder text here...</p>
+  <p style="margin-bottom: 0px;"><b>BPIKD</b></p>
 </div>
 <br>
-<br><br><br>
-  <input type="text" id="search-bar" placeholder="Search...">
-  <div id="searchResults" class="search-results"></div>
-  <br><br>
+
+
+	<div style="padding: 0 1em 0em" class="content">
+			
+            <div class="home-container">
+				<div class="search-box">
+					<form class="search-form" action="" method="get">
+            
+						<input class="search-query" type="text" name="q" value="" id="search-bar" placeholder="Search...">
+            
+            <div id="searchResults" class="search-results"></div>
+            <button class="btn-search" type="submit"></button>
+					</form>
+				</div>
+        
+            </div>
+          </div>
+
+<br><br>
 
 
 
@@ -435,14 +523,16 @@ header {
     <!-- Istaknute osobe će biti dodane ovdje dinamički -->
   </section>
 
+
+  <div class="cards-container" >
   <div style="z-index: -1000;"class="scrollmenu">
     
-  <section id="ostaleOsobe" style="gap: 25px; grid-template-columns: repeat(100000, 1fr); padding: 0; background-color: #f2f2f2;z-index: -999;" class="cards-wrapper horizontal-scroll">
+  <section id="ostaleOsobe" style="gap: 25px; grid-template-columns: repeat(100000, 1fr); padding: 0; z-index: -999; justify-content: center;" class="cards-wrapper horizontal-scroll">
     <!-- Nedavno dodane osobe će biti dodane ovdje dinamički -->
   </section>
   
 </div>
-
+</div>
 
   <script>
     
@@ -531,7 +621,6 @@ function fetchNedavnoDodaneOsobe() {
       const container = document.getElementById('ostaleOsobe');
       container.innerHTML = ''; // Clear existing content
 
-      const cardWidth = 9*16; // Širina jedne karte
       const gap = 25; // Razmak između karata
 
       osobe.forEach(osoba => {
@@ -625,7 +714,7 @@ function fetchNedavnoDodaneOsobe() {
 <a href="#" class="gotopbtn">
   <ion-icon name="arrow-up-outline"></ion-icon>
 </a>
-<br><br><br><br><br>
+
 
 <footer id="page-footer" class="footer-recommendations">
 	<div class="footer-wrapper">
@@ -703,4 +792,10 @@ function fetchNedavnoDodaneOsobe() {
           .catch(error => console.error('Error:', error));
   };
 </script>
+
+
+
+
+
+
 </html>

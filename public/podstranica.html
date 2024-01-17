@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="/IMG/favicon.ico" />
-    <title>Balkan Leaks</title>
+    <title>BPIKD</title>
 
     <link href="/css/application.css" rel="stylesheet">
     <link href="/css/search.css" rel="stylesheet">
@@ -15,6 +15,7 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/daterangepicker.css" />
     <link href="/css/styles_topnav.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/wlks.css">
     
     <link href="/css/styles_sidenav.css" rel="stylesheet">
     <link href="/css/style_file.css" rel="stylesheet">
@@ -213,15 +214,97 @@ body, .main-content {
     </style>
 </head>
 <body>
-  <header>
-    <a href="https://bipkd.onrender.com">
-      <img src="/logo2.png" alt="Logo" id="header-logo"> <!-- Assign an ID for specific styling -->
-  </a><!-- Moved logo here -->
-    <nav>
-        <a href="/about-us">About Us</a>
-        <a href="/donate">Donate</a>
+  <div class="top-navigation">
+    <nav class="navbar">
+        <a href="#menu" class="mobile-only hot-dog nav-element">
+        </a>
+      <div class="nav-logo">
+        <a href="https://bpikd.onrender.com">
+        
+        </a>
+      </div>
+      <div class="action-buttons">
+
+        <a class="button-face donate-link" href="/donate">Donate</a>
+        <div id="donatePopup" class="donate-popup">
+          <span class="close-btn" id="closeBtn">&times;</span>
+          <p><a href="https://www.paypal.com/donateLink">Donate via PayPal</a></p>
+          <p>Scan this QR code to donate:</p>
+          <img src="https://www.qrstuff.com/images/default_qrcode.png" width="50%" height="50%" alt="QR Code">
+        </div>
+        <a class="button-face submit-link" href="#submit">Submit</a>
+      </div>
+
+      <div class="main-nav">
+  
+          <ul class="first-level">
+  
+              <li>
+                <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
+              </li>
+  
+              <li>
+                <a class=" news-menu-item" href="/news.html">News</a>
+              </li>
+  
+              <li>
+                <a class=" about-menu-item" href="/about.html">About</a>
+              </li>
+  
+              <li>
+                <a class=" partners-menu-item" href="/partners.html">Partners</a>
+              </li>
+  
+          </ul>
+  
+      </div>
     </nav>
-</header>
+  </div>
+  
+  <nav id="menu" class="side-nav rub">
+    <div class="menu-wrapper">
+      <a class="close-btn nav-element" href="#"></a>
+  
+        <ul class="first-level">
+  
+              <li>
+                <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
+              </li>
+  
+              <li>
+                <a class=" news-menu-item" href="/news.html">News</a>
+              </li>
+  
+              <li>
+                <a class=" about-menu-item" href="/about.html">About</a>
+  
+            </li>
+  
+            <li>
+              <a class=" partners-menu-item" href="/partners.html">Partners</a>
+  
+            </li>
+  
+        </ul>
+  
+   
+      <aside class="social mobile-only">
+        <ul>
+          <li>
+            <a href="https://www.facebook.com/wikileaks" class="nav-element" target="_blank" alt="Facebook">
+              <img class="img-responsive" src="/static/img/fb-logo.png" alt="Facebook" title="Facebook page" />
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/wikileaks" class="nav-element" target="_blank" alt="Twitter">
+              <img class="img-responsive" src="/static/img/twitter-logo.png" alt="Twitter" title="Twitter page" />
+            </a>
+          </li>
+        </ul>
+      </aside>
+    </div>
+  </nav>
+  <br><br><br><br>
 <div class="main-content">
       <div class="content">
         <div class="container-fluid row-fluid">
