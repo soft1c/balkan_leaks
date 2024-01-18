@@ -7,7 +7,35 @@
   <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
   <link rel="stylesheet" href="css/admin.css">
   <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+  <style>
+    .layout-row {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 15px;
+}
 
+.layout-box {
+  width: 100px; /* Adjust size as needed */
+  height: 100px; /* Adjust size as needed */
+  border: 1px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.layout-box.large {
+  width: 50%; /* Larger box for Person of the Month */
+}
+#personSelector div {
+  cursor: pointer;
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+}
+#personSelector div:hover {
+  background-color: #f0f0f0;
+}
+  </style>
 </head>
 <body>
   <div class="top-navigation">
@@ -32,11 +60,9 @@
     <a href="#" class="tablink" onclick="openTab(event, 'AddPerson')">Add Person</a>
     <a href="#" class="tablink" onclick="openTab(event, 'UploadMedia')">Upload Media</a>
     <a href="#" class="tablink" onclick="openTab(event, 'IPAddresses')">IP Addresses</a>
-    <a href="#" class="tablink" onclick="openTab(event, 'PersonOfTheMonth')">Person of the Month</a>
-    <a href="#" class="tablink" onclick="openTab(event, 'FeaturedPersons')">Featured Persons</a>
+    <a href="#" class="tablink" onclick="openTab(event, 'ManageLayout')">Page Layout</a>
     <a href="#" class="tablink" onclick="openTab(event, 'EditPersons')">Edit Persons</a>
-    <a id="ManageModerators1" href="#" class="tablink" onclick="openTab(event, 'ManageModerators')" >Manage Moderators</a>
-    <a id="ManageAdmins1" href="#" class="tablink" onclick="openTab(event, 'ManageAdmins')" >Manage Admins</a>
+    <a id="ManagePersonel1" href="#" class="tablink" onclick="openTab(event, 'ManagePersonel')" >Manage Staff</a>
     <a href="#" class="tablink" onclick="openTab(event, 'ChangePassword')">Change Your Password</a>  
     <a href="#" class="tablink" onclick="openTab(event, 'AddNews')">Add a news</a>
     <a href="#" class="tablink" onclick="openTab(event, 'EditFooter')">Manage Footer</a>
@@ -172,41 +198,28 @@ var quill = new Quill('#editor', {
   </div>
   </div>
   
-  <div id="PersonOfTheMonth" class="tabcontent">
-  <h2>Person of the month</h2>
-  <form id="osobaMjesecaForm">
-    <label for="osobaMjeseca">Choose the person of the month:</label>
-    <select name="osobaMjeseca" id="osobaMjeseca" required>
-     
-    </select>
-    <br>
-    <button type="button" onclick="odaberiOsobuMjeseca()">Choose</button>
-  </form>
+
+
+  <div id="ManageLayout" class="tabcontent">
+    <h2>Manage Layout</h2>
+    <div class="layout-row">
+      <div id ="personOfTheMonth" class="layout-box large" onclick="openPersonSelector('personOfTheMonth',this)">
+        Person of the Month
+      </div>
+    </div>
+    <div class="layout-row">
+      <!-- Featured Persons -->
+      <div id="featuredPerson1" class="layout-box" onclick="openPersonSelector('featuredPerson1',this)">Featured 1</div>
+      <div id="featuredPerson2" class="layout-box" onclick="openPersonSelector('featuredPerson2',this)">Featured 2</div>
+      <div id="featuredPerson3" class="layout-box" onclick="openPersonSelector('featuredPerson3',this)">Featured 3</div>
+      <div id="featuredPerson4" class="layout-box" onclick="openPersonSelector('featuredPerson4',this)">Featured 4</div>
+    </div>
+  
+    <!-- Submit Button -->
+    <button type="button" class="submit-button" style="justify-content: center;"onclick="submitLayoutChanges()">Submit Layout</button>
   </div>
 
 
-  <div id="FeaturedPersons" class="tabcontent">
-  <h2>Featured persons:</h2>
-<form id="featuredPersonsForm">
-  <label for="featuredPerson1">Person 1:</label>
-  <select name="featuredPerson1" id="featuredPerson1" required></select>
-  <br>
-
-  <label for="featuredPerson2">Person 2:</label>
-  <select name="featuredPerson2" id="featuredPerson2" required></select>
-  <br>
-
-  <label for="featuredPerson3">Person 3:</label>
-  <select name="featuredPerson3" id="featuredPerson3" required></select>
-  <br>
-
-  <label for="featuredPerson4">Person 4:</label>
-  <select name="featuredPerson4" id="featuredPerson4" required></select>
-  <br>
-
-  <button type="button" onclick="odaberiIstaknuteOsobe()">Choose featured persons</button>
-</form>
-</div>
 <div id="EditPersons" class="tabcontent">
   
   <h2>Edit Persons</h2>
@@ -259,12 +272,13 @@ var quill = new Quill('#editor', {
       <button type="button" onclick="submitEditForm()" class="submit-button">Update Person</button>
       <button type="button" onclick="deletePerson()" class="submit-button delete-button">Delete Person</button>
     </div>
+    
   </form>
 </div>
 
 
 
-<div id="ManageModerators" class="tabcontent">
+<div id="ManagePersonel" class="tabcontent">
   <h1>Add a Moderator</h1>
   <form id="addModeratorForm">
     <div class="form-row">
@@ -297,11 +311,6 @@ var quill = new Quill('#editor', {
       <button type="button" onclick="deleteModerator()" class="submit-button">Delete Moderator</button>
     </div>
   </form>
-
-</div>
-
-<div id="ManageAdmins" class="tabcontent">
-
   <h1>Add an Admin</h1>
   <form id="addAdminForm">
     <div class="form-row">
@@ -320,7 +329,6 @@ var quill = new Quill('#editor', {
       <button type="button" onclick="addAdmin()" class="submit-button">Add Admin</button>
     </div>
   </form>
-
 
   <h1>Delete an Admin</h1>
   <form id="deleteAdminForm">

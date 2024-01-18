@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
+  fetchCurrentLayoutStatus();
+  setInitialLayoutStatus();
   fetch('/footer')
     .then(response => response.json())
     .then(footerData => {
@@ -371,13 +373,13 @@ function populateEditForm() {
             theme: 'snow'
           });
         }
-        // Now, set the content of the editor
         window.quillInstance.root.innerHTML = data.opis;
       })
       .catch(error => {
         console.error('Failed to fetch person details:', error);
         document.getElementById('editPersonForm').style.display = 'none';
       });
+      
   } else {
     document.getElementById('editPersonForm').style.display = 'none';
   }
@@ -696,3 +698,174 @@ function submitNews(){
       alert('Failed to publish news article.');
   });
 }
+function updatePersonStatus() {
+  const selectedPersonId = document.getElementById('personSelect').value;
+  if (!selectedPersonId) {
+    alert('Please select a person.');
+    return;
+  }
+
+  const isPersonOfTheMonth = document.getElementById('personOfTheMonthCheckbox').checked;
+  const isFeaturedPerson = document.getElementById('featuredPersonCheckbox').checked;
+
+  // Update Person of the Month if checked
+  if (isPersonOfTheMonth) {
+    fetch('/odaberi-osobu-mjeseca', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ osobaId: selectedPersonId })
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+  }
+
+  // Logic to handle Featured Person will go here
+
+  alert('Status updated successfully!');
+}
+
+function fetchPersonsAndCreateSelector(boxId, clickedElement) {
+  fetch('/ljudi')
+    .then(response => response.json())
+    .then(persons => {
+      createPersonSelector(persons, boxId, clickedElement);
+    })
+    .catch(error => console.error('Error fetching persons:', error));
+}
+
+function createPersonSelector(persons, boxId, clickedElement){
+  const selector = document.createElement('div');
+  selector.id = 'personSelector';
+  selector.style = 'position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border: 1px solid black; z-index: 1000;';
+
+  persons.forEach(person => {
+    const personElement = document.createElement('div');
+    personElement.textContent = person.ime + ' ' + person.prezime;
+    personElement.onclick = () => selectPerson(person.id, person.ime + ' ' + person.prezime, boxId, clickedElement, selector);
+    selector.appendChild(personElement);
+  });
+
+  document.body.appendChild(selector);
+}
+
+function selectPerson(personId, personName, boxId, clickedElement, selector) {
+  if (clickedElement) {
+    clickedElement.setAttribute('data-selected-person-id', personId);
+    clickedElement.textContent = personName;
+  }
+  selector.remove();
+}
+
+function openPersonSelector(boxId, element) {
+  fetchPersonsAndCreateSelector(boxId, element);
+}
+
+function fetchCurrentLayoutStatus() {
+  // Fetch Person of the Month
+  fetch('/osobaMjeseca')
+    .then(response => response.json())
+    .then(data => {
+      if (data && data.osobaId) {
+        updateLayoutBox('personOfTheMonth', data.osobaId);
+      }
+    })
+    .catch(error => console.error('Error fetching Person of the Month:', error));
+
+  // Fetch Featured Persons
+  fetch('/get_featured_persons')
+    .then(response => response.json())
+    .then(data => {
+      data.forEach((person, index) => {
+        if (person.id) {
+          updateLayoutBox(`featuredPerson${index + 1}`, person.id);
+        }
+      });
+    })
+    .catch(error => console.error('Error fetching Featured Persons:', error));
+}
+
+function updateLayoutBox(boxId, personId) {
+  fetch(`/osoba/${personId}`)
+    .then(response => response.json())
+    .then(person => {
+      if (person) {
+        const boxElement = document.getElementById(boxId);
+        if (boxElement) {
+          boxElement.textContent = person.ime + ' ' + person.prezime;
+        }
+      }
+    })
+    .catch(error => console.error('Error fetching person details:', error));
+}
+
+function submitLayoutChanges() {
+  // Assuming you have stored the selected IDs in variables or elements
+  const personOfTheMonthId = document.getElementById('personOfTheMonth').getAttribute('data-selected-person-id');
+  const featuredPersonIds = [];
+  
+  for (let i = 1; i <= 4; i++) {
+    const featuredPersonId = document.getElementById(`featuredPerson${i}`).getAttribute('data-selected-person-id');
+    if (featuredPersonId) {
+      featuredPersonIds.push(featuredPersonId);
+    } else {
+      featuredPersonIds.push(null); // Or handle the missing ID case as needed
+    }
+  }
+  console.log('id je ',personOfTheMonthId);
+  // Submit Person of the Month
+  if (personOfTheMonthId) {
+    
+    fetch('/odaberi-osobu-mjeseca', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ osobaId: personOfTheMonthId })
+    })
+    .then(response => response.json())
+    .then(data => console.log('Person of the Month updated:', data))
+    .catch(error => console.error('Error updating Person of the Month:', error));
+  }
+
+  // Submit Featured Persons
+  if (featuredPersonIds.length === 4) {
+    fetch('/odaberi-istaknute-osobe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ featuredIds: featuredPersonIds })
+    })
+    .then(response => response.json())
+    .then(data => console.log('Featured Persons updated:', data))
+    .catch(error => console.error('Error updating Featured Persons:', error));
+  }
+
+  alert('Layout changes submitted!');
+}
+
+function setInitialLayoutStatus() {
+  // Postavljanje Osobe mjeseca
+  fetch('/osobaMjeseca')
+    .then(response => response.json())
+    .then(data => {
+      if (data && data.osobaId) {
+        updateLayoutBox('personOfTheMonth', data.osobaId);
+      }
+    })
+    .catch(error => console.error('Error fetching Person of the Month:', error));
+
+  // Postavljanje Istaknutih osoba
+  fetch('/get_featured_persons')
+    .then(response => response.json())
+    .then(data => {
+      data.forEach((person, index) => {
+        const boxElement = document.getElementById(`featuredPerson${index + 1}`);
+        if (boxElement && person.id) {
+          boxElement.setAttribute('data-selected-person-id', person.id);
+          boxElement.textContent = person.ime + ' ' + person.prezime;
+        }
+      });
+    })
+    .catch(error => console.error('Error fetching Featured Persons:', error));
+}
+

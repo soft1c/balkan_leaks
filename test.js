@@ -6,12 +6,19 @@ const db=new sqlite3.Database('./baza.db',sqlite3.OPEN_READWRITE,(err)=>{
         throw err;
     }else{
         console.log('Connected to the SQLite database.');
-        const query='SELECT * FROM footer';
+        const query='SELECT * FROM osobaMjeseca';
         db.all(query,(err,rows)=>{
             if(err){
                 console.log(err);
             }
             console.log(rows);
         });
+        const query2='SELECT * FROM ljudi';
+        db.all(query2,(err,rows)=>{
+            if(err){
+                console.log(err);
+            }
+            console.log(rows);
+        })
     }
 })
