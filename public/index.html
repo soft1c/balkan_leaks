@@ -7,9 +7,11 @@
     <link href="/css/tr.css" rel="stylesheet">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/daterangepicker.css" />
+    
     <link href="/css/styles_topnav.css" rel="stylesheet">
     <link href="/css/wlks.css" rel="stylesheet">
-    
+    <script src="https://kit.fontawesome.com/a59b9b09ab.js" crossorigin="anonymous"></script>
+
     <link href="/css/styles_sidenav.css" rel="stylesheet">
     <link href="/css/style_file.css" rel="stylesheet">
     
@@ -378,17 +380,19 @@ header {
   </style>
 </head>
 <body>
-  <div class="top-navigation">
+  <div style="border-bottom: 0px;
+  " class="top-navigation">
     <nav class="navbar">
         <a href="#menu" class="mobile-only hot-dog nav-element">
         </a>
-      <div class="nav-logo">
-        <a href="https://bpikd.onrender.com">
+      <div class="nav-logo" >
+        <a href="">
         
         </a>
       </div>
       <div class="action-buttons">
 
+        
         <a class="button-face donate-link" href="/donate">Donate</a>
         <div id="donatePopup" class="donate-popup">
           <span class="close-btn" id="closeBtn">&times;</span>
@@ -427,10 +431,12 @@ header {
   
   <nav id="menu" class="side-nav rub">
     <div class="menu-wrapper">
-      <a class="close-btn nav-element" href="#"></a>
+      <a class="close-btn nav-element" href=""></a>
   
         <ul class="first-level">
   
+
+
               <li>
                 <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
               </li>
@@ -466,9 +472,11 @@ header {
           </li>
         </ul>
       </aside>
+    
     </div>
+    
   </nav>
-<br><br><br><br><br>
+<br><br>
 
 <script>
   // JavaScript to handle Donate click
@@ -487,9 +495,6 @@ header {
 
 
 
-<div class="placeholder-text">
-  <p style="margin-bottom: 0px;"><b>BPIKD</b></p>
-</div>
 <br>
 
 
@@ -499,10 +504,11 @@ header {
 				<div class="search-box">
 					<form class="search-form" action="" method="get">
             
-						<input class="search-query" type="text" name="q" value="" id="search-bar" placeholder="Search...">
+						<input class="search-query" type="text" name="" value="" id="search-bar" placeholder="Search...">
             
             <div id="searchResults" class="search-results"></div>
             <button class="btn-search" type="submit"></button>
+            
 					</form>
 				</div>
         
@@ -514,25 +520,77 @@ header {
 
 
 
-
+<h1 style="text-align: center;">Person of Month</h1> <br>
   <section id="osobaMjeseca" class="cards-wrapper" style="display:flex; justify-content: center; padding: 0px;">
+   
     <!-- Dinamički sadržaj osobe mjeseca će biti umetnut ovdje -->
   </section>
-  
-  <section id="istaknuteOsobe" style="gap: 25px;" class="cards-wrapper">
+  <br> <br>
+  <h1 style="text-align: center;">Persons of Week</h1>
+  <section id="istaknuteOsobe" style="gap: 25px; " class="cards-wrapper">
     <!-- Istaknute osobe će biti dodane ovdje dinamički -->
   </section>
 
-
-  <div class="cards-container" >
+  
+  <h1 style="text-align: center;">Other People</h1>
+  <div class="cards-container"  >
+  
+    <button  class="left" onclick="leftScroll()">
+      <i class="fas fa-angle-double-left"></i>
+    </button>
   <div style="z-index: -1000;"class="scrollmenu">
     
-  <section id="ostaleOsobe" style="gap: 25px; grid-template-columns: repeat(100000, 1fr); padding: 0; z-index: -999; justify-content: center;" class="cards-wrapper horizontal-scroll">
+  <section id="ostaleOsobe" style="gap: 25px; grid-template-columns: repeat(100000, 1fr); padding: 0; z-index: -999; justify-content: center; display: flex;" class="cards-wrapper horizontal-scroll">
     <!-- Nedavno dodane osobe će biti dodane ovdje dinamički -->
   </section>
-  
+  <button class="right" onclick="rightScroll()">
+    <i class="fas fa-angle-double-right"></i>
+  </button>
+
+
 </div>
-</div>
+</div>   
+<script>document.addEventListener("DOMContentLoaded", function () {
+  const scrollImages = document.querySelector(".scrollmenu");
+  const scrollLength = scrollImages.scrollWidth - scrollImages.clientWidth;
+  const leftButton = document.querySelector(".left");
+  const rightButton = document.querySelector(".right");
+
+  function checkScroll() {
+    const currentScroll = scrollImages.scrollLeft;
+    if (currentScroll === 0) {
+      leftButton.setAttribute("disabled", "true");
+      rightButton.removeAttribute("disabled");
+    } else if (currentScroll === scrollLength) {
+      rightButton.setAttribute("disabled", "true");
+      leftButton.removeAttribute("disabled");
+    } else {
+      leftButton.removeAttribute("disabled");
+      rightButton.removeAttribute("disabled");
+    }
+  }
+
+  scrollImages.addEventListener("scroll", checkScroll);
+  window.addEventListener("resize", checkScroll);
+  checkScroll();
+
+  function leftScroll() {
+    scrollImages.scrollBy({
+      left: -200,
+      behavior: "smooth"
+    });
+  }
+
+  function rightScroll() {
+    scrollImages.scrollBy({
+      left: 200,
+      behavior: "smooth"
+    });
+  }
+
+  leftButton.addEventListener("click", leftScroll);
+  rightButton.addEventListener("click", rightScroll);
+});</script>
 
   <script>
     
