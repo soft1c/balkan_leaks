@@ -384,45 +384,57 @@ var quill = new Quill('#editor', {
   <h1>Edit Footer</h1>
   <div id="footerElements">
       <div class="footer-element">
-          <form class="editFooterForm">
+          <form class="editFooterForm" id="editFooterForm1" data-footer-id="1">
+            <input type="hidden" name="footerId" value="1">
+
               <label>Image:</label>
-              <input type="file" name="footerImage" accept="image/*">
+              <input style="display:block;" type="file" name="footerImage" accept="image/*">
+              <img class="current-footer-image" src="" alt="Current Footer Image" style="max-width: 200px; max-height: 150px;">
               <label>Text:</label>
               <textarea name="footerText"></textarea>
-              <button type="button" onclick="submitFooterEdit(this)">Update Element</button>
+              <button type="button" onclick="submitFooterEdit(1)">Update Element</button>
           </form>
       </div>
   </div>
   <div id="footerElements">
     <div class="footer-element">
-        <form class="editFooterForm">
+        <form class="editFooterForm" id="editFooterForm2" data-footer-id="2">
+          <input type="hidden" name="footerId" value="2">
+
             <label>Image:</label>
-            <input type="file" name="footerImage" accept="image/*">
+            <input style="display:block;" type="file" name="footerImage" accept="image/*">
+            <img class="current-footer-image" src="" alt="Current Footer Image" style="max-width: 200px; max-height: 150px;">
             <label>Text:</label>
             <textarea name="footerText"></textarea>
-            <button type="button" onclick="submitFooterEdit(this)">Update Element</button>
+            <button type="button" onclick="submitFooterEdit(2)"">Update Element</button>
         </form>
     </div>
 </div>
 <div id="footerElements">
   <div class="footer-element">
-      <form class="editFooterForm">
+      <form class="editFooterForm" id="editFooterForm3" data-footer-id="3">
+        <input type="hidden" name="footerId" value="3">
+
           <label>Image:</label>
-          <input type="file" name="footerImage" accept="image/*">
+          <input style="display:block;" type="file" name="footerImage" accept="image/*">
+          <img class="current-footer-image" src="" alt="Current Footer Image" style="max-width: 200px; max-height: 150px;">
           <label>Text:</label>
           <textarea name="footerText"></textarea>
-          <button type="button" onclick="submitFooterEdit(this)">Update Element</button>
+          <button type="button" onclick="submitFooterEdit(3)">Update Element</button>
       </form>
   </div>
 </div>
 <div id="footerElements">
   <div class="footer-element">
-      <form class="editFooterForm">
+      <form class="editFooterForm" id="editFooterForm4"  data-footer-id="4">
+        <input type="hidden" name="footerId" value="4">
+
           <label>Image:</label>
-          <input type="file" name="footerImage" accept="image/*">
+          <input style="display:block;" type="file" name="footerImage" accept="image/*">
+          <img class="current-footer-image" src="" alt="Current Footer Image" style="max-width: 200px; max-height: 150px;">
           <label>Text:</label>
           <textarea name="footerText"></textarea>
-          <button type="button" onclick="submitFooterEdit(this)">Update Element</button>
+          <button type="button" onclick="submitFooterEdit(4)">Update Element</button>
       </form>
   </div>
 </div>

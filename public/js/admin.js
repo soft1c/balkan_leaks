@@ -1,4 +1,34 @@
 document.addEventListener('DOMContentLoaded', function() {
+  fetch('/footer')
+    .then(response => response.json())
+    .then(footerData => {
+      footerData.forEach(footer => {
+        const form = document.getElementById(`editFooterForm${footer.id}`);
+        if (form) {
+          let currentImage = form.querySelector('.current-footer-image');
+          // If the image element doesn't exist, create it
+          if (!currentImage) {
+            currentImage = document.createElement('img');
+            currentImage.className = 'current-footer-image';
+            form.insertBefore(currentImage, form.firstChild); // Insert it at the top of the form
+          }
+          currentImage.src = footer.urlPath; // Adjust if necessary to match the correct path
+          currentImage.alt = 'Current footer image';
+          currentImage.style.display = 'block'; // Make sure the image is displayed
+
+          // Set the text value
+          const textInput = form.querySelector('textarea[name="footerText"]');
+          if (textInput) {
+            textInput.value = footer.tekst;
+          }
+        }
+      });
+    })
+    .catch(error => {
+      console.error('Error fetching footer data:', error);
+    });
+});
+document.addEventListener('DOMContentLoaded', function() {
   fetchEntryStats();
   fetchAdmins();
   fetch('/get-role')
@@ -551,6 +581,46 @@ function deleteAdmin(){
   .then(data => {
     location.reload();
   })
+}
+
+document.querySelectorAll('.editFooterForm').forEach(form => {
+  form.querySelector('input[type="file"]').addEventListener('change', function(e) {
+      var imgPreview = form.querySelector('.current-footer-image');
+      var file = e.target.files[0];
+      var reader = new FileReader();
+      
+      reader.onload = function(e) {
+          imgPreview.src = e.target.result;
+      };
+      
+      reader.readAsDataURL(file);
+  });
+});
+
+
+
+function submitFooterEdit(footerId) {
+  // Assuming your form IDs follow the pattern "editFooterForm{footerId}"
+  var formElement = document.getElementById(`editFooterForm${footerId}`);
+  var formData = new FormData(formElement);
+
+  console.log(formData);
+  // Make the API call to the server
+  fetch('/update-footer', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Handle success
+    console.log('Success:', data);
+    alert('Footer updated successfully!');
+  })
+  .catch(error => {
+    // Handle errors
+    console.error('Error:', error);
+    alert('Error updating footer');
+  });
 }
 
 

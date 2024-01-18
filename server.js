@@ -891,6 +891,46 @@ app.post('/change_password', (req, res) => {
     });
   });
 
+  app.post('/update-footer', upload.single('footerImage'), (req, res) => {
+    console.log(req.file);
+    
+    const footerId = req.body.footerId;
+    const tekst = req.body.footerText;
+    console.log(tekst);
+
+    let slikaUrl = req.file ? `${req.file.filename}` : null;
+    slikaUrl='uploads/media/images/'+slikaUrl;
+    let query = `UPDATE footer SET tekst = ? WHERE id = ?`;
+  
+    // Include slikaUrl in the update if a new image was uploaded
+    if (slikaUrl) {
+      query = `UPDATE footer SET tekst = ?, urlPath = ? WHERE id = ?`;
+    }
+  
+    db.run(query, slikaUrl ? [tekst, slikaUrl, footerId] : [tekst, footerId], function(err) {
+      if (err) {
+        console.error(err.message);
+        res.status(500).send('Error updating footer');
+      } else {
+        console.log(`Row(s) updated: ${this.changes}`);
+        res.send('Footer updated successfully');
+      }
+    });
+
+  });
+
+
+app.get('/footer',(req,res)=>{
+  db.all('SELECT * FROM footer', (err, rows) => {
+    if(err){
+      console.error('Error retrieving footer:', err.message);
+      res.status(500).send('Error retrieving footer');
+    }else{
+      res.status(200).send(rows);
+    }
+  });
+})
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
