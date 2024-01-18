@@ -58,7 +58,6 @@
   <script src="js/admin.js"></script>
   <div class="sidebar">
     <a href="#" class="tablink" onclick="openTab(event, 'AddPerson')">Add Person</a>
-    <a href="#" class="tablink" onclick="openTab(event, 'UploadMedia')">Upload Media</a>
     <a href="#" class="tablink" onclick="openTab(event, 'IPAddresses')">IP Addresses</a>
     <a href="#" class="tablink" onclick="openTab(event, 'ManageLayout')">Page Layout</a>
     <a href="#" class="tablink" onclick="openTab(event, 'EditPersons')">Edit Persons</a>
@@ -141,47 +140,16 @@ var quill = new Quill('#editor', {
       </div>
     </div>
     
+    
     <div class="form-row button-container">
       <button type="submit" class="submit-button">Add Person</button>
     </div>
   </form>
+
+  
   </div>
 
-  <div id="UploadMedia" class="tabcontent">
-    <h1>Upload Media</h1>
-    <form id="uploadForm" enctype="multipart/form-data">
-      <div class="form-row">
-        <div class="form-group">
-          <label for="licnost">Choose a person:</label>
-          <select name="licnost" id="licnost" required>
-          </select>
-        </div>
-      
-        <div class="form-group">
-          <label for="type">Choose a type:</label>
-          <select name="type" id="type" required>
-            <option value="image">Picture</option>
-            <option value="video">Video</option>
-            <option value="audio">Audio</option>
-            <option value="text">Text</option>
-          </select>
-        </div>
-      </div>
-      
-      <div class="form-row">
-  <div class="form-group">
-    <input type="file" id="file" name="file" required style="display: none;" onchange="updateFilename()">
-    <button type="button" class="file-upload-button" onclick="document.getElementById('file').click();">Choose a file:</button>
-    <span id="file-name"></span> <!-- Placeholder for the file name -->
-  </div>
-</div>
-      
-      <div class="form-row button-container">
-        <button type="button" onclick="uploadMedia()" class="submit-button">Upload</button>
-      </div>
-    </form>
-  </div>
-
+  
   <div id="IPAddresses" class="tabcontent">
     <div class="data-container">
       <div id="ip-addresses" class="data-block">
@@ -216,7 +184,7 @@ var quill = new Quill('#editor', {
     </div>
   
     <!-- Submit Button -->
-    <button type="button" class="submit-button" style="justify-content: center;"onclick="submitLayoutChanges()">Submit Layout</button>
+    <button type="button" class="submit-button" style="margin: 0 auto;"onclick="submitLayoutChanges()">Submit Layout</button>
   </div>
 
 
@@ -266,7 +234,16 @@ var quill = new Quill('#editor', {
     </div>
     <textarea name="opis" id="hiddenOpis" style="display:none;"></textarea>
 
-  
+    <div class="form-group">
+      <label for="file">Upload Media:</label>
+      <input type="file" id="file" name="file" style="display: block;"required>
+      <select name="type" required>
+        <option value="image">Picture</option>
+        <option value="video">Video</option>
+        <option value="audio">Audio</option>
+        <option value="text">Text</option>
+      </select>
+    </div>
     
     <div class="form-row button-container">
       <button type="button" onclick="submitEditForm()" class="submit-button">Update Person</button>
@@ -274,6 +251,7 @@ var quill = new Quill('#editor', {
     </div>
     
   </form>
+  
 </div>
 
 

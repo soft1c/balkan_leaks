@@ -619,16 +619,4 @@ div.scrollmenu a:hover {
         background-color: black;
     }
 
-    .left {
-      position: absolute;
-      left: 500px;
-      font-size:40px; 
-      transform: translateY(140%);
-  }
-  
-  .right {
-      position: absolute;
-      right: 500px;
-      font-size:40px; 
-      transform: translateY(-220%);
-  }
+    

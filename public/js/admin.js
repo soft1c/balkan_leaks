@@ -869,3 +869,20 @@ function setInitialLayoutStatus() {
     .catch(error => console.error('Error fetching Featured Persons:', error));
 }
 
+function addPerson() {
+  const formData = new FormData(document.getElementById('AddPersonForm'));
+
+  fetch('/admin/dodaj', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    // Obrada nakon uspješnog dodavanja osobe
+  })
+  .catch(error => {
+    console.error('Došlo je do greške:', error);
+  });
+}
+
