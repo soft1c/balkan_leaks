@@ -38,6 +38,10 @@
     <a id="ManageModerators1" href="#" class="tablink" onclick="openTab(event, 'ManageModerators')" >Manage Moderators</a>
     <a id="ManageAdmins1" href="#" class="tablink" onclick="openTab(event, 'ManageAdmins')" >Manage Admins</a>
     <a href="#" class="tablink" onclick="openTab(event, 'ChangePassword')">Change Your Password</a>  
+    <a href="#" class="tablink" onclick="openTab(event, 'AddNews')">Add a news</a>
+    <a href="#" class="tablink" onclick="openTab(event, 'EditFooter')">Manage Footer</a>
+
+
   </div>
   <div id="AddPerson" class="tabcontent"> 
   <form id="AddPersonForm" action="/admin/dodaj" method="post" enctype="multipart/form-data">
@@ -359,6 +363,84 @@ var quill = new Quill('#editor', {
   </form>
 </div>
 
+<div id="AddNews" class="tabcontent">
+  <h1>Add News Article</h1>
+  <form id="addNewsForm">
+    <div class="form-group">
+      <label for="newsTitle">Title:</label>
+      <input type="text" id="newsTitle" name="title" required>
+    </div>
+    <div class="form-group text-editor-container">
+      <div id="newsEditor"></div>
+      <textarea name="content" id="hiddenContent" style="display:none;"></textarea>
+    </div>
+    <div class="form-row button-container">
+      <button type="button" onclick="submitNews()" class="submit-button">Publish News</button>
+    </div>
+  </form>
+</div>
+
+<div id="EditFooter" class="tabcontent">
+  <h1>Edit Footer</h1>
+  <div id="footerElements">
+      <div class="footer-element">
+          <form class="editFooterForm">
+              <label>Image:</label>
+              <input type="file" name="footerImage" accept="image/*">
+              <label>Text:</label>
+              <textarea name="footerText"></textarea>
+              <button type="button" onclick="submitFooterEdit(this)">Update Element</button>
+          </form>
+      </div>
+  </div>
+  <div id="footerElements">
+    <div class="footer-element">
+        <form class="editFooterForm">
+            <label>Image:</label>
+            <input type="file" name="footerImage" accept="image/*">
+            <label>Text:</label>
+            <textarea name="footerText"></textarea>
+            <button type="button" onclick="submitFooterEdit(this)">Update Element</button>
+        </form>
+    </div>
+</div>
+<div id="footerElements">
+  <div class="footer-element">
+      <form class="editFooterForm">
+          <label>Image:</label>
+          <input type="file" name="footerImage" accept="image/*">
+          <label>Text:</label>
+          <textarea name="footerText"></textarea>
+          <button type="button" onclick="submitFooterEdit(this)">Update Element</button>
+      </form>
+  </div>
+</div>
+<div id="footerElements">
+  <div class="footer-element">
+      <form class="editFooterForm">
+          <label>Image:</label>
+          <input type="file" name="footerImage" accept="image/*">
+          <label>Text:</label>
+          <textarea name="footerText"></textarea>
+          <button type="button" onclick="submitFooterEdit(this)">Update Element</button>
+      </form>
+  </div>
+</div>
+</div>
+
+
+
+
+
+<script src="js/admin.js"></script>
+<script>
+    var quillNews = new Quill('#newsEditor', {
+    modules: {
+      toolbar: toolbarOptions
+    },
+    theme: 'snow'
+  });
+</script>
 
 
 <script src="js/admin.js"></script>

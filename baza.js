@@ -7,21 +7,19 @@ let db = new sqlite3.Database('./baza.db', (err) => {
         throw err;
     } else {
         console.log('Connected to the SQLite database.');
-
+        
        
-        db.run(`CREATE TABLE IF NOT EXISTS ljudi_novi (
+        db.run(`CREATE TABLE IF NOT EXISTS footer (
             id INTEGER PRIMARY KEY,
-            ime TEXT,
-            prezime TEXT,
-            opis TEXT,
-            slikaUrl TEXT
+            urlPath TEXT,
+            tekst TEXT
           )`);
         
           // Kopiranje podataka iz stare tabele u novu (bez nepoželjnih kolona)
           
         
           // Preimenovanje nove tabele u originalno ime
-          db.run(`ALTER TABLE ljudi_novi RENAME TO ljudi`);
+          
 
       
     }
