@@ -8,23 +8,12 @@ let db = new sqlite3.Database('./baza.db', (err) => {
     } else {
         console.log('Connected to the SQLite database.');
         
-       const query = `CREATE TABLE IF NOT EXISTS sponzori(
-        id INTEGER PRIMARY KEY,
-        link TEXT,
-        urlPath TEXT
-       )
-       `;
-
-       db.run(query, (err) => {
-           if (err) {
-               console.error(err.message);
-               throw err;
-           }else{
-            console.log('Table created successfully');
-           }
-       })
-
-      
+        db.run(`ALTER TABLE visits ADD COLUMN operating_system TEXT`, function(err) {
+          if (err) {
+              return console.error(err.message);
+          }
+          console.log('A new column "operating_system" has been added');
+      });
     }
   }
     

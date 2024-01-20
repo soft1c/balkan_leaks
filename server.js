@@ -53,22 +53,36 @@ app.use(express.urlencoded({ extended: true }));
 
 function logVisit(req, res, next) {
   if (!req.cookies.visited) {
-    
     const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    const userAgent = req.headers['user-agent'];
     const loginTime = new Date().toISOString();
-    console.log(ip);
+
+    // Extract the operating system from the User-Agent string
+    const os = extractOS(userAgent);
+
+    console.log(`IP: ${ip}, OS: ${os}`);
     console.log(loginTime);
 
-    db.run(`INSERT INTO visits (ip, loginTime) VALUES (?, ?)`, [ip, loginTime], function(err) {
+    db.run(`INSERT INTO visits (ip, operating_system, loginTime) VALUES (?, ?, ?)`, [ip, os, loginTime], function(err) {
       if (err) {
         return console.error(err.message);
       }
-      console.log(`A visit from ${ip} was logged.`);
+      console.log(`A visit from ${ip} with OS ${os} was logged.`);
     });
     res.cookie('visited', 'yes', { maxAge: 1000000 }); 
   }
 
   next();
+}
+
+function extractOS(userAgentString) {
+  if (userAgentString.includes("Win")) return "Windows";
+  if (userAgentString.includes("Mac")) return "MacOS";
+  if (userAgentString.includes("X11")) return "UNIX";
+  if (userAgentString.includes("Linux")) return "Linux";
+  if (userAgentString.includes("Android")) return "Android";
+  if (userAgentString.includes("like Mac")) return "iOS";
+  return "Unknown";
 }
 
 app.use(logVisit);

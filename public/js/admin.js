@@ -103,24 +103,29 @@ function odaberiIstaknuteOsobe() {
     console.error('Došlo je do greške:', error);
   });
 }
-    function fetchUserIPs() {
-      fetch('/user_ips')
-        .then(response => response.json())
-        .then(data => {
-          const ipList = document.getElementById('ipList');
-          ipList.innerHTML = ''; 
+function fetchUserIPs() {
+  fetch('/user_ips')
+    .then(response => response.json())
+    .then(data => {
+      const ipList = document.getElementById('ipList');
+      ipList.innerHTML = ''; 
 
-          data.forEach(entry => {
-            const listItem = document.createElement('li');
-            listItem.textContent = `IP Address: ${entry.ip}, Login Time: ${entry.loginTime}`;
-            ipList.appendChild(listItem);
-          });
-        })
-        .catch(error => console.error(error));
-    }
+      data.forEach(entry => {
+        // Check if the operating system is defined and not 'Unknown'
+        const osInfo = entry.operatingSystem && entry.operatingSystem !== 'Unknown' 
+                       ? `, Operating System: ${entry.operatingSystem}` 
+                       : '';
 
-    // Fetch IP addresses on page load
-    fetchUserIPs();
+        const listItem = document.createElement('li');
+        listItem.textContent = `IP Address: ${entry.ip}, Login Time: ${entry.loginTime}${osInfo}`;
+        ipList.appendChild(listItem);
+      });
+    })
+    .catch(error => console.error(error));
+}
+
+// Fetch IP addresses on page load
+fetchUserIPs();
   
     function uploadMedia() {
   const typeSelect = document.getElementById('type');
