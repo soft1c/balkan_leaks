@@ -886,3 +886,53 @@ function addPerson() {
   });
 }
 
+function addSponsor() {
+  const formData = new FormData(document.getElementById('addSponsorForm'));
+  formData.append('tipFajla', 'image'); // Postavite tip fajla na 'image'
+  console.log(formData);
+  fetch('/upload-sponsor', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    location.reload();
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+}
+
+function previewPerson() {
+  // Preuzmite podatke iz forme
+  var ime = document.querySelector('[name="ime"]').value;
+  var prezime = document.querySelector('[name="prezime"]').value;
+  var opis = quill.root.innerHTML; // Pretpostavka da koristite Quill editor za opis
+
+  // Preuzmite sliku kao Data URL
+  var reader = new FileReader();
+  reader.onload = function (e) {
+    var slikaUrl = e.target.result;
+
+    // Spremite podatke u localStorage
+    localStorage.setItem('previewIme', ime);
+    localStorage.setItem('previewPrezime', prezime);
+    localStorage.setItem('previewOpis', opis);
+    localStorage.setItem('previewSlikaUrl', slikaUrl);
+
+    // Otvorite novu stranicu za pregled
+    window.open('/preview.html', '_blank');
+  };
+
+  var slika = document.getElementById('slika').files[0];
+  if (slika) {
+    reader.readAsDataURL(slika);
+  } else {
+    // Ako nema slike, samo otvorite pregled
+    window.open('/preview.html', '_blank');
+  }
+}
+
+  
+

@@ -919,6 +919,37 @@ app.post('/change_password', (req, res) => {
 
   });
 
+  app.post('/upload-sponsor', upload.single('image'), (req, res) => {
+    if (!req.file) {
+      return res.status(400).send('No image file uploaded.');
+    }
+  
+    const imageUrl = path.join('uploads', 'media', 'images', req.file.filename); // Relativna putanja slike
+    const linkUrl = req.body.link; // URL sponzora iz forme
+    console.log(linkUrl, imageUrl);
+    const query= `INSERT INTO sponzori (urlPath, link) VALUES (?, ?)`;
+    db.run(query, [imageUrl, linkUrl], function(err) {
+      if (err) {
+        console.error(err.message);
+        return res.status(500).send('Error adding sponsor');
+      }
+      console.log(`Row(s) updated: ${this.changes}`);
+  
+      res.status(200).json({ message: 'Sponsor added successfully', imageUrl, linkUrl });
+    });
+  });
+
+  app.get('/sponzori',(req,res)=>{
+    db.all('SELECT * FROM sponzori', (err, rows) => {
+      if(err){
+        console.error('Error retrieving sponsors:', err.message);
+        res.status(500).send('Error retrieving sponsors');
+      }else{
+        res.status(200).send(rows);
+      }
+    });
+  })
+
 
 app.get('/footer',(req,res)=>{
   db.all('SELECT * FROM footer', (err, rows) => {

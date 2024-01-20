@@ -142,65 +142,12 @@
 
 
 
-<div class="content">
-      
-        
-          
-            <div>
-              <h1>Co-publishers, Research Partners and Funders</h1>
-<ul><br><br>
-    <li><span>
-        <a href="https://www.couragefound.org/" target="_blank"><img class='spip_logos' alt=' Courage Foundation' src="https://cdn.mos.cms.futurecdn.net/8stH5QZQriowRdziYpK6SY-1200-80.jpg" width='195' height='105' /></a>
-      </span></li>
-    
-      <li><span>
-        <a href="http://www.abc.com.py/" target="_blank"><img class='spip_logos' alt='ABC Color (Paraguay)' src="https://cdn.mos.cms.futurecdn.net/8stH5QZQriowRdziYpK6SY-1200-80.jpg" width='195' height='105' /></a>
-      </span></li>
-      <li><span>
-        <a href="https://www.couragefound.org/" target="_blank"><img class='spip_logos' alt=' Courage Foundation' src="https://cdn.mos.cms.futurecdn.net/8stH5QZQriowRdziYpK6SY-1200-80.jpg" width='195' height='105' /></a>
-      </span></li>
-    
-      <li><span>
-        <a href="http://www.abc.com.py/" target="_blank"><img class='spip_logos' alt='ABC Color (Paraguay)' src="https://cdn.mos.cms.futurecdn.net/8stH5QZQriowRdziYpK6SY-1200-80.jpg" width='195' height='105' /></a>
-      </span></li>
-      <li><span>
-        <a href="https://www.couragefound.org/" target="_blank"><img class='spip_logos' alt=' Courage Foundation' src="https://cdn.mos.cms.futurecdn.net/8stH5QZQriowRdziYpK6SY-1200-80.jpg" width='195' height='105' /></a>
-      </span></li>
-    
-      <li><span>
-        <a href="http://www.abc.com.py/" target="_blank"><img class='spip_logos' alt='ABC Color (Paraguay)' src="https://cdn.mos.cms.futurecdn.net/8stH5QZQriowRdziYpK6SY-1200-80.jpg" width='195' height='105' /></a>
-      </span></li>
-      <li><span>
-        <a href="https://www.couragefound.org/" target="_blank"><img class='spip_logos' alt=' Courage Foundation' src="https://cdn.mos.cms.futurecdn.net/8stH5QZQriowRdziYpK6SY-1200-80.jpg" width='195' height='105' /></a>
-      </span></li>
-    
-      <li><span>
-        <a href="http://www.abc.com.py/" target="_blank"><img class='spip_logos' alt='ABC Color (Paraguay)' src="https://cdn.mos.cms.futurecdn.net/8stH5QZQriowRdziYpK6SY-1200-80.jpg" width='195' height='105' /></a>
-      </span></li>
-      <li><span>
-        <a href="https://www.couragefound.org/" target="_blank"><img class='spip_logos' alt=' Courage Foundation' src="https://cdn.mos.cms.futurecdn.net/8stH5QZQriowRdziYpK6SY-1200-80.jpg" width='195' height='105' /></a>
-      </span></li>
-    
-      <li><span>
-        <a href="http://www.abc.com.py/" target="_blank"><img class='spip_logos' alt='ABC Color (Paraguay)' src="https://cdn.mos.cms.futurecdn.net/8stH5QZQriowRdziYpK6SY-1200-80.jpg" width='195' height='105' /></a>
-      </span></li>
-      <li><span>
-        <a href="https://www.couragefound.org/" target="_blank"><img class='spip_logos' alt=' Courage Foundation' src="https://cdn.mos.cms.futurecdn.net/8stH5QZQriowRdziYpK6SY-1200-80.jpg" width='195' height='105' /></a>
-      </span></li>
-    
-      <li><span>
-        <a href="http://www.abc.com.py/" target="_blank"><img class='spip_logos' alt='ABC Color (Paraguay)' src="https://cdn.mos.cms.futurecdn.net/8stH5QZQriowRdziYpK6SY-1200-80.jpg" width='195' height='105' /></a>
-      </span></li>
-      
-</ul>
-            </div>
-          
-        
-          
-        
-      
-    </div>
-  </div>
+      <div class="content">
+        <div>
+          <h1>Co-publishers, Research Partners and Funders</h1>
+          <ul id="sponsorsList"></ul> <!-- Ovdje će biti prikazani sponzori -->
+        </div>
+      </div>
 	<footer id="page-footer" class="footer-recommendations">
   <div class="footer-wrapper">
     <div class="recommendation-container">
@@ -446,6 +393,28 @@ function fetchNedavnoDodaneOsobe() {
   scrollContainer.addEventListener('scroll', resetScroll);
 });
 
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      fetchSponsors();
+    });
+  
+    function fetchSponsors() {
+      fetch('/sponzori')
+        .then(response => response.json())
+        .then(sponsors => {
+          const sponsorsList = document.getElementById('sponsorsList');
+          
+          sponsorsList.innerHTML = sponsors.map(sponsor => `
+            <li>
+              <a href="${sponsor.link}" target="_blank">
+                <img src="${sponsor.urlPath}" alt="Sponsor Image" width='195' height='105' />
+              </a>
+            </li>
+          `).join('');
+        })
+        .catch(error => console.error('Error fetching sponsors:', error));
+    }
   </script>
 
 </body>

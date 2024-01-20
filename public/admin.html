@@ -65,6 +65,8 @@
     <a href="#" class="tablink" onclick="openTab(event, 'ChangePassword')">Change Your Password</a>  
     <a href="#" class="tablink" onclick="openTab(event, 'AddNews')">Add a news</a>
     <a href="#" class="tablink" onclick="openTab(event, 'EditFooter')">Manage Footer</a>
+    <a href="#" class="tablink" onclick="openTab(event, 'AddSponsors')">Add Sponsors</a>
+
 
 
   </div>
@@ -143,6 +145,7 @@ var quill = new Quill('#editor', {
     
     <div class="form-row button-container">
       <button type="submit" class="submit-button">Add Person</button>
+      <button type="button" class="submit-button" onclick="previewPerson()">Preview</button>
     </div>
   </form>
 
@@ -426,6 +429,23 @@ var quill = new Quill('#editor', {
 </div>
 </div>
 
+<div id="AddSponsors" class="tabcontent">
+  <h1>Add a Sponsor</h1>
+  <form id="addSponsorForm">
+    <div class="form-group">
+      <label for="sponsorImage">Sponsor Image:</label>
+      <input style="display: block;" type="file" id="sponsorImage" name="image" accept="image/*" required>
+    </div>
+    <div class="form-group">
+      <label for="sponsorLink">Sponsor Link:</label>
+      <input type="text" id="sponsorLink" name="link" required>
+    </div>
+    <div class="form-row button-container">
+      <button type="button" onclick="addSponsor()" class="submit-button">Add Sponsor</button>
+    </div>
+  </form>
+</div>
+
 
 
 
@@ -442,5 +462,11 @@ var quill = new Quill('#editor', {
 
 
 <script src="js/admin.js"></script>
+<div id="personPreview" style="display: none;">
+  <h2>Person Preview</h2>
+  <img id="previewSlika" src="" alt="Image preview" style="display: none; width: 100px; height: auto;">
+  <h3 id="previewIme"></h3>
+  <p id="previewOpis"></p>
+</div>
 </body>
 </html>
