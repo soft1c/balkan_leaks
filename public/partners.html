@@ -403,6 +403,7 @@ function fetchNedavnoDodaneOsobe() {
       fetch('/sponzori')
         .then(response => response.json())
         .then(sponsors => {
+          console.log('sponsors:', sponsors);
           const sponsorsList = document.getElementById('sponsorsList');
           
           sponsorsList.innerHTML = sponsors.map(sponsor => `

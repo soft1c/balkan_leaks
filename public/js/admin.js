@@ -774,6 +774,7 @@ function fetchCurrentLayoutStatus() {
     .then(response => response.json())
     .then(data => {
       if (data && data.osobaId) {
+        console.log("osoba mjeseca",data);
         updateLayoutBox('personOfTheMonth', data.osobaId);
       }
     })
