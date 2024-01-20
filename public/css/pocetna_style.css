@@ -27,7 +27,7 @@ a {
   border-radius: 10px;
   margin: 20px auto; /* Set margin to auto for horizontal centering */
   padding: 10px;
-  max-width: calc((7em + 1.5rem) * 6); /* Set the maximum width to accommodate 5 cards */
+  max-width: calc((7em + 4.17rem) * 6); /* Set the maximum width to accommodate 5 cards */
   justify-content: center; /* Center the cards horizontally */
 }
 
@@ -377,7 +377,7 @@ a {
           display: flex;
   flex-direction: row;
   overflow-x: auto;
-  gap: 25px;
+  gap: 15px;
   padding: 0;
 
   z-index: -999;

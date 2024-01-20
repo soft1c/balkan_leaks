@@ -227,7 +227,10 @@ figure {
   margin: 0; }
 
 img {
-  vertical-align: middle; }
+  vertical-align: middle; 
+  width: auto;
+  height: 150px;
+}
 
 .img-responsive {
   display: block;
@@ -1386,7 +1389,9 @@ ul li {
   margin-bottom: .5em; }
 
 p {
-  margin-bottom: .72em; }
+  margin-bottom: .72em; 
+  color:black;
+}
 
 .content {
   max-width: 1100px;
