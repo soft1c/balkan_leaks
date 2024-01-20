@@ -7,6 +7,8 @@
   <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
   <link rel="stylesheet" href="css/admin.css">
   <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
     .layout-row {
   display: flex;
@@ -14,18 +16,33 @@
   margin-bottom: 15px;
 }
 
-.layout-box {
-  width: 100px; /* Adjust size as needed */
-  height: 100px; /* Adjust size as needed */
-  border: 1px solid #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
+.body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #000; /* Black background */
+    background-color: #272242 ; /* GitHub dark mode background color */
+    color: #C9D1D9; /* GitHub dark mode text color */
+  }
+
+  .layout-box {
+    width:100px;
+    height:200px;
+    text-align:center;
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid #30363D; /* GitHub dark mode border color */
+    background-color: #161B22; /* GitHub dark mode box color */
+    color: #C9D1D9; /* GitHub dark mode text color */
+    transition: all 0.3s ease; /* Transition effect */
+  }
+
+  .layout-box:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Hover effect */
+    background-color: #21262D; /* Slightly lighter on hover */
+  }
 
 .layout-box.large {
-  width: 50%; /* Larger box for Person of the Month */
+  width:140px;
+  height:220px; /* Larger box for Person of the Month */
 }
 #personSelector div {
   cursor: pointer;
@@ -44,11 +61,11 @@
         </a>
       <div class="nav-logo">
         
-          <h1>Admin panel</h1>
+          <h1 style="color:white;" >Admin panel</h1>
         
       </div>
       <div class="action-buttons">
-        <button id="odjava" class="button-face support-link" onclick="logout()">Log Out</button>
+        <button style="color:white; margin-top:15px;" id="odjava" class="button-face support-link" onclick="logout()">Log Out</button>
       </div>
       
       <div class="main-nav">
@@ -72,7 +89,7 @@
   </div>
   <div id="AddPerson" class="tabcontent"> 
   <form id="AddPersonForm" action="/admin/dodaj" method="post" enctype="multipart/form-data">
-    <h1>Add a Person</h1>
+    <h1 style="color:black;">Add a Person</h1>
     <div class="form-row">
       <div class="form-group">
         <label for="ime">Name:</label>
@@ -156,12 +173,12 @@ var quill = new Quill('#editor', {
   <div id="IPAddresses" class="tabcontent">
     <div class="data-container">
       <div id="ip-addresses" class="data-block">
-          <h2>IP Addresses:</h2>
+          <h2 style="color:black;">IP Addresses:</h2>
           <ul id="ipList" class="scrollable-list"></ul>
       </div>
   
       <div id="visit-stats" class="data-block">
-          <h2>Visit Statistics:</h2>
+          <h2 style="color: black;">Visit Statistics:</h2>
           <p id="dailyCount">Today's Visits: Loading...</p>
           <p id="weeklyCount">Last Week's Visits: Loading...</p>
           <p id="allTimeCount">Total Visits: Loading...</p>
@@ -195,7 +212,7 @@ var quill = new Quill('#editor', {
   
   <h2>Edit Persons</h2>
   <!-- Dropdown for selecting a person -->
-  <select style ="width:30%; height: 30px" id="personSelect" onchange="populateEditForm()">
+  <select style ="width:30%; height: 38px" id="personSelect" onchange="populateEditForm()">
     <option value="">Select a Person...</option>
     <!-- Options will be dynamically populated here -->
   </select>
@@ -443,11 +460,62 @@ var quill = new Quill('#editor', {
     <div class="form-row button-container">
       <button type="button" onclick="addSponsor()" class="submit-button">Add Sponsor</button>
     </div>
+    <br><br><br>
+    <div class="form-row">
+      <label for="sponsorSelect">Select Sponsor:</label>
+      <select id="sponsorSelect">
+        <!-- Options will be populated dynamically -->
+      </select>
+    </div>
+    <div class="form-row button-container">
+      <button type="button" onclick="removeSponsor()" class="submit-button">Delete Sponsor</button>
+    </div>
   </form>
 </div>
 
+<script>
+  function removeSponsor() {
+  var sponsorId = document.getElementById('sponsorSelect').value;
+  // Remove the sponsor from your data
+  // This depends on how your data is structured
 
+  // Then, update the UI
+  // This depends on how your UI is structured
+}
+var sponsors = [
+  { id: 1, name: 'Sponsor 1' },
+  { id: 2, name: 'Sponsor 2' },
+  // More sponsors...
+];
+ // Clear existing options
+ select.innerHTML = '';
 
+// Add an option for each sponsor
+for (var i = 0; i < sponsors.length; i++) {
+  var option = document.createElement('option');
+  option.value = sponsors[i].id;
+  option.text = sponsors[i].name;
+  select.appendChild(option);
+}
+}
+
+// Call the function when the page loads
+window.onload = populateSponsorSelect;
+function removeSponsor() {
+  var sponsorId = document.getElementById('sponsorSelect').value;
+  
+  // Find the sponsor in the array and remove it
+  for (var i = 0; i < sponsors.length; i++) {
+    if (sponsors[i].id == sponsorId) {
+      sponsors.splice(i, 1);
+      break;
+    }
+  }
+
+  // Update the select box
+  populateSponsorSelect();
+}
+</script>
 
 
 <script src="js/admin.js"></script>
