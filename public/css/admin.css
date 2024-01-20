@@ -1,8 +1,8 @@
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #272242 ;
 }
 
 form {
@@ -44,7 +44,7 @@ button:hover {
 }
 
 h1, h2 {
-    color: #333;
+    color: #DDDBF5 ;
     text-align: center; /* Centriranje teksta */
 }
 
@@ -244,18 +244,20 @@ ul li {
           border-radius: 0; }
 
           .sidebar {
+            border-right:1px solid #dedede;
             height: 100%;
             width: 200px;
             position: fixed;
             z-index: 1;
             top: 50px;
             left: 0;
-            background-color: #919191;
+            background-color: #0F0C1E;
             overflow-x: hidden;
             padding-top: 20px;
           }
           
           .sidebar a {
+            border-bottom:0.3px solid #dedede;
             padding: 6px 8px 6px 16px;
             text-decoration: none;
             font-size: 25px;
@@ -276,7 +278,7 @@ ul li {
           
           /* Style the active class (and buttons on mouse-over) */
           .active, .tablink:hover {
-            background-color: #454545;
+            background-color: #494273 ;
             color: white;
           }
         
@@ -439,7 +441,7 @@ ul li {
         font-size: 1.2em; /* Optionally increase the font size */
         border-radius: 5px; /* Rounded corners */
         border: none; /* Remove border */
-        background-color: #919191; /* Bootstrap primary color for example */
+        background-color: #161B22; /* Bootstrap primary color for example */
         color: white; /* Text color */
         cursor: pointer; /* Cursor to pointer to indicate it's clickable */
         outline: none; /* Remove outline to keep the design clean */
@@ -518,7 +520,7 @@ ul li {
 }
 
 .top-navigation {
-  background-color: #fff;
+  background-color: #0F0C1E ;
   border-bottom: 1px solid #dedede;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
