@@ -144,6 +144,7 @@ div.scrollmenu a:hover {
             width: 200px; /* Adjust the width as needed */
         }
 .footer-recommendations {
+  padding:0;
   clear: both;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: normal;
@@ -155,7 +156,7 @@ div.scrollmenu a:hover {
     
     margin-top: 40px; }
   .footer-recommendations .recommendation-container {
-    max-width: 1100px;
+    max-width: 2000px;
 
     margin-left: auto;
     margin-right: auto;
@@ -378,21 +379,24 @@ header {
   justify-content: center; /* Centriranje elemenata u kontejneru */
   align-items: center; /* Vertikalno centriranje elemenata */
   flex-wrap: wrap; /* Omogućava prelamanje elemenata u novi red ako nema dovoljno prostora */
-  gap: 10px; /* Razmak između elemenata */
+  gap: 100px; /* Razmak između elemenata */
 }
 #header-logo {
     height: 70px; /* Adjust as needed */
     /* Add more styling if necessary */
 }
 .footer-item {
+    margin-top:50px;
     margin-bottom: 20px; /* Razmak između elemenata */
     text-align: center; /* Centriranje sadržaja */
 }
 
 .footer-item img {
+
     max-width: 100%; /* Osigurava da slika ne prelazi širinu elementa */
-    height: 50px;
+    height: 195px;
     width: auto; /* Održava razmjer slike */
+    margin-bottom:20px;
 }
 .cards-container {
   position: relative; /* Ovo će biti referentni kontejner za apsolutno pozicionirane dugmiće */
@@ -410,11 +414,11 @@ header {
 }
 
 .left {
-  left: -50px; /* Pomeranje dugmeta u levo za -50px od ivice kontejnera */
+  left: 0px; /* Pomeranje dugmeta u levo za -50px od ivice kontejnera */
 }
 
 .right {
-  right: -50px; /* Pomeranje dugmeta u desno za -50px od ivice kontejnera */
+  right: 0px; /* Pomeranje dugmeta u desno za -50px od ivice kontejnera */
 }
 
 
@@ -569,7 +573,7 @@ header {
   </section>
 
 
-  <section id="istaknuteOsobe" style="gap: 25px; " class="cards-wrapper">
+  <section id="istaknuteOsobe" style="gap: 15px; " class="cards-wrapper">
     <!-- Istaknute osobe će biti dodane ovdje dinamički -->
   </section>
 
@@ -621,14 +625,14 @@ header {
 
   function leftScroll() {
     scrollImages.scrollBy({
-      left: -200,
+      left: -175,
       behavior: "smooth"
     });
   }
 
   function rightScroll() {
     scrollImages.scrollBy({
-      left: 200,
+      left: 175,
       behavior: "smooth"
     });
   }
@@ -724,7 +728,7 @@ function fetchNedavnoDodaneOsobe() {
       const container = document.getElementById('ostaleOsobe');
       container.innerHTML = ''; // Clear existing content
 
-      const gap = 25; // Razmak između karata
+      const gap = 15; // Razmak između karata
 
       osobe.forEach(osoba => {
         const personCard = generatePersonHTML(osoba);
@@ -821,7 +825,7 @@ function fetchNedavnoDodaneOsobe() {
 
 <footer id="page-footer" class="footer-recommendations">
   <div class="footer-wrapper">
-      <div id="footer-content" class="recommendation-container">
+      <div style="margin-left:100px;" id="footer-content" class="recommendation-container">
           
       </div>
   </div>
