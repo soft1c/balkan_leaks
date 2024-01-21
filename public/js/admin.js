@@ -769,7 +769,6 @@ function openPersonSelector(boxId, element) {
 }
 
 function fetchCurrentLayoutStatus() {
-  // Fetch Person of the Month
   fetch('/osobaMjeseca')
     .then(response => response.json())
     .then(data => {
@@ -780,7 +779,6 @@ function fetchCurrentLayoutStatus() {
     })
     .catch(error => console.error('Error fetching Person of the Month:', error));
 
-  // Fetch Featured Persons
   fetch('/get_featured_persons')
     .then(response => response.json())
     .then(data => {
