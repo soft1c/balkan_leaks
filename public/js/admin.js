@@ -29,6 +29,49 @@ document.addEventListener('DOMContentLoaded', function() {
     .catch(error => {
       console.error('Error fetching footer data:', error);
     });
+    let searchTimeoutToken;
+  
+  const searchInput = document.getElementById('searchInputEdit');
+  const dropdown = document.getElementById('searchDropdown');
+  
+  searchInput.addEventListener('input', function() {
+    const searchTerm = this.value;
+    console.log(searchTerm); // Ovo bi trebalo raditi sada
+    
+    clearTimeout(searchTimeoutToken);
+  
+    if (searchTerm.length > 2) {
+      searchTimeoutToken = setTimeout(() => {
+        dropdown.style.display = 'none'; // Sakrij dropdown dok se čeka odgovor
+        fetch(`/search?q=${encodeURIComponent(searchTerm)}`)
+          .then(response => response.json())
+          .then(persons => {
+            dropdown.innerHTML = ''; // Očisti prethodne rezultate
+            if (persons.length > 0) {
+              persons.forEach(person => {
+                const option = document.createElement('div');
+                option.className = 'dropdown-option';
+                option.textContent = `${person.ime} ${person.prezime}`;
+                option.onclick = function() {
+                  populateEditForm(person.id);
+                  dropdown.style.display = 'none'; // Sakrij dropdown
+                };
+                dropdown.appendChild(option);
+              });
+              dropdown.style.display = 'block'; // Prikaz dropdown-a s rezultatima
+            } else {
+              dropdown.style.display = 'none';
+            }
+          })
+          .catch(error => {
+            console.error('Search error:', error);
+            dropdown.style.display = 'none';
+          });
+      }, 300);
+    } else {
+      dropdown.style.display = 'none';
+    }
+  });
 });
 document.addEventListener('DOMContentLoaded', function() {
   fetchEntryStats();
@@ -295,7 +338,6 @@ function updateFilename() {
   document.getElementById('file-name').textContent = fileName; // Update the placeholder with the file name
 }
 
-let searchTimeoutToken;
 
 document.getElementById('search-bar').addEventListener('input', handleSearch);
  
@@ -342,8 +384,7 @@ if (results.length === 0) {
 function clearSearchResults() {
   document.getElementById('searchResults').innerHTML = '';
 }
-function populateEditForm() {
-  const personId = document.getElementById('personSelect').value;
+function populateEditForm(personId) {
   if (personId) {
     fetch(`/osoba/${personId}`)
       .then(response => {
@@ -938,5 +979,5 @@ function previewPerson() {
   }
 }
 
-  
+
 

@@ -52,6 +52,55 @@
 #personSelector div:hover {
   background-color: #f0f0f0;
 }
+
+.ql-editor {
+  line-height: 1.5; /* ili bilo koja druga vrijednost koju želite */
+}
+
+#editor {
+  min-height: 9em; /* 3 (reda) * 1.5em (line-height) */
+}
+.search-bar-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.search-input-edit {
+  width: 100%;
+  max-width: 500px; /* Maksimalna širina search bara */
+}
+
+.search-dropdown {
+  position: absolute;
+  width: 100%;
+  max-width: 500px; /* Mora odgovarati širini search bara */
+  box-shadow: 0px 4px 5px rgba(0,0,0,0.2); /* Stil za dropdown */
+  background-color: white;
+  z-index: 1000; /* Da se prikaže iznad ostalih elemenata */
+}
+.search-bar-container {
+  position: relative;
+  max-width: 500px; /* Maksimalna širina search bara */
+  margin: 0 auto; /* Centriranje */
+}
+
+.search-input-edit {
+  width: 100%; /* Širina unutar search-bar-containera */
+  /* Dodajte padding i border ako je potrebno */
+}
+
+.search-dropdown {
+  position: absolute;
+  top: 100%; /* Ovo će pomaknuti dropdown ispod search bara */
+  left: 0;
+  width: 100%; /* Dropdown će biti iste širine kao i search bar */
+  box-shadow: 0px 4px 5px rgba(0,0,0,0.2); /* Stil za dropdown */
+  background-color: white;
+  z-index: 1000; /* Da se prikaže iznad ostalih elemenata */
+  max-height: 300px; /* Maksimalna visina dropdowna */
+  overflow-y: auto; /* Omogući skrolanje unutar dropdowna ako je potrebno */
+}
   </style>
 </head>
 <body>
@@ -87,87 +136,84 @@
 
 
   </div>
-  <div id="AddPerson" class="tabcontent"> 
-  <form id="AddPersonForm" action="/admin/dodaj" method="post" enctype="multipart/form-data">
-    <h1 style="color:black;">Add a Person</h1>
-    <div class="form-row">
-      <div class="form-group">
-        <label for="ime">Name:</label>
-        <input type="text" name="ime" required>
-      </div>
+  <div id="AddPerson" class="tabcontent">
+    <form id="AddPersonForm" action="/admin/dodaj" method="post" enctype="multipart/form-data">
+      <h1 style="color:black;">Add a Person</h1>
       
-      <div class="form-group">
-        <label for="ime">Surname:</label>
-        <input type="text" name="prezime" required>
-      </div>
-    </div>
-    
+      <!-- Prvi red za sliku i polja za unos imena i prezimena -->
+      <div class="form-row top-row">
+        <div class="form-group image-upload-container">
+          <div class="image-upload-box" onclick="document.getElementById('slika').click()">
+            <p>Upload Picture</p>
+            <input type="file" id="slika" name="slika" accept="image/*" required onchange="previewImage(event)">
+            <img id="imagePreview" src="" alt="Image preview" style="display:none;">
+          </div>
+        </div>
   
-    
-    <div class="form-row">
-      <div class="form-group image-upload-container">
-        <div class="image-upload-box" onclick="document.getElementById('slika').click()">
-          <p>Upload Picture</p>
-          <input type="file" id="slika" name="slika" accept="image/*" required onchange="previewImage(event)">
-          <img id="imagePreview" src="" alt="Image preview" style="display:none;">
+        <div class="form-group name-fields">
+          <div>
+            <label for="ime">Name:</label>
+            <input type="text" name="ime" required>
+          </div>
+          <div>
+            <label for="prezime">Surname:</label>
+            <input type="text" name="prezime" required>
+          </div>
         </div>
       </div>
-      
-      <div class="form-group text-editor-container">
-        
+  
+      <!-- Drugi red za Quill editor -->
+      <div class="form-row text-editor-container" style="height: auto;">
         <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-        <div id="editor">
-        </div>
-
+        <div id="editor"></div>
+        
         <textarea name="opis1" id="hiddenOpis1" style="display:none;"></textarea>
-
-<script>
-  var toolbarOptions = [
-  ['bold', 'italic', 'underline'],
-  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-  [{ 'size': ['small', false, 'large', 'huge'] }],
-
-  ['link'],
-  [{ 'color': [] }, { 'background': [] }],
-  [{ 'font': [] }],
-  [{ 'align': [] }]
-];
-
-var Link = Quill.import('formats/link');
-
-class MyLink extends Link {
-  static create(value) {
-    let node = super.create(value);
-    // Dodaje 'http://' ako link ne počinje sa 'http://' ili 'https://'
-    if (!value.startsWith('http://') && !value.startsWith('https://')) {
-      node.setAttribute('href', 'http://' + value);
-    }
-    return node;
-  }
-}
-
-Quill.register(MyLink);
-
-var quill = new Quill('#editor', {
-  modules: {
-    toolbar: toolbarOptions
-  },
-  theme: 'snow'
-});
-
-</script>
+        <script>
+          var toolbarOptions = [
+          ['bold', 'italic', 'underline'],
+          [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+          [{ 'size': ['small', false, 'large', 'huge'] }],
+        
+          ['link'],
+          [{ 'color': [] }, { 'background': [] }],
+          [{ 'font': [] }],
+          [{ 'align': [] }]
+        ];
+        
+        var Link = Quill.import('formats/link');
+        
+        class MyLink extends Link {
+          static create(value) {
+            let node = super.create(value);
+            // Dodaje 'http://' ako link ne počinje sa 'http://' ili 'https://'
+            if (!value.startsWith('http://') && !value.startsWith('https://')) {
+              node.setAttribute('href', 'http://' + value);
+            }
+            return node;
+          }
+        }
+        
+        Quill.register(MyLink);
+        
+        var quill = new Quill('#editor', {
+          modules: {
+            toolbar: toolbarOptions
+          },
+          theme: 'snow'
+        });
+        
+        </script>
       </div>
-    </div>
-    
-    
-    <div class="form-row button-container">
-      <button type="submit" class="submit-button">Add Person</button>
-      <button type="button" class="submit-button" onclick="previewPerson()">Preview</button>
-    </div>
-  </form>
 
   
+      <!-- Gumbi -->
+      <div class="form-row button-container">
+        <button type="submit" class="submit-button">Add Person</button>
+        <button type="button" class="submit-button" onclick="previewPerson()">Preview</button>
+      </div>
+    </form>
   </div>
+  
 
   
   <div id="IPAddresses" class="tabcontent">
@@ -211,13 +257,12 @@ var quill = new Quill('#editor', {
 <div id="EditPersons" class="tabcontent">
   
   <h2>Edit Persons</h2>
-  <!-- Dropdown for selecting a person -->
-  <select style ="width:30%; height: 38px" id="personSelect" onchange="populateEditForm()">
-    <option value="">Select a Person...</option>
-    <!-- Options will be dynamically populated here -->
-  </select>
   
-
+  
+  <div class="search-bar-container">
+    <input type="text" id="searchInputEdit" placeholder="Search for a person..." class="search-input-edit">
+    <div id="searchDropdown" class="search-dropdown" style="display: none;"></div>
+  </div>
   
   <form id="editPersonForm" style="display:none;">
     <h1>Edit Person Details</h1>
@@ -497,7 +542,7 @@ for (var i = 0; i < sponsors.length; i++) {
   option.text = sponsors[i].name;
   select.appendChild(option);
 }
-}
+
 
 // Call the function when the page loads
 window.onload = populateSponsorSelect;
