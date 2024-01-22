@@ -1034,6 +1034,32 @@ app.get('/footer',(req,res)=>{
 
 })
 
+app.post('/aboutus',(req,res)=>{
+  const teskt=req.body.text;
+  console.log(teskt);
+  const query=`UPDATE aboutus SET tekst = ? WHERE id = 1`;
+  db.run(query, [teskt], function(err) {
+    if(err){
+      console.error('Error adding news:', err.message);
+      res.status(500).send('Error adding news');
+    }else{
+      res.status(200).send({message: 'News added successfully', changes: this.changes});
+    }
+  })
+});
+
+
+app.get('/aboutus',(req,res)=>{
+  db.all('SELECT * FROM aboutus WHERE id=1', (err, rows) => {
+    if(err){
+      console.error('Error retrieving footer:', err.message);
+      res.status(500).send('Error retrieving footer');
+    }else{
+      res.status(200).send(rows);
+    }
+  });
+})
+
 app.post('/advanced-search', (req, res) => {
   const {name,surname, keywords,date1,date2}=req.body;
   const query=`SELECT * FROM ljudi WHERE ime LIKE '%${name}%' OR prezime LIKE '%${surname}%' OR opis LIKE '%${keywords}%' OR datum > '${date1}' AND datum < '${date2}'`;

@@ -8,12 +8,28 @@ let db = new sqlite3.Database('./baza.db', (err) => {
     } else {
         console.log('Connected to the SQLite database.');
         
-        db.run(`ALTER TABLE ljudi ADD COLUMN datum_objave DATE`, function(err) {
-          if (err) {
-              return console.error(err.message);
-          }
-          console.log('A new column "datum" has been added');
-      });
+
+        const query=`CREATE TABLE IF NOT EXISTS aboutus (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            tekst TEXT
+        )`;
+
+        db.run(query, (err) => {
+            if (err) {
+                console.error(err.message);
+            }else{
+                console.log("dpbrp je");
+            }
+        })
+        const query2=`INSERT INTO aboutus (tekst) VALUES ('')`;
+
+        db.run(query2, (err) => {
+            if (err) {
+                console.error(err.message);
+            }else{
+                console.log("ok");
+            }
+        })
     }
   }
     

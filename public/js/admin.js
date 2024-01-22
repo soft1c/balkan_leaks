@@ -1017,3 +1017,28 @@ function fetchSponsors() {
       .catch(error => console.error('Error fetching sponsors:', error));
 }
 
+function submitAboutForm() {
+  var aboutText = quillAbout.root.innerHTML; // Preuzmite sadržaj iz Quill editora
+
+  fetch('/aboutus', {
+    method: 'POST', // Metod zahtjeva
+    headers: {
+      'Content-Type': 'application/json', // Definiranje tipa sadržaja kao JSON
+    },
+    body: JSON.stringify({ text: aboutText }), // Slanje sadržaja kao JSON
+  })
+  .then(response => {
+    if (response.ok) {
+      return response.json(); // ili `response.text()` ako očekujete tekstualni odgovor
+    }
+    throw new Error('Network response was not ok.');
+  })
+  .then(data => {
+    console.log(data); 
+    // osvjezi ekran
+    location.reload();
+  })
+  .catch(error => {
+    console.error('There has been a problem with your fetch operation:', error);
+  });
+}

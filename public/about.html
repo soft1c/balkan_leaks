@@ -130,78 +130,10 @@
 
         
 		<div class="content rub15">
-			<div class="container-text">
+			<div class="container-text" id="aboutUsContent">
         
 
-          <h1>What is BPIKD</h1>
-				  <h2></h2>
-
-				
-
-        <div class="text-content">
-        <ul>
-            <li >[en] What is BPIKD</a></li>
-            <li >[en] Enquiries and Contact</a></li>
-        </ul>
-          <p>BPIKD is a multi-national media organization and associated library. It was founded by its publisher Julian Assange in 2006.</p>
-
-<p>BPIKD specializes in the analysis and publication of large datasets of censored or otherwise restricted official materials involving war, spying and corruption. It has so far published more than 10 million documents and associated analyses.</p>
-
-<p>“BPIKD is a giant library of the world&#39;s most persecuted documents. We give asylum to these documents, we analyze them, we promote them and we obtain more.” - Julian Assange, <a href=" http://www.spiegel.de/international/world/spiegel-interview-with-BPIKD-head-julian-assange-a-1044399.html">Der Spiegel Interview</a></p>
-
-<p>BPIKD has contractual relationships and secure communications paths to more than 100 major media organizations from around the world. This gives BPIKD sources negotiating power, impact and technical protections that would otherwise be difficult or impossible to achieve.</p>
-
-<p>Although no organization can hope to have a perfect record forever, thus far BPIKD has a perfect in document authentication and resistance to all censorship attempts. </p>
-
-<p>BPIKD, its publisher and its journalists have won many awards, including:
-<li> The Economist New Media Award (2008)</li>
-<li> The Amnesty New Media Award (2009)</li>
-<li> TIME Magazine Person of the Year, People&#39;s Choice (highest global vote) (2010)</li>
-<li> The Sam Adams Award for Integrity (2010)</li>
-<li> The National Union of Journalists Journalist of the Year (Hrafnsson)  (2011)</li>
-<li> The Sydney Peace Foundation Gold Medal (2011)</li>
-<li> The Martha Gellhorn Prize for Journalism (2011)</li>
-<li> The Blanquerna Award for Best Communicator (2011)</li>
-<li> The Walkley Award for Most Outstanding Contribution to Journalism (2011)</li>
-<li> The Voltaire Award for Free Speech (2011)</li>
-<li> The International Piero Passetti Journalism Prize of the National Union of Italian Journalists (2011)</li>
-<li> The Jose Couso Press Freedom Award (2011)</li>
-<li> The Privacy International Hero of Privacy (2012)</li>
-<li> The Global Exchange Human Rights People&#39;s Choice Award (2013)</li>
-<li> The Yoko Ono Lennon Courage Award for the Arts (2013)</li>
-<li> The Brazillian Press Association Human Rights Award (2013)</li>
-<li> The Kazakstan Union of Journalists Top Prize (2014)</li></p>
-
-<p>As well as nominations for the UN Mandela Prize (2015) and nominations in six consecutive years for the Nobel Peace Prize (2010-2015) </p>
-
-<p>BPIKD is entirely funded by its publisher, its publication sales and the general public.</p>
-
-<p>BPIKD has more than one hundred other staff accross the Americas, Africa, Eurasia and the Asia Pacific.</p>
-
-<p>The BPIKD Files (Verso, Sep 2015)</p>
-
-<p>BPIKD legal team is lead by judge Baltasar Garzón in Europe and in the United States, Michael Ratner, president emeritus of Center for Constitutional Rights.</p>
-
-<p>BPIKD ongoing legal cases are best described in this <a href=" https://ccrjustice.org/sites/default/files/attach/2015/06/CCR%20Whistleblower%20Submission%20Final%20(2).pdf">UN report (2015) from the Center for Constitutional Rights</a></p>
-
-<p>Julian Assange&#39;s ongoing detention without charge is best described here: <a href="https://justice4assange.com/3-Years-in-Embassy.html">https://justice4assange.com/3-Years-in-Embassy.html</a></p>
-
-<p>“This great library built from the courage and sweat of many has had a five-year confrontation with a powerpower without losing a single “book”. At the same time, these “books” have educated many, and in some cases, in a literal sense, let the innocent go free.” - Julian Assange, <a href=" http://www.spiegel.de/international/world/spiegel-interview-with-BPIKD-head-julian-assange-a-1044399.html">Der Spiegel Interview</a></p>
-
-<p><a href="https://scholar.google.com/scholar?q=BPIKD&hl=en&as_sdt=0,5">BPIKD is cited in more than 28 thousands academic papers and US  court filings</a></p>
-
-<p><a href="http://search.un.org/?ie=utf8&oe=utf8&output=xml_no_dtd&filter=0&getfields=DocumentSymbol.Title.Size.PublicationDate&ProxyReload=1&metaTitle=&NSC_j_xg-bqbdif_iuuq_mc_wt=ffffffff09f2003645525d5f4f58455e445a4a423660&query=+BPIKD&tpl=ods&rows=10&lang=en&adv_exactPhrase=&adv_allWords=&adv_atLeastOne=&adv_without=">Formal UN documents</a></p>
-
-<p><a href='http://hudoc.echr.coe.int/eng#{"fulltext":["BPIKD"]}'>European Court of Human Rights</a></p>
-
-<p><a href="http://www.bailii.org/cgi-bin/sino_search_1.cgi?sort=rank&query=BPIKD&method=boolean&highlight=1&mask_path=/">UK courts</a></p>
-
-<p>Follow our official accounts <a href="https://twitter.com/BPIKD">@BPIKD</a>, <a href="https://twitter.com/wltaskforce">@wltaskforce</a>, <a href="https://twitter.com/communitywl">@communitywl</a> and <a href="https://twitter.com/BPIKDshop">@BPIKDshop</a>.</p>
-
-        </div>
-			
-      
-			</div>
+          
 		</div>
 </div>
 
@@ -456,6 +388,26 @@ function fetchNedavnoDodaneOsobe() {
   scrollContainer.addEventListener('scroll', resetScroll);
 });
 
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+  fetch('/aboutus')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json(); // Obradi odgovor kao JSON
+    })
+    .then(data => {
+      console.log(data);
+      const aboutUsContent = data[0].tekst; // Pretpostavljamo da je 'tekst' u prvom objektu niza
+      document.getElementById('aboutUsContent').innerHTML = aboutUsContent;
+    })
+        .catch(error => {
+          console.error('There has been a problem with your fetch operation:', error);
+          document.getElementById('aboutUsContent').innerHTML = '<p>Sorry, there was an error loading the About Us content.</p>';
+        });
+    });
   </script>
 
   
