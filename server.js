@@ -348,6 +348,49 @@ app.get('/zadnjih_11', (req, res) => {
   });
 });
 
+app.get('/advanced-search', (req, res) => {
+  const { name_surname, keywords, date_start, date_end } = req.query;
+
+  let query = 'SELECT * FROM ljudi WHERE 1=1'; // Dodajemo '1=1' da bi mogli sigurno da dodajemo 'AND'
+  const params = [];
+
+  // Dodavanje uslova za ime i prezime
+  if (name_surname) {
+    const [name, surname] = name_surname.split(' ');
+    query += ' AND ime LIKE ? AND prezime LIKE ?';
+    params.push(`%${name}%`);
+    params.push(`%${surname || ''}%`);
+  }
+
+  // Dodavanje uslova za ključne riječi
+  if (keywords) {
+    const keywordsList = keywords.split(',');
+    keywordsList.forEach(keyword => {
+      query += ' AND opis LIKE ?';
+      params.push(`%${keyword.trim()}%`);
+    });
+  }
+
+  // Dodavanje uslova za datum objave
+  if (date_start) {
+    query += ' AND datum_objave >= ?';
+    params.push(date_start);
+  }
+  if (date_end) {
+    query += ' AND datum_objave <= ?';
+    params.push(date_end);
+  }
+
+  db.all(query, params, (err, rows) => {
+    if (err) {
+      console.error('Error executing query', err);
+      res.status(500).json({ error: 'Error executing query' });
+    } else {
+      res.json({ data: rows });
+    }
+  });
+});
+
 
 app.get('/podstranica', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'podstranica.html'));
@@ -964,6 +1007,20 @@ app.post('/change_password', (req, res) => {
     });
   })
 
+  app.post('/delete-sponsor', (req, res) => {
+    const sponsorId = req.body.id;
+    console.log(sponsorId);
+    db.run('DELETE FROM sponzori WHERE id = ?', [sponsorId], function(err) {
+      if (err) {
+        console.error(err.message);
+        res.status(500).send('Error deleting sponsor');
+      } else {
+        console.log(`Row(s) deleted: ${this.changes}`);
+        res.send('Sponsor deleted successfully');
+      }
+    })
+  }
+    );
 
 app.get('/footer',(req,res)=>{
   db.all('SELECT * FROM footer', (err, rows) => {
@@ -971,6 +1028,21 @@ app.get('/footer',(req,res)=>{
       console.error('Error retrieving footer:', err.message);
       res.status(500).send('Error retrieving footer');
     }else{
+      res.status(200).send(rows);
+    }
+  });
+
+})
+
+app.post('/advanced-search', (req, res) => {
+  const {name,surname, keywords,date1,date2}=req.body;
+  const query=`SELECT * FROM ljudi WHERE ime LIKE '%${name}%' OR prezime LIKE '%${surname}%' OR opis LIKE '%${keywords}%' OR datum > '${date1}' AND datum < '${date2}'`;
+  db.all(query, (err, rows) => {
+    if(err){
+      console.error('Error retrieving persons:', err.message);
+      res.status(500).send('Error retrieving persons');
+    }else{
+      console.log(rows);
       res.status(200).send(rows);
     }
   });

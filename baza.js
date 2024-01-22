@@ -8,11 +8,11 @@ let db = new sqlite3.Database('./baza.db', (err) => {
     } else {
         console.log('Connected to the SQLite database.');
         
-        db.run(`ALTER TABLE visits ADD COLUMN operating_system TEXT`, function(err) {
+        db.run(`ALTER TABLE ljudi ADD COLUMN datum_objave DATE`, function(err) {
           if (err) {
               return console.error(err.message);
           }
-          console.log('A new column "operating_system" has been added');
+          console.log('A new column "datum" has been added');
       });
     }
   }

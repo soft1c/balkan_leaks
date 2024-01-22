@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   fetchCurrentLayoutStatus();
   setInitialLayoutStatus();
+  fetchSponsors();
   fetch('/footer')
     .then(response => response.json())
     .then(footerData => {
@@ -979,5 +980,40 @@ function previewPerson() {
   }
 }
 
+function removeSponsor() {
+  var sponsorId = document.getElementById('sponsorSelect').value;
+  console.log('sponsorId', sponsorId);
+  fetch('/delete-sponsor', {
+      method: 'POST', // ili 'DELETE', zavisi od vašeg API-ja
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id: sponsorId }),
+  })
+  .then(response => response.json())
+  .then(data => {
+      console.log('Success:', data);
+      // Ažurirajte UI ili prikažite poruku korisniku
+      populateSponsorSelect(); // Ponovo učitajte sponzore nakon brisanja
+  })
+  .catch((error) => {
+      console.error('Error:', error);
+  });
+}
 
+function fetchSponsors() {
+  fetch('/sponzori')
+      .then(response => response.json())
+      .then(data => {
+          var select = document.getElementById('sponsorSelect');
+          select.innerHTML = '';
+          data.forEach(sponsor => {
+              var option = document.createElement('option');
+              option.value = sponsor.id;
+              option.textContent = sponsor.link;
+              select.appendChild(option);
+          });
+      })
+      .catch(error => console.error('Error fetching sponsors:', error));
+}
 

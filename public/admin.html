@@ -509,7 +509,6 @@
     <div class="form-row">
       <label for="sponsorSelect">Select Sponsor:</label>
       <select id="sponsorSelect">
-        <!-- Options will be populated dynamically -->
       </select>
     </div>
     <div class="form-row button-container">
@@ -518,49 +517,6 @@
   </form>
 </div>
 
-<script>
-  function removeSponsor() {
-  var sponsorId = document.getElementById('sponsorSelect').value;
-  // Remove the sponsor from your data
-  // This depends on how your data is structured
-
-  // Then, update the UI
-  // This depends on how your UI is structured
-}
-var sponsors = [
-  { id: 1, name: 'Sponsor 1' },
-  { id: 2, name: 'Sponsor 2' },
-  // More sponsors...
-];
- // Clear existing options
- select.innerHTML = '';
-
-// Add an option for each sponsor
-for (var i = 0; i < sponsors.length; i++) {
-  var option = document.createElement('option');
-  option.value = sponsors[i].id;
-  option.text = sponsors[i].name;
-  select.appendChild(option);
-}
-
-
-// Call the function when the page loads
-window.onload = populateSponsorSelect;
-function removeSponsor() {
-  var sponsorId = document.getElementById('sponsorSelect').value;
-  
-  // Find the sponsor in the array and remove it
-  for (var i = 0; i < sponsors.length; i++) {
-    if (sponsors[i].id == sponsorId) {
-      sponsors.splice(i, 1);
-      break;
-    }
-  }
-
-  // Update the select box
-  populateSponsorSelect();
-}
-</script>
 
 
 <script src="js/admin.js"></script>

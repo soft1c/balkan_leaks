@@ -3676,127 +3676,48 @@ html > body {
 
     <div class="wlsearch">
       
-
-<form class="search-form" id="search-form" action="/#results" method="get">
-  <div class="search-content">
-    <h1>Advanced search</h1>
-
-    <div class="search-fields">
-
-      <div class="search-section">
-        <h2>Words</h2>
-        <div class="search-operator">
-    <label for="query"> <strong>All</strong> these words </label>
-    <div class="input-section">
-      <input type="text" name="query" value="" id="query"/>
-      <div class="query-note">
-         
-          You can use any of <a href="/info" target="_blank">these search
-          operators</a> in this input field
-         
-      </div>
+      <form class="search-form" id="search-form" action="/advanced-search" method="get">        <div class="search-content">
+          <h1>Advanced search</h1>
       
-    </div>
-  </div>
-        <div class="search-operator">
-    <label for="query"> This <strong>exact</strong> phrase </label>
-    <div class="input-section">
-      <input type="text" name="exact_phrase" value="" id="exact_phrase"/>
-      <div class="query-note">
-        
-      </div>
+          <div class="search-fields">
+            <!-- Polje za ime i prezime -->
+            <div class="search-section">
+              <h2>Person</h2>
+              <div class="search-operator">
+                <label for="name_surname">Name & Surname:</label>
+                <input type="text" name="name_surname" id="name_surname" placeholder="Enter name and surname"/>
+              </div>
+            </div>
       
-    </div>
-  </div>
-        <div class="search-operator">
-    <label for="query"> <strong>Any</strong> of these words </label>
-    <div class="input-section">
-      <input type="text" name="any_of" value="" id="any_of"/>
-      <div class="query-note">
-        
-      </div>
+            <!-- Polje za ključne riječi -->
+            <div class="search-section">
+              <h2>Keywords</h2>
+              <div class="search-operator">
+                <label for="keywords">Keywords:</label>
+                <input type="text" name="keywords" id="keywords" placeholder="Enter keywords"/>
+              </div>
+            </div>
       
-    </div>
-  </div>
-        <div class="search-operator">
-    <label for="query"> <strong>Exclude</strong> these words </label>
-    <div class="input-section">
-      <input type="text" name="exclude_words" value="" id="exclude_words"/>
-      <div class="query-note">
-        
-      </div>
+            <!-- Datumski opseg -->
+            <div class="search-section dates">
+              <h2>Dates</h2>
+              <div class="search-operator">
+                <label for="date_start">From:</label>
+                <input type="date" name="date_start" id="date_start" placeholder="yyyy-mm-dd"/>
+              </div>
+              <div class="search-operator">
+                <label for="date_end">To:</label>
+                <input type="date" name="date_end" id="date_end" placeholder="yyyy-mm-dd"/>
+              </div>
+            </div>
       
-    </div>
-  </div>
-      </div>
-
-      <div class="search-section dates">
-        <h2>Dates</h2>
-        <div class="search-operator">
-    <label> Origin or created </label>
-    <div class="input-section date-range">
-      <input
-    type="text"
-    id="document_date_start"
-    name="document_date_start"
-    value=""
-    placeholder="yyyy-mm-dd"/>
-      <div class="to">to</div>
-      <input
-    type="text"
-    id="document_date_end"
-    name="document_date_end"
-    value=""
-    placeholder="yyyy-mm-dd"/>
-    </div>
-    
-  </div>
-        <div class="search-operator">
-    <label> Released by WikiLeaks </label>
-    <div class="input-section date-range">
-      <input
-    type="text"
-    id="released_date_start"
-    name="released_date_start"
-    value=""
-    placeholder="yyyy-mm-dd"/>
-      <div class="to">to</div>
-      <input
-    type="text"
-    id="released_date_end"
-    name="released_date_end"
-    value=""
-    placeholder="yyyy-mm-dd"/>
-    </div>
-    
-  </div>
-      </div>
-
-      <div class="input-section checkbox-group">
-        <label>
-          <input
-            type="checkbox"
-            name="include_external_sources"
-            value="True"
-            
-          />
-          Include external sources
-        </label>
-        <div class="query-note">
-          Associated Twitter accounts, Snowden + Hammond Documents, Cryptome Documents, ICWatch, This Day in WikiLeaks Blog and WikiLeaks Press, WL Central
+            <!-- Dugme za pretragu -->
+            <div class="advanced-submit">
+              <button class="button-face green" type="submit" name="new_search" value="True">Search</button>
+            </div>
+          </div>
         </div>
-      </div>
-
-      <div class="advanced-submit">
-        <button class="button-face green" type="submit" name="new_search" value="True">Search</button>
-      </div>
-    </div>
-  </div>
-
-  
-  
-
-</form>
+      </form>
 
 
     </div>
