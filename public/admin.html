@@ -301,16 +301,7 @@
     </div>
     <textarea name="opis" id="hiddenOpis" style="display:none;"></textarea>
 
-    <div class="form-group">
-      <label for="file">Upload Media:</label>
-      <input type="file" id="file" name="file" style="display: block;"required>
-      <select name="type" required>
-        <option value="image">Picture</option>
-        <option value="video">Video</option>
-        <option value="audio">Audio</option>
-        <option value="text">Text</option>
-      </select>
-    </div>
+    
     
     <div class="form-row button-container">
       <button type="button" onclick="submitEditForm()" class="submit-button">Update Person</button>
@@ -318,7 +309,20 @@
     </div>
     
   </form>
-  
+  <form id="uploadForm">
+    <input type="hidden" id="licnost" name="licnost">
+    <div class="form-group">
+      <label for="file">Upload Media:</label>
+      <input type="file" id="file" name="file" style="display: block;"required>
+      <select name="typeOfFile" id="typeOfFile" required>
+        <option value="image">Picture</option>
+        <option value="video">Video</option>
+        <option value="audio">Audio</option>
+        <option value="text">Text</option>
+      </select>
+    </div>
+    <button type="button" onclick="uploadMedia()" class="submit-button">Upload</button>
+  </form>
 </div>
 
 

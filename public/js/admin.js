@@ -172,7 +172,7 @@ function fetchUserIPs() {
 fetchUserIPs();
   
     function uploadMedia() {
-  const typeSelect = document.getElementById('type');
+  const typeSelect = document.getElementById('typeOfFile');
   const selectedType = typeSelect.value;
   const licnostSelect = document.getElementById('licnost');
   const selectedLicnost = licnostSelect.value;
@@ -402,6 +402,7 @@ function populateEditForm(personId) {
         document.getElementById('imeEdit').value = data.ime;
         document.getElementById('prezimeEdit').value = data.prezime;
         
+        document.getElementById('licnost').value = personId;
 
         if (data.slikaUrl) {
           let path = 'uploads/media/images/' + data.slikaUrl;
