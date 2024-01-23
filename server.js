@@ -349,39 +349,42 @@ app.get('/zadnjih_11', (req, res) => {
 });
 
 app.get('/advanced-search', (req, res) => {
-  const { name_surname, keywords, date_start, date_end } = req.query;
-
-  let query = 'SELECT * FROM ljudi WHERE 1=1'; // Dodajemo '1=1' da bi mogli sigurno da dodajemo 'AND'
+  const { query, exact_phrase, any_of, exclude_words } = req.query;
+  console.log(query, exact_phrase, any_of, exclude_words);
+  let sqlQuery = 'SELECT * FROM ljudi WHERE 1=1';
   const params = [];
 
-  // Dodavanje uslova za ime i prezime
-  if (name_surname) {
-    const [name, surname] = name_surname.split(' ');
-    query += ' AND ime LIKE ? AND prezime LIKE ?';
-    params.push(`%${name}%`);
-    params.push(`%${surname || ''}%`);
+  if (query) {
+    sqlQuery += ' AND opis LIKE ?';
+    params.push(`%${query}%`);
   }
 
-  // Dodavanje uslova za ključne riječi
-  if (keywords) {
-    const keywordsList = keywords.split(',');
-    keywordsList.forEach(keyword => {
-      query += ' AND opis LIKE ?';
-      params.push(`%${keyword.trim()}%`);
+  if (exact_phrase) {
+    sqlQuery += ' AND opis LIKE ?';
+    params.push(`%"${exact_phrase}"%`);
+  }
+
+  // Obrada "Any of These Words"
+  if (any_of) {
+    const words = any_of.split(' ');
+    sqlQuery += ' AND (' + words.map(word => {
+      params.push(`%${word}%`);
+      return 'opis LIKE ?';
+    }).join(' OR ') + ')';
+  }
+
+  // Obrada "Exclude These Words"
+  if (exclude_words) {
+    const words = exclude_words.split(' ');
+    words.forEach(word => {
+      sqlQuery += ' AND opis NOT LIKE ?';
+      params.push(`%${word}%`);
     });
   }
 
-  // Dodavanje uslova za datum objave
-  if (date_start) {
-    query += ' AND datum_objave >= ?';
-    params.push(date_start);
-  }
-  if (date_end) {
-    query += ' AND datum_objave <= ?';
-    params.push(date_end);
-  }
+  // Obrada datuma i external_sources izostavljena na zahtev korisnika
 
-  db.all(query, params, (err, rows) => {
+  db.all(sqlQuery, params, (err, rows) => {
     if (err) {
       console.error('Error executing query', err);
       res.status(500).json({ error: 'Error executing query' });
@@ -390,6 +393,7 @@ app.get('/advanced-search', (req, res) => {
     }
   });
 });
+
 
 
 app.get('/podstranica', (req, res) => {
