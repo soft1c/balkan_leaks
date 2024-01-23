@@ -395,10 +395,22 @@ app.get('/advanced-search', (req, res) => {
 });
 
 
+app.get('/podstranica/:id', (req, res) => {
+  const osobaId = req.params.id;
 
-app.get('/podstranica', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'podstranica.html'));
-})
+  // Prvo inkrementirajte broj posjeta
+  const updateQuery = 'UPDATE ljudi SET broj_posjeta = broj_posjeta + 1 WHERE id = ?';
+  db.run(updateQuery, [osobaId], (err) => {
+    if (err) {
+      console.error('Greška prilikom ažuriranja broja posjeta:', err);
+      // Odlučite da li želite da prekinete zahtev ovde ili da dozvolite da se nastavi
+    }
+
+    // Nakon ažuriranja, pošaljite fajl kao odgovor
+    res.sendFile(path.join(__dirname, 'public', 'podstranica.html'));
+  });
+});
+
 
 app.post('/odaberi-osobu-mjeseca', (req, res) => {
   const { osobaId } = req.body;
