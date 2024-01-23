@@ -119,7 +119,7 @@
 
   div.scrollmenu {
   background-color: #ffffff;
-  overflow: auto;
+  overflow: hidden;
   white-space: nowrap;
 }
 
@@ -573,7 +573,7 @@ header {
   </section>
 
 
-  <section id="istaknuteOsobe" style="gap: 15px; " class="cards-wrapper">
+  <section id="istaknuteOsobe" style="gap: 15px; margin-top:-35px; " class="cards-wrapper">
     <!-- Istaknute osobe će biti dodane ovdje dinamički -->
   </section>
 
@@ -581,7 +581,7 @@ header {
 
 
 
-  <div class="cards-container">
+  <div  style="margin-top:-35px;"  class="cards-container">
 
     <button class="left" onclick="leftScroll()">
       <i class="fas fa-angle-double-left"></i>
@@ -818,9 +818,6 @@ function fetchNedavnoDodaneOsobe() {
 
   </script>
 
-<a href="#" class="gotopbtn">
-  <ion-icon name="arrow-up-outline"></ion-icon>
-</a>
 
 
 <footer id="page-footer" class="footer-recommendations">
@@ -845,8 +842,14 @@ function fetchNedavnoDodaneOsobe() {
                 const footerElement = document.createElement('div');
                 footerElement.className = 'footer-item';
                 footerElement.innerHTML = `
-                    <img src="${item.urlPath}" alt="Footer Image" width="360" height="240">
-                    <p>${item.tekst}</p>
+                    <img src="${item.urlPath}" alt="Footer Image" width="360" height="240" style="
+    display: flex;
+    justify-content: space-around; /* This will distribute the space evenly around the items */
+    align-items: center; /* This will align the items vertically in the center */
+    width: 184px; /* Adjust this value to your needs */
+    height: auto;
+">
+                    <p style="margin-top:-20px;" >${item.tekst}</p>
                 `;
                 footerContainer.appendChild(footerElement);
             });

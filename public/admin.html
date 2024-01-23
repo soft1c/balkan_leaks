@@ -12,15 +12,16 @@
   <style>
     .layout-row {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   margin-bottom: 15px;
+  gap:20px;
 }
 
 .body {
     font-family: 'Roboto', sans-serif;
     background-color: #000; /* Black background */
     background-color: #272242 ; /* GitHub dark mode background color */
-    color: #C9D1D9; /* GitHub dark mode text color */
+    color: #f4f4f4;; /* GitHub dark mode text color */
   }
 
   .layout-box {
@@ -41,8 +42,8 @@
   }
 
 .layout-box.large {
-  width:140px;
-  height:220px; /* Larger box for Person of the Month */
+  width:100px;
+  height:200px; /* Larger box for Person of the Month */
 }
 #personSelector div {
   cursor: pointer;
@@ -103,11 +104,13 @@
   z-index: 1000; /* Da se prikaže iznad ostalih elemenata */
   max-height: 300px; /* Maksimalna visina dropdowna */
   overflow-y: auto; /* Omogući skrolanje unutar dropdowna ako je potrebno */
+  
 }
   </style>
 </head>
 <body>
-  <div class="top-navigation">
+  <div style="
+  background-color:#20222D ;"        class="top-navigation">
     <nav class="navbar">
         <a href="#menu" class="mobile-only hot-dog nav-element">
         </a>
@@ -125,7 +128,9 @@
     </nav>
   </div>
   <script src="js/admin.js"></script>
-  <div class="sidebar">
+  <div style="
+  background-color: #20222D; " class="sidebar">
+    
     <a href="#" class="tablink" onclick="openTab(event, 'AddPerson')">Add Person</a>
     <a href="#" class="tablink" onclick="openTab(event, 'IPAddresses')">IP Addresses</a>
     <a href="#" class="tablink" onclick="openTab(event, 'ManageLayout')">Page Layout</a>
@@ -243,6 +248,7 @@
         Person of the Month
       </div>
     </div>
+    <br><br>
     <div class="layout-row">
       <!-- Featured Persons -->
       <div id="featuredPerson1" class="layout-box" onclick="openPersonSelector('featuredPerson1',this)">Featured 1</div>
@@ -251,6 +257,7 @@
       <div id="featuredPerson4" class="layout-box" onclick="openPersonSelector('featuredPerson4',this)">Featured 4</div>
     </div>
   
+  <br><br>
     <!-- Submit Button -->
     <button type="button" class="submit-button" style="margin: 0 auto;"onclick="submitLayoutChanges()">Submit Layout</button>
   </div>
