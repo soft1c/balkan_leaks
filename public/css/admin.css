@@ -2,7 +2,7 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #272242 ;
+background-color: #eee;
 }
 
 form {
@@ -44,7 +44,7 @@ button:hover {
 }
 
 h1, h2 {
-    color: #DDDBF5 ;
+    color: #0A213D ;
     text-align: center; /* Centriranje teksta */
 }
 
@@ -104,7 +104,7 @@ ul li {
 
   .top-navigation {
     background-color: #fff;
-    border-bottom: 1px solid #dedede;
+    
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 16px;
     left: 0;
@@ -244,7 +244,7 @@ ul li {
           border-radius: 0; }
 
           .sidebar {
-            border-right:1px solid #dedede;
+         
             height: 100%;
             width: 200px;
             position: fixed;
@@ -257,7 +257,7 @@ ul li {
           }
           
           .sidebar a {
-            border-bottom:0.3px solid #dedede;
+     
             padding: 6px 8px 6px 16px;
             text-decoration: none;
             font-size: 25px;
@@ -520,8 +520,8 @@ ul li {
 }
 
 .top-navigation {
-  background-color: #0F0C1E ;
-  border-bottom: 1px solid #dedede;
+  background-color: #0A213D ;
+
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
   left: 0;

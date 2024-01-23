@@ -63,8 +63,13 @@ a {
   transition: all, var(--transition-time);
   position: relative;
   overflow: hidden;
-  border: 0px solid #ccc;
+
   text-decoration: none;
+
+  padding: 15px;
+  overflow: hidden;
+  
+  transition: 0.3s;
 }
 
 
@@ -73,6 +78,8 @@ a {
 
 .card:hover {
   transform: rotate(0);
+ 
+
 }
 
 .card h1 {
@@ -81,6 +88,7 @@ a {
   font-size: 1em;
   line-height: 1.2em;
   margin-top:200px;
+  
 }
 
 .card p {
@@ -130,18 +138,22 @@ a {
   z-index: -5;
   transition: all, var(--transition-time);
   transition-timing-function: ease-in-out;
+  
 }
 
 .card:before {
   background: #ddd;
+  opacity: 40%;
   width: 250%;
   height: 250%;
 }
 
 .card:after {
   background: #ececec;
+  opacity: 50%;
   width: 200%;
   height: 200%;
+  
 }
 
 .card:hover {
