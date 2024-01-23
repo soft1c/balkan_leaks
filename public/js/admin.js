@@ -171,7 +171,7 @@ function fetchUserIPs() {
 // Fetch IP addresses on page load
 fetchUserIPs();
   
-    function uploadMedia() {
+function uploadMedia() {
   const typeSelect = document.getElementById('typeOfFile');
   const selectedType = typeSelect.value;
   const licnostSelect = document.getElementById('licnost');
@@ -479,13 +479,14 @@ function submitEditForm() {
 function addModerator() {
   const username = document.getElementById('modUsername').value;
   const password = document.getElementById('modPassword').value;
+  const nickname= document.getElementById('modNickname').value;
 
   fetch('/admin/addModerator', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ username, password })
+    body: JSON.stringify({ username, password,nickname })
   })
   .then(response => response.json())
   .then(data => {
@@ -603,6 +604,7 @@ function logout(){
 function addAdmin() {
   const username = document.getElementById('adminUsername').value;
   const password = document.getElementById('adminPassword').value;
+  const nickname = document.getElementById('adminNickname').value;
   console.log(username, password);
 
   fetch('/admin/addAdmin', {
@@ -610,7 +612,7 @@ function addAdmin() {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ username, password })
+    body: JSON.stringify({ username, password,nickname })
   })
   .then(response => response.json())
   .then(data => {

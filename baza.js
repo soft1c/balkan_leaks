@@ -8,11 +8,10 @@ let db = new sqlite3.Database('./baza.db', (err) => {
     } else {
         console.log('Connected to the SQLite database.');
         
+        //add a column named nadimak into moderatori and admini
+        const query=`ALTER TABLE moderatori ADD COLUMN nadimak TEXT`;
 
-        const query=`CREATE TABLE IF NOT EXISTS aboutus (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            tekst TEXT
-        )`;
+        
 
         db.run(query, (err) => {
             if (err) {
@@ -21,7 +20,7 @@ let db = new sqlite3.Database('./baza.db', (err) => {
                 console.log("dpbrp je");
             }
         })
-        const query2=`INSERT INTO aboutus (tekst) VALUES ('')`;
+        const query2=`ALTER TABLE admini ADD COLUMN nadimak TEXT`;
 
         db.run(query2, (err) => {
             if (err) {

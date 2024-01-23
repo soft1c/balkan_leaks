@@ -457,9 +457,9 @@ app.get('/osobaMjeseca', (req, res) => {
 
 app.post('/admin/addAdmin',(req,res)=>{
   console.log(req.body);
-  const {username, password} = req.body;
-  const insertQuery = 'INSERT INTO admini (username, password) VALUES (?, ?)';
-  db.run(insertQuery, [username, password], function(err) {
+  const {username, password,nickname} = req.body;
+  const insertQuery = 'INSERT INTO admini (username, password,nadimak) VALUES (?, ?,?)';
+  db.run(insertQuery, [username, password,nickname], function(err) {
     if (err) {
       console.error('Greška prilikom dodavanja admina:', err.message);
 
@@ -837,9 +837,9 @@ app.get('/moderatori',(req,res)=>{
 })
 
 app.post('/admin/addModerator',(req,res)=>{
-  const {username,password}=req.body;
+  const {username,password,nickname}=req.body;
 
-  db.run('INSERT INTO moderatori (username, password) VALUES (?, ?)', [username, password], function(err) {
+  db.run('INSERT INTO moderatori (username, password,nadimak) VALUES (?, ?,?)', [username, password,nickname], function(err) {
     if(err){
       console.error('Error adding moderator:', err.message);
       res.status(500).send('Error adding moderator');
