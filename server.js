@@ -553,6 +553,7 @@ app.post('/odaberi-istaknute-osobe', (req, res) => {
 });
 
 
+
 app.get('/get_featured_persons', (req, res) => {
   const query = 'SELECT * FROM featuredPersons ORDER BY id DESC LIMIT 1';
 
