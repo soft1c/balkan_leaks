@@ -379,10 +379,9 @@ body, .main-content {
       let allFiles = [];
       // Use this function to fetch person data on page load
       window.onload = function() {
-    const pathParts = window.location.pathname.split('/');
-    const osobaId = pathParts[pathParts.length - 1];
-
-    fetch(`/osoba/${osobaId}`)
+        const pathParts = window.location.pathname.split('/');
+  const imePrezime = pathParts[pathParts.length - 1];
+    fetch(`/osoba/${imePrezime}`)
       .then(response => response.json())
       .then(data => {
         document.getElementById('ime').textContent = `${data.ime} ${data.prezime}`;

@@ -535,7 +535,7 @@ function fetchNedavnoDodaneOsobe() {
     results.forEach(person => {
       const personElement = document.createElement('div');
       personElement.className = 'search-result-item';
-      personElement.innerHTML = `<a href="/podstranica/${person.id}">${person.ime} ${person.prezime} - ${person.mjestoRodjenja}</a>`;
+      personElement.innerHTML = `<a href="/podstranica/${osoba.ime}_${osoba.prezime}>${person.ime} ${person.prezime} - ${person.mjestoRodjenja}</a>`;
       resultsContainer.appendChild(personElement);
     });
   }

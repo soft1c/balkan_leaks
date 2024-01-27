@@ -686,7 +686,7 @@ header {
           const osobaMjesecaHTML = `
             <div class="card-grid-space">
               <div class="num"></div>
-              <a class="card" href="/podstranica/${osoba.id}" style="--bg-img: url(${baseUrl}${osoba.slikaUrl})">
+              <a class="card" href="/podstranica/${osoba.ime}_${osoba.prezime}" style="--bg-img: url(${baseUrl}${osoba.slikaUrl})">
                 <div>
                   <h1>${osoba.ime} ${osoba.prezime}</h1>
                   
@@ -712,7 +712,7 @@ header {
   cardsHtml += `
     <div class="card-grid-space">
       <div class="num"></div>
-      <a class="card" href="/podstranica/${osoba.id}" style=" --bg-img: url(${baseUrl}${osoba.slikaUrl})">
+      <a class="card" href="/podstranica/${osoba.ime}_${osoba.prezime}" style=" --bg-img: url(${baseUrl}${osoba.slikaUrl})">
         <div>
           <h1>${osoba.ime} ${osoba.prezime}</h1>
           
@@ -732,7 +732,7 @@ header {
   const baseUrl = '/uploads/media/images/';
   const card = document.createElement('a'); // Change this to an anchor tag
   card.className = 'card';
-  card.href = `/podstranica/${osoba.id}`; // Set the href attribute
+  card.href = `/podstranica/${osoba.ime}_${osoba.prezime}`; // Set the href attribute
   card.style.setProperty('--bg-img', `url(${baseUrl}${osoba.slikaUrl})`);
   card.innerHTML = `
     <div>
@@ -809,7 +809,7 @@ function fetchNedavnoDodaneOsobe() {
   }
   function displaySearchResults(results) {
   const resultsContainer = document.getElementById('searchResults');
-  resultsContainer.innerHTML = ''; // Clear existing results
+  resultsContainer.innerHTML = ''; 
 
   if (results.length === 0) {
     // No results found
@@ -819,7 +819,7 @@ function fetchNedavnoDodaneOsobe() {
     results.forEach(person => {
       const personElement = document.createElement('div');
       personElement.className = 'search-result-item';
-      personElement.innerHTML = `<a href="/podstranica/${person.id}">${person.ime} ${person.prezime} - ${person.mjestoRodjenja}</a>`;
+      personElement.innerHTML = `<a href="/podstranica/${osoba.ime}_${osoba.prezime}">${person.ime} ${person.prezime} - ${person.mjestoRodjenja}</a>`;
       resultsContainer.appendChild(personElement);
     });
   }

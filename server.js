@@ -395,22 +395,22 @@ app.get('/advanced-search', (req, res) => {
 });
 
 
-app.get('/podstranica/:id', (req, res) => {
-  const osobaId = req.params.id;
+app.get('/podstranica/:imePrezime', (req, res) => {
+  const imePrezime = req.params.imePrezime.split('_').join(' '); // Pretpostavka je da su ime i prezime odvojeni znakom '_'
 
   // Prvo inkrementirajte broj posjeta
-  const updateQuery = 'UPDATE ljudi SET broj_posjeta = broj_posjeta + 1 WHERE id = ?';
-  db.run(updateQuery, [osobaId], (err) => {
-    if (err) {
-      console.error('Greška prilikom ažuriranja broja posjeta:', err);
+  const updateQuery = 'UPDATE ljudi SET broj_posjeta = broj_posjeta + 1 WHERE ime || " " || prezime = ?';
+  db.run(updateQuery, [imePrezime], (updateErr) => {
+    if (updateErr) {
+      console.error('Greška prilikom ažuriranja broja posjeta:', updateErr);
       // Odlučite da li želite da prekinete zahtev ovde ili da dozvolite da se nastavi
+      return res.status(500).send('Došlo je do greške na serveru.');
     }
 
     // Nakon ažuriranja, pošaljite fajl kao odgovor
     res.sendFile(path.join(__dirname, 'public', 'podstranica.html'));
   });
 });
-
 
 app.post('/odaberi-osobu-mjeseca', (req, res) => {
   const { osobaId } = req.body;
@@ -673,10 +673,10 @@ app.get('/daj_sve',(req,res)=>{
 });
 
 
-app.get('/osoba/:id', (req, res) => {
-  const osobaId = req.params.id;
+app.get('/osoba/:ime_prezime', (req, res) => {
+  const imePrezime = req.params.ime_prezime.split('_').join(' ');
 
-  db.get('SELECT * FROM ljudi WHERE id = ?', [osobaId], (err, osoba) => {
+  db.get('SELECT * FROM ljudi WHERE ime || " " || prezime = ?', [imePrezime], (err, osoba) => {
     if (err) {
       console.error('Greška prilikom dohvata osobe:', err);
       return res.status(500).json({ message: 'Došlo je do greške prilikom dohvata osobe.' });
@@ -686,7 +686,7 @@ app.get('/osoba/:id', (req, res) => {
       return res.status(404).json({ message: 'Osoba nije pronađena.' });
     }
 
-    db.all('SELECT * FROM fileovi WHERE LjudiId = ?', [osobaId], (err, fajlovi) => {
+    db.all('SELECT * FROM fileovi WHERE LjudiId = ?', [osoba.id], (err, fajlovi) => {
       if (err) {
         console.error('Greška prilikom dohvata fajlova za osobu:', err);
         return res.status(500).json({ message: 'Došlo je do greške prilikom dohvata fajlova za osobu.' });
