@@ -159,6 +159,33 @@
   gap: 10px;                  /* Dodaje prostor između elemenata */
   padding: 20px;              /* Dodaje padding unutar .footer-container */
 }
+#searchResults {
+  
+  position: absolute;
+  background-color: #fff;
+  padding-left:5px;
+  padding-right:5px;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #dbdbdd;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  z-index: 1000;
+ margin-top:60px;
+}
+
+#searchResults.show {
+  display: block;
+}
+
+#searchResults .result {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+#searchResults .result:last-child {
+  border-bottom: none;
+}
         </style>
 
 	</head>
@@ -180,95 +207,106 @@
 
         
 
-        <div class="top-navigation">
-            <nav class="navbar">
-                <a href="#menu" class="mobile-only hot-dog nav-element">
-                </a>
-              <div style="padding: 2em 2.5em;" class="nav-logo">
-                
-                
-                
-              </div>
-              <div class="action-buttons">
-        
-                <a class="button-face donate-link" href="donate.html">Donate</a>
-                <a class="button-face submit-link" href="#submit">Submit</a>
-              </div>
-              <form class="global-search" method="get" action="https://search.wikileaks.org/">
-                <input type="text" name="q" id="search-bar" placeholder="Search">
-                <button class="btn-search" type="submit"></button>
-                <div id="searchResults" class="search-results"></div>
-              </form>
-              <div class="main-nav">
-          
-                  <ul class="first-level">
-
-
-                      <li>
-                        <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
-                      </li>
-          
-                      <li>
-                        <a class=" news-menu-item" href="/news.html">News</a>
-                      </li>
-          
-                      <li>
-                        <a class=" about-menu-item" href="/about.html">About</a>
-                      </li>
-          
-                      <li>
-                        <a class=" partners-menu-item" href="/partners.html">Partners</a>
-                      </li>
-          
-                  </ul>
-          
-              </div>
-            </nav>
+      <div class="top-navigation">
+        <nav class="navbar">
+            <a href="#menu" class="mobile-only hot-dog nav-element">
+            </a>
+          <div style="padding: 2em 2.5em; margin-top: 5px;" class="nav-logo">
+            <a href="https://bpikd.onrender.com">
+            
+            </a>
           </div>
-          
-          <nav id="menu" class="side-nav rub">
-            <div class="menu-wrapper">
-              <a class="close-btn nav-element" href="#"></a>
-          
-                <ul class="first-level">
-
-                      <li>
-                        <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
-                      </li>
-          
-                      <li>
-                        <a class=" news-menu-item" href="/news.html">News</a>
-                      </li>
-          
-                      <li>
-                        <a class=" about-menu-item" href="/about.html">About</a>
-          
-                    </li>
-          
-                    <li>
-                      <a class=" partners-menu-item" href="/partners.html">Partners</a>
-          
-                    </li>
-          
-                </ul>
-          
-           
-              <aside class="social mobile-only">
-                <ul>
+          <div class="action-buttons">
+            <a class="button-face support-link" href="shop.html" target="_blank">Shop</a>
+            <a class="button-face donate-link" href="/donate">Donate</a>
+            
+            <a class="button-face submit-link" href="#submit">Submit</a>
+          </div>
+          <form class="global-search" method="get" action="https://search.wikileaks.org/">
+            <input type="text" name="q" id="search-bar" placeholder="Search">
+            <button class="btn-search" type="submit"></button>
+            <div id="searchResults" class="search-results"></div>
+          </form>
+          <div class="main-nav">
+      
+              <ul class="first-level">
+      
                   <li>
-                    <a href="https://www.facebook.com/wikileaks" class="nav-element" target="_blank" alt="Facebook">
-                      <img class="img-responsive" src="/static/img/fb-logo.png" alt="Facebook" title="Facebook page" />
-                    </a>
+                    <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
                   </li>
+      
                   <li>
-                    <a href="https://twitter.com/wikileaks" class="nav-element" target="_blank" alt="Twitter">
-                      <img class="img-responsive" src="/static/img/twitter-logo.png" alt="Twitter" title="Twitter page" />
-                    </a>
+                    <a class=" news-menu-item" href="/news.html">News</a>
                   </li>
-                </ul>
-              </aside>
-            </div>
-          </nav>
+      
+                  <li>
+                    <a class=" about-menu-item" href="/about.html">About</a>
+                  </li>
+      
+                  <li>
+                    <a class=" partners-menu-item" href="/partners.html">Partners</a>
+                  </li>
+      
+              </ul>
+      
+          </div>
+        </nav>
+      </div>
+      <script>
+        // JavaScript to handle Donate click
+        document.querySelector('nav a[href="/donate"]').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevents default link behavior
+            var popup = document.getElementById('donatePopup');
+            popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+        });
+        document.getElementById('closeBtn').addEventListener('click', function() {
+                  document.getElementById('donatePopup').style.display = 'none';
+              });
+      
+      </script>
+      <nav id="menu" class="side-nav rub">
+        <div class="menu-wrapper">
+          <a class="close-btn nav-element" href="#"></a>
+      
+            <ul class="first-level">
+      
+                  <li>
+                    <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
+                  </li>
+      
+                  <li>
+                    <a class=" news-menu-item" href="/news.html">News</a>
+                  </li>
+      
+                  <li>
+                    <a class=" about-menu-item" href="/about.html">About</a>
+      
+                </li>
+      
+                <li>
+                  <a class=" partners-menu-item" href="/partners.html">Partners</a>
+      
+                </li>
+      
+            </ul>
+      
+       
+          <aside class="social mobile-only">
+            <ul>
+              <li>
+                <a href="https://www.facebook.com/wikileaks" class="nav-element" target="_blank" alt="Facebook">
+                  <img class="img-responsive" src="/static/img/fb-logo.png" alt="Facebook" title="Facebook page" />
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/wikileaks" class="nav-element" target="_blank" alt="Twitter">
+                  <img class="img-responsive" src="/static/img/twitter-logo.png" alt="Twitter" title="Twitter page" />
+                </a>
+              </li>
+            </ul>
+          </aside>
+        </div>
+      </nav>
 
 
     
