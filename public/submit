@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="icon" type="image/png" href="/IMG/favicon.ico" />
+		<title>BPIKD - DONATE</title>
+
+        <link rel="stylesheet" href="/css/pocetna_style.css">
+        <link href="/css/application.css" rel="stylesheet">
+        <link href="/css/search.css" rel="stylesheet">
+        <link href="/css/tr.css" rel="stylesheet">
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/css/daterangepicker.css" />
+        <link href="/css/styles_topnav.css" rel="stylesheet">
+        <link href="/css/wlks.css" rel="stylesheet">
+        
+        <link href="/css/styles_sidenav.css" rel="stylesheet">
+        <link href="/css/style_file.css" rel="stylesheet">
+        <style>
+            .container-donate {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 20px;
+            }
+
+            .image-container {
+                width: 100%; /* Širina kontejnera slike */
+                display: flex;
+                justify-content: center;
+            }
+
+            .center-image-donate {
+                max-width: 100%; /* Osigurava da slika ne prelazi širinu kontejnera */
+                height: auto; /* Održava originalni omjer slike */
+            }
+
+            @media (max-width: 768px) {
+                .container-donate {
+                    padding: 10px;
+                }
+            }
+            /* Media Query za ekrane širine od 750px do 1000px */
+            @media (min-width: 700px) and (max-width: 1200px) {
+                .image-container {
+                    width: 100%; /* Širina kontejnera slike */
+                    display: flex;
+                    justify-content: center;
+                }
+
+                .center-image-donate {
+                    max-width: 100%; /* Osigurava da slika ne prelazi širinu kontejnera */
+                    height: auto; /* Održava originalni omjer slike */
+                }
+            }
+        </style>
+
+	</head>
+	<body>
+
+    <div id="main">
+    
+    
+        <div class="top-navigation">
+            <nav class="navbar">
+                <a href="#menu" class="mobile-only hot-dog nav-element">
+                </a>
+              <div style="padding: 2em 2.5em;" class="nav-logo">
+                <a href="https://bpikd.onrender.com">
+                
+                </a>
+              </div>
+              <div class="action-buttons">
+        
+                <a class="button-face donate-link" href="https://shop.BPIKD.org/donate">Donate</a>
+                <a class="button-face submit-link" href="#submit">Submit</a>
+              </div>
+              <form class="global-search" method="get" action="https://search.BPIKD.org/">
+                <input type="text" name="q" id="search-bar" placeholder="Search">
+                <button class="btn-search" type="submit"></button>
+                <div id="searchResults" class="search-results"></div>
+              </form>
+              <div class="main-nav">
+          
+                  <ul class="first-level">
+          
+                      <li>
+                        <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
+                      </li>
+          
+                      <li>
+                        <a class=" news-menu-item" href="/news.html">News</a>
+                      </li>
+          
+                      <li>
+                        <a class=" about-menu-item" href="about.html">About</a>
+                      </li>
+          
+                      <li>
+                        <a class=" partners-menu-item" href="partners.html">Partners</a>
+                      </li>
+          
+                  </ul>
+          
+              </div>
+            </nav>
+          </div>
+          
+          <nav id="menu" class="side-nav rub">
+            <div class="menu-wrapper">
+              <a class="close-btn nav-element" href="#"></a>
+          
+                <ul class="first-level">
+          
+                      <li>
+                        <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
+                      </li>
+          
+                      <li>
+                        <a class=" news-menu-item" href="/news.html">News</a>
+                      </li>
+          
+                      <li>
+                        <a class=" about-menu-item" href="/about.html">About</a>
+          
+                    </li>
+          
+                    <li>
+                      <a class=" partners-menu-item" href="/partners.html">Partners</a>
+          
+                    </li>
+          
+                </ul>
+          
+           
+              <aside class="social mobile-only">
+                <ul>
+                  <li>
+                    <a href="https://www.facebook.com/BPIKD" class="nav-element" target="_blank" alt="Facebook">
+                      <img class="img-responsive" src="/static/img/fb-logo.png" alt="Facebook" title="Facebook page" />
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://twitter.com/BPIKD" class="nav-element" target="_blank" alt="Twitter">
+                      <img class="img-responsive" src="/static/img/twitter-logo.png" alt="Twitter" title="Twitter page" />
+                    </a>
+                  </li>
+                </ul>
+              </aside>
+            </div>
+          </nav>
+		<div class="content rub15">
+			<div class="container-text" id="aboutUsContent">
+		</div>
+    </div>
+
+    <!-- Dodatak SOFTHAAAAAAAAAAAAAAAAAAAAAAAAA-->
+    <div class="container-donate">
+        <p class="text-center">Ovo je paragraf u sredini.</p>
+        <div class="image-container">
+            <img src="logo2.png" alt="Opis slike" class="center-image-donate">
+        </div>
+    </div>
+    
+
+
+<link href="/static/css/styles_footer.css" rel="stylesheet">
+<footer id="page-footer" class="footer-recommendations">
+  <div class="footer-wrapper">
+    <div class="recommendation-container">
+      <a href="#" class="top">Top</a>
+      
+        <ul class="recommendation-links">
+                <li class="recommendation">
+                    <a href="https://our.BPIKD.org" target="_blank">
+                        <div class="teaser">
+                            <img class="spip_logos" alt="" src="/IMG/arton666.png" width="360" height="240" />
+                        </div>
+                        <p><p>WL Research Community - user contributed research based on documents published by BPIKD. 
+</p></p>
+                    </a>
+                </li>
+            </li>
+                <li class="recommendation">
+                    <a href="https://www.torproject.org/" target="_blank">
+                        <div class="teaser">
+                            <img class="spip_logos" alt="" src="/IMG/arton401.png" width="360" height="240" />
+                        </div>
+                        <p><p>Tor is an encrypted anonymising network that makes it harder to intercept internet communications, or see where communications are coming from or going to.
+</p></p>
+                    </a>
+                </li>
+            </li>
+                <li class="recommendation">
+                    <a href="https://tails.boum.org/" target="_blank">
+                        <div class="teaser">
+                            <img class="spip_logos" alt="" src="/IMG/arton405.png" width="360" height="240" />
+                        </div>
+                        <p><p> Tails is a live operating system, that you can start on almost any computer from a DVD, USB stick, or SD card. It aims at preserving your privacy and anonymity.
+</p></p>
+                    </a>
+                </li>
+            </li>
+                <li class="recommendation">
+                    <a href="https://www.couragefound.org/" target="_blank">
+                        <div class="teaser">
+                            <img class="spip_logos" alt="" src="/IMG/arton404.png" width="360" height="240" />
+                        </div>
+                        <p><p>The Courage Foundation is an international organisation that supports those who risk life or liberty to make significant contributions to the historical record.
+</p></p>
+                    </a>
+                </li>
+            </li>
+                <li class="recommendation">
+                    <a href="https://www.bitcoin.org/" target="_blank">
+                        <div class="teaser">
+                            <img class="spip_logos" alt="" src="/IMG/arton403.png" width="360" height="240" />
+                        </div>
+                        <p><p>Bitcoin uses peer-to-peer technology to operate with no central authority or banks; managing transactions and the issuing of bitcoins is carried out collectively by the network.
+</p></p>
+                    </a>
+                </li>
+            </li>
+        </ul>
+      
+      <ul class="social-links">
+        <li>
+          <a href="https://www.facebook.com/BPIKD" target="_blank" alt="Facebook">
+            <img src="/static/img/fb-logo.png" alt="Facebook" title="Facebook page" />
+          </a>
+        </li>
+        <li>
+          <a href="https://twitter.com/BPIKD" target="_blank" alt="Twitter">
+            <img src="/static/img/twitter-logo.png" alt="Twitter" title="Twitter page" />
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<script>
+    //Softha pisi sta ovdje treba, ja sam obrisao neke funkcije nezz cemu su bile imas ih sve u about.html, jer sam iz nje uzeo footer i navigaciju
+</script>  
+</body>
+</html>
+
