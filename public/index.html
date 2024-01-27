@@ -277,10 +277,27 @@ div.scrollmenu a:hover {
   margin: 2em 0; }
   @media screen and (max-width: 769px) {
     .tag-navigation {
-      margin: 0; } }
+      margin: 0; } 
+      .scrollmenu {
+      overflow: auto;
+      
+      }
+    
+    }
   @media screen and (max-width: 999px) {
     .tag-navigation {
       line-height: 3em; } }
+
+
+
+     
+   
+      
+
+
+
+
+
   .tag-navigation li {
     display: inline;
     white-space: nowrap; }
@@ -289,6 +306,8 @@ div.scrollmenu a:hover {
     font-weight: bold;
     padding: 1em; }
     @media screen and (max-width: 999px) {
+
+
       .tag-navigation a {
         padding: .2em .5em; } }
   .tag-navigation a:hover,
@@ -378,8 +397,8 @@ header {
   display: flex;
   justify-content: center; /* Centriranje elemenata u kontejneru */
   align-items: center; /* Vertikalno centriranje elemenata */
-  flex-wrap: wrap; /* Omogućava prelamanje elemenata u novi red ako nema dovoljno prostora */
-  gap: 100px; /* Razmak između elemenata */
+ /* Omogućava prelamanje elemenata u novi red ako nema dovoljno prostora */
+  gap: 50px;
 }
 #header-logo {
     height: 70px; /* Adjust as needed */
@@ -422,6 +441,21 @@ header {
 }
 
 
+.footer-container {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .footer-item img {
+      width: 100px;
+      height: auto;
+    }
+
+    .footer-item p {
+      text-align: center;
+    }
+
   </style>
 </head>
 <body>
@@ -437,7 +471,7 @@ header {
       </div>
       <div class="action-buttons">
 
-        
+              <a class="button-face support-link" href="shop.html" target="_blank">Shop</a>
         <a class="button-face donate-link" href="/donate">Donate</a>
         <div id="donatePopup" class="donate-popup">
           <span class="close-btn" id="closeBtn">&times;</span>
@@ -822,7 +856,7 @@ function fetchNedavnoDodaneOsobe() {
 
 <footer id="page-footer" class="footer-recommendations">
   <div class="footer-wrapper">
-      <div style="margin-left:100px;" id="footer-content" class="recommendation-container">
+      <div  id="footer-content" class="recommendation-container">
           
       </div>
   </div>
@@ -833,27 +867,27 @@ function fetchNedavnoDodaneOsobe() {
 <script>
   function fetchAndDisplayFooter() {
     fetch('/footer')
-        .then(response => response.json())
-        .then(footerItems => {
-            const footerContainer = document.getElementById('footer-content');
-            footerContainer.innerHTML = ''; // Čišćenje postojećeg sadržaja
+    .then(response => response.json())
+    .then(footerItems => {
+        const footerContainer = document.getElementById('footer-content');
+        footerContainer.className = 'footer-container'; // Add this line
+        footerContainer.innerHTML = '';
 
-            footerItems.forEach(item => {
-                const footerElement = document.createElement('div');
-                footerElement.className = 'footer-item';
-                footerElement.innerHTML = `
-                    <img src="${item.urlPath}" alt="Footer Image" width="360" height="240" style="
-    display: flex;
-    justify-content: space-around; /* This will distribute the space evenly around the items */
-    align-items: center; /* This will align the items vertically in the center */
-    width: 184px; /* Adjust this value to your needs */
-    height: auto;
-">
-                    <p style="margin-top:-20px;" >${item.tekst}</p>
-                `;
-                footerContainer.appendChild(footerElement);
-            });
-        })
+        footerItems.forEach(item => {
+            const footerElement = document.createElement('div');
+            footerElement.className = 'footer-item';
+            footerElement.innerHTML = `
+                <img src="${item.urlPath}" alt="Footer Image" style="
+                    display: block;
+                    margin: 0 auto;
+                    width: 130px;
+                    height: auto;
+                "> 
+                <p style="text-align: center; margin-top:40px; font-size:13px; max-width:200px;">${item.tekst}</p>
+            `;
+            footerContainer.appendChild(footerElement);
+        });
+    })
         .catch(error => console.error('Došlo je do greške:', error));
 }
 
