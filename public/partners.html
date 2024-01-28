@@ -189,6 +189,19 @@ padding: 20px;              /* Dodaje padding unutar .footer-container */
 #searchResults .result:last-child {
   border-bottom: none;
 }
+.footer-recommendations .top {
+    background: url("/arrow-up.png") 50% 30% no-repeat #fff;
+    background-size: 1.3em;
+    border: #cccccc 1px solid;
+    border-radius: 40px;
+    color: #555555;
+    display: inline-block;
+    height: 80px;
+    padding: 40px 0;
+    position: relative;
+    text-align: center;
+    top: -40px;
+    width: 80px; }
     </style>
 
 </head>
@@ -209,22 +222,27 @@ padding: 20px;              /* Dodaje padding unutar .footer-container */
 
 
 
+
     <div class="top-navigation">
       <nav class="navbar">
           <a href="#menu" class="mobile-only hot-dog nav-element">
-          </a>
-        <div style="padding: 2em 2.5em; margin-top: 5px;" class="nav-logo">
-          <a href="https://bpikd.onrender.com">
+          </a>  
+
           
+        <div  style="" class="nav-logo">
+          <a href="index.html">
+            <h1 style="display:flex; margin-top:-5px;margin-left:40px;">BPIKD</h1>
           </a>
+          
+         
         </div>
         <div class="action-buttons">
           <a class="button-face support-link" href="shop.html" target="_blank">Shop</a>
-          <a class="button-face donate-link" href="/donate">Donate</a>
+          <a class="button-face donate-link" href="donate.html">Donate</a>
           
-          <a class="button-face submit-link" href="#submit">Submit</a>
+          <a class="button-face submit-link" href="submit.html">Submit</a>
         </div>
-        <form class="global-search" method="get" action="https://search.wikileaks.org/">
+        <form class="global-search" method="get" action="advancedsearch.html">
           <input type="text" name="q" id="search-bar" placeholder="Search">
           <button class="btn-search" type="submit"></button>
           <div id="searchResults" class="search-results"></div>
@@ -268,7 +286,13 @@ padding: 20px;              /* Dodaje padding unutar .footer-container */
     </script>
     <nav id="menu" class="side-nav rub">
       <div class="menu-wrapper">
-        <a class="close-btn nav-element" href="#"></a>
+         <a class="close-btn nav-element" style=" background: url('close-green.png') center center no-repeat transparent;
+      background-size: 1.4em;
+      display: inline-block;
+      height: 50px;
+      top: 0;
+      width: 40px;
+    " href=""></a>
     
           <ul class="first-level">
     
@@ -297,12 +321,12 @@ padding: 20px;              /* Dodaje padding unutar .footer-container */
           <ul>
             <li>
               <a href="https://www.facebook.com/wikileaks" class="nav-element" target="_blank" alt="Facebook">
-                <img class="img-responsive" src="/static/img/fb-logo.png" alt="Facebook" title="Facebook page" />
+                <img class="img-responsive" src="fb-logo.png" alt="Facebook" title="Facebook page" />
               </a>
             </li>
             <li>
               <a href="https://twitter.com/wikileaks" class="nav-element" target="_blank" alt="Twitter">
-                <img class="img-responsive" src="/static/img/twitter-logo.png" alt="Twitter" title="Twitter page" />
+                <img class="img-responsive" src="twitter-logo.png" alt="Twitter" title="Twitter page" />
               </a>
             </li>
           </ul>
@@ -320,18 +344,18 @@ padding: 20px;              /* Dodaje padding unutar .footer-container */
 
 
 
-
       <div class="content">
-        <div>
-          <h1>Co-publishers, Research Partners and Funders</h1>
+        <div style="object-fit: cover;">
+          <h1>Co-publishers, Research Partners and Funders</h1> <br><br>
           <ul id="sponsorsList"></ul> <!-- Ovdje će biti prikazani sponzori -->
         </div>
-      </div>
+      </div> <br><br><br><br><br><br>
       <link href="/static/css/styles_footer.css" rel="stylesheet">
-      <footer id="page-footer" class="footer-recommendations">
-        <div class="footer-wrapper">
+      <link href="/static/css/styles_footer.css" rel="stylesheet">
+      <footer id="page-footer" class="footer-recommendations"> 
+        <div class="footer-wrapper"> <a style="justify-content: center; left:375px; top:-110px;" href="#" class="top">Top</a>      
             <div  id="footer-content" class="recommendation-container">
-                
+        
             </div>
         </div>
       </footer>
@@ -514,7 +538,7 @@ function fetchNedavnoDodaneOsobe() {
     results.forEach(person => {
       const personElement = document.createElement('div');
       personElement.className = 'search-result-item';
-      personElement.innerHTML = `<a href="/podstranica/${person.ime}_${person.prezime}">${person.ime} ${person.prezime} - ${person.mjestoRodjenja}</a>`;
+      personElement.innerHTML = `<a href="/podstranica/${person.ime}_${person.prezime}">${person.ime} ${person.prezime} </a>`;
       resultsContainer.appendChild(personElement);
     });
   }

@@ -57,6 +57,16 @@
                     height: auto; /* Održava originalni omjer slike */
                 }
             }
+            @media (max-width: 768px) {
+  .content-image, .content-text {
+
+
+  }
+
+  .content-image {
+    margin-bottom: 0;
+  }
+}
         </style>
 
 	</head>
@@ -64,109 +74,129 @@
 
     <div id="main">
     
-    
-        <div class="top-navigation">
-            <nav class="navbar">
-                <a href="#menu" class="mobile-only hot-dog nav-element">
-                </a>
-              <div style="padding: 2em 2.5em;" class="nav-logo">
-                <a href="https://bpikd.onrender.com">
-                
-                </a>
-              </div>
-              <div class="action-buttons">
-        
-                <a class="button-face donate-link" href="https://shop.BPIKD.org/donate">Donate</a>
-                <a class="button-face submit-link" href="#submit">Submit</a>
-              </div>
-              <form class="global-search" method="get" action="https://search.BPIKD.org/">
-                <input type="text" name="q" id="search-bar" placeholder="Search">
-                <button class="btn-search" type="submit"></button>
-                <div id="searchResults" class="search-results"></div>
-              </form>
-              <div class="main-nav">
-          
-                  <ul class="first-level">
-          
-                      <li>
-                        <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
-                      </li>
-          
-                      <li>
-                        <a class=" news-menu-item" href="/news.html">News</a>
-                      </li>
-          
-                      <li>
-                        <a class=" about-menu-item" href="about.html">About</a>
-                      </li>
-          
-                      <li>
-                        <a class=" partners-menu-item" href="partners.html">Partners</a>
-                      </li>
-          
-                  </ul>
-          
-              </div>
-            </nav>
-          </div>
-          
-          <nav id="menu" class="side-nav rub">
-            <div class="menu-wrapper">
-              <a class="close-btn nav-element" href="#"></a>
-          
-                <ul class="first-level">
-          
-                      <li>
-                        <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
-                      </li>
-          
-                      <li>
-                        <a class=" news-menu-item" href="/news.html">News</a>
-                      </li>
-          
-                      <li>
-                        <a class=" about-menu-item" href="/about.html">About</a>
-          
-                    </li>
-          
-                    <li>
-                      <a class=" partners-menu-item" href="/partners.html">Partners</a>
-          
-                    </li>
-          
-                </ul>
-          
+  
+      <div class="top-navigation">
+        <nav class="navbar">
+            <a href="#menu" class="mobile-only hot-dog nav-element">
+            </a>  
+
+            
+          <div  style="" class="nav-logo">
+            <a href="index.html">
+              <h1 style="display:flex; margin-top:-5px;margin-left:40px;">BPIKD</h1>
+            </a>
+            
            
-              <aside class="social mobile-only">
-                <ul>
+          </div>
+          <div class="action-buttons">
+            <a class="button-face support-link" href="shop.html" target="_blank">Shop</a>
+            <a class="button-face donate-link" href="donate.html">Donate</a>
+            
+            <a class="button-face submit-link" href="submit.html">Submit</a>
+          </div>
+          <form class="global-search" method="get" action="advancedsearch.html">
+            <input type="text" name="q" id="search-bar" placeholder="Search">
+            <button class="btn-search" type="submit"></button>
+            <div id="searchResults" class="search-results"></div>
+          </form>
+          <div class="main-nav">
+      
+              <ul class="first-level">
+      
                   <li>
-                    <a href="https://www.facebook.com/BPIKD" class="nav-element" target="_blank" alt="Facebook">
-                      <img class="img-responsive" src="/static/img/fb-logo.png" alt="Facebook" title="Facebook page" />
-                    </a>
+                    <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
                   </li>
+      
                   <li>
-                    <a href="https://twitter.com/BPIKD" class="nav-element" target="_blank" alt="Twitter">
-                      <img class="img-responsive" src="/static/img/twitter-logo.png" alt="Twitter" title="Twitter page" />
-                    </a>
+                    <a class=" news-menu-item" href="/news.html">News</a>
                   </li>
-                </ul>
-              </aside>
-            </div>
-          </nav>
+      
+                  <li>
+                    <a class=" about-menu-item" href="/about.html">About</a>
+                  </li>
+      
+                  <li>
+                    <a class=" partners-menu-item" href="/partners.html">Partners</a>
+                  </li>
+      
+              </ul>
+      
+          </div>
+        </nav>
+      </div>
+      <script>
+        // JavaScript to handle Donate click
+        document.querySelector('nav a[href="/donate"]').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevents default link behavior
+            var popup = document.getElementById('donatePopup');
+            popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+        });
+        document.getElementById('closeBtn').addEventListener('click', function() {
+                  document.getElementById('donatePopup').style.display = 'none';
+              });
+      
+      </script>
+      <nav id="menu" class="side-nav rub">
+        <div class="menu-wrapper">
+           <a class="close-btn nav-element" style=" background: url('close-green.png') center center no-repeat transparent;
+      background-size: 1.4em;
+      display: inline-block;
+      height: 50px;
+      top: 0;
+      width: 40px;
+    " href=""></a>
+      
+            <ul class="first-level">
+      
+                  <li>
+                    <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
+                  </li>
+      
+                  <li>
+                    <a class=" news-menu-item" href="/news.html">News</a>
+                  </li>
+      
+                  <li>
+                    <a class=" about-menu-item" href="/about.html">About</a>
+      
+                </li>
+      
+                <li>
+                  <a class=" partners-menu-item" href="/partners.html">Partners</a>
+      
+                </li>
+      
+            </ul>
+      
+       
+          <aside class="social mobile-only">
+            <ul>
+              <li>
+                <a href="https://www.facebook.com/wikileaks" class="nav-element" target="_blank" alt="Facebook">
+                  <img class="img-responsive" src="fb-logo.png" alt="Facebook" title="Facebook page" />
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/wikileaks" class="nav-element" target="_blank" alt="Twitter">
+                  <img class="img-responsive" src="twitter-logo.png" alt="Twitter" title="Twitter page" />
+                </a>
+              </li>
+            </ul>
+          </aside>
+        </div>
+      </nav>
 		<div class="content rub15">
 			<div class="container-text" id="aboutUsContent">
 		</div>
     </div>
 
     <!-- Dodatak SOFTHAAAAAAAAAAAAAAAAAAAAAAAAA-->
-    <div class="container-donate">
-        <p class="text-center">Ovo je paragraf u sredini.</p>
-        <div class="image-container">
-            <img src="logo2.png" alt="Opis slike" class="center-image-donate">
-        </div>
+    <div style="text-align: center; justify-content: center;" class="content-container">
+      <img src="path-to-your-image.jpg" alt="Image Description" class="content-image">
+      <br><br><br>
+      <p style="text-align:center; justify-content: center; margin:120px" class="content-text">Your paragraph text goes here...</p>
     </div>
-    
-
+<br><br><br><br><br>
 
 <link href="/static/css/styles_footer.css" rel="stylesheet">
 <footer id="page-footer" class="footer-recommendations">
@@ -230,12 +260,12 @@
       <ul class="social-links">
         <li>
           <a href="https://www.facebook.com/BPIKD" target="_blank" alt="Facebook">
-            <img src="/static/img/fb-logo.png" alt="Facebook" title="Facebook page" />
+            <img src="fb-logo.png" alt="Facebook" title="Facebook page" />
           </a>
         </li>
         <li>
           <a href="https://twitter.com/BPIKD" target="_blank" alt="Twitter">
-            <img src="/static/img/twitter-logo.png" alt="Twitter" title="Twitter page" />
+            <img src="twitter-logo.png" alt="Twitter" title="Twitter page" />
           </a>
         </li>
       </ul>

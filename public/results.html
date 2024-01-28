@@ -7,7 +7,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="icon" type="image/png" href="/IMG/favicon.ico" />
-		<title>BPIKD - ABOUT US</title>
+		<title>BPIKD - News</title>
 
         <link rel="stylesheet" href="/css/pocetna_style.css">
         <link href="/css/application.css" rel="stylesheet">
@@ -17,7 +17,6 @@
         <link rel="stylesheet" href="/css/daterangepicker.css" />
         <link href="/css/styles_topnav.css" rel="stylesheet">
         <link href="/css/wlks.css" rel="stylesheet">
-        <link href="/static/css/styles_footer.css" rel="stylesheet">
         
         <link href="/css/styles_sidenav.css" rel="stylesheet">
         <link href="/css/style_file.css" rel="stylesheet">
@@ -27,7 +26,7 @@
       color: #fff;
       text-align: center;
       padding: 10px;
-      
+      position: sticky;
       bottom: 0;
       width: 100%;
     }
@@ -202,10 +201,14 @@
         </style>
 
 	</head>
-	<body>
+	<body class="news">
 
-
-
+    
+       
+		
+		</pre>
+	</div>
+</div>
 
 
 
@@ -213,119 +216,71 @@
 
 
     <div id="main">
-    
-    
 
-      <div class="top-navigation">
-        <nav class="navbar">
-            <a href="#menu" class="mobile-only hot-dog nav-element">
-            </a>  
+        
 
-            
-          <div  style="" class="nav-logo">
-            <a href="index.html">
-              <h1 style="display:flex; margin-top:-5px;margin-left:40px;">BPIKD</h1>
-            </a>
-            
-           
-          </div>
-          <div class="action-buttons">
-            <a class="button-face support-link" href="shop.html" target="_blank">Shop</a>
-            <a class="button-face donate-link" href="donate.html">Donate</a>
-            
-            <a class="button-face submit-link" href="submit.html">Submit</a>
-          </div>
-          <form class="global-search" method="get" action="advancedsearch.html">
-            <input type="text" name="q" id="search-bar" placeholder="Search">
-            <button class="btn-search" type="submit"></button>
-            <div id="searchResults" class="search-results"></div>
-          </form>
-          <div class="main-nav">
-      
-              <ul class="first-level">
-      
-                  <li>
-                    <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
-                  </li>
-      
-                  <li>
-                    <a class=" news-menu-item" href="/news.html">News</a>
-                  </li>
-      
-                  <li>
-                    <a class=" about-menu-item" href="/about.html">About</a>
-                  </li>
-      
-                  <li>
-                    <a class=" partners-menu-item" href="/partners.html">Partners</a>
-                  </li>
-      
-              </ul>
-      
-          </div>
-        </nav>
-      </div>
-      <script>
-        // JavaScript to handle Donate click
-        document.querySelector('nav a[href="/donate"]').addEventListener('click', function(event) {
-            event.preventDefault(); // Prevents default link behavior
-            var popup = document.getElementById('donatePopup');
-            popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
-        });
-        document.getElementById('closeBtn').addEventListener('click', function() {
-                  document.getElementById('donatePopup').style.display = 'none';
-              });
-      
-      </script>
-      <nav id="menu" class="side-nav rub">
-        <div class="menu-wrapper">
-           <a class="close-btn nav-element" style=" background: url('close-green.png') center center no-repeat transparent;
-      background-size: 1.4em;
-      display: inline-block;
-      height: 50px;
-      top: 0;
-      width: 40px;
-    " href=""></a>
-      
-            <ul class="first-level">
-      
-                  <li>
-                    <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
-                  </li>
-      
-                  <li>
-                    <a class=" news-menu-item" href="/news.html">News</a>
-                  </li>
-      
-                  <li>
-                    <a class=" about-menu-item" href="/about.html">About</a>
-      
-                </li>
-      
-                <li>
-                  <a class=" partners-menu-item" href="/partners.html">Partners</a>
-      
-                </li>
-      
-            </ul>
-      
-       
-          <aside class="social mobile-only">
-            <ul>
-              <li>
-                <a href="https://www.facebook.com/wikileaks" class="nav-element" target="_blank" alt="Facebook">
-                  <img class="img-responsive" src="fb-logo.png" alt="Facebook" title="Facebook page" />
+ 
+        <div class="top-navigation">
+            <nav class="navbar">
+                <a href="#menu" class="mobile-only hot-dog nav-element">
+                </a>  
+
+                
+              <div  style="" class="nav-logo">
+                <a href="index.html">
+                  <h1 style="display:flex; margin-top:-5px;margin-left:40px;">BPIKD</h1>
                 </a>
-              </li>
-              <li>
-                <a href="https://twitter.com/wikileaks" class="nav-element" target="_blank" alt="Twitter">
-                  <img class="img-responsive" src="twitter-logo.png" alt="Twitter" title="Twitter page" />
-                </a>
-              </li>
-            </ul>
-          </aside>
-        </div>
-      </nav>
+                
+               
+              </div>
+              <div class="action-buttons">
+                <a class="button-face support-link" href="shop.html" target="_blank">Shop</a>
+                <a class="button-face donate-link" href="donate.html">Donate</a>
+                
+                <a class="button-face submit-link" href="submit.html">Submit</a>
+              </div>
+              <form class="global-search" method="get" action="advancedsearch.html">
+                <input type="text" name="q" id="search-bar" placeholder="Search">
+                <button class="btn-search" type="submit"></button>
+                <div id="searchResults" class="search-results"></div>
+              </form>
+              <div class="main-nav">
+          
+                  <ul class="first-level">
+          
+                      <li>
+                        <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
+                      </li>
+          
+                      <li>
+                        <a class=" news-menu-item" href="/news.html">News</a>
+                      </li>
+          
+                      <li>
+                        <a class=" about-menu-item" href="/about.html">About</a>
+                      </li>
+          
+                      <li>
+                        <a class=" partners-menu-item" href="/partners.html">Partners</a>
+                      </li>
+          
+                  </ul>
+          
+              </div>
+            </nav>
+          </div>
+          <script>
+            // JavaScript to handle Donate click
+            document.querySelector('nav a[href="/donate"]').addEventListener('click', function(event) {
+                event.preventDefault(); // Prevents default link behavior
+                var popup = document.getElementById('donatePopup');
+                popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+            });
+            document.getElementById('closeBtn').addEventListener('click', function() {
+                      document.getElementById('donatePopup').style.display = 'none';
+                  });
+          
+          </script>
           <nav id="menu" class="side-nav rub">
             <div class="menu-wrapper">
                <a class="close-btn nav-element" style=" background: url('close-green.png') center center no-repeat transparent;
@@ -362,12 +317,12 @@
               <aside class="social mobile-only">
                 <ul>
                   <li>
-                    <a href="https://www.facebook.com/BPIKD" class="nav-element" target="_blank" alt="Facebook">
+                    <a href="https://www.facebook.com/wikileaks" class="nav-element" target="_blank" alt="Facebook">
                       <img class="img-responsive" src="fb-logo.png" alt="Facebook" title="Facebook page" />
                     </a>
                   </li>
                   <li>
-                    <a href="https://twitter.com/BPIKD" class="nav-element" target="_blank" alt="Twitter">
+                    <a href="https://twitter.com/wikileaks" class="nav-element" target="_blank" alt="Twitter">
                       <img class="img-responsive" src="twitter-logo.png" alt="Twitter" title="Twitter page" />
                     </a>
                   </li>
@@ -377,26 +332,28 @@
           </nav>
 
 
-
-
-
-        
-		<div class="content rub15">
-			<div class="container-text" id="aboutUsContent">
-        
-
-          
-		</div>
+    
+		<div class="content">
+			
+      <div class="news-articles">
+        <ul id="newsContainer">
+            <!-- News articles will be dynamically inserted here -->
+        </ul>
+    </div>
 </div>
-<br><br><br><br><br><br>
+	<br><br><br> <br><br><br><br><br><br>
+    <br>
+    <br>
+    <br><br><br>
 
 <link href="/static/css/styles_footer.css" rel="stylesheet">
 <footer id="page-footer" class="footer-recommendations"> 
-  <div class="footer-wrapper"> <a style="justify-content: center; left:375px; top:-110px;" href="#" class="top">Top</a>      
-      <div  id="footer-content" class="recommendation-container">
-  
-      </div>
-  </div>
+    <div class="footer-wrapper"> <a style="justify-content: center; left:375px; top:-110px;" href="#" class="top">Top</a>      
+        <div  id="footer-content" class="recommendation-container">
+    
+        </div>
+    </div>
+  </footer>
 </footer>
 
 <script>
@@ -431,6 +388,40 @@
 document.addEventListener("DOMContentLoaded", function() {
     fetchAndDisplayFooter();
 });
+
+</script>
+
+<script>
+  / Function to fetch search results from the server
+function fetchSearchResults() {
+  // Get the search query from the URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const query = urlParams.get('query');
+
+  fetch(`/search?query=${encodeURIComponent(query)}`)
+    .then(response => response.json())
+    .then(searchResults => {
+      console.log(searchResults);
+      const resultsContainer = document.getElementById('resultsContainer');
+      resultsContainer.innerHTML = ''; // Clear existing content
+
+      // Iterate over each search result and create HTML elements
+      searchResults.forEach(result => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `
+          <h3 class="title"><a href="${result.url}">${result.name}</a></h3>
+          <div class="snippet">${result.text.substring(0, 200)}...</div>
+        `;
+        resultsContainer.appendChild(listItem);
+      });
+    })
+    .catch(error => console.error('Error fetching search results:', error));
+}
+
+// Call the function on page load
+document.addEventListener("DOMContentLoaded", fetchSearchResults);
+</script>
+<script>
     
     function fetchOsobaMjeseca() {
       fetch('/osobaMjeseca')
@@ -574,7 +565,7 @@ function fetchNedavnoDodaneOsobe() {
     results.forEach(person => {
       const personElement = document.createElement('div');
       personElement.className = 'search-result-item';
-      personElement.innerHTML = `<a href="/podstranica/${person.ime}_${person.prezime}">${person.ime} ${person.prezime} </a>`;
+      personElement.innerHTML = `<a href="/podstranica/${person.ime}_${person.prezime}>${person.ime} ${person.prezime} </a>`;
       resultsContainer.appendChild(personElement);
     });
   }
@@ -605,28 +596,8 @@ function fetchNedavnoDodaneOsobe() {
   scrollContainer.addEventListener('scroll', resetScroll);
 });
 
-  
-    document.addEventListener("DOMContentLoaded", function() {
-  fetch('/aboutus')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json(); // Obradi odgovor kao JSON
-    })
-    .then(data => {
-      console.log(data);
-      const aboutUsContent = data[0].tekst; // Pretpostavljamo da je 'tekst' u prvom objektu niza
-      document.getElementById('aboutUsContent').innerHTML = aboutUsContent;
-    })
-        .catch(error => {
-          console.error('There has been a problem with your fetch operation:', error);
-          document.getElementById('aboutUsContent').innerHTML = '<p>Sorry, there was an error loading the About Us content.</p>';
-        });
-    });
   </script>
 
   
 </body>
 </html>
-

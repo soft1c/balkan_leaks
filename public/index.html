@@ -119,9 +119,18 @@
 
   div.scrollmenu {
   background-color: #ffffff;
+  overflow: auto;
+  white-space: nowrap;
+}
+@media and screen(min-width: 1080px){ 
+
+  div.scrollmenu {
+  background-color: #ffffff;
   overflow: hidden;
   white-space: nowrap;
 }
+}
+
 
 div.scrollmenu a {
   display: inline-block;
@@ -424,20 +433,20 @@ header {
   position: absolute; /* Apsolutno pozicioniranje u odnosu na .cards-container */
   top: 50%; /* Centriranje dugmadi na sredini po vertikali */
   transform: translateY(-50%); /* Dodatno centriranje dugmadi */
-  background-color: #333; /* Boja pozadine */
+  font-size:40px;
   color: #fff; /* Boja ikone */
-  border: none; /* Uklanjanje bordera */
+  border: 1; /* Uklanjanje bordera */
   cursor: pointer; /* Stil kursora kada je iznad dugmeta */
   padding: 10px; /* Razmak unutar dugmeta */
   z-index: 10; /* Osigurava da dugmad budu iznad ostalih elemenata */
 }
 
 .left {
-  left: 0px; /* Pomeranje dugmeta u levo za -50px od ivice kontejnera */
+  left: 10px; /* Pomeranje dugmeta u levo za -50px od ivice kontejnera */
 }
 
 .right {
-  right: 0px; /* Pomeranje dugmeta u desno za -50px od ivice kontejnera */
+  right: 13px; /* Pomeranje dugmeta u desno za -50px od ivice kontejnera */
 }
 
 
@@ -456,6 +465,20 @@ header {
       text-align: center;
     }
 
+
+    .footer-recommendations .top {
+    background: url("/arrow-up.png") 50% 30% no-repeat #fff;
+    background-size: 1.3em;
+    border: #cccccc 1px solid;
+    border-radius: 40px;
+    color: #555555;
+    display: inline-block;
+    height: 80px;
+    padding: 40px 0;
+    position: relative;
+    text-align: center;
+    top: -40px;
+    width: 80px; }
   </style>
 </head>
 <body>
@@ -465,7 +488,9 @@ header {
         <a href="#menu" class="mobile-only hot-dog nav-element">
         </a>
       <div class="nav-logo" >
-        <a href="">
+        <a href="index.html">
+          <h1 style="display:flex; margin-top:-35px;margin-left:40px;">BPIKD</h1>
+        </a>
         
         </a>
       </div>
@@ -510,7 +535,14 @@ header {
   
   <nav id="menu" class="side-nav rub">
     <div class="menu-wrapper">
-      <a class="close-btn nav-element" href=""></a>
+      <a class="close-btn nav-element" style=" background: url('close-green.png') center center no-repeat transparent;
+      background-size: 1.4em;
+      display: inline-block;
+      height: 50px;
+      top: 0;
+      width: 40px;
+      margin-right:305px;
+    " href=""></a>
   
         <ul class="first-level">
   
@@ -541,12 +573,12 @@ header {
         <ul>
           <li>
             <a href="https://www.facebook.com/wikileaks" class="nav-element" target="_blank" alt="Facebook">
-              <img class="img-responsive" src="/static/img/fb-logo.png" alt="Facebook" title="Facebook page" />
+              <img class="img-responsive" src="fb-logo.png" alt="Facebook" title="Facebook page" />
             </a>
           </li>
           <li>
             <a href="https://twitter.com/wikileaks" class="nav-element" target="_blank" alt="Twitter">
-              <img class="img-responsive" src="/static/img/twitter-logo.png" alt="Twitter" title="Twitter page" />
+              <img class="img-responsive" src="twitter-logo.png" alt="Twitter" title="Twitter page" />
             </a>
           </li>
         </ul>
@@ -615,6 +647,7 @@ header {
 
 
 
+  
   <div  style="margin-top:-35px;"  class="cards-container">
 
     <button class="left" onclick="leftScroll()">
@@ -659,14 +692,14 @@ header {
 
   function leftScroll() {
     scrollImages.scrollBy({
-      left: -175,
+      left: -183,
       behavior: "smooth"
     });
   }
 
   function rightScroll() {
     scrollImages.scrollBy({
-      left: 175,
+      left: 183,
       behavior: "smooth"
     });
   }
@@ -819,7 +852,7 @@ function fetchNedavnoDodaneOsobe() {
     results.forEach(person => {
       const personElement = document.createElement('div');
       personElement.className = 'search-result-item';
-      personElement.innerHTML = `<a href="/podstranica/${person.ime}_${person.prezime}">${person.ime} ${person.prezime}</a>`;
+      personElement.innerHTML = `<a href="/podstranica/${person.ime}_${person.prezime}">${person.ime} ${person.prezime} </a>`;
       resultsContainer.appendChild(personElement);
     });
   }
@@ -855,9 +888,9 @@ function fetchNedavnoDodaneOsobe() {
 
 
 <footer id="page-footer" class="footer-recommendations">
-  <div class="footer-wrapper">
+  <div class="footer-wrapper">       <a  href="#" class="top">Top</a>
       <div  id="footer-content" class="recommendation-container">
-          
+  
       </div>
   </div>
 </footer>

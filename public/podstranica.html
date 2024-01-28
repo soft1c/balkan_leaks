@@ -121,7 +121,7 @@ body, .main-content {
     background-size: 1.3em;
     border: #cccccc 1px solid;
     border-radius: 40px;
-    color: #555555;
+    color: #9E9E9E;
     display: inline-block;
     height: 80px;
     padding: 40px 0;
@@ -139,7 +139,7 @@ body, .main-content {
     .footer-recommendations .recommendation-links li:last-child {
       margin-right: 0; }
     .footer-recommendations .recommendation-links li a {
-      color: #555555; }
+      color: #9E9E9E; }
     .footer-recommendations .recommendation-links li p {
       line-height: 1.43em;
       text-indent: 0; }
@@ -214,27 +214,31 @@ body, .main-content {
     </style>
 </head>
 <body>
+
   <div class="top-navigation">
     <nav class="navbar">
         <a href="#menu" class="mobile-only hot-dog nav-element">
-        </a>
-      <div class="nav-logo">
-        <a href="https://bpikd.onrender.com">
+        </a>  
+
         
+      <div  style="" class="nav-logo">
+        <a href="../index.html">
+          <h1 style="display:flex; margin-top:-35px;margin-left:40px;">BPIKD</h1>
         </a>
+        
+       
       </div>
       <div class="action-buttons">
-
-        <a class="button-face donate-link" href="/donate">Donate</a>
-        <div id="donatePopup" class="donate-popup">
-          <span class="close-btn" id="closeBtn">&times;</span>
-          <p><a href="https://www.paypal.com/donateLink">Donate via PayPal</a></p>
-          <p>Scan this QR code to donate:</p>
-          <img src="https://www.qrstuff.com/images/default_qrcode.png" width="50%" height="50%" alt="QR Code">
-        </div>
-        <a class="button-face submit-link" href="#submit">Submit</a>
+        <a class="button-face support-link" href="shop.html" target="_blank">Shop</a>
+        <a class="button-face donate-link" href="donate.html">Donate</a>
+        
+        <a class="button-face submit-link" href="submit.html">Submit</a>
       </div>
-
+      <form class="global-search" method="get" action="advancedsearch.html">
+        <input type="text" name="q" id="search-bar" placeholder="Search">
+        <button class="btn-search" type="submit"></button>
+        <div id="searchResults" class="search-results"></div>
+      </form>
       <div class="main-nav">
   
           <ul class="first-level">
@@ -260,10 +264,27 @@ body, .main-content {
       </div>
     </nav>
   </div>
+  <script>
+    // JavaScript to handle Donate click
+    document.querySelector('nav a[href="/donate"]').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevents default link behavior
+        var popup = document.getElementById('donatePopup');
+        popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+    });
+    document.getElementById('closeBtn').addEventListener('click', function() {
+              document.getElementById('donatePopup').style.display = 'none';
+          });
   
+  </script>
   <nav id="menu" class="side-nav rub">
     <div class="menu-wrapper">
-      <a class="close-btn nav-element" href="#"></a>
+       <a class="close-btn nav-element" style=" background: url('close-green.png') center center no-repeat transparent;
+      background-size: 1.4em;
+      display: inline-block;
+      height: 50px;
+      top: 0;
+      width: 40px;
+    " href=""></a>
   
         <ul class="first-level">
   
@@ -292,12 +313,12 @@ body, .main-content {
         <ul>
           <li>
             <a href="https://www.facebook.com/wikileaks" class="nav-element" target="_blank" alt="Facebook">
-              <img class="img-responsive" src="/static/img/fb-logo.png" alt="Facebook" title="Facebook page" />
+              <img class="img-responsive" src="fb-logo.png" alt="Facebook" title="Facebook page" />
             </a>
           </li>
           <li>
             <a href="https://twitter.com/wikileaks" class="nav-element" target="_blank" alt="Twitter">
-              <img class="img-responsive" src="/static/img/twitter-logo.png" alt="Twitter" title="Twitter page" />
+              <img class="img-responsive" src="twitter-logo.png" alt="Twitter" title="Twitter page" />
             </a>
           </li>
         </ul>
@@ -305,19 +326,38 @@ body, .main-content {
     </div>
   </nav>
   <br><br><br><br> <br>
-<div class="main-content">
+<div class="main-content" style="line-height: 1em;">
   <br>
   <br><br><br>
-      <div class="content">
+      <div class="content" style="margin: -180px auto;">
         <div class="container-fluid row-fluid">
           <div class="col-xs-12 col-sm-12 col-md-12 container-text" id="right-pane">
             <div class="leak-header">
               
               <div class="press-release">
-                <br><br>
-                <img src="" height="auto" width="300px" style="float: left; padding: 0 15px; height:300px;" id="personImage" />
-                <h1 style="text-align: left; margin-top:50px; font-size:28px; margin-left:15px;"class="title-area" id="ime"></h1>
-                <hr style="border-top: 2px solid #eee">
+                <br><br> <br>    <br><br>
+
+                <img src="" height="auto" width="300px" style="float: left; padding: 0 15px; height:300px; " id="personImage" />
+                <h1 style="text-align: right; margin-top:50px; font-size:35px; margin-left:15px; font-weight: bold; padding:0;  "class="title-area" id="ime"></h1>
+                <hr style="border-top: 1px solid #B9BABF; position: static; ">
+                
+                <div id="files-container">
+                  <h3 style="color:black;">Attached Files</h3>
+                  <div id="file-filters">
+                    <button style="background-color:#9E9E9E" onclick="filterFiles('all')">All</button>
+                    <button style="background-color:#9E9E9E" onclick="filterFiles('text')">Text</button>
+                    <button style="background-color:#9E9E9E" onclick="filterFiles('video')">Video</button>
+                    <button style="background-color:#9E9E9E" onclick="filterFiles('audio')">Audio</button>
+                    <button style="background-color:#9E9E9E" onclick="filterFiles('image')">Images</button>
+                  </div>
+                
+                  <ul id="files-list" class="">
+                    <!-- Files will be listed here -->
+                  </ul>
+                  <hr style="border-top: 1px solid #B9BABF; position: static; ">
+               
+                </div>
+                
                 <p style="margin: 20px;" class="paragraf-slika" id="personDescription">Loading...</p>
               </div>
               <br style="clear: both;">
@@ -325,19 +365,7 @@ body, .main-content {
 			        <br style="clear: both;">
       </div>
 
-      <div id="files-container">
-        <h3 style="color:black;">Attached Files</h3>
-        <div id="file-filters">
-          <button onclick="filterFiles('all')">All</button>
-          <button onclick="filterFiles('text')">Text</button>
-          <button onclick="filterFiles('video')">Video</button>
-          <button onclick="filterFiles('audio')">Audio</button>
-          <button onclick="filterFiles('image')">Images</button>
-        </div>
-        <ul id="files-list" class="">
-          <!-- Files will be listed here -->
-        </ul>
-      </div>
+
     <script src="/bootstrap/js/jquery.min.js"></script>
 	  <script src="/bootstrap/js/bootstrap.min.js"></script>
     <script src="/calendar/moment.min.js"></script>
