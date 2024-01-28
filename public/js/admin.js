@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   fetchCurrentLayoutStatus();
   setInitialLayoutStatus();
+  populate_aboutus();
   fetchSponsors();
   fetch('/footer')
     .then(response => response.json())
@@ -1044,4 +1045,15 @@ function submitAboutForm() {
   .catch(error => {
     console.error('There has been a problem with your fetch operation:', error);
   });
+}
+
+
+function populate_aboutus() {
+  fetch('/aboutus')
+    .then(response => response.json())
+    .then(data => {
+      var aboutText = data[0].tekst;
+      quillAbout.clipboard.dangerouslyPasteHTML(0, aboutText);
+    })
+    .catch(error => console.error('Error fetching aboutus:', error));
 }

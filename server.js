@@ -1067,11 +1067,13 @@ app.post('/aboutus',(req,res)=>{
 
 
 app.get('/aboutus',(req,res)=>{
+
   db.all('SELECT * FROM aboutus WHERE id=1', (err, rows) => {
     if(err){
       console.error('Error retrieving footer:', err.message);
       res.status(500).send('Error retrieving footer');
     }else{
+      console.log(rows);
       res.status(200).send(rows);
     }
   });
