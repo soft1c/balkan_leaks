@@ -589,18 +589,6 @@ header {
   </nav>
 <br><br>
 
-<script>
-  // JavaScript to handle Donate click
-  document.querySelector('nav a[href="/donate"]').addEventListener('click', function(event) {
-      event.preventDefault(); // Prevents default link behavior
-      var popup = document.getElementById('donatePopup');
-      popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
-  });
-  document.getElementById('closeBtn').addEventListener('click', function() {
-            document.getElementById('donatePopup').style.display = 'none';
-        });
-
-</script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
