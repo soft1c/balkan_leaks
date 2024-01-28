@@ -122,13 +122,13 @@
   overflow: auto;
   white-space: nowrap;
 }
-@media and screen(min-width: 1080px){ 
+@media  screen and(min-width: 1080px){ 
 
   div.scrollmenu {
   background-color: #ffffff;
   overflow: hidden;
   white-space: nowrap;
-}
+
 }
 
 
@@ -921,14 +921,13 @@ function fetchNedavnoDodaneOsobe() {
             footerContainer.appendChild(footerElement);
         });
     })
-        .catch(error => console.error('Došlo je do greške:', error));
+    .catch(error => console.error('Došlo je do greške:', error));
 }
 
-// Poziv funkcije prilikom učitavanja stranice
 document.addEventListener("DOMContentLoaded", function() {
     fetchAndDisplayFooter();
 });
-  // This script calls the record-entry endpoint when the page loads
+  
   window.onload = function() {
       fetch('/record-entry')
           .then(response => {

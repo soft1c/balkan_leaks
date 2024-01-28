@@ -392,7 +392,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 
 <script>
-  / Function to fetch search results from the server
+  
 function fetchSearchResults() {
   // Get the search query from the URL
   const urlParams = new URLSearchParams(window.location.search);
@@ -597,7 +597,32 @@ function fetchNedavnoDodaneOsobe() {
 });
 
   </script>
+<script>
+  // Function to fetch news articles from the server
+  function  prikaziRezultati() {
+    var searchResults = JSON.parse(localStorage.getItem('searchResults'));
+    console.log(searchResults);
+    if (searchResults) {
+      const newsContainer = document.getElementById('newsContainer');
+              newsContainer.innerHTML = ''; 
 
+              searchResults.forEach(article => {
+                  const listItem = document.createElement('li');
+                  const href = `podstranica/${article.ime}_${article.prezime}`; // Kreiranje URL-a za hiperlink
+    listItem.innerHTML = `
+        <h3 class="title">
+            <a href="${href}">${article.ime} ${article.prezime}</a> <!-- Dodavanje hiperlinka -->
+        </h3>
+        <div class="introduction">${article.opis.substring(0, 200)}...</div>
+    `;
+    newsContainer.appendChild(listItem);
+});
+  }
+}
+
+  // Call the function on page load
+  document.addEventListener("DOMContentLoaded", prikaziRezultati);
+</script>
   
 </body>
 </html>

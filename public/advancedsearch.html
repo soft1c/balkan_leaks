@@ -3683,7 +3683,7 @@ html > body {
     <div class="wlsearch">
       
 
-<form class="search-form" id="search-form" action="results.html" method="get">
+<form class="search-form" id="search-form">
   <div class="search-content">
     <h1>Advanced search</h1>
 
@@ -3765,7 +3765,7 @@ html > body {
 
       
       <div class="advanced-submit">
-        <button class="button-face green" type="submit" name="new_search" value="True">Search</button>
+        <button class="button-face green" type="button" onclick=" handleSubmit(event) " name="="new_search" >Search</button>
       </div>
     </div>
   </div>
@@ -3854,4 +3854,52 @@ html > body {
 
 </body>
 <script src="/static/js/datepicker.js"></script>
+<script>
+  function handleSubmit() {
+
+  // Dobijanje vrednosti iz input polja forme
+  var name = document.getElementById('query').value; // Pretpostavljam da je ovo polje za ime
+  var surname = document.getElementById('exact_phrase').value; // Pretpostavka za prezime
+  var keywords = document.getElementById('any_of').value; // Pretpostavka za ključne reči
+  var date1 = document.getElementById('released_date_start').value; // Datum početka
+  var date2 = document.getElementById('released_date_end').value; // Datum kraja
+  var exclude = document.getElementById('exclude_words').value; // Pretpostavka za odbacivanje
+  // Kreiranje objekta sa podacima za slanje
+  var formData = {
+    name: name,
+    surname: surname,
+    keywords: keywords,
+    exclude:exclude,
+    date1: date1,
+    date2: date2
+  };
+   console.log(formData);
+  // Izvršavanje AJAX zahtjeva koristeći fetch API
+  fetch('/advanced-search', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData)
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    console.log(response);
+    return response.json();
+  })
+  .then(data => {
+    // Spremanje rezultata pretrage u Local Storage
+    localStorage.setItem('searchResults', JSON.stringify(data));
+
+    // Preusmjeravanje na results.html
+    window.location.href = 'results.html';
+  })
+  .catch(error => {
+    console.error('Error fetching data: ', error);
+  });
+}
+
+</script>
 </html>

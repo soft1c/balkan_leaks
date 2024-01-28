@@ -1078,8 +1078,19 @@ app.get('/aboutus',(req,res)=>{
 })
 
 app.post('/advanced-search', (req, res) => {
-  const {name,surname, keywords,date1,date2}=req.body;
-  const query=`SELECT * FROM ljudi WHERE ime LIKE '%${name}%' OR prezime LIKE '%${surname}%' OR opis LIKE '%${keywords}%' OR datum > '${date1}' AND datum < '${date2}'`;
+  const {name, surname, keywords, exclude, date1, date2} = req.body;
+  console.log(req.body);
+  let query = `SELECT * FROM ljudi WHERE `;
+  let conditions = [];
+
+  if (name) conditions.push(`opis LIKE '%${name}%'`);
+  if (surname) conditions.push(`opis LIKE '%${surname}%'`);
+  if (keywords) conditions.push(`opis LIKE '%${keywords}%'`);
+  if (exclude) conditions.push(`opis NOT LIKE '%${exclude}%'`);
+  if (date1 && date2) conditions.push(`datum_objave BETWEEN '${date1}' AND '${date2}'`);
+
+  query += conditions.join(' AND ');
+  console.log(query);
   db.all(query, (err, rows) => {
     if(err){
       console.error('Error retrieving persons:', err.message);
