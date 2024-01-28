@@ -1104,6 +1104,21 @@ app.post('/advanced-search', (req, res) => {
   });
 })
 
+app.post('/delete/news/:id',(req,res)=>{
+  const newsId = req.params.id;
+  
+  console.log(newsId);
+  db.run('DELETE FROM vijesti WHERE id = ?', [newsId], function(err) {
+    if (err) {
+      console.error(err.message);
+      res.status(500).send('Error deleting news');
+    } else {
+      console.log(`Row(s) deleted: ${this.changes}`);
+      res.send('News deleted successfully');
+    }
+  })
+});
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });

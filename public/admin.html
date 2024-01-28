@@ -138,6 +138,8 @@
     <a id="ManagePersonel1" href="#" class="tablink" onclick="openTab(event, 'ManagePersonel')" >Manage Staff</a>
     <a href="#" class="tablink" onclick="openTab(event, 'ChangePassword')">Change Your Password</a>  
     <a href="#" class="tablink" onclick="openTab(event, 'AddNews')">Add a news</a>
+    <a href="#" class="tablink" onclick="openTab(event, 'DeleteNews')">Delete News</a>
+
     <a href="#" class="tablink" onclick="openTab(event, 'EditFooter')">Manage Footer</a>
     <a href="#" class="tablink" onclick="openTab(event, 'AddSponsors')">Add Sponsors</a>
     <a href="#" class="tablink" onclick="openTab(event, 'AboutUs')">Edit About Us</a>
@@ -546,6 +548,21 @@
     </div>
     <div class="form-row button-container">
       <button type="button" class="submit-button" onclick="submitAboutForm()">Submit</button>
+    </div>
+  </form>
+</div>
+
+<div id="DeleteNews" class="tabcontent">
+  <h1>Delete News Article</h1>
+  <form id="deleteNewsForm">
+    <div class="form-group">
+      <label for="newsSelect">Select News Article:</label>
+      <select id="newsSelect" required>
+        <!-- Ovdje će se dinamički dodavati opcije -->
+      </select>
+    </div>
+    <div class="form-row button-container">
+      <button type="button" onclick="deleteNews()" class="submit-button">Delete News</button>
     </div>
   </form>
 </div>

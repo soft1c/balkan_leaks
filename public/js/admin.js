@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
   fetchCurrentLayoutStatus();
   setInitialLayoutStatus();
   populate_aboutus();
+  fetchNews();
   fetchSponsors();
   fetch('/footer')
     .then(response => response.json())
@@ -1056,4 +1057,35 @@ function populate_aboutus() {
       quillAbout.clipboard.dangerouslyPasteHTML(0, aboutText);
     })
     .catch(error => console.error('Error fetching aboutus:', error));
+}
+
+function fetchNews() {
+  fetch('/vijesti') // Zamijenite s pravim endpointom
+    .then(response => response.json())
+    .then(data => {
+      const newsSelect = document.getElementById('newsSelect');
+      data.forEach(news => {
+        const option = document.createElement('option');
+        option.value = news.id; // Pretpostavljam da svaka vijest ima ID
+        option.textContent = news.naziv; // I naslov
+        newsSelect.appendChild(option);
+      });
+    })
+    .catch(error => console.error('Error fetching news:', error));
+}
+
+function deleteNews() {
+  const newsId = document.getElementById('newsSelect').value;
+  fetch('/delete/news/' + newsId, { // Zamijenite s pravim endpointom
+    method: 'POST'
+  })
+  .then(response => {
+    if(response.ok) {
+      alert('News deleted successfully');
+      fetchNews(); // Osvježite listu vijesti
+    } else {
+      alert('Error deleting news');
+    }
+  })
+  .catch(error => console.error('Error deleting news:', error));
 }
