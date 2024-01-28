@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 option.className = 'dropdown-option';
                 option.textContent = `${person.ime} ${person.prezime}`;
                 option.onclick = function() {
-                  populateEditForm(person.id);
+                  populateEditForm(person.ime,person.prezime);
                   dropdown.style.display = 'none'; // Sakrij dropdown
                 };
                 dropdown.appendChild(option);
@@ -370,7 +370,6 @@ const resultsContainer = document.getElementById('searchResults');
 resultsContainer.innerHTML = ''; // Clear existing results
 
 if (results.length === 0) {
-  // No results found
   resultsContainer.innerHTML = '<div class="search-result-item">Nema ponuđenih osoba</div>';
 } else {
   // Display results
@@ -387,9 +386,9 @@ if (results.length === 0) {
 function clearSearchResults() {
   document.getElementById('searchResults').innerHTML = '';
 }
-function populateEditForm(personId) {
-  if (personId) {
-    fetch(`/osoba/${personId}`)
+function populateEditForm(name,surname) {
+  if (name && surname) {
+    fetch(`/osoba/${name}_${surname}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -404,7 +403,7 @@ function populateEditForm(personId) {
         document.getElementById('imeEdit').value = data.ime;
         document.getElementById('prezimeEdit').value = data.prezime;
         
-        document.getElementById('licnost').value = personId;
+        document.getElementById('licnost').value = data.id;
 
         if (data.slikaUrl) {
           let path = 'uploads/media/images/' + data.slikaUrl;
