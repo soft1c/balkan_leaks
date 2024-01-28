@@ -3,8 +3,8 @@
     color: #fff; /* White text color */
     padding: 15px; /* Padding inside the box */
     border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow effect */
-    margin-top: 20px; /* Space above the box */
+    abox-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow effect */
+
   }
   
   #file-filters button {
