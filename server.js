@@ -663,7 +663,7 @@ app.get('/get_recent_persons', (req, res) => {
 
 
 app.get('/daj_sve',(req,res)=>{
-  db.all('SELECT * FROM ljudi',[],(err,rows)=>{
+  db.all('SELECT * FROM ljudi ORDER BY id DESC',[],(err,rows)=>{
     if(err){
       console.error('Greška prilikom dohvata svih osoba:', err);
       return res.status(500).json({ message: 'Došlo je do greške prilikom dohvata svih osoba.' });
