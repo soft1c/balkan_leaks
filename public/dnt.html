@@ -40,42 +40,6 @@
 
 
 	</script>
-    <style>
-
-.shop-item {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  margin: 20px auto; /* Space around items */
-  padding: 20px; /* Space inside items */
-  box-sizing: border-box;
-  border: 1px solid #dbdbdb; /* Add a border */
-  width: 60%; /* 20% space on the left and right */
-  border-radius: 3px;
-}
-
-.shop-item-image {
-  width: 100%; /* Adjust as needed */
-  height: auto; /* Adjust as needed */
-  margin-bottom: 20px; /* Space between image and text */
-  border: 0px solid #dbdbdb
-}
-
-@media (min-width: 768px) {
-  .shop-item {
-    flex-direction: row;
-  }
-
-  .shop-item-image {
-    width: 200px; /* Adjust as needed */
-    height: 200px; /* Adjust as needed */
-    margin-right: 20px; /* Space between image and text */
-    margin-bottom: 0;
-  }
-}
-    </style>
-
-
 </head>
 <body>
 
@@ -91,15 +55,17 @@
 <div id="submit" class="submit_banner">
 	<div class="container">
 		<div class="page-header">
-			<h1>Submit documents to BPIKD</h1>
+			<h1>Submit documents to ¸BPIKD</h1>
 			<a class="remove-button" href="#"><span class="glyphicon glyphicon-remove-circle"></span></a>
 		</div>
 		<p>BPIKD publishes documents of political or historical importance that are censored or otherwise suppressed. We specialise in strategic global publishing and large archives.</p>
 		<p>The following is the address of our secure site where you can anonymously upload your documents to BPIKD editors. You can only access this submissions system through Tor. (See our <a href="#submit_help_tor">Tor tab</a> for more information.) We also advise you to read our <a href="#submit_help_tips">tips for sources</a> before submitting.</p>
 
 		<div class="alert alert-info">
-			<div class="onion-url">http://examplelink.onion </div>
-
+			<div class="onion-url">http://ibfckmpsmylhbfovflajicjgldsqpc75k5w454irzwlh7qifgglncbad.onion </div>
+			<!--<div>
+				Copy this address into your Tor browser. Advanced users, if they wish, can also add a further layer of encryption to their submission using <a href="#submit_wlkey">our public PGP key</a>.
+			</div>-->
 		</div>
 
 		<p>If you cannot use Tor, or your submission is very large, or you have specific requirements, WikiLeaks provides several alternative methods. <a href="#submit_help_contact">Contact us</a> to discuss how to proceed.</p>
@@ -127,7 +93,7 @@
                 <a class="button-face support-link" href="shop.html" target="_blank">Shop</a>
                 <a class="button-face donate-link" href="donate.html">Donate</a>
                 
-                <a class="button-face submit-link" href="#submit">Submit</a>
+                <a class="button-face submit-link" href="submit.html">Submit</a>
               </div>
               <form class="global-search" method="get" action="advancedsearch.html">
                 <input type="text" name="q" id="search-bar" placeholder="Search">
@@ -209,28 +175,72 @@
               </aside>
             </div>
           </nav>
-     <div class="main" > <br>
-        <h1 style="text-align: center;">SHOP</h1> <br> <hr> <br>
-          <div class="shop-item">
-            <img class="shop-item-image" src="logo2.png" alt="Item Image">
-            <div class="shop-item-text">
-              <h2 class="shop-item-header">BPIKD T-Shirt</h2>
-              <p class="shop-item-description">Buy our T-shirt for only 14.99$</p>
-            </div>
-          </div>
+    
 
-          <div class="shop-item">
-            <img class="shop-item-image" src="download.png" alt="Item Image">
-            <div class="shop-item-text">
-              <h2 class="shop-item-header">BPIKD Hoodie</h2>
-              <p class="shop-item-description">Buy our Hoodie for only 34.99$</p>
-            </div>
-          </div>
 
         <br style="clear: both" />
+        <div class="container-fluid row-fluid">
+            <div class="col-xs-3 col-sm-3 col-md-2 sidebar">
+                <a href="https://www.wikileaks.org/"><img src="/logo2.png" /></a>
+                <br />
+            </div>
+
+            <div class="col-xs-9 col-sm-9 col-md-10 container-text donate-page">
+                <h1>Donate to BPIKD</h1>
+
+                <p>WikiLeaks is entirely supported by the general public.</p>
+                <p>Your donations pay for WikiLeaks projects, staff, servers and protective infrastructure.</p>
+
+
+
+                <div id="db1">
+                    <h2 class="alert alert-info">Credit Card</h2>
+
+                    <p class="subm">Global credit card donations via the Wau Holland Foundation</p>
+                    <div class="subd">
+                        <p>Donations made via the Wau Holland Foundation are tax deductible in the EU.</p>
+
+                        <p><a class="btn btn-success" target="_blank" href="http://www.wauland.de/en/donation.html#04">Wau Holland Foundation</a></p>
+                    </div>
+
+
+                </div>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+            </div>
+
+        </div>
+
 
     </div>
-
 
 <script src="/bootstrap/js/jquery.min.js"></script>
 <script src="/bootstrap/js/bootstrap.min.js"></script>
@@ -332,7 +342,7 @@
 <link href="/static/css/styles_footer.css" rel="stylesheet">
 <footer id="page-footer" class="footer-recommendations">
   <div class="footer-wrapper">
-    <div id="footer-content" class="recommendation-container">
+    <div class="recommendation-container">
       <a href="#" class="top">Top</a>
       
         <ul class="recommendation-links">
@@ -404,28 +414,6 @@
   </div>
 </footer>
 
-<script>
-    function fetchAndDisplayFooter() {
-      fetch('/footer')
-      .then(response => response.json())
-      .then(footerItems => {
-          const footerContainer = document.getElementById('footer-content');
-          footerContainer.className = 'footer-container'; // Add this line
-          footerContainer.innerHTML = '';
-  
-          footerItems.forEach(item => {
-              const footerElement = document.createElement('div');
-              footerElement.className = 'footer-item';
-              footerElement.innerHTML = `
-                  <img src="${item.urlPath}" alt="Footer Image" 
-                  <p>${item.tekst}</p>
-              `;
-              footerContainer.appendChild(footerElement);
-          });
-      })
-          .catch(error => console.error('Došlo je do greške:', error));
-  }
-</script>
 
 </body>
 </html>

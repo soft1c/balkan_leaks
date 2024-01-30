@@ -119,14 +119,14 @@
 
   div.scrollmenu {
   background-color: #ffffff;
-  overflow: auto;
+  overflow: hidden;
   white-space: nowrap;
 }
 @media and screen(min-width: 1080px){ 
 
   div.scrollmenu {
   background-color: #ffffff;
-  overflow: hidden;
+  overflow: auto !important;
   white-space: nowrap;
 }
 }
@@ -288,7 +288,7 @@ div.scrollmenu a:hover {
     .tag-navigation {
       margin: 0; } 
       .scrollmenu {
-      overflow: auto;
+      overflow: auto !important;
       
       }
     
@@ -479,9 +479,28 @@ header {
     text-align: center;
     top: -40px;
     width: 80px; }
+
+    
   </style>
 </head>
 <body>
+  <div id="submit" class="submit_banner">
+    <div class="container">
+      <div class="page-header">
+        <h1>Submit documents to BPIKD</h1>
+        <a class="remove-button" href="#"><span class="glyphicon glyphicon-remove-circle"></span></a>
+      </div>
+      <p>BPIKD publishes documents of political or historical importance that are censored or otherwise suppressed. We specialise in strategic global publishing and large archives.</p>
+      <p>The following is the address of our secure site where you can anonymously upload your documents to BPIKD editors. You can only access this submissions system through Tor. (See our <a href="#submit_help_tor">Tor tab</a> for more information.) We also advise you to read our <a href="#submit_help_tips">tips for sources</a> before submitting.</p>
+  
+      <div class="alert alert-info">
+        <div class="onion-url">http://examplelink.onion </div>
+  
+      </div>
+  
+      <p>If you cannot use Tor, or your submission is very large, or you have specific requirements, WikiLeaks provides several alternative methods. <a href="#submit_help_contact">Contact us</a> to discuss how to proceed.</p>
+    </div>
+  </div>
   <div style="border-bottom: 0px;
   " class="top-navigation">
     <nav class="navbar">
@@ -499,7 +518,7 @@ header {
               <a class="button-face support-link" href="shop.html" target="_blank">Shop</a>
         <a class="button-face donate-link" href="donate.html">Donate</a>
 
-        <a class="button-face submit-link" href="submit.html">Submit</a>
+        <a class="button-face submit-link" href="">Submit</a>
       </div>
 
       <div class="main-nav">
