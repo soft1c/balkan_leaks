@@ -66,6 +66,42 @@
     top: -40px;
     width: 80px; }
 
+   
+.donation-methods {
+  margin: 20px 0;
+  padding: 20px;
+  background-color: #f2f2f2;
+  border-radius: 8px;
+}
+
+.donation-methods h2 {
+  text-align: center;
+  color: #317eac;
+}
+
+.donation-option {
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.donation-option img {
+  max-width: 100px;
+  max-height: 100px;
+  margin-right: 15px;
+}
+
+.donation-option-details {
+  display: flex;
+  align-items: center;
+}
+
+.donation-option-details div {
+  margin-left: 10px;
+}
+
 </style>
 
 </head>
@@ -220,18 +256,20 @@
 
 
                 <div id="db1">
-                    <h2 class="alert alert-info">Paypal</h2>
+                    
 
                     <p class="subm">Global credit card donations via the Wau Holland Foundation</p>
                     <div class="subd">
                         <p>Donations made via the Wau Holland Foundation are tax deductible in the EU.</p>
 
-                        <img src="https://cdn.britannica.com/17/155017-050-9AC96FC8/Example-QR-code.jpg" alt="QR Code">
                     </div>
 
 
                 </div>
-
+                <div class="donation-methods">
+                  <h2>Ways of Donating</h2>
+                  <div id="donationOptions"></div> <!-- Kontejner za donacijske opcije -->
+              </div>
 
 
 
@@ -519,5 +557,33 @@ window.onload = function() {
 };
   </script>
 
+<script>
+  function fetchDonationOptions() {
+      fetch('/donate')
+      .then(response => response.json())
+      .then(donationOptions => {
+          const container = document.getElementById('donationOptions');
+          container.innerHTML = ''; // Očisti prethodne opcije
+  
+          donationOptions.forEach(option => {
+              const optionElement = document.createElement('div');
+              optionElement.className = 'donation-option';
+  
+              let content = `<div class="donation-option-details">`;
+              if(option.qr) {
+                  content += `<img src="${option.qr}" alt="QR Code">`;
+              }
+              content += `<div><strong>Link:</strong> ${option.link ? option.link : 'N/A'}</div></div>`;
+  
+              optionElement.innerHTML = content;
+              container.appendChild(optionElement);
+          });
+      })
+      .catch(error => console.error('Error fetching donation options:', error));
+  }
+  
+  // Pokrenite funkciju prilikom učitavanja stranice
+  document.addEventListener('DOMContentLoaded', fetchDonationOptions);
+  </script>
 </body>
 </html>
