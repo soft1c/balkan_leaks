@@ -432,7 +432,7 @@ document.addEventListener("DOMContentLoaded", fetchSearchResults);
           const osobaMjesecaHTML = `
             <div class="card-grid-space">
               <div class="num"></div>
-              <a class="card" href="/podstranica/${osoba.id}" style="--bg-img: url(${baseUrl}${osoba.slikaUrl})">
+              <a class="card" href="/leaks/${osoba.id}" style="--bg-img: url(${baseUrl}${osoba.slikaUrl})">
                 <div>
                   <h1>${osoba.ime} ${osoba.prezime}</h1>
                   
@@ -458,7 +458,7 @@ document.addEventListener("DOMContentLoaded", fetchSearchResults);
   cardsHtml += `
     <div class="card-grid-space">
       <div class="num"></div>
-      <a class="card" href="/podstranica/${osoba.id}" style=" --bg-img: url(${baseUrl}${osoba.slikaUrl})">
+      <a class="card" href="/leaks/${osoba.id}" style=" --bg-img: url(${baseUrl}${osoba.slikaUrl})">
         <div>
           <h1>${osoba.ime} ${osoba.prezime}</h1>
           
@@ -478,7 +478,7 @@ document.addEventListener("DOMContentLoaded", fetchSearchResults);
   const baseUrl = '/uploads/media/images/';
   const card = document.createElement('a'); // Change this to an anchor tag
   card.className = 'card';
-  card.href = `/podstranica/${osoba.id}`; // Set the href attribute
+  card.href = `/leaks/${osoba.id}`; // Set the href attribute
   card.style.setProperty('--bg-img', `url(${baseUrl}${osoba.slikaUrl})`);
   card.innerHTML = `
     <div>
@@ -565,7 +565,7 @@ function fetchNedavnoDodaneOsobe() {
     results.forEach(person => {
       const personElement = document.createElement('div');
       personElement.className = 'search-result-item';
-      personElement.innerHTML = `<a href="/podstranica/${person.ime}_${person.prezime}>${person.ime} ${person.prezime} </a>`;
+      personElement.innerHTML = `<a href="/leaks/${person.ime}_${person.prezime}>${person.ime} ${person.prezime} </a>`;
       resultsContainer.appendChild(personElement);
     });
   }
@@ -608,7 +608,7 @@ function fetchNedavnoDodaneOsobe() {
 
               searchResults.forEach(article => {
                   const listItem = document.createElement('li');
-                  const href = `podstranica/${article.ime}_${article.prezime}`; // Kreiranje URL-a za hiperlink
+                  const href = `leaks/${article.ime}_${article.prezime}`; // Kreiranje URL-a za hiperlink
     listItem.innerHTML = `
         <h3 class="title">
             <a href="${href}">${article.ime} ${article.prezime}</a> <!-- Dodavanje hiperlinka -->

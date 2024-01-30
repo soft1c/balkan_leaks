@@ -395,7 +395,7 @@ app.get('/advanced-search', (req, res) => {
 });
 
 
-app.get('/podstranica/:imePrezime', (req, res) => {
+app.get('/leaks/:imePrezime', (req, res) => {
   const imePrezime = req.params.imePrezime.split('_').join(' '); // Pretpostavka je da su ime i prezime odvojeni znakom '_'
 
   // Prvo inkrementirajte broj posjeta
@@ -834,7 +834,7 @@ app.post('/admin/update/:id', upload.single('slika'), (req, res) => {
 });
 
 
-app.get('/podstranica/:id', (req, res) => {
+app.get('/leaks/:id', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'l.html'));
 });
 

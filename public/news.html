@@ -425,7 +425,7 @@ document.addEventListener("DOMContentLoaded", function() {
           const osobaMjesecaHTML = `
             <div class="card-grid-space">
               <div class="num"></div>
-              <a class="card" href="/podstranica/${osoba.id}" style="--bg-img: url(${baseUrl}${osoba.slikaUrl})">
+              <a class="card" href="/leaks/${osoba.id}" style="--bg-img: url(${baseUrl}${osoba.slikaUrl})">
                 <div>
                   <h1>${osoba.ime} ${osoba.prezime}</h1>
                   
@@ -451,7 +451,7 @@ document.addEventListener("DOMContentLoaded", function() {
   cardsHtml += `
     <div class="card-grid-space">
       <div class="num"></div>
-      <a class="card" href="/podstranica/${osoba.id}" style=" --bg-img: url(${baseUrl}${osoba.slikaUrl})">
+      <a class="card" href="/leaks/${osoba.id}" style=" --bg-img: url(${baseUrl}${osoba.slikaUrl})">
         <div>
           <h1>${osoba.ime} ${osoba.prezime}</h1>
           
@@ -471,7 +471,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const baseUrl = '/uploads/media/images/';
   const card = document.createElement('a'); // Change this to an anchor tag
   card.className = 'card';
-  card.href = `/podstranica/${osoba.id}`; // Set the href attribute
+  card.href = `/leaks/${osoba.id}`; // Set the href attribute
   card.style.setProperty('--bg-img', `url(${baseUrl}${osoba.slikaUrl})`);
   card.innerHTML = `
     <div>
@@ -558,7 +558,7 @@ function fetchNedavnoDodaneOsobe() {
     results.forEach(person => {
       const personElement = document.createElement('div');
       personElement.className = 'search-result-item';
-      personElement.innerHTML = `<a href="/podstranica/${person.ime}_${person.prezime}">${person.ime} ${person.prezime} </a>`;
+      personElement.innerHTML = `<a href="/leaks/${person.ime}_${person.prezime}">${person.ime} ${person.prezime} </a>`;
       resultsContainer.appendChild(personElement);
     });
   }
