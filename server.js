@@ -1119,6 +1119,56 @@ app.post('/delete/news/:id',(req,res)=>{
   })
 });
 
+
+app.get('/shop',(req,res)=>{
+  db.all('SELECT * FROM shop', (err, rows) => {
+    if(err){
+      console.error('Error retrieving shop:', err.message);
+      res.status(500).send('Error retrieving shop');
+    }else{
+      res.status(200).send(rows);
+    }
+  });
+})
+
+app.post('/addShopItem',upload.single('slika'),(req,res)=>{
+    const {naziv,cijena,opis}=req.body;
+    const slika=req.file.path;
+    db.run('INSERT INTO shop(naziv,cijena,opis,slika) VALUES(?,?,?,?)', [naziv,cijena,opis,slika], function(err) {
+      if(err){
+        console.error('Error adding news:', err.message);
+        res.status(500).send('Error adding news');
+      }else{
+        res.status(200).send({message: 'News added successfully', changes: this.changes});
+      }
+    })
+});
+
+
+app.post('/deleteShopitem/:id',(req,res)=>{
+  const id=req.params.id;
+  db.run('DELETE FROM shop WHERE id = ?', [id], function(err) {
+    if (err) {
+      console.error(err.message);
+      res.status(500).send('Error deleting news');
+    } else {
+      console.log(`Row(s) deleted: ${this.changes}`);
+      res.send('News deleted successfully');
+    }
+  })
+});
+
+app.get('/donate',(req,res)=>{
+  db.all('SELECT * FROM donate', (err, rows) => {
+    if(err){
+      console.error('Error retrieving donate:', err.message);
+      res.status(500).send('Error retrieving donate');
+    }else{
+      res.status(200).send(rows);
+    }
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
