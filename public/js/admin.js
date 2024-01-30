@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
   populate_aboutus();
   fetchNews();
   fetchSponsors();
+  loadDonationMethods();
   fetch('/footer')
     .then(response => response.json())
     .then(footerData => {
@@ -1113,3 +1114,43 @@ function addDonationMethod() {
       alert("Error adding donation method: " + error.message);
   });
 }
+
+function loadDonationMethods() {
+  fetch('/donate')
+  .then(response => response.json())
+  .then(data => {
+      const select = document.getElementById('donationMethodSelect');
+      select.innerHTML = ''; // Očisti postojeće opcije
+      data.forEach(method => {
+          const option = document.createElement('option');
+          option.value = method.id; // Pretpostavka da svaka metoda ima jedinstveni ID
+          option.textContent = method.link || method.qr; // Tekst linka ili naziv QR slike
+          select.appendChild(option);
+      });
+  })
+  .catch(error => console.error('Error:', error));
+}
+
+function deleteDonationMethod() {
+  const selectedMethodId = document.getElementById('donationMethodSelect').value;
+  console.log(selectedMethodId);
+  fetch('/deleteDonationMethod', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id: selectedMethodId })
+  })
+  .then(response => {
+      if (!response.ok) {
+          throw new Error('Network response was not ok');
+      }
+      loadDonationMethods(); // Ponovo učitajte metode nakon brisanja
+      alert("Donation method deleted successfully");
+  })
+  .catch(error => {
+      console.error('Error:', error);
+      alert("Error deleting donation method: " + error.message);
+  });
+}
+// Pozovite ovu funkciju kada se stranica učita ili kada se doda nova donacijska opcija

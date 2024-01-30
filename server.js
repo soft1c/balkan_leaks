@@ -1198,6 +1198,19 @@ app.post('/addDonationMethod', upload.single('qrImage'), (req, res) => {
 });
 
 
+app.post('/deleteDonationMethod', (req, res) => {
+  const id = req.body.id;
+  db.run('DELETE FROM donate WHERE id = ?', [id], function(err) {
+    if (err) {
+      console.error(err.message);
+      res.status(500).send('Error deleting donation method');
+    } else {
+      console.log(`Row(s) deleted: ${this.changes}`);
+      res.send('Donation method deleted successfully');
+    }
+  })
+})
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
