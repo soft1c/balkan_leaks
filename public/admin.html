@@ -143,6 +143,8 @@
     <a href="#" class="tablink" onclick="openTab(event, 'EditFooter')">Manage Footer</a>
     <a href="#" class="tablink" onclick="openTab(event, 'AddSponsors')">Add Sponsors</a>
     <a href="#" class="tablink" onclick="openTab(event, 'AboutUs')">Edit About Us</a>
+    <a href="#" class="tablink" onclick="openTab(event, 'Donate')">Donate</a>
+
   
   </div>
   <div id="AddPerson" class="tabcontent">
@@ -564,6 +566,23 @@
     </div>
     <div class="form-row button-container">
       <button type="button" onclick="deleteNews()" class="submit-button">Delete News</button>
+    </div>
+  </form>
+</div>
+
+<div id="Donate" class="tabcontent">
+  <h1>Add Donation Method</h1>
+  <form id="addDonationMethodForm">
+    <div class="form-group">
+      <label for="donationLink">Donation Link:</label>
+      <input type="text" id="donationLink" name="link">
+    </div>
+    <div class="form-group">
+      <label for="qrImage">QR Code Image:</label>
+      <input style="display: block;" type="file" id="qrImage" name="qrImage" accept="image/*">
+    </div>
+    <div class="form-row button-container">
+      <button type="button" onclick="addDonationMethod()" class="submit-button">Add Donation Method</button>
     </div>
   </form>
 </div>

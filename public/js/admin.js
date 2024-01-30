@@ -1088,3 +1088,28 @@ function deleteNews() {
   })
   .catch(error => console.error('Error deleting news:', error));
 }
+
+
+function addDonationMethod() {
+  var form = document.getElementById('addDonationMethodForm');
+  var formData = new FormData(form);
+
+  fetch('/addDonationMethod', {
+      method: 'POST',
+      body: formData
+  })
+  .then(response => {
+      if (!response.ok) {
+          throw new Error('Network response was not ok ' + response.statusText);
+      }
+      return response.text();
+  })
+  .then(data => {
+      alert("Donation method added successfully");
+      // Ovdje možete dodati dodatnu logiku za obradu odgovora
+  })
+  .catch(error => {
+      console.error('There has been a problem with your fetch operation:', error);
+      alert("Error adding donation method: " + error.message);
+  });
+}

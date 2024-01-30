@@ -1169,6 +1169,35 @@ app.get('/donate',(req,res)=>{
   });
 });
 
+app.post('/addDonationMethod', upload.single('qrImage'), (req, res) => {
+  
+
+  const link = req.body.link || null;
+  let qrImagePath = req.file ? req.file.path : null;
+
+    if (qrImagePath) {
+        qrImagePath = 'public/uploads/media/images/' + path.basename(qrImagePath);
+    }
+
+  if (!link && !qrImagePath) {
+      res.status(400).send("Either a link or a QR code image is required.");
+      db.close();
+      return;
+  }
+
+  const sql = `INSERT INTO donate (link, qr) VALUES (?, ?)`;
+  db.run(sql, [link, qrImagePath], function(err) {
+      if (err) {
+          console.error(err.message);
+          res.status(500).send("Error saving data in the database");
+      } else {
+          res.send("Donation method added successfully");
+      }
+      
+  });
+});
+
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });

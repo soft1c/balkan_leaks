@@ -21,9 +21,9 @@ let db = new sqlite3.Database('./baza.db', (err) => {
                 console.log('ok');
             }
         });
-
-        let query2= `CREATE TABLE donate(
-            id INTEGER PRIAMRY KEY,
+        
+        let query2= `CREATE TABLE   IF NOT EXISTS donate(
+            id INTEGER PRIMARY KEY,
             link TEXT,
             qr TEXT
         )`;
