@@ -437,7 +437,7 @@ function populateEditForm(name,surname) {
 
 
 function submitEditForm() {
-  const personId = document.getElementById('personSelect').value;
+  const personId = document.getElementById('licnost').value;
   if (!personId) {
     alert('No person selected.');
     return;
