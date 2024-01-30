@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
   fetchNews();
   fetchSponsors();
   loadDonationMethods();
+  loadShopItems();
   fetch('/footer')
     .then(response => response.json())
     .then(footerData => {
@@ -1153,4 +1154,57 @@ function deleteDonationMethod() {
       alert("Error deleting donation method: " + error.message);
   });
 }
-// Pozovite ovu funkciju kada se stranica učita ili kada se doda nova donacijska opcija
+
+function addShopItem() {
+  var form = document.getElementById('addShopItemForm');
+  var formData = new FormData(form);
+
+  fetch('/addShopItem', {
+      method: 'POST',
+      body: formData
+  })
+  .then(response => {
+      if (!response.ok) {
+          throw new Error('Network response was not ok');
+      }
+      return response.json();
+  })
+  .then(data => {
+      alert(data.message);
+      // Ovdje možete osvježiti listu proizvoda ili očistiti formu
+  })
+  .catch(error => {
+      console.error('Error:', error);
+      alert("Error adding product: " + error.message);
+  });
+}
+
+function loadShopItems() {
+  fetch('/shop')
+    .then(response => response.json())
+    .then(products => {
+      const productList = document.getElementById('productList');
+      productList.innerHTML = ''; // Očisti listu prije dodavanja novih elemenata
+      products.forEach(product => {
+        const productElement = document.createElement('div');
+        productElement.innerHTML = `
+          <span>${product.naziv} - ${product.cijena} - ${product.opis}</span>
+          <button onclick="deleteShopItem(${product.id})">Delete</button>
+        `;
+        productList.appendChild(productElement);
+      });
+    })
+    .catch(error => console.error('Error loading shop items:', error));
+}
+
+function deleteShopItem(id) {
+  fetch(`/deleteShopItem/${id}`, { method: 'POST' })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to delete the product');
+      }
+      loadShopItems(); // Ponovno učitavanje proizvoda nakon brisanja
+      alert('Product deleted successfully');
+    })
+    .catch(error => alert('Error deleting product: ' + error.message));
+}

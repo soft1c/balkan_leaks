@@ -143,7 +143,8 @@
     <a href="#" class="tablink" onclick="openTab(event, 'EditFooter')">Manage Footer</a>
     <a href="#" class="tablink" onclick="openTab(event, 'AddSponsors')">Add Sponsors</a>
     <a href="#" class="tablink" onclick="openTab(event, 'AboutUs')">Edit About Us</a>
-    <a href="#" class="tablink" onclick="openTab(event, 'Donate')">Donate</a>
+    <a href="#" class="tablink" onclick="openTab(event, 'Donate')">Manage Donate</a>
+    <a href="#" class="tablink" onclick="openTab(event, 'ManageShop')">Manage Shop</a>
 
   
   </div>
@@ -593,6 +594,30 @@
     </div>
 </div>
 
+<div id="ManageShop" class="tabcontent">
+  <h1>Manage Shop</h1>
+  <form id="addShopItemForm" enctype="multipart/form-data">
+      <div class="form-group">
+          <label for="productImage">Product Image:</label>
+          <input style="display: block;"type="file" id="productImage" name="slika" required>
+      </div>
+      <div class="form-group">
+          <label for="productName">Product Name:</label>
+          <input type="text" id="productName" name="naziv" required>
+      </div>
+      <div class="form-group">
+          <label for="productDescription">Description:</label>
+          <textarea id="productDescription" name="opis" required></textarea>
+      </div>
+      <div class="form-group">
+          <label for="productPrice">Price:</label>
+          <input type="text" id="productPrice" name="cijena" required>
+      </div>
+      <button type="button" onclick="addShopItem()">Add Product</button>
+  </form>
+  <h2>Delete Product</h2>
+  <div id="productList"></div>
+</div>
 
 
 <script src="js/admin.js"></script>

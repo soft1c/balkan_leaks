@@ -6,11 +6,19 @@ let db = new sqlite3.Database('./baza.db', (err) => {
         console.error(err.message);
         throw err;
     } else {
+        let query3= `DROP TABLE IF EXISTS shop`;
+        db.run(query3,(err)=>{
+            if(err){
+                console.log(err);
+            }else{
+                console.log('ok');
+            }
+        })
         let query=`CREATE TABLE IF NOT EXISTS shop (
-            id INTEGER PRIAMRY KEY,
+            id INTEGER PRIMARY KEY,
             naziv TEXT,
             cijena REAL,
-            slika TEXT
+            slika TEXT,
             opis TEXT
         )`;
 
