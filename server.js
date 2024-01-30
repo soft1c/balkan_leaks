@@ -1133,8 +1133,15 @@ app.get('/shop',(req,res)=>{
 
 app.post('/addShopItem',upload.single('slika'),(req,res)=>{
     const {naziv,cijena,opis}=req.body;
-    const slika=req.file.path;
-    db.run('INSERT INTO shop(naziv,cijena,opis,slika) VALUES(?,?,?,?)', [naziv,cijena,opis,slika], function(err) {
+    let slikaPath = req.file ? req.file.path : null;
+
+    if (slikaPath) {
+        // Izvlačenje samo naziva datoteke iz punog puta
+        const filename = path.basename(slikaPath);
+        // Kreiranje nove putanje koja počinje s 'public/uploads/media/images'
+        slikaPath = `/uploads/media/images/${filename}`;
+    }
+    db.run('INSERT INTO shop(naziv,cijena,opis,slika) VALUES(?,?,?,?)', [naziv,cijena,opis,slikaPath], function(err) {
       if(err){
         console.error('Error adding news:', err.message);
         res.status(500).send('Error adding news');
@@ -1176,7 +1183,7 @@ app.post('/addDonationMethod', upload.single('qrImage'), (req, res) => {
   let qrImagePath = req.file ? req.file.path : null;
 
     if (qrImagePath) {
-        qrImagePath = 'public/uploads/media/images/' + path.basename(qrImagePath);
+        qrImagePath = '/uploads/media/images/' + path.basename(qrImagePath);
     }
 
   if (!link && !qrImagePath) {

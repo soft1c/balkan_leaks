@@ -209,28 +209,43 @@
               </aside>
             </div>
           </nav>
-     <div class="main" > <br>
-        <h1 style="text-align: center;">SHOP</h1> <br> <hr> <br>
-          <div class="shop-item">
-            <img class="shop-item-image" src="logo2.png" alt="Item Image">
-            <div class="shop-item-text">
-              <h2 class="shop-item-header">BPIKD T-Shirt</h2>
-              <p class="shop-item-description">Buy our T-shirt for only 14.99$</p>
-            </div>
-          </div>
-
-          <div class="shop-item">
-            <img class="shop-item-image" src="download.png" alt="Item Image">
-            <div class="shop-item-text">
-              <h2 class="shop-item-header">BPIKD Hoodie</h2>
-              <p class="shop-item-description">Buy our Hoodie for only 34.99$</p>
-            </div>
-          </div>
-
-        <br style="clear: both" />
-
-    </div>
-
+          <div class="main" > 
+            <br>
+            <h1 style="text-align: center;">SHOP</h1> 
+            <br> 
+            <hr> 
+            <br>
+            <div id="shopItems" class="shop-items"></div> <!-- Kontejner za proizvode -->
+            <br style="clear: both" />
+        </div>
+        <script>
+          function fetchShopItems() {
+              fetch('/shop')
+              .then(response => response.json())
+              .then(items => {
+                  const shopContainer = document.getElementById('shopItems');
+                  shopContainer.innerHTML = ''; // Očistiti kontejner prije dodavanja novih elemenata
+                  console.log(items);
+                  items.forEach(item => {
+                      const itemElement = document.createElement('div');
+                      itemElement.className = 'shop-item';
+                      itemElement.innerHTML = `
+                          <img class="shop-item-image" src="${item.slika}" alt="Item Image">
+                          <div class="shop-item-text">
+                              <h2 class="shop-item-header">${item.naziv}</h2>
+                              <p class="shop-item-description">${item.opis}</p>
+                              <p class="shop-item-price">$${item.cijena}</p>
+                          </div>
+                      `;
+                      shopContainer.appendChild(itemElement);
+                  });
+              })
+              .catch(error => console.error('Error fetching shop items:', error));
+          }
+          
+          // Pokrenite funkciju prilikom učitavanja stranice
+          document.addEventListener('DOMContentLoaded', fetchShopItems);
+          </script>
 
 <script src="/bootstrap/js/jquery.min.js"></script>
 <script src="/bootstrap/js/bootstrap.min.js"></script>
