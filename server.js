@@ -408,7 +408,7 @@ app.get('/podstranica/:imePrezime', (req, res) => {
     }
 
     // Nakon ažuriranja, pošaljite fajl kao odgovor
-    res.sendFile(path.join(__dirname, 'public', 'podstranica.html'));
+    res.sendFile(path.join(__dirname, 'public', 'l.html'));
   });
 });
 
@@ -835,7 +835,7 @@ app.post('/admin/update/:id', upload.single('slika'), (req, res) => {
 
 
 app.get('/podstranica/:id', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'podstranica.html'));
+  res.sendFile(path.join(__dirname, 'public', 'l.html'));
 });
 
 app.get('/moderatori',(req,res)=>{
