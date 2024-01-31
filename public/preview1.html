@@ -1,28 +1,117 @@
 
+
+
+
+
+
+
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
- <link rel="icon" type="image/png" href="favicon-32x32.png">
-		<title>BPIKD - ABOUT US</title>
+<html>
+<head>
+  <link rel="icon" type="image/png" href="../favicon-32x32.png">
 
-        <link rel="stylesheet" href="/css/pocetna_style.css">
-        <link href="/css/application.css" rel="stylesheet">
-        <link href="/css/search.css" rel="stylesheet">
-        <link href="/css/tr.css" rel="stylesheet">
-        <link href="/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="/css/daterangepicker.css" />
-        <link href="/css/styles_topnav.css" rel="stylesheet">
-        <link href="/css/wlks.css" rel="stylesheet">
-        <link href="/static/css/styles_footer.css" rel="stylesheet">
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/pocetna_style.css">
+  <link href="/css/application.css" rel="stylesheet">
+  <link href="/css/search.css" rel="stylesheet">
+  <link href="/css/tr.css" rel="stylesheet">
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/daterangepicker.css" />
+  
+  <link href="/css/styles_topnav.css" rel="stylesheet">
+  <link href="/css/wlks.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a59b9b09ab.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+
+  <link href="/css/styles_sidenav.css" rel="stylesheet">
+  <link href="/css/style_file.css" rel="stylesheet">
+  <title>Releases</title>
+
+
+
+
+    <style>
+li.active {
+  background-color: #ddd; /* Change as needed */
+}
+
+li.active:hover {
+  background-color: #bbb; /* Change as needed */
+}
+
+li:not(.active):hover {
+  background-color: #eee; /* Change as needed */
+}
+        #searchResults {
+  
+  position: absolute;
+  background-color: #fff;
+  padding-left:5px;
+  padding-right:5px;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #dbdbdd;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  z-index: 1000;
+ margin-top:60px;
+}
+
+#searchResults.show {
+  display: block;
+}
+
+#searchResults .result {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+#searchResults .result:last-child {
+  border-bottom: none; }
+
         
-        <link href="/css/styles_sidenav.css" rel="stylesheet">
-        <link href="/css/style_file.css" rel="stylesheet">
-        <style>
+  #file-filters button {
+    background-color: #6E4040;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+    transition-duration: 0.4s;
+  }
 
+  #file-filters button:hover {
+    background-color: #D45B5B;
+    color: black;
+  }
+  .download-text {
+  background-image: url('/download.png');
+  background-size: cover; /* Resize the background image to cover the entire container */
+  color: #333;
+  font-size: 10px;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 19px 21px;
+  border: none;
+  text-align: center;
+  display: inline-block;
+  margin: -10px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+  transition-duration: 0.4s;
+}
+
+.download-text:hover {
+  background-color: #D45B5B;
+  color: black;
+}
 
 
 
@@ -89,33 +178,28 @@
     text-align: center;
     top: -40px;
     width: 80px; }
-
-    
-        </style>
-
-	</head>
-	<body>
+    </style>
 
 
 
 
+</head>
+
+<body>
 
 
 
+  <div id="main">
+        
 
-
-    <div id="main">
-    
-    
-
-      <div class="top-navigation">
+    <div class="top-navigation">
         <nav class="navbar">
             <a href="#menu" class="mobile-only hot-dog nav-element">
             </a>  
 
             
           <div  style="" class="nav-logo">
-            <a href="index.html">
+            <a href="../index.html">
               <h1 style="display:flex; margin-top:-5px;margin-left:40px;">BPIKD</h1>
             </a>
             
@@ -157,27 +241,16 @@
           </div>
         </nav>
       </div>
-      <script>
-        // JavaScript to handle Donate click
-        document.querySelector('nav a[href="/donate"]').addEventListener('click', function(event) {
-            event.preventDefault(); // Prevents default link behavior
-            var popup = document.getElementById('donatePopup');
-            popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
-        });
-        document.getElementById('closeBtn').addEventListener('click', function() {
-                  document.getElementById('donatePopup').style.display = 'none';
-              });
-      
-      </script>
+
       <nav id="menu" class="side-nav rub">
         <div class="menu-wrapper">
            <a class="close-btn nav-element" style=" background: url('close-green.png') center center no-repeat transparent;
-      background-size: 1.4em;
-      display: inline-block;
-      height: 50px;
-      top: 0;
-      width: 40px;
-    " href=""></a>
+background-size: 1.4em;
+display: inline-block;
+height: 50px;
+top: 0;
+width: 40px;
+" href=""></a>
       
             <ul class="first-level">
       
@@ -218,70 +291,111 @@
           </aside>
         </div>
       </nav>
-          <nav id="menu" class="side-nav rub">
-            <div class="menu-wrapper">
-               <a class="close-btn nav-element" style=" background: url('close-green.png') center center no-repeat transparent;
-      background-size: 1.4em;
-      display: inline-block;
-      height: 50px;
-      top: 0;
-      width: 40px;
-    " href=""></a>
+
+
+    <div class="content"  id="right-pane">
+      <div class="leak-header">
+        <div class="title-area">
+
+          <img style="max-width:250px; max-height:300px; height:auto; width=100%;" id="previewSlika" src="../logo@400.png"/>
+          <h1 style="display:none; text-align: left; margin-bottom:-30px; border-top: 1px solid #dedede; width:90%"  class="leak-title" id="previewIme"> </h1>
+        </div>
+        <ul class="leak-navigation" style="border: 0;">
+   
           
-                <ul class="first-level">
-          
-                      <li>
-                        <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
-                      </li>
-          
-                      <li>
-                        <a class=" news-menu-item" href="/news.html">News</a>
-                      </li>
-          
-                      <li>
-                        <a class=" about-menu-item" href="/about.html">About</a>
-          
-                    </li>
-          
-                    <li>
-                      <a class=" partners-menu-item" href="/partners.html">Partners</a>
-          
-                    </li>
-          
+            
+              
+            <a href="../releases/" id="previewOpis">
+                
+                <li class="active">Releases</li>
+              </a>
+            
+
+            
+              
+            <a href="../document/" id="previewFile">
+                
+                <li>Documents</li>
+              </a>
+              <div id="files-container">
+                <h3 style="color:black;">Attached Files</h3>
+                <div id="file-filters">
+                  <button  onclick="filterFiles('all')">All</button>
+                  <button  onclick="filterFiles('text')">Text</button>
+                  <button  onclick="filterFiles('video')">Video</button>
+                  <button  onclick="filterFiles('audio')">Audio</button>
+                  <button  onclick="filterFiles('image')">Images</button>
+                </div>
+              
+                <ul id="files-list" class="">
+                  <!-- Files will be listed here -->
                 </ul>
+
+             
+              </div>
           
-           
-              <aside class="social mobile-only">
-                <ul>
-                  <li>
-                    <a href="https://www.facebook.com/BPIKD" class="nav-element" target="_blank" alt="Facebook">
-                      <img class="img-responsive" src="fb-logo.png" alt="Facebook" title="Facebook page" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://twitter.com/BPIKD" class="nav-element" target="_blank" alt="Twitter">
-                      <img class="img-responsive" src="twitter-logo.png" alt="Twitter" title="Twitter page" />
-                    </a>
-                  </li>
-                </ul>
-              </aside>
-            </div>
-          </nav>
+            
+          
+            
+          
+        </ul>
+      </div>
+
+  <div class="releases" >
+    
+      <div  class="release">
+       
+ 
+<br>
+
+        <div style="width:90%" class="leak-content">
+    <p id="personDescription"></p>
+        </div>
+
+
+      </div>
+    
 
 
 
 
+        <script>
+            document.getElementById('releases-link').addEventListener('click', function() {
+  this.querySelector('li').classList.add('active');
+  document.getElementById('documents-link').querySelector('li').classList.remove('active');
+});
 
-        
-		<div class="content rub15">
-			<div class="container-text" id="aboutUsContent">
-        
+document.getElementById('documents-link').addEventListener('click', function() {
+  this.querySelector('li').classList.add('active');
+  document.getElementById('releases-link').querySelector('li').classList.remove('active');
+});
+        </script>
 
           
-		</div>
-</div>
-<br><br><br><br><br><br>
 
+  
+
+          
+
+  
+  </div>
+        </div>
+      </div>
+    
+
+        </div>
+      </div>
+
+    
+  </div>
+
+  
+
+    </div>
+  </div>
+
+  
+  
 <link href="/static/css/styles_footer.css" rel="stylesheet">
 <footer id="footer" class="footer-recommendations">
   <div class="footer-wrapper">
@@ -343,12 +457,12 @@
       <ul class="social-links">
         <li>
           <a href="https://www.facebook.com/wikileaks" target="_blank" alt="Facebook">
-            <img src="fb-logo.png" alt="Facebook" title="Facebook page" />
+            <img src="../fb-logo.png" alt="Facebook" title="Facebook page" />
           </a>
         </li>
         <li>
           <a href="https://twitter.com/wikileaks" target="_blank" alt="Twitter">
-            <img src="twitter-logo.png" alt="Twitter" title="Twitter page" />
+            <img src="../twitter-logo.png" alt="Twitter" title="Twitter page" />
           </a>
         </li>
       </ul>
@@ -356,38 +470,233 @@
   </div>
 </footer>
 
+<script src="/bootstrap/js/jquery.min.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<script src="/calendar/moment.min.js"></script>
+<script src="/calendar/daterangepicker.js"></script>
+
 <script>
   
-  function fetchAndDisplayFooter() {
-    fetch('/footer')
-    .then(response => response.json())
-    .then(footerItems => {
-        const footerContainer = document.getElementById('footer-content');
-        footerContainer.className = 'footer-container'; // Add this line
-        footerContainer.innerHTML = '';
+    function fetchAndDisplayFooter() {
+      fetch('/footer')
+      .then(response => response.json())
+      .then(footerItems => {
+          const footerContainer = document.getElementById('footer-content');
+          footerContainer.className = 'footer-container'; // Add this line
+          footerContainer.innerHTML = '';
+  
+          footerItems.forEach(item => {
+              const footerElement = document.createElement('div');
+              footerElement.className = 'footer-item';
+              footerElement.innerHTML = `
+                  <img src="${item.urlPath}" alt="Footer Image" style="
+                      display: block;
+                      margin: 0 auto;
+                      width: 130px;
+                      height: auto;
+                  "> 
+                  <p style="text-align: center; margin-top:40px; font-size:13px; max-width:200px;">${item.tekst}</p>
+              `;
+              footerContainer.appendChild(footerElement);
+          });
+      })
+          .catch(error => console.error('Došlo je do greške:', error));
+  }
+  
+  // Poziv funkcije prilikom učitavanja stranice
+  document.addEventListener("DOMContentLoaded", function() {
+      fetchAndDisplayFooter();
+  });
+  </script>
+  
+<script>
+  if(window.jQuery) {
+      jQuery(".mail-overflow a.btn").click(function() {
+          jQuery(this).parent().children(".mail-content").toggle();
+      });
+      jQuery("#advFrom a").click(function() {
+          jQuery("#mfrom").val(jQuery(this).attr("data-name"));
+          return false;
+      });
+      jQuery("#advTo a").click(function() {
+          jQuery("#mto").val(jQuery(this).attr("data-name"));
+          return false;
+      });
+      jQuery("a#showTo").click(function() {
+          jQuery('#advTo').slideToggle();
+          jQuery(this).html(jQuery(this).html().replace(/(Show|Hide)/, function(m) {
+              var a = {Show: "Hide", Hide: "Show"};
+              return a[m];
+          }));
+          return false;
+      });
+      jQuery("a#showFrom").click(function() {
+          jQuery('#advFrom').slideToggle();
+          jQuery(this).html(jQuery(this).html().replace(/(Show|Hide)/, function(m) {
+              var a = {Show: "Hide", Hide: "Show"};
+              return a[m];
+          }));
+          return false;
+      });
 
-        footerItems.forEach(item => {
-            const footerElement = document.createElement('div');
-            footerElement.className = 'footer-item';
-            footerElement.innerHTML = `
-                <img src="${item.urlPath}" alt="Footer Image" style="
-                    display: block;
-                    margin: 0 auto;
-                    width: 130px;
-                    height: auto;
-                "> 
-                <p style="text-align: center; margin-top:40px; font-size:13px; max-width:200px;">${item.tekst}</p>
-            `;
-            footerContainer.appendChild(footerElement);
-        });
-    })
-        .catch(error => console.error('Došlo je do greške:', error));
+
+  }
+</script>
+<script>
+let allFiles = [];
+// Use this function to fetch person data on page load
+window.onload = function() {
+  const pathParts = window.location.pathname.split('/');
+const imePrezime = pathParts[pathParts.length - 1];
+fetch(`/osoba/${imePrezime}`)
+.then(response => response.json())
+.then(data => {
+  document.getElementById('ime').textContent = `${data.ime} ${data.prezime}`;
+  console.log(data);
+  document.getElementById('personDescription').innerHTML = data.opis || 'Opis nije dostupan.';
+  document.getElementById('personImage').setAttribute('src', `/uploads/media/images/${data.slikaUrl}`);
+
+
+  // Display files
+  allFiles = data.fajlovi; // Store all files
+displayPersonFiles(allFiles);
+  
+})
+.catch(error => {
+  console.error('Error fetching person data:', error);
+  document.getElementById('ime').textContent = 'Error loading data.';
+  document.getElementById('personDescription').textContent = 'Could not retrieve person details.';
+});
+};
+
+function displayPersonFiles(files) {
+const filesList = document.getElementById('files-list');
+filesList.innerHTML = ''; // Clear existing list
+
+files.forEach(file => {
+const listItem = document.createElement('li');
+listItem.innerHTML = `
+${file.filePath} 
+<a class="download-text" href="/uploads/media/${file.fileType}/${file.filePath}" download="${file.filePath}"></a>
+
+<div id="preview-${file.filePath}" class="file-preview"></div>
+`;
+filesList.appendChild(listItem);
+});
+}
+function filterFiles(fileType) {
+if (fileType === 'all') {
+displayPersonFiles(allFiles);
+} else {
+const filteredFiles = allFiles.filter(file => file.fileType === fileType);
+displayPersonFiles(filteredFiles);
+}
+}
+function previewFile(type, filename) {
+const previewDiv = document.getElementById(`preview-${filename}`);
+
+// Clear previous content
+previewDiv.innerHTML = '';
+
+if (type === 'text') {
+// For text files, fetch content and display the first few lines
+fetch(`/uploads/media/text/${filename}`)
+.then(response => response.text())
+.then(text => {
+  previewDiv.innerHTML = `<p>${text.split('\n').slice(0, 5).join('<br>')}</p>`;
+  previewDiv.style.display = 'block';
+});
+} else if (type === 'video') {
+// For video files, create a video player
+previewDiv.innerHTML = `<video controls src="/uploads/media/video/${filename}"></video>`;
+previewDiv.style.display = 'block';
+} else if (type === 'audio') {
+// For audio files, create an audio player
+previewDiv.innerHTML = `<audio controls src="/uploads/media/audio/${filename}"></audio>`;
+previewDiv.style.display = 'block';
+} else if (type === 'images') {
+// For image files, display the image
+previewDiv.innerHTML = `<img src="/uploads/media/images/${filename}" alt="${filename}" style="max-width: 100%; height: auto;">`;
+previewDiv.style.display = 'block';
+}
 }
 
-// Poziv funkcije prilikom učitavanja stranice
-document.addEventListener("DOMContentLoaded", function() {
-    fetchAndDisplayFooter();
-});
+</script>
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
+<script>
+    // Initially hide the files-container
+    document.getElementById('files-container').style.display = 'none';
+  
+    document.getElementById('documents-link').addEventListener('click', function(event) {
+      // Prevent the link from navigating to the href
+      event.preventDefault();
+  
+      // Show the files-container when the documents link is clicked
+      document.getElementById('files-container').style.display = 'block';
+    });
+  </script>
+
+<script>
+    // Initially hide the files-container
+    document.getElementById('files-container').style.display = 'none';
+  
+    document.getElementById('documents-link').addEventListener('click', function(event) {
+      // Prevent the link from navigating to the href
+      event.preventDefault();
+  
+      // Show the files-container when the documents link is clicked
+      document.getElementById('files-container').style.display = 'block';
+    });
+  
+    document.getElementById('releases-link').addEventListener('click', function(event) {
+      // Prevent the link from navigating to the href
+      event.preventDefault();
+  
+      // Hide the files-container when the releases link is clicked
+      document.getElementById('files-container').style.display = 'none';
+    });
+  </script>
+  <script>
+function previewFile(type, filename) {
+  const previewDiv = document.getElementById(`preview-${filename}`);
+
+  // Clear previous content
+  previewDiv.innerHTML = '';
+
+  if (type === 'text') {
+    // For text files, fetch content and display the first few lines
+    fetch(`/uploads/media/text/${filename}`)
+      .then(response => response.text())
+      .then(text => {
+        previewDiv.innerHTML = `<p>${text.split('\n').slice(0, 5).join('<br>')}</p>`;
+        previewDiv.style.display = 'block';
+      });
+  } else if (type === 'video') {
+    // For video files, create a video player
+    previewDiv.innerHTML = `<video controls src="/uploads/media/video/${filename}"></video>`;
+    previewDiv.style.display = 'block';
+  } else if (type === 'audio') {
+    // For audio files, create an audio player
+    previewDiv.innerHTML = `<audio controls src="/uploads/media/audio/${filename}"></audio>`;
+    previewDiv.style.display = 'block';
+  } else if (type === 'image') {
+    // For image files, display the image
+    previewDiv.innerHTML = `<img src="/uploads/media/images/${filename}" alt="${filename}" style="max-width: 100%; height: auto;">`;
+    previewDiv.style.display = 'block';
+  } else if (type === 'pdf') {
+    // For PDF files, you can embed a PDF viewer or use a library like PDF.js
+    previewDiv.innerHTML = `<embed src="/uploads/media/pdf/${filename}" type="application/pdf" width="100%" height="600px" />`;
+    previewDiv.style.display = 'block';
+  }
+  // Add more conditions for other file types as needed
+}
+</script>
+
+<script>
     
     function fetchOsobaMjeseca() {
       fetch('/osobaMjeseca')
@@ -398,7 +707,7 @@ document.addEventListener("DOMContentLoaded", function() {
           const osobaMjesecaHTML = `
             <div class="card-grid-space">
               <div class="num"></div>
-              <a class="card" href="/leaks/${osoba.id}" style="--bg-img: url(${baseUrl}${osoba.slikaUrl})">
+              <a class="card" href="/leaks/${osoba.ime}_${osoba.prezime}" style="--bg-img: url(${baseUrl}${osoba.slikaUrl})">
                 <div>
                   <h1>${osoba.ime} ${osoba.prezime}</h1>
                   
@@ -424,7 +733,7 @@ document.addEventListener("DOMContentLoaded", function() {
   cardsHtml += `
     <div class="card-grid-space">
       <div class="num"></div>
-      <a class="card" href="/leaks/${osoba.id}" style=" --bg-img: url(${baseUrl}${osoba.slikaUrl})">
+      <a class="card" href="/leaks/${osoba.ime}_${osoba.prezime}" style=" --bg-img: url(${baseUrl}${osoba.slikaUrl})">
         <div>
           <h1>${osoba.ime} ${osoba.prezime}</h1>
           
@@ -444,7 +753,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const baseUrl = '/uploads/media/images/';
   const card = document.createElement('a'); // Change this to an anchor tag
   card.className = 'card';
-  card.href = `/leaks/${osoba.id}`; // Set the href attribute
+  card.href = `/leaks/${osoba.ime}_${osoba.prezime}`; // Set the href attribute
   card.style.setProperty('--bg-img', `url(${baseUrl}${osoba.slikaUrl})`);
   card.innerHTML = `
     <div>
@@ -525,13 +834,13 @@ function fetchNedavnoDodaneOsobe() {
 
   if (results.length === 0) {
     // No results found
-    //resultsContainer.innerHTML = '<div class="search-result-item">Nema ponuđenih osoba</div>';
+    resultsContainer.innerHTML = '<div class="search-result-item">Nema ponuđenih osoba</div>';
   } else {
     // Display results
     results.forEach(person => {
       const personElement = document.createElement('div');
       personElement.className = 'search-result-item';
-      personElement.innerHTML = `<a href="/leaks/${person.ime}_${person.prezime}">${person.ime} ${person.prezime} </a>`;
+      personElement.innerHTML = `<a href="/leaks/${person.ime}_${person.prezime}">${person.ime} ${person.prezime}</a>`;
       resultsContainer.appendChild(personElement);
     });
   }
@@ -562,27 +871,11 @@ function fetchNedavnoDodaneOsobe() {
   scrollContainer.addEventListener('scroll', resetScroll);
 });
 
-  
-    document.addEventListener("DOMContentLoaded", function() {
-  fetch('/aboutus')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json(); // Obradi odgovor kao JSON
-    })
-    .then(data => {
-      console.log(data);
-      const aboutUsContent = data[0].tekst; // Pretpostavljamo da je 'tekst' u prvom objektu niza
-      document.getElementById('aboutUsContent').innerHTML = aboutUsContent;
-    })
-        .catch(error => {
-          console.error('There has been a problem with your fetch operation:', error);
-          document.getElementById('aboutUsContent').innerHTML = '<p>Sorry, there was an error loading the About Us content.</p>';
-        });
-    });
   </script>
 
+
+
+ 
 <script>
   function updateFooter(footerData) {
     var footer = document.getElementById('footer');
@@ -642,7 +935,5 @@ function fetchNedavnoDodaneOsobe() {
     })
     .catch(error => console.error('Error fetching footer data:', error));
     </script>
-  
 </body>
 </html>
-

@@ -6,8 +6,8 @@
 		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="icon" type="image/png" href="/IMG/favicon.ico" />
-		<title>BPIKD - News</title>
+ <link rel="icon" type="image/png" href="favicon-32x32.png">
+		<title>BPIKD - Results</title>
 
         <link rel="stylesheet" href="/css/pocetna_style.css">
         <link href="/css/application.css" rel="stylesheet">
@@ -21,144 +21,7 @@
         <link href="/css/styles_sidenav.css" rel="stylesheet">
         <link href="/css/style_file.css" rel="stylesheet">
         <style>
-          footer {
-      
-      color: #fff;
-      text-align: center;
-      padding: 10px;
-      position: sticky;
-      bottom: 0;
-      width: 100%;
-    }
-    .footer-wrapper {
-  display: flex;           /* Omogućava flexbox kontejner */
-  flex-direction: row;     /* Elementi se poređaju horizontalno */
-  justify-content: center; /* Centrira elemente po glavnoj osi */
-  align-items: center;     /* Centrira elemente po prečnoj osi */
-  flex-wrap: wrap;         /* Dozvoljava elementima da pređu u novi red ako nema dovoljno prostora */
-}
-
-.footer-item {
-  flex: 1;                 /* Elementi zauzimaju jednak prostor */
-  margin: 10px;            /* Dodaje malo prostora između elemenata */
-  text-align: center;      /* Centriranje teksta unutar svakog elementa */
-}
-.footer-recommendations {
-  padding:0;
-  clear: both;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  line-height: normal;
-  padding-top: 1px;
-  
-  width: 100%; }
-  .footer-recommendations .footer-wrapper {
-    background-color: #ebebeb;
-    
-    margin-top: 40px; }
-  .footer-recommendations .recommendation-container {
-    max-width: 2000px;
-
-    margin-left: auto;
-    margin-right: auto;
-    clear: both;
-    text-align: center; }
-    .footer-recommendations .recommendation-container::after {
-      clear: both;
-      content: "";
-      display: table; }
-  .footer-recommendations .top {
-    background: url("/static/img/arrow-up.png") 50% 30% no-repeat #fff;
-    background-size: 1.3em;
-    border: #cccccc 1px solid;
-    border-radius: 40px;
-    color: #555555;
-    display: inline-block;
-    height: 80px;
-    padding: 40px 0;
-    position: relative;
-    text-align: center;
-    top: -40px;
-    width: 80px; }
-  .footer-recommendations .recommendation-links li {
-    float: left;
-    display: block;
-    margin-right: 2.35765%;
-    width: 14.70196%;
-    font-size: 1em;
-    text-align: center; }
-    .footer-recommendations .recommendation-links li:last-child {
-      margin-right: 0; }
-    .footer-recommendations .recommendation-links li a {
-      color: #555555; }
-    .footer-recommendations .recommendation-links li p {
-      line-height: 1.43em;
-      text-indent: 0; }
-    .footer-recommendations .recommendation-links li .teaser {
-      display: table-cell;
-      height: 120px;
-      vertical-align: middle; }
-      .footer-recommendations .recommendation-links li .teaser .spip_logos {
-        height: auto;
-        width: 100%; }
-  .footer-recommendations .recommendation-links .recommendation:first-child {
-    margin-left: 8.5298%; }
-  .footer-recommendations .social-links {
-    max-width: 1100px;
-    margin-left: auto;
-    margin-right: auto;
-    clear: both;
-    padding: 3em 0;
-    width: 100%; }
-    .footer-recommendations .social-links::after {
-      clear: both;
-      content: "";
-      display: table; }
-    .footer-recommendations .social-links li {
-      display: inline-block;
-      padding: 1em; }
-      .footer-recommendations .social-links li img {
-        height: 1.4em; }
-
-@media screen and (max-width: 769px) {
-  .partners .content {
-    margin-left: 0%;
-    float: left;
-    display: block;
-    margin-right: 38.19821%;
-    width: 100%; }
-    .partners .content:last-child {
-      margin-right: 0; } }
-.partners .content li {
-  display: inline-block; }
-  .partners .content li span {
-    display: table-cell;
-    height: 130px;
-    text-align: center;
-    vertical-align: middle;
-    width: 150px; }
-    @media screen and (max-width: 500px) {
-      .partners .content li span {
-        width: 140px; } 
-        .footer-recommendations .recommendation-links li {
-          width: 80%;
-          padding: 0;
-          margin:0;
-          text-align: center;
-          display: inline-block;
-          border:0;
-          
-          
-          
-        }
-      }
-      .footer-container {
-  display: flex;              /* Koristi flexbox za raspored elemenata */
-  flex-wrap: wrap;            /* Dozvoljava prelamanje elemenata na sledeći red ako nema dovoljno prostora */
-  justify-content: center;    /* Centrira elemente u kontejneru po horizontali */
-  align-items: center;        /* Centrira elemente u kontejneru po vertikali */
-  gap: 10px;                  /* Dodaje prostor između elemenata */
-  padding: 20px;              /* Dodaje padding unutar .footer-container */
-}
+       
 #searchResults {
   
   position: absolute;
@@ -198,6 +61,31 @@
     text-align: center;
     top: -40px;
     width: 80px; }
+
+    .recommendation a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.recommendation p {
+  margin-top: 3.4rem;
+}
+.footer-recommendations .top {
+    background: url("/arrow-up.png") 50% 30% no-repeat #fff;
+    background-size: 1.3em;
+    border: #cccccc 1px solid;
+    border-radius: 40px;
+    color: #555555;
+    display: inline-block;
+    height: 80px;
+    padding: 40px 0;
+    position: relative;
+    text-align: center;
+    top: -40px;
+    width: 80px; }
+
         </style>
 
 	</head>
@@ -347,49 +235,141 @@
     <br><br><br>
 
 <link href="/static/css/styles_footer.css" rel="stylesheet">
-<footer id="page-footer" class="footer-recommendations"> 
-    <div class="footer-wrapper"> <a style="justify-content: center; left:375px; top:-110px;" href="#" class="top">Top</a>      
-        <div  id="footer-content" class="recommendation-container">
-    
-        </div>
+<footer id="footer" class="footer-recommendations">
+  <div class="footer-wrapper">
+    <div class="recommendation-container">
+      <a href="#" class="top">Top</a>
+      
+        <ul class="recommendation-links">
+                <li class="recommendation">
+                    <a href="https://our.wikileaks.org" target="_blank">
+                        <div class="teaser">
+                            <img class="spip_logos" alt="" src="/IMG/arton666.png" width="360" height="240" />
+                        </div>
+                        <p><p>
+</p></p>
+                    </a>
+                </li>
+            </li>
+                <li class="recommendation">
+                    <a href="https://www.torproject.org/" target="_blank">
+                        <div class="teaser">
+                            <img class="spip_logos" alt="" src="/IMG/arton401.png" width="360" height="240" />
+                        </div>
+                        <p><p>
+</p></p>
+                    </a>
+                </li>
+            </li>
+                <li class="recommendation">
+                    <a href="https://tails.boum.org/" target="_blank">
+                        <div class="teaser">
+                            <img class="spip_logos" alt="" src="/IMG/arton405.png" width="360" height="240" />
+                        </div>
+                        <p><p> 
+</p></p>
+                    </a>
+                </li>
+            </li>
+                <li class="recommendation">
+                    <a href="https://www.couragefound.org/" target="_blank">
+                        <div class="teaser">
+                            <img class="spip_logos" alt="" src="/IMG/arton404.png" width="360" height="240" />
+                        </div>
+                        <p><p>
+                    </a>
+                </li>
+            </li>
+                <li class="recommendation">
+                    <a href="https://www.bitcoin.org/" target="_blank">
+                        <div class="teaser">
+                            <img class="spip_logos" alt="" src="/IMG/arton403.png" width="360" height="240" />
+                        </div>
+                        <p><p>
+</p></p>
+                    </a>
+                </li>
+            </li>
+        </ul>
+      
+      <ul class="social-links">
+        <li>
+          <a href="https://www.facebook.com/wikileaks" target="_blank" alt="Facebook">
+            <img src="fb-logo.png" alt="Facebook" title="Facebook page" />
+          </a>
+        </li>
+        <li>
+          <a href="https://twitter.com/wikileaks" target="_blank" alt="Twitter">
+            <img src="twitter-logo.png" alt="Twitter" title="Twitter page" />
+          </a>
+        </li>
+      </ul>
     </div>
-  </footer>
+  </div>
 </footer>
 
+
+ 
 <script>
+  function updateFooter(footerData) {
+    var footer = document.getElementById('footer');
+    var recommendationLinks = footer.getElementsByClassName('recommendation-links')[0];
   
-  function fetchAndDisplayFooter() {
-    fetch('/footer')
+    // Ukloni postojeće stavke
+    while (recommendationLinks.firstChild) {
+      recommendationLinks.removeChild(recommendationLinks.firstChild);
+    }
+  
+    // Dodaj nove stavke
+    footerData.items.forEach(function(item) {
+      var li = document.createElement('li');
+      li.className = 'recommendation';
+  
+      var a = document.createElement('a');
+      a.href = item.link;
+      a.target = '_blank';
+  
+      var div = document.createElement('div');
+      div.className = 'teaser';
+  
+      var img = document.createElement('img');
+      img.className = 'spip_logos';
+      img.src = item.imgSrc;
+      img.alt = item.imgAlt;
+      img.width = '360';
+      img.height = '240';
+  
+      var p = document.createElement('p');
+      p.innerHTML = item.text;
+  
+      div.appendChild(img);
+      a.appendChild(div);
+      a.appendChild(p);
+      li.appendChild(a);
+      recommendationLinks.appendChild(li);
+    });
+  }
+  
+  fetch('/footer')
     .then(response => response.json())
-    .then(footerItems => {
-        const footerContainer = document.getElementById('footer-content');
-        footerContainer.className = 'footer-container'; // Add this line
-        footerContainer.innerHTML = '';
-
-        footerItems.forEach(item => {
-            const footerElement = document.createElement('div');
-            footerElement.className = 'footer-item';
-            footerElement.innerHTML = `
-                <img src="${item.urlPath}" alt="Footer Image" style="
-                    display: block;
-                    margin: 0 auto;
-                    width: 130px;
-                    height: auto;
-                "> 
-                <p style="text-align: center; margin-top:40px; font-size:13px; max-width:200px;">${item.tekst}</p>
-            `;
-            footerContainer.appendChild(footerElement);
+    .then(data => {
+      let footerData = { items: [] };
+  
+      data.forEach(item => {
+        footerData.items.push({
+          link: 'https://your-default-link.com', // Pretpostavljamo da link nije dostupan u originalnom JSON-u
+          imgSrc: '/'+item.urlPath,
+          imgAlt: 'Footer Image', // Pretpostavljamo da alt tekst nije dostupan u originalnom JSON-u
+          text: item.tekst
         });
+      });
+  
+      // Ažuriraj footer nakon što su podaci dohvaćeni
+      updateFooter(footerData);
     })
-        .catch(error => console.error('Došlo je do greške:', error));
-}
+    .catch(error => console.error('Error fetching footer data:', error));
+    </script>
 
-// Poziv funkcije prilikom učitavanja stranice
-document.addEventListener("DOMContentLoaded", function() {
-    fetchAndDisplayFooter();
-});
-
-</script>
 
 <script>
   

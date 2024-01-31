@@ -6,8 +6,8 @@
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="IMG/favicon.ico" />
-    <title>Donate</title>
+    <link rel="icon" type="image/png" href="favicon-32x32.png">
+    <title>BPIKD - Donate</title>
 
     <link rel="stylesheet" href="/css/pocetna_style.css">
     <link href="/css/application.css" rel="stylesheet">
@@ -42,6 +42,8 @@
 	</script>
 
 <style>
+
+
   .recommendation a {
   display: flex;
   flex-direction: column;
@@ -83,8 +85,8 @@
   margin-bottom: 15px;
   padding: 10px;
   background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 1px solid #dbdbdb;
+  border-radius: 2px;
 }
 
 .donation-option img {
@@ -116,23 +118,6 @@
 
 
 
-<div id="submit" class="submit_banner">
-	<div class="container">
-		<div class="page-header">
-			<h1>Submit documents to BPIKD</h1>
-			<a class="remove-button" href="#"><span class="glyphicon glyphicon-remove-circle"></span></a>
-		</div>
-		<p>BPIKD publishes documents of political or historical importance that are censored or otherwise suppressed. We specialise in strategic global publishing and large archives.</p>
-		<p>The following is the address of our secure site where you can anonymously upload your documents to BPIKD editors. You can only access this submissions system through Tor. (See our <a href="#submit_help_tor">Tor tab</a> for more information.) We also advise you to read our <a href="#submit_help_tips">tips for sources</a> before submitting.</p>
-
-		<div class="alert alert-info">
-			<div class="onion-url">http://examplelink.onion </div>
-
-		</div>
-
-		<p>If you cannot use Tor, or your submission is very large, or you have specific requirements, WikiLeaks provides several alternative methods. <a href="#submit_help_contact">Contact us</a> to discuss how to proceed.</p>
-	</div>
-</div>
 
 
     <div id="main">
@@ -155,7 +140,7 @@
                 <a class="button-face support-link" href="shop.html" target="_blank">Shop</a>
                 <a class="button-face donate-link" href="donate.html">Donate</a>
                 
-                <a class="button-face submit-link" href="#submit">Submit</a>
+                <a class="button-face submit-link" href="submit.html">Submit</a>
               </div>
               <form class="global-search" method="get" action="advancedsearch.html">
                 <input type="text" name="q" id="search-bar" placeholder="Search">
@@ -248,26 +233,22 @@
             </div>
 
             <div class="col-xs-9 col-sm-9 col-md-10 container-text donate-page">
-                <h1 style="color:#317eac;">Donate to BPIKD | NASLOV</h1>
+                <h1 style="color:#317eac;">Donate to BPIKD</h1>
 
-                <p>TEKST | BPIKD is entirely supported by the general public.</p>
-                <p>Your donations pay for WikiLeaks projects, staff, servers and protective infrastructure.</p>
+                <p>BPIKD is entirely supported by the general public.</p>
+                <p>Your donations pay for BPIKD projects, staff, servers and protective infrastructure.</p>
 
 
 
                 <div id="db1">
                     
 
-                    <p class="subm">Global credit card donations via the Wau Holland Foundation</p>
-                    <div class="subd">
-                        <p>Donations made via the Wau Holland Foundation are tax deductible in the EU.</p>
-
-                    </div>
-
+                  
+                  
 
                 </div>
-                <div class="donation-methods">
-                  <h2>Ways of Donating</h2>
+                <div style="border-radius: 4px; width:60%; padding:0; background-color: #fff; margin-top:30px;"  class="donation-methods">
+                  <h2 style="text-align: left;" >Donation Links</h2>
                   <div id="donationOptions"></div> <!-- Kontejner za donacijske opcije -->
               </div>
 
@@ -567,5 +548,7 @@ fetch('/footer')
   // Pokrenite funkciju prilikom učitavanja stranice
   document.addEventListener('DOMContentLoaded', fetchDonationOptions);
   </script>
+
+  
 </body>
 </html>

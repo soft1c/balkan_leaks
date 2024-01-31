@@ -6,8 +6,9 @@
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="IMG/favicon.ico" />
-    <title>Donate</title>
+    <link rel="icon" type="image/png" href="favicon-32x32.png">
+
+    <title>BPIKD - SUBMIT</title>
 
     <link rel="stylesheet" href="/css/pocetna_style.css">
     <link href="/css/application.css" rel="stylesheet">
@@ -42,7 +43,48 @@
 	</script>
 
 <style>
-  .recommendation a {
+
+#searchResults {
+  
+  position: absolute;
+  background-color: #fff;
+  padding-left:5px;
+  padding-right:5px;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #dbdbdd;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  z-index: 1000;
+ margin-top:60px;
+}
+
+#searchResults.show {
+  display: block;
+}
+
+#searchResults .result {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+#searchResults .result:last-child {
+  border-bottom: none;
+}   .footer-recommendations .top {
+    background: url("/arrow-up.png") 50% 30% no-repeat #fff;
+    background-size: 1.3em;
+    border: #cccccc 1px solid;
+    border-radius: 40px;
+    color: #555555;
+    display: inline-block;
+    height: 80px;
+    padding: 40px 0;
+    position: relative;
+    text-align: center;
+    top: -40px;
+    width: 80px; }
+
+    .recommendation a {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,9 +107,7 @@
     text-align: center;
     top: -40px;
     width: 80px; }
-    h2.alert.alert-info:hover {
-  color: #0060df; /* Change this to the color you want */
-}
+
 </style>
 
 </head>
@@ -194,9 +234,9 @@
         <div style="margin-left:15%;  margin-right:15%; margin-top:3%; margin-bottom:10%;"  id="db1">
 
           <h1>Submit documents to BPIKD</h1> <hr>
-          <p class="subm">Global credit card donations via the Wau Holland Foundation</p> <br>
+          <p class="subm">The following is the address of our secure site where you can anonymously upload your documents to BPIKD editors.</p> <br>
           <a href="">
-          <h2 style="" class="alert alert-info">Paypal</h2> <br>
+          <h2 style="" class="alert alert-info">https://examplelink.com</h2> <br>
         </a> 
           <div class="subd">
 
@@ -383,83 +423,66 @@
 
 
 
+ 
 <script>
-var footerData = {
-  items: [
-    {
-      link: 'https://your-link-1.com',
-      imgSrc: 'logo2.png',
-      imgAlt: 'New Image 1',
-      text: 'Welcome to BPIKD, where transparency meets integrity.'
-    },
-    {
-      link: 'https://your-link-2.com',
-      imgSrc: 'logo2.png',
-      imgAlt: 'New Image 2',
-      text: 'At BPIKD, we believe in the power of information to shape a more accountable world.'
-    },
-    {
-      link: 'https://your-link-1.com',
-      imgSrc: 'logo2.png',
-      imgAlt: 'New Image 1',
-      text: '. We recognize the importance of revealing hidden truths, holding those in power accountable, and ensuring that information flows freely to the public.'
-    },
-    {
-      link: 'https://your-link-1.com',
-      imgSrc: 'logo2.png',
-      imgAlt: 'New Image 1',
-      text: 'At the heart of BPIKD lies a commitment to unveiling the untold stories, shedding light on matters that deserve public attention.'
-    },
-    {
-      link: 'https://your-link-1.com',
-      imgSrc: 'logo2.png',
-      imgAlt: 'New Image 1',
-      text: 'We envision a world where information is not just a commodity but a catalyst for positive change.'
-    },
-    // Add more items as needed
-  ]
-};
-
-window.onload = function() {
-  var footer = document.getElementById('footer');
-  var recommendationLinks = footer.getElementsByClassName('recommendation-links')[0];
-  var recommendations = recommendationLinks.getElementsByClassName('recommendation');
-
-  // Remove existing items
-  while (recommendations[0]) {
-    recommendations[0].parentNode.removeChild(recommendations[0]);
+  function updateFooter(footerData) {
+    var footer = document.getElementById('footer');
+    var recommendationLinks = footer.getElementsByClassName('recommendation-links')[0];
+  
+    // Ukloni postojeće stavke
+    while (recommendationLinks.firstChild) {
+      recommendationLinks.removeChild(recommendationLinks.firstChild);
+    }
+  
+    // Dodaj nove stavke
+    footerData.items.forEach(function(item) {
+      var li = document.createElement('li');
+      li.className = 'recommendation';
+  
+      var a = document.createElement('a');
+      a.href = item.link;
+      a.target = '_blank';
+  
+      var div = document.createElement('div');
+      div.className = 'teaser';
+  
+      var img = document.createElement('img');
+      img.className = 'spip_logos';
+      img.src = item.imgSrc;
+      img.alt = item.imgAlt;
+      img.width = '360';
+      img.height = '240';
+  
+      var p = document.createElement('p');
+      p.innerHTML = item.text;
+  
+      div.appendChild(img);
+      a.appendChild(div);
+      a.appendChild(p);
+      li.appendChild(a);
+      recommendationLinks.appendChild(li);
+    });
   }
-
-  // Add new items
-  footerData.items.forEach(function(item) {
-    var li = document.createElement('li');
-    li.className = 'recommendation';
-
-    var a = document.createElement('a');
-    a.href = item.link;
-    a.target = '_blank';
-
-    var div = document.createElement('div');
-    div.className = 'teaser';
-
-    var img = document.createElement('img');
-    img.className = 'spip_logos';
-    img.src = item.imgSrc;
-    img.alt = item.imgAlt;
-    img.width = '360';
-    img.height = '240';
-
-    var p = document.createElement('p');
-    p.innerHTML = item.text;
-
-    div.appendChild(img);
-    a.appendChild(div);
-    a.appendChild(p);
-    li.appendChild(a);
-    recommendationLinks.appendChild(li);
-  });
-};
-  </script>
+  
+  fetch('/footer')
+    .then(response => response.json())
+    .then(data => {
+      let footerData = { items: [] };
+  
+      data.forEach(item => {
+        footerData.items.push({
+          link: 'https://your-default-link.com', // Pretpostavljamo da link nije dostupan u originalnom JSON-u
+          imgSrc: '/'+item.urlPath,
+          imgAlt: 'Footer Image', // Pretpostavljamo da alt tekst nije dostupan u originalnom JSON-u
+          text: item.tekst
+        });
+      });
+  
+      // Ažuriraj footer nakon što su podaci dohvaćeni
+      updateFooter(footerData);
+    })
+    .catch(error => console.error('Error fetching footer data:', error));
+    </script>
 
 </body>
 </html>

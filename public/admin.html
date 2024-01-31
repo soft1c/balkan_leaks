@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BIPKD | Admin</title>
+  <link rel="icon" type="image/png" href="favicon-32x32.png">
   <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
   <link rel="stylesheet" href="css/admin.css">
   <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
@@ -106,6 +107,7 @@
   overflow-y: auto; /* Omogući skrolanje unutar dropdowna ako je potrebno */
   
 }
+
   </style>
 </head>
 <body>
@@ -623,7 +625,7 @@
   </form>
 
   <h2>Delete Donation Method</h2>
-    <div class="form-row">
+    <div style="margin-left:430px; margin-right: 200px;    display:flex; align-items:center; justify-content: center; width:50%;" class="form-row">
         <select id="donationMethodSelect"></select>
         <button onclick="deleteDonationMethod()" class="submit-button">Delete Option</button>
     </div>
@@ -653,7 +655,35 @@
   <h2>Delete Product</h2>
   <div id="productList"></div>
 </div>
+<style>
+#productList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  margin: 20px auto; /* Change to auto to center the box */
+  width: 50%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
 
+#productList h3:not(:last-child),
+#productList p:not(:last-child) {
+  margin-bottom: 20px; /* Adjust as needed */
+}
+
+#productList h3 {
+  font-size: 18px;
+}
+#productList button {
+  margin-bottom: 20px;
+}
+
+#productList p {
+  line-height: 1.5;
+}
+</style>
 
 <script src="js/admin.js"></script>
 <script>

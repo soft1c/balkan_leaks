@@ -1537,68 +1537,68 @@ div.submit_buttons {
 a:hover {
   text-decoration: none; }
 
-#submit_wlkey:target ~ div[id=main],
-#submit_help_contact:target ~ div[id=main],
-#submit_help_tor:target ~ div[id=main],
-#submit_help_tips:target ~ div[id=main],
-#submit_help_after:target ~ div[id=main] {
+submit.html_wlkey:target ~ div[id=main],
+submit.html_help_contact:target ~ div[id=main],
+submit.html_help_tor:target ~ div[id=main],
+submit.html_help_tips:target ~ div[id=main],
+submit.html_help_after:target ~ div[id=main] {
   display: none; }
-#submit_wlkey:target ~ footer[id=page-footer],
-#submit_help_contact:target ~ footer[id=page-footer],
-#submit_help_tor:target ~ footer[id=page-footer],
-#submit_help_tips:target ~ footer[id=page-footer],
-#submit_help_after:target ~ footer[id=page-footer] {
+submit.html_wlkey:target ~ footer[id=page-footer],
+submit.html_help_contact:target ~ footer[id=page-footer],
+submit.html_help_tor:target ~ footer[id=page-footer],
+submit.html_help_tips:target ~ footer[id=page-footer],
+submit.html_help_after:target ~ footer[id=page-footer] {
   display: none; }
-#submit_wlkey:target ~ div[id=submit],
-#submit_help_contact:target ~ div[id=submit],
-#submit_help_tor:target ~ div[id=submit],
-#submit_help_tips:target ~ div[id=submit],
-#submit_help_after:target ~ div[id=submit] {
+submit.html_wlkey:target ~ div[id=submit],
+submit.html_help_contact:target ~ div[id=submit],
+submit.html_help_tor:target ~ div[id=submit],
+submit.html_help_tips:target ~ div[id=submit],
+submit.html_help_after:target ~ div[id=submit] {
   display: block; }
-#submit_wlkey:target ~ div[id=submit_help_buttons],
-#submit_help_contact:target ~ div[id=submit_help_buttons],
-#submit_help_tor:target ~ div[id=submit_help_buttons],
-#submit_help_tips:target ~ div[id=submit_help_buttons],
-#submit_help_after:target ~ div[id=submit_help_buttons] {
+submit.html_wlkey:target ~ div[id=submit_help_buttons],
+submit.html_help_contact:target ~ div[id=submit_help_buttons],
+submit.html_help_tor:target ~ div[id=submit_help_buttons],
+submit.html_help_tips:target ~ div[id=submit_help_buttons],
+submit.html_help_after:target ~ div[id=submit_help_buttons] {
   display: none; }
-#submit_wlkey:target,
-#submit_help_contact:target,
-#submit_help_tor:target,
-#submit_help_tips:target,
-#submit_help_after:target {
-  display: block; }
-
-#submit ~ div[id=main] {
+submit.html_wlkey:target,
+submit.html_help_contact:target,
+submit.html_help_tor:target,
+submit.html_help_tips:target,
+submit.html_help_after:target {
   display: block; }
 
-#submit {
-  display: none; }
-
-#submit_help_buttons {
-  display: none; }
-
-#submit_wlkey {
-  display: none; }
-
-#submit_help_contact {
-  display: none; }
-
-#submit_help_tor {
-  display: none; }
-
-#submit_help_tips {
-  display: none; }
-
-#submit_help_after {
-  display: none; }
-
-#submit:target ~ div[id=main] {
-  display: none; }
-#submit:target ~ footer[id=page-footer] {
-  display: none; }
-#submit:target ~ div[id=submit_help_buttons] {
+submit.html ~ div[id=main] {
   display: block; }
-#submit:target {
+
+submit.html {
+  display: none; }
+
+submit.html_help_buttons {
+  display: none; }
+
+submit.html_wlkey {
+  display: none; }
+
+submit.html_help_contact {
+  display: none; }
+
+submit.html_help_tor {
+  display: none; }
+
+submit.html_help_tips {
+  display: none; }
+
+submit.html_help_after {
+  display: none; }
+
+submit.html:target ~ div[id=main] {
+  display: none; }
+submit.html:target ~ footer[id=page-footer] {
+  display: none; }
+submit.html:target ~ div[id=submit_help_buttons] {
+  display: block; }
+submit.html:target {
   display: block; }
 
 .submit_banner {
@@ -4010,68 +4010,68 @@ html {
   a:hover {
     text-decoration: none; }
   
-  #submit_wlkey:target ~ div[id=main],
-  #submit_help_contact:target ~ div[id=main],
-  #submit_help_tor:target ~ div[id=main],
-  #submit_help_tips:target ~ div[id=main],
-  #submit_help_after:target ~ div[id=main] {
+  submit.html_wlkey:target ~ div[id=main],
+  submit.html_help_contact:target ~ div[id=main],
+  submit.html_help_tor:target ~ div[id=main],
+  submit.html_help_tips:target ~ div[id=main],
+  submit.html_help_after:target ~ div[id=main] {
     display: none; }
-  #submit_wlkey:target ~ footer[id=page-footer],
-  #submit_help_contact:target ~ footer[id=page-footer],
-  #submit_help_tor:target ~ footer[id=page-footer],
-  #submit_help_tips:target ~ footer[id=page-footer],
-  #submit_help_after:target ~ footer[id=page-footer] {
+  submit.html_wlkey:target ~ footer[id=page-footer],
+  submit.html_help_contact:target ~ footer[id=page-footer],
+  submit.html_help_tor:target ~ footer[id=page-footer],
+  submit.html_help_tips:target ~ footer[id=page-footer],
+  submit.html_help_after:target ~ footer[id=page-footer] {
     display: none; }
-  #submit_wlkey:target ~ div[id=submit],
-  #submit_help_contact:target ~ div[id=submit],
-  #submit_help_tor:target ~ div[id=submit],
-  #submit_help_tips:target ~ div[id=submit],
-  #submit_help_after:target ~ div[id=submit] {
+  submit.html_wlkey:target ~ div[id=submit],
+  submit.html_help_contact:target ~ div[id=submit],
+  submit.html_help_tor:target ~ div[id=submit],
+  submit.html_help_tips:target ~ div[id=submit],
+  submit.html_help_after:target ~ div[id=submit] {
     display: block; }
-  #submit_wlkey:target ~ div[id=submit_help_buttons],
-  #submit_help_contact:target ~ div[id=submit_help_buttons],
-  #submit_help_tor:target ~ div[id=submit_help_buttons],
-  #submit_help_tips:target ~ div[id=submit_help_buttons],
-  #submit_help_after:target ~ div[id=submit_help_buttons] {
+  submit.html_wlkey:target ~ div[id=submit_help_buttons],
+  submit.html_help_contact:target ~ div[id=submit_help_buttons],
+  submit.html_help_tor:target ~ div[id=submit_help_buttons],
+  submit.html_help_tips:target ~ div[id=submit_help_buttons],
+  submit.html_help_after:target ~ div[id=submit_help_buttons] {
     display: none; }
-  #submit_wlkey:target,
-  #submit_help_contact:target,
-  #submit_help_tor:target,
-  #submit_help_tips:target,
-  #submit_help_after:target {
-    display: block; }
-  
-  #submit ~ div[id=main] {
+  submit.html_wlkey:target,
+  submit.html_help_contact:target,
+  submit.html_help_tor:target,
+  submit.html_help_tips:target,
+  submit.html_help_after:target {
     display: block; }
   
-  #submit {
-    display: none; }
-  
-  #submit_help_buttons {
-    display: none; }
-  
-  #submit_wlkey {
-    display: none; }
-  
-  #submit_help_contact {
-    display: none; }
-  
-  #submit_help_tor {
-    display: none; }
-  
-  #submit_help_tips {
-    display: none; }
-  
-  #submit_help_after {
-    display: none; }
-  
-  #submit:target ~ div[id=main] {
-    display: none; }
-  #submit:target ~ footer[id=page-footer] {
-    display: none; }
-  #submit:target ~ div[id=submit_help_buttons] {
+  submit.html ~ div[id=main] {
     display: block; }
-  #submit:target {
+  
+  submit.html {
+    display: none; }
+  
+  submit.html_help_buttons {
+    display: none; }
+  
+  submit.html_wlkey {
+    display: none; }
+  
+  submit.html_help_contact {
+    display: none; }
+  
+  submit.html_help_tor {
+    display: none; }
+  
+  submit.html_help_tips {
+    display: none; }
+  
+  submit.html_help_after {
+    display: none; }
+  
+  submit.html:target ~ div[id=main] {
+    display: none; }
+  submit.html:target ~ footer[id=page-footer] {
+    display: none; }
+  submit.html:target ~ div[id=submit_help_buttons] {
+    display: block; }
+  submit.html:target {
     display: block; }
   
   .submit_banner {
@@ -4503,43 +4503,43 @@ div.submit_buttons {
 
 a:hover { text-decoration: none; }
 
-#submit_wlkey:target~div[id=submit] { display: block; }
-#submit_wlkey:target~div[id=submit_help_buttons] { display: none; }
-#submit_wlkey:target~div[id=main] { display: none; }
-#submit_wlkey:target { display: block; }
+submit.html_wlkey:target~div[id=submit] { display: block; }
+submit.html_wlkey:target~div[id=submit_help_buttons] { display: none; }
+submit.html_wlkey:target~div[id=main] { display: none; }
+submit.html_wlkey:target { display: block; }
 
-#submit_help_contact:target~div[id=submit] { display: block; }
-#submit_help_contact:target~div[id=submit_help_buttons] { display: none; }
-#submit_help_contact:target~div[id=main] { display: none; }
-#submit_help_contact:target { display: block; }
+submit.html_help_contact:target~div[id=submit] { display: block; }
+submit.html_help_contact:target~div[id=submit_help_buttons] { display: none; }
+submit.html_help_contact:target~div[id=main] { display: none; }
+submit.html_help_contact:target { display: block; }
 
-#submit_help_tor:target~div[id=submit] { display: block; }
-#submit_help_tor:target~div[id=submit_help_buttons] { display: none; }
-#submit_help_tor:target~div[id=main] { display: none; }
-#submit_help_tor:target { display: block; }
+submit.html_help_tor:target~div[id=submit] { display: block; }
+submit.html_help_tor:target~div[id=submit_help_buttons] { display: none; }
+submit.html_help_tor:target~div[id=main] { display: none; }
+submit.html_help_tor:target { display: block; }
 
-#submit_help_tips:target~div[id=submit] { display: block; }
-#submit_help_tips:target~div[id=submit_help_buttons] { display: none; }
-#submit_help_tips:target~div[id=main] { display: none; }
-#submit_help_tips:target { display: block; }
+submit.html_help_tips:target~div[id=submit] { display: block; }
+submit.html_help_tips:target~div[id=submit_help_buttons] { display: none; }
+submit.html_help_tips:target~div[id=main] { display: none; }
+submit.html_help_tips:target { display: block; }
 
-#submit_help_after:target~div[id=submit] { display: block; }
-#submit_help_after:target~div[id=submit_help_buttons] { display: none; }
-#submit_help_after:target~div[id=main] { display: none; }
-#submit_help_after:target { display: block; }
+submit.html_help_after:target~div[id=submit] { display: block; }
+submit.html_help_after:target~div[id=submit_help_buttons] { display: none; }
+submit.html_help_after:target~div[id=main] { display: none; }
+submit.html_help_after:target { display: block; }
 
-#submit~div[id=main] { display: block; }
-#submit { display:none; }
-#submit_help_buttons { display:none; }
-#submit_wlkey { display:none; }
-#submit_help_contact { display:none; }
-#submit_help_tor { display:none; }
-#submit_help_tips { display:none; }
-#submit_help_after { display:none; }
+submit.html~div[id=main] { display: block; }
+submit.html { display:none; }
+submit.html_help_buttons { display:none; }
+submit.html_wlkey { display:none; }
+submit.html_help_contact { display:none; }
+submit.html_help_tor { display:none; }
+submit.html_help_tips { display:none; }
+submit.html_help_after { display:none; }
 
-#submit:target~div[id=main] { display: none; }
-#submit:target~div[id=submit_help_buttons] { display: block; }
-#submit:target { display: block; }
+submit.html:target~div[id=main] { display: none; }
+submit.html:target~div[id=submit_help_buttons] { display: block; }
+submit.html:target { display: block; }
 
 
 
