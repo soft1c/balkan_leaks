@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>BPIKD - Admin Panel</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="../img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet"> 
+    
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../css/bootstrap1.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="../css/adminstyle.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon-32x32.png">
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.quilljs.com/1.3.6/quill.core.css">
+
+  <style>
+
+
+
+/*!
+ * Quill Editor v1.3.6
+ * https://quilljs.com/
+ * Copyright (c) 2014, Jason Chen
+ * Copyright (c) 2013, salesforce.com
+ */
+ .ql-container {
+  box-sizing: border-box;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  height: 100%;
+  margin: 0px;
+  position: relative;
+}
+.ql-container.ql-disabled .ql-tooltip {
+  visibility: hidden;
+}
+.ql-container.ql-disabled .ql-editor ul[data-checked] > li::before {
+  pointer-events: none;
+}
+.ql-clipboard {
+  left: -100000px;
+  height: 1px;
+  overflow-y: hidden;
+  position: absolute;
+  top: 50%;
+}
+.ql-clipboard p {
+  margin: 0;
+  padding: 0;
+}
+.ql-editor {
+  box-sizing: border-box;
+  line-height: 1.42;
+  height: 100%;
+  outline: none;
+  overflow-y: auto;
+  padding: 12px 15px;
+  tab-size: 4;
+  -moz-tab-size: 4;
+  text-align: left;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.ql-editor > * {
+  cursor: text;
+}
+.ql-editor p,
+.ql-editor ol,
+.ql-editor ul,
+.ql-editor pre,
+.ql-editor blockquote,
+.ql-editor h1,
+.ql-editor h2,
+.ql-editor h3,
+.ql-editor h4,
+.ql-editor h5,
+.ql-editor h6 {
+  margin: 0;
+  padding: 0;
+  counter-reset: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+}
+.ql-editor ol,
+.ql-editor ul {
+  padding-left: 1.5em;
+}
+.ql-editor ol > li,
+.ql-editor ul > li {
+  list-style-type: none;
+}
+.ql-editor ul > li::before {
+  content: '\2022';
+}
+.ql-editor ul[data-checked=true],
+.ql-editor ul[data-checked=false] {
+  pointer-events: none;
+}
+.ql-editor ul[data-checked=true] > li *,
+.ql-editor ul[data-checked=false] > li * {
+  pointer-events: all;
+}
+.ql-editor ul[data-checked=true] > li::before,
+.ql-editor ul[data-checked=false] > li::before {
+  color: #777;
+  cursor: pointer;
+  pointer-events: all;
+}
+.ql-editor ul[data-checked=true] > li::before {
+  content: '\2611';
+}
+.ql-editor ul[data-checked=false] > li::before {
+  content: '\2610';
+}
+.ql-editor li::before {
+  display: inline-block;
+  white-space: nowrap;
+  width: 1.2em;
+}
+.ql-editor li:not(.ql-direction-rtl)::before {
+  margin-left: -1.5em;
+  margin-right: 0.3em;
+  text-align: right;
+}
+.ql-editor li.ql-direction-rtl::before {
+  margin-left: 0.3em;
+  margin-right: -1.5em;
+}
+.ql-editor ol li:not(.ql-direction-rtl),
+.ql-editor ul li:not(.ql-direction-rtl) {
+  padding-left: 1.5em;
+}
+.ql-editor ol li.ql-direction-rtl,
+.ql-editor ul li.ql-direction-rtl {
+  padding-right: 1.5em;
+}
+.ql-editor ol li {
+  counter-reset: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+  counter-increment: list-0;
+}
+.ql-editor ol li:before {
+  content: counter(list-0, decimal) '. ';
+}
+.ql-editor ol li.ql-indent-1 {
+  counter-increment: list-1;
+}
+.ql-editor ol li.ql-indent-1:before {
+  content: counter(list-1, lower-alpha) '. ';
+}
+.ql-editor ol li.ql-indent-1 {
+  counter-reset: list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+}
+.ql-editor ol li.ql-indent-2 {
+  counter-increment: list-2;
+}
+.ql-editor ol li.ql-indent-2:before {
+  content: counter(list-2, lower-roman) '. ';
+}
+.ql-editor ol li.ql-indent-2 {
+  counter-reset: list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+}
+.ql-editor ol li.ql-indent-3 {
+  counter-increment: list-3;
+}
+.ql-editor ol li.ql-indent-3:before {
+  content: counter(list-3, decimal) '. ';
+}
+.ql-editor ol li.ql-indent-3 {
+  counter-reset: list-4 list-5 list-6 list-7 list-8 list-9;
+}
+.ql-editor ol li.ql-indent-4 {
+  counter-increment: list-4;
+}
+.ql-editor ol li.ql-indent-4:before {
+  content: counter(list-4, lower-alpha) '. ';
+}
+.ql-editor ol li.ql-indent-4 {
+  counter-reset: list-5 list-6 list-7 list-8 list-9;
+}
+.ql-editor ol li.ql-indent-5 {
+  counter-increment: list-5;
+}
+.ql-editor ol li.ql-indent-5:before {
+  content: counter(list-5, lower-roman) '. ';
+}
+.ql-editor ol li.ql-indent-5 {
+  counter-reset: list-6 list-7 list-8 list-9;
+}
+.ql-editor ol li.ql-indent-6 {
+  counter-increment: list-6;
+}
+.ql-editor ol li.ql-indent-6:before {
+  content: counter(list-6, decimal) '. ';
+}
+.ql-editor ol li.ql-indent-6 {
+  counter-reset: list-7 list-8 list-9;
+}
+.ql-editor ol li.ql-indent-7 {
+  counter-increment: list-7;
+}
+.ql-editor ol li.ql-indent-7:before {
+  content: counter(list-7, lower-alpha) '. ';
+}
+.ql-editor ol li.ql-indent-7 {
+  counter-reset: list-8 list-9;
+}
+.ql-editor ol li.ql-indent-8 {
+  counter-increment: list-8;
+}
+.ql-editor ol li.ql-indent-8:before {
+  content: counter(list-8, lower-roman) '. ';
+}
+.ql-editor ol li.ql-indent-8 {
+  counter-reset: list-9;
+}
+.ql-editor ol li.ql-indent-9 {
+  counter-increment: list-9;
+}
+.ql-editor ol li.ql-indent-9:before {
+  content: counter(list-9, decimal) '. ';
+}
+.ql-editor .ql-indent-1:not(.ql-direction-rtl) {
+  padding-left: 3em;
+}
+.ql-editor li.ql-indent-1:not(.ql-direction-rtl) {
+  padding-left: 4.5em;
+}
+.ql-editor .ql-indent-1.ql-direction-rtl.ql-align-right {
+  padding-right: 3em;
+}
+.ql-editor li.ql-indent-1.ql-direction-rtl.ql-align-right {
+  padding-right: 4.5em;
+}
+.ql-editor .ql-indent-2:not(.ql-direction-rtl) {
+  padding-left: 6em;
+}
+.ql-editor li.ql-indent-2:not(.ql-direction-rtl) {
+  padding-left: 7.5em;
+}
+.ql-editor .ql-indent-2.ql-direction-rtl.ql-align-right {
+  padding-right: 6em;
+}
+.ql-editor li.ql-indent-2.ql-direction-rtl.ql-align-right {
+  padding-right: 7.5em;
+}
+.ql-editor .ql-indent-3:not(.ql-direction-rtl) {
+  padding-left: 9em;
+}
+.ql-editor li.ql-indent-3:not(.ql-direction-rtl) {
+  padding-left: 10.5em;
+}
+.ql-editor .ql-indent-3.ql-direction-rtl.ql-align-right {
+  padding-right: 9em;
+}
+.ql-editor li.ql-indent-3.ql-direction-rtl.ql-align-right {
+  padding-right: 10.5em;
+}
+.ql-editor .ql-indent-4:not(.ql-direction-rtl) {
+  padding-left: 12em;
+}
+.ql-editor li.ql-indent-4:not(.ql-direction-rtl) {
+  padding-left: 13.5em;
+}
+.ql-editor .ql-indent-4.ql-direction-rtl.ql-align-right {
+  padding-right: 12em;
+}
+.ql-editor li.ql-indent-4.ql-direction-rtl.ql-align-right {
+  padding-right: 13.5em;
+}
+.ql-editor .ql-indent-5:not(.ql-direction-rtl) {
+  padding-left: 15em;
+}
+.ql-editor li.ql-indent-5:not(.ql-direction-rtl) {
+  padding-left: 16.5em;
+}
+.ql-editor .ql-indent-5.ql-direction-rtl.ql-align-right {
+  padding-right: 15em;
+}
+.ql-editor li.ql-indent-5.ql-direction-rtl.ql-align-right {
+  padding-right: 16.5em;
+}
+.ql-editor .ql-indent-6:not(.ql-direction-rtl) {
+  padding-left: 18em;
+}
+.ql-editor li.ql-indent-6:not(.ql-direction-rtl) {
+  padding-left: 19.5em;
+}
+.ql-editor .ql-indent-6.ql-direction-rtl.ql-align-right {
+  padding-right: 18em;
+}
+.ql-editor li.ql-indent-6.ql-direction-rtl.ql-align-right {
+  padding-right: 19.5em;
+}
+.ql-editor .ql-indent-7:not(.ql-direction-rtl) {
+  padding-left: 21em;
+}
+.ql-editor li.ql-indent-7:not(.ql-direction-rtl) {
+  padding-left: 22.5em;
+}
+.ql-editor .ql-indent-7.ql-direction-rtl.ql-align-right {
+  padding-right: 21em;
+}
+.ql-editor li.ql-indent-7.ql-direction-rtl.ql-align-right {
+  padding-right: 22.5em;
+}
+.ql-editor .ql-indent-8:not(.ql-direction-rtl) {
+  padding-left: 24em;
+}
+.ql-editor li.ql-indent-8:not(.ql-direction-rtl) {
+  padding-left: 25.5em;
+}
+.ql-editor .ql-indent-8.ql-direction-rtl.ql-align-right {
+  padding-right: 24em;
+}
+.ql-editor li.ql-indent-8.ql-direction-rtl.ql-align-right {
+  padding-right: 25.5em;
+}
+.ql-editor .ql-indent-9:not(.ql-direction-rtl) {
+  padding-left: 27em;
+}
+.ql-editor li.ql-indent-9:not(.ql-direction-rtl) {
+  padding-left: 28.5em;
+}
+.ql-editor .ql-indent-9.ql-direction-rtl.ql-align-right {
+  padding-right: 27em;
+}
+.ql-editor li.ql-indent-9.ql-direction-rtl.ql-align-right {
+  padding-right: 28.5em;
+}
+.ql-editor .ql-video {
+  display: block;
+  max-width: 100%;
+}
+.ql-editor .ql-video.ql-align-center {
+  margin: 0 auto;
+}
+.ql-editor .ql-video.ql-align-right {
+  margin: 0 0 0 auto;
+}
+.ql-editor .ql-bg-black {
+  background-color: #000;
+}
+.ql-editor .ql-bg-red {
+  background-color: #e60000;
+}
+.ql-editor .ql-bg-orange {
+  background-color: #f90;
+}
+.ql-editor .ql-bg-yellow {
+  background-color: #ff0;
+}
+.ql-editor .ql-bg-green {
+  background-color: #008a00;
+}
+.ql-editor .ql-bg-blue {
+  background-color: #06c;
+}
+.ql-editor .ql-bg-purple {
+  background-color: #93f;
+}
+.ql-editor .ql-color-white {
+  color: #fff;
+}
+.ql-editor .ql-color-red {
+  color: #e60000;
+}
+.ql-editor .ql-color-orange {
+  color: #f90;
+}
+.ql-editor .ql-color-yellow {
+  color: #ff0;
+}
+.ql-editor .ql-color-green {
+  color: #008a00;
+}
+.ql-editor .ql-color-blue {
+  color: #06c;
+}
+.ql-editor .ql-color-purple {
+  color: #93f;
+}
+.ql-editor .ql-font-serif {
+  font-family: Georgia, Times New Roman, serif;
+}
+.ql-editor .ql-font-monospace {
+  font-family: Monaco, Courier New, monospace;
+}
+.ql-editor .ql-size-small {
+  font-size: 0.75em;
+}
+.ql-editor .ql-size-large {
+  font-size: 1.5em;
+}
+.ql-editor .ql-size-huge {
+  font-size: 2.5em;
+}
+.ql-editor .ql-direction-rtl {
+  direction: rtl;
+  text-align: inherit;
+}
+.ql-editor .ql-align-center {
+  text-align: center;
+}
+.ql-editor .ql-align-justify {
+  text-align: justify;
+}
+.ql-editor .ql-align-right {
+  text-align: right;
+}
+.ql-editor.ql-blank::before {
+  color: rgba(0,0,0,0.6);
+  content: attr(data-placeholder);
+  font-style: italic;
+  left: 15px;
+  pointer-events: none;
+  position: absolute;
+  right: 15px;
+}
+
+
+
+
+
+
+    .ip-container {
+  background-color: white;
+  color: black;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  max-width: 720px;
+  overflow-x: auto;
+  max-height: 500px;
+}
+    .layout-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+  gap:20px;
+}
+
+.body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #000; /* Black background */
+    background-color: #272242 ; /* GitHub dark mode background color */
+    color: #f4f4f4;; /* GitHub dark mode text color */
+  }
+
+  .layout-box {
+    width:100px;
+    height:200px;
+    text-align:center;
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid #30363D; /* GitHub dark mode border color */
+    background-color: #161B22; /* GitHub dark mode box color */
+    color: #C9D1D9; /* GitHub dark mode text color */
+    transition: all 0.3s ease; /* Transition effect */
+  }
+
+  .layout-box:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Hover effect */
+    background-color: #21262D; /* Slightly lighter on hover */
+  }
+
+.layout-box.large {
+  width:100px;
+  height:200px; /* Larger box for Person of the Month */
+}
+#personSelector div {
+  cursor: pointer;
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+}
+#personSelector div:hover {
+  background-color: #f0f0f0;
+}
+
+.ql-editor {
+  line-height: 1.5; /* ili bilo koja druga vrijednost koju želite */
+}
+
+#editor {
+  min-height: 9em; /* 3 (reda) * 1.5em (line-height) */
+}
+#aboutEditor {
+  min-height:20em;
+}
+.search-bar-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.search-input-edit {
+  width: 100%;
+  max-width: 500px; /* Maksimalna širina search bara */
+}
+
+.search-dropdown {
+  position: absolute;
+  width: 100%;
+  max-width: 500px; /* Mora odgovarati širini search bara */
+  box-shadow: 0px 4px 5px rgba(0,0,0,0.2); /* Stil za dropdown */
+  background-color: white;
+  z-index: 1000; /* Da se prikaže iznad ostalih elemenata */
+}
+.search-bar-container {
+  position: relative;
+  max-width: 500px; /* Maksimalna širina search bara */
+  margin: 0 auto; /* Centriranje */
+}
+
+.search-input-edit {
+  width: 100%; /* Širina unutar search-bar-containera */
+  /* Dodajte padding i border ako je potrebno */
+}
+
+.search-dropdown {
+  position: absolute;
+  top: 100%; /* Ovo će pomaknuti dropdown ispod search bara */
+  left: 0;
+  width: 100%; /* Dropdown će biti iste širine kao i search bar */
+  box-shadow: 0px 4px 5px rgba(0,0,0,0.2); /* Stil za dropdown */
+  background-color: white;
+  z-index: 1000; /* Da se prikaže iznad ostalih elemenata */
+  max-height: 300px; /* Maksimalna visina dropdowna */
+  overflow-y: auto; /* Omogući skrolanje unutar dropdowna ako je potrebno */
+  
+}
+
+}
+        
+        .form-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+    
+      .form-group {
+        flex: 1;
+        margin-right: 10px; /* Adjust the spacing between the fields */
+      }
+    
+      .form-group:last-child {
+        margin-right: 0;
+      }
+    
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+    
+      input[type="text"],
+      input[type="date"],
+      input[type="file"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+    
+      .image-upload-container {
+        flex-basis: 45%; /* Adjust the width as needed */
+        margin-right: 10px;
+      }
+    
+      .image-upload-box {
+        width: 150px; /* Set a fixed width */
+        height: 150px; /* Set the same fixed height for 1:1 aspect ratio */
+        border: 2px dashed #ccc;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        background-color: white;
+        overflow: hidden; /* Hide overflow to maintain the square shape */
+        position: relative; /* Set position to relative for absolute positioning of the image */
+      }
+    
+      .image-upload-box p {
+        position: absolute;
+        z-index: 1; /* Ensure the text appears above the image */
+      }
+    
+      #imagePreview {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain; /* Ensure the image maintains aspect ratio */
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto; /* Center the image within the box */
+      }
+    
+      input[type="file"] {
+        display: none; /* Hide the actual file input */
+      }
+    
+      
+      .form-row {
+      display: flex;
+      flex-wrap: wrap; /* This will allow items to wrap to the next line on small screens */
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    
+    .form-group, .image-upload-container, .text-editor-container {
+      flex: 1;
+      margin-right: 10px; /* Adjust the spacing between the fields */
+      min-width: 0; /* This prevents flex items from growing beyond their content size */
+    }
+    
+    .form-group:last-child, .text-editor-container {
+      margin-right: 0;
+    }
+    
+    /* Styles for image upload box remain unchanged */
+    
+    .text-editor-container {
+      display: flex;
+      flex-direction: column;
+      margin-right: 0;
+    }
+    
+    /* Ensure the editor fits within the container */
+    .ck-editor__editable_inline {
+      max-width: 100%;
+    }
+    
+    /* Add custom styles for CKEditor to ensure it doesn't overflow its container */
+    .ck.ck-editor__main > .ck-editor__editable {
+      height: 150px; /* or whatever height you want to give */
+    }
+    
+    @media (max-width: 768px) {
+      .form-row {
+        flex-direction: column;
+      }
+    
+      .form-group, .image-upload-container, .text-editor-container {
+        width: 100%; /* On small screens, take up full width */
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+    
+      .ck.ck-editor__main > .ck-editor__editable {
+        height: auto; /* Allow the editor to adjust its height */
+      }
+    }
+    
+    .image-upload-container {
+      flex: 0 0 calc(33.333% - 10px); /* subtract the margin from the width */
+      margin-right: 10px; /* Maintain the gap on the right side */
+    }
+    
+    /* Adjust the text editor container to take 2/3 of the space */
+    .text-editor-container {
+      flex: 0 0 calc(66.666% - 10px); /* subtract the margin from the width */
+    }
+    
+    .image-upload-box {
+      width: 100%; /* Make the image upload box fill the container */
+      height: 235px; /* Set the fixed height */
+      /* Other styles remain the same... */
+    }
+    
+    /* Ensure the editor fills the container and has the same height as the image box */
+    .ck-editor__editable_inline {
+      max-width: 100%;
+      height: 150px; /* Set the height to be the same as the image upload box */
+    }
+    
+  </style>
+
+</head>
+
+<body>
+    <div class="container-fluid position-relative d-flex p-0">
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+
+        <!-- Sidebar Start -->
+        <div class="sidebar pe-4 pb-3">
+            <nav class="navbar bg-secondary navbar-dark">
+                <a href="../adminpanel.html" class="navbar-brand mx-4 mb-3">
+                    <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>BPIKD</h3>
+                </a>
+                <div class="d-flex align-items-center ms-4 mb-4">
+                    <div class="position-relative">
+                        <img class="rounded-circle" src="../img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                        <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+                    </div>
+                    <div class="ms-3">
+                        <h6 class="mb-0">Ime Prez</h6>
+                        <span>Admin</span>
+                    </div>
+                </div>
+                <div class="navbar-nav w-100">
+                    <a href="../adminpanel.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Edit Subsites</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="addnews.html" class="dropdown-item ">Add News</a>
+      <a href="aboutus.html" class="dropdown-item ">Add News</a>
+                            <a href="element.html" class="dropdown-item active">Edit Sponsors</a>
+                            <a href="element.html" class="dropdown-item">Edit Shop</a>
+                            <a href="element.html" class="dropdown-item">Edit Donate</a>
+                            <a href="editsubmit.html" class="dropdown-item">Edit Submit</a>
+                        </div>
+                    </div>
+                    <a href="addperson.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Add Person</a>
+                    <a href="editperson.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Edit Person</a>
+                    <a href="managestuff.html" class="nav-item nav-link"><i class="fa fa-laptop me-2"></i>Manage Stuff</a>
+                    <a href="changepassword.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Change Password</a>
+                    <a href="statistics.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>View Statistic</a>
+
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <!-- Sidebar End -->
+
+
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
+                </a>
+                <a href="#" class="sidebar-toggler flex-shrink-0">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <form style="max-width:500px; padding:0; margin: 0; background-color:black;" class="d-none d-md-flex ms-4">
+                    <input  class="form-control bg-dark border-0" type="search" placeholder="Search">
+                </form>
+                <div class="navbar-nav align-items-center ms-auto">
+
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <img class="rounded-circle me-lg-2" src="../img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">John Doe</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+                            <a href="#" class="dropdown-item">My Profile</a>
+                            <a href="#" class="dropdown-item">Settings</a>
+                            <a href="#" class="dropdown-item">Log Out</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- Navbar End -->
+
+
+            <!-- Blank Start -->
+            <div  class="container-fluid pt-4 px-4">
+                <div style="padding-bottom: 70%;" class="row vh-100 bg-secondary rounded align-items-center justify-content-center mx-0">
+                    <div class="col-md-6 text-center">        
+
+                        <div id="Donate" class="tabcontent">
+                            <h1 style="color:black;">Add Donation Method</h1>
+                            <form id="addDonationMethodForm">
+                              <div class="form-group">
+                                <label for="donationLink">Donation Link:</label>
+                                <input type="text" id="donationLink" name="link">
+                              </div> <br><br>
+                              <div class="form-group">
+                                <label for="qrImage">QR Code Image:</label>
+                                <input style="display: block;" type="file" id="qrImage" name="qrImage" accept="image/*">
+                              </div> <br><br>
+                              <div class="form-row button-container">
+                                <button type="button" onclick="addDonationMethod()" class="submit-button">Add Donation Method</button>
+                              </div> <br><br>
+                            </form>
+                          
+                            <h2 style="color:black;">Delete Donation Method</h2>
+                              <div class="form-row">
+                                  <select style="width:30%" id="donationMethodSelect"></select>
+                                  <button onclick="deleteDonationMethod()" class="submit-button">Delete Option</button>
+                              </div>
+                          </div>
+                          <style>
+                           #Donate {
+  background-color: #f8f9fa; /* light gray background */
+  color: #212529; /* dark gray text */
+  padding: 20px;
+  border-radius: 5px;
+  margin: 20px auto; /* Center the box */
+  width: 80%; /* Adjust as needed */
+}
+                          </style>
+                    </div>
+                </div> 
+            </div>
+            <!-- Blank End --> <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>// Assuming you have the visit counts
+    var dailyCount = 10; // Replace with actual count
+    var weeklyCount = 50; // Replace with actual count
+    var allTimeCount = 200; // Replace with actual count
+    
+    // Update the chart data
+    chart.data.datasets[0].data = [dailyCount, weeklyCount, allTimeCount];
+    chart.update();
+    
+    // Update the text content of the paragraphs
+    document.getElementById('dailyCount').textContent = "Today's Visits: " + dailyCount;
+    document.getElementById('weeklyCount').textContent = "Last Week's Visits: " + weeklyCount;
+    document.getElementById('allTimeCount').textContent = "Total Visits: " + allTimeCount;</script>
+
+ <script>var ctx = document.getElementById('visitChart').getContext('2d');
+    var chart = new Chart(ctx, {
+      type: 'line', // Change this to 'bar' if you want a bar chart
+      data: {
+        labels: ['Today', 'Last Week', 'All Time'], // These are the labels for the x-axis
+        datasets: [{
+          label: 'Visits',
+          data: [0, 0, 0], // These are the initial data points for the y-axis
+          backgroundColor: 'rgba(0, 123, 255, 0.5)',
+          borderColor: 'rgba(0, 123, 255, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });</script>
+           
+        </div>
+        <!-- Content End -->
+
+
+
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/chart/chart.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="../js/adminpanel.js"></script>
+    <script src="../js/admin.js"></script>
+    <script src="../js/adminpanel.js"></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script>
+        var toolbarOptions = [
+        ['bold', 'italic', 'underline'],
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        [{ 'size': ['small', false, 'large', 'huge'] }],
+      
+        ['link'],
+        [{ 'color': [] }, { 'background': [] }],
+        [{ 'font': [] }],
+        [{ 'align': [] }]
+      ];
+      
+      var Link = Quill.import('formats/link');
+      
+      class MyLink extends Link {
+        static create(value) {
+          let node = super.create(value);
+          // Dodaje 'http://' ako link ne počinje sa 'http://' ili 'https://'
+          if (!value.startsWith('http://') && !value.startsWith('https://')) {
+            node.setAttribute('href', 'http://' + value);
+          }
+          return node;
+        }
+      }
+      
+      Quill.register(MyLink);
+      
+      var quill = new Quill('#editor', {
+        modules: {
+          toolbar: toolbarOptions
+        },
+        theme: 'snow'
+      });
+      
+      </script>
+      <script>
+        var quillNews = new Quill('#newsEditor', {
+        modules: {
+          toolbar: toolbarOptions
+        },
+        theme: 'snow'
+      });
+      var quillAbout = new Quill('#aboutEditor', {
+      modules: {
+        toolbar: toolbarOptions
+      },
+      theme: 'snow'
+    });
+    </script>
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
