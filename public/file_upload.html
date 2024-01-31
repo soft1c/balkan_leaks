@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forma za Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em 0;
+        }
+
+        nav {
+            background-color: #444;
+            padding: 1em 0;
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0 1em;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .file-upload-container {
+            text-align: center;
+        }
+
+        .file-upload-container img {
+            max-width: 100px;
+            margin-bottom: 10px;
+        }
+
+        .custom-file-upload {
+            border: 1px solid #ccc;
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="header-image.jpg" alt="Header Image" style="max-width: 100%;">
+        <h1>Dobrodošli na našu stranicu</h1>
+    </header>
+
+    <nav>
+        <a href="#">Početna</a>
+        <a href="#">O nama</a>
+        <a href="#">Kontakt</a>
+    </nav>
+
+    <form>
+        <div class="file-upload-container">
+            <img src="file-icon.png" alt="File Icon">
+            <label for="file" class="custom-file-upload">
+                Izaberi datoteku
+            </label>
+            <input type="file" id="file" name="file" accept=".pdf, .mp4, .mp3, .jpg, .jpeg, .png" required>
+        </div>
+    </form>
+</body>
+</html>

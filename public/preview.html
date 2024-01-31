@@ -1,0 +1,390 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/IMG/favicon.ico" />
+    <title>BPIKD</title>
+
+    <link href="/css/application.css" rel="stylesheet">
+    <link href="/css/search.css" rel="stylesheet">
+    <link href="/css/tr.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/daterangepicker.css" />
+    <link href="/css/styles_topnav.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/wlks.css">
+    
+    <link href="/css/styles_sidenav.css" rel="stylesheet">
+    <link href="/css/style_file.css" rel="stylesheet">
+    <style>
+      header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header img {
+            height: 50px; /* Adjust logo size as needed */
+            margin-right: 20px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .donate-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+        }
+        .placeholder-text {
+    text-align: center;
+    margin: 20px 0;
+}
+#header-logo {
+    height: 70px; /* Adjust as needed */
+    /* Add more styling if necessary */
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    
+    display: flex;
+    flex-direction: column;
+}
+body, .main-content {
+            padding-bottom: 70px; /* Ovde postavite visinu footera plus dodatni prostor */
+        }
+
+        footer {
+    background-color: #333; /* ili bilo koju drugu boju po želji */
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+}
+    .footer-recommendations {
+     /* Fix the footer to the bottom */
+    left: 0; /* Align to the left edge */
+    bottom: 0; /* Align to the bottom edge */
+    width: 100%; /* Set the width to span the full viewport width */
+    background-color: #ebebeb; /* Assuming you want this background color */
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1); /* Optional: Adds a shadow above the footer */
+    z-index: 100; /* Ensures it's above other page content */
+}
+  .footer-recommendations .footer-wrapper {
+    background-color: #ebebeb;
+    
+    margin-top: 40px; }
+  .footer-recommendations .recommendation-container {
+    max-width: 1100px;
+
+    margin-left: auto;
+    margin-right: auto;
+    clear: both;
+    text-align: center; }
+    .footer-recommendations .recommendation-container::after {
+      clear: both;
+      content: "";
+      display: table; }
+  .footer-recommendations .top {
+    background: url("/static/img/arrow-up.png") 50% 30% no-repeat #fff;
+    background-size: 1.3em;
+    border: #cccccc 1px solid;
+    border-radius: 40px;
+    color: #555555;
+    display: inline-block;
+    height: 80px;
+    padding: 40px 0;
+    position: relative;
+    text-align: center;
+    top: -40px;
+    width: 80px; }
+  .footer-recommendations .recommendation-links li {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 14.70196%;
+    font-size: 1em;
+    text-align: center; }
+    .footer-recommendations .recommendation-links li:last-child {
+      margin-right: 0; }
+    .footer-recommendations .recommendation-links li a {
+      color: #555555; }
+    .footer-recommendations .recommendation-links li p {
+      line-height: 1.43em;
+      text-indent: 0; }
+    .footer-recommendations .recommendation-links li .teaser {
+      display: table-cell;
+      height: 120px;
+      vertical-align: middle; }
+      .footer-recommendations .recommendation-links li .teaser .spip_logos {
+        height: auto;
+        width: 100%; }
+  .footer-recommendations .recommendation-links .recommendation:first-child {
+    margin-left: 8.5298%; }
+  .footer-recommendations .social-links {
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    clear: both;
+    padding: 3em 0;
+    width: 100%; }
+    .footer-recommendations .social-links::after {
+      clear: both;
+      content: "";
+      display: table; }
+    .footer-recommendations .social-links li {
+      display: inline-block;
+      padding: 1em; }
+      .footer-recommendations .social-links li img {
+        height: 1.4em; }
+
+@media screen and (max-width: 769px) {
+  .partners .content {
+    margin-left: 0%;
+    float: left;
+    display: block;
+    margin-right: 38.19821%;
+    width: 100%; }
+    .partners .content:last-child {
+      margin-right: 0; } }
+.partners .content li {
+  display: inline-block; }
+  .partners .content li span {
+    display: table-cell;
+    height: 130px;
+    text-align: center;
+    vertical-align: middle;
+    width: 150px; }
+    @media screen and (max-width: 500px) {
+      .partners .content li span {
+        width: 140px; } 
+        .footer-recommendations .recommendation-links li {
+          width: 80%;
+          padding: 0;
+          margin:0;
+          text-align: center;
+          display: inline-block;
+          border:0;
+          
+          
+          
+        }
+      }
+      
+    body, html {
+    
+    margin: 0;
+}
+.main-content {
+    /* Add a bottom margin equal to the footer's height plus some extra space */
+    margin-bottom: 150px; /* Adjust this value as needed */
+    flex: 1 0 auto; /* This ensures that the .main-content will expand to fill available space */
+}
+    </style>
+</head>
+<body>
+
+  <div class="top-navigation">
+    <nav class="navbar">
+        <a href="#menu" class="mobile-only hot-dog nav-element">
+        </a>  
+
+        
+      <div  style="" class="nav-logo">
+        <a href="index.html">
+          <h1 style="display:flex; margin-top:-35px;margin-left:40px;">BPIKD</h1>
+        </a>
+        
+       
+      </div>
+      <div class="action-buttons">
+        <a class="button-face support-link" href="shop.html" target="_blank">Shop</a>
+        <a class="button-face donate-link" href="donate.html">Donate</a>
+        
+        <a class="button-face submit-link" href="submit.html">Submit</a>
+      </div>
+      <form class="global-search" method="get" action="advancedsearch.html">
+        <input type="text" name="q" id="search-bar" placeholder="Search">
+        <button class="btn-search" type="submit"></button>
+        <div id="searchResults" class="search-results"></div>
+      </form>
+      <div class="main-nav">
+  
+          <ul class="first-level">
+  
+              <li>
+                <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
+              </li>
+  
+              <li>
+                <a class=" news-menu-item" href="/news.html">News</a>
+              </li>
+  
+              <li>
+                <a class=" about-menu-item" href="/about.html">About</a>
+              </li>
+  
+              <li>
+                <a class=" partners-menu-item" href="/partners.html">Partners</a>
+              </li>
+  
+          </ul>
+  
+      </div>
+    </nav>
+  </div>
+  <script>
+    // JavaScript to handle Donate click
+    document.querySelector('nav a[href="/donate"]').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevents default link behavior
+        var popup = document.getElementById('donatePopup');
+        popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+    });
+    document.getElementById('closeBtn').addEventListener('click', function() {
+              document.getElementById('donatePopup').style.display = 'none';
+          });
+  
+  </script>
+  <nav id="menu" class="side-nav rub">
+    <div class="menu-wrapper">
+       <a class="close-btn nav-element" style=" background: url('close-green.png') center center no-repeat transparent;
+      background-size: 1.4em;
+      display: inline-block;
+      height: 50px;
+      top: 0;
+      width: 40px;
+    " href=""></a>
+  
+        <ul class="first-level">
+  
+              <li>
+                <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
+              </li>
+  
+              <li>
+                <a class=" news-menu-item" href="/news.html">News</a>
+              </li>
+  
+              <li>
+                <a class=" about-menu-item" href="/about.html">About</a>
+  
+            </li>
+  
+            <li>
+              <a class=" partners-menu-item" href="/partners.html">Partners</a>
+  
+            </li>
+  
+        </ul>
+  
+   
+      <aside class="social mobile-only">
+        <ul>
+          <li>
+            <a href="https://www.facebook.com/wikileaks" class="nav-element" target="_blank" alt="Facebook">
+              <img class="img-responsive" src="fb-logo.png" alt="Facebook" title="Facebook page" />
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/wikileaks" class="nav-element" target="_blank" alt="Twitter">
+              <img class="img-responsive" src="twitter-logo.png" alt="Twitter" title="Twitter page" />
+            </a>
+          </li>
+        </ul>
+      </aside>
+    </div>
+  </nav>
+  <br><br><br><br> <br>
+  <div class="main-content">
+    <div class="content">
+        <div class="container-fluid row-fluid">
+            <div class="col-xs-12 col-sm-12 col-md-12 container-text" id="right-pane">
+                <div class="leak-header">
+                    <div class="press-release">
+                        <img id="previewSlika" src="" alt="Image preview" height="auto" width="300px" style="float: left; padding: 0 15px; height:300px;" />
+                        <h1 style="text-align: left; margin-top:50px; font-size:28px;"class="title-area" id="previewIme"></h1>
+                        <hr style="border-top: 2px solid #eee">
+                        <p style="margin: 20px;" class="paragraf-slika" id="previewOpis"></p>
+                    </div>
+                    <br style="clear: both;">
+                </div>
+                <br style="clear: both;">
+            </div>
+        </div>
+        <div id="files-container">
+            <h3 style="color:black;">Attached Files</h3>
+            <div id="file-filters">
+              <button onclick="filterFiles('all')">All</button>
+              <button onclick="filterFiles('text')">Text</button>
+              <button onclick="filterFiles('video')">Video</button>
+              <button onclick="filterFiles('audio')">Audio</button>
+              <button onclick="filterFiles('image')">Images</button>
+            </div>
+            <ul id="files-list" class="">
+              <!-- Files will be listed here -->
+            </ul>
+          </div>
+    </div>
+</div>
+
+
+<script src="/bootstrap/js/jquery.min.js"></script>
+  <script src="/bootstrap/js/bootstrap.min.js"></script>
+<script src="/calendar/moment.min.js"></script>
+<script src="/calendar/daterangepicker.js"></script>
+
+    <script>
+        window.onload = function() {
+            // Preuzmite podatke iz localStorage
+            var ime = localStorage.getItem('previewIme');
+            var prezime = localStorage.getItem('previewPrezime');
+            var opis = localStorage.getItem('previewOpis');
+            var slikaUrl = localStorage.getItem('previewSlikaUrl');
+
+            // Postavite podatke na stranicu
+            document.getElementById('previewIme').textContent = ime + ' ' + prezime;
+            document.getElementById('previewOpis').innerHTML = opis || 'Opis nije dostupan.';
+            if (slikaUrl) {
+                document.getElementById('previewSlika').setAttribute('src', slikaUrl);
+            }
+
+            // Očistite localStorage
+            localStorage.removeItem('previewIme');
+            localStorage.removeItem('previewPrezime');
+            localStorage.removeItem('previewOpis');
+            localStorage.removeItem('previewSlikaUrl');
+        };
+    </script>
+</body>
+</html>

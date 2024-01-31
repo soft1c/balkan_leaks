@@ -1,0 +1,1156 @@
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/css/pocetna_style.css">
+    <link href="/css/application.css" rel="stylesheet">
+    <link href="/css/search.css" rel="stylesheet">
+    <link href="/css/tr.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/daterangepicker.css" />
+    
+    <link href="/css/styles_topnav.css" rel="stylesheet">
+    <link href="/css/wlks.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a59b9b09ab.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+
+    <link href="/css/styles_sidenav.css" rel="stylesheet">
+    <link href="/css/style_file.css" rel="stylesheet">
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>WikiLeaks - Amazon Atlas</title>
+   <style>
+    
+   </style>
+</head>
+<style>
+
+#searchResults {
+  
+  position: absolute;
+  background-color: #fff;
+  padding-left:5px;
+  padding-right:5px;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #dbdbdd;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  z-index: 1000;
+ margin-top:60px;
+}
+
+#searchResults.show {
+  display: block;
+}
+
+#searchResults .result {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+#searchResults .result:last-child {
+  border-bottom: none;
+}
+footer {
+      
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      
+      bottom: 0;
+      width: 100%;
+    }
+    .footer-wrapper {
+  display: flex;           /* Omogućava flexbox kontejner */
+  flex-direction: row;     /* Elementi se poređaju horizontalno */
+  justify-content: center; /* Centrira elemente po glavnoj osi */
+  align-items: center;     /* Centrira elemente po prečnoj osi */
+  flex-wrap: wrap;         /* Dozvoljava elementima da pređu u novi red ako nema dovoljno prostora */
+}
+
+.footer-item {
+  flex: 1;                 /* Elementi zauzimaju jednak prostor */
+  margin: 10px;            /* Dodaje malo prostora između elemenata */
+  text-align: center;      /* Centriranje teksta unutar svakog elementa */
+}
+.footer-recommendations {
+  padding:0;
+  clear: both;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: normal;
+  padding-top: 1px;
+  
+  width: 100%; }
+  .footer-recommendations .footer-wrapper {
+    background-color: #ebebeb;
+    
+    margin-top: 40px; }
+  .footer-recommendations .recommendation-container {
+    max-width: 2000px;
+
+    margin-left: auto;
+    margin-right: auto;
+    clear: both;
+    text-align: center; }
+    .footer-recommendations .recommendation-container::after {
+      clear: both;
+      content: "";
+      display: table; }
+  .footer-recommendations .top {
+    background: url("/static/img/arrow-up.png") 50% 30% no-repeat #fff;
+    background-size: 1.3em;
+    border: #cccccc 1px solid;
+    border-radius: 40px;
+    color: #555555;
+    display: inline-block;
+    height: 80px;
+    padding: 40px 0;
+    position: relative;
+    text-align: center;
+    top: -40px;
+    width: 80px; }
+  .footer-recommendations .recommendation-links li {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 14.70196%;
+    font-size: 1em;
+    text-align: center; }
+    .footer-recommendations .recommendation-links li:last-child {
+      margin-right: 0; }
+    .footer-recommendations .recommendation-links li a {
+      color: #555555; }
+    .footer-recommendations .recommendation-links li p {
+      line-height: 1.43em;
+      text-indent: 0; }
+    .footer-recommendations .recommendation-links li .teaser {
+      display: table-cell;
+      height: 120px;
+      vertical-align: middle; }
+      .footer-recommendations .recommendation-links li .teaser .spip_logos {
+        height: auto;
+        width: 100%; }
+  .footer-recommendations .recommendation-links .recommendation:first-child {
+    margin-left: 8.5298%; }
+  .footer-recommendations .social-links {
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    clear: both;
+    padding: 3em 0;
+    width: 100%; }
+    .footer-recommendations .social-links::after {
+      clear: both;
+      content: "";
+      display: table; }
+    .footer-recommendations .social-links li {
+      display: inline-block;
+      padding: 1em; }
+      .footer-recommendations .social-links li img {
+        height: 1.4em; }
+
+@media screen and (max-width: 769px) {
+  .partners .content {
+    margin-left: 0%;
+    float: left;
+    display: block;
+    margin-right: 38.19821%;
+    width: 100%; }
+    .partners .content:last-child {
+      margin-right: 0; } }
+.partners .content li {
+  display: inline-block; }
+  .partners .content li span {
+    display: table-cell;
+    height: 130px;
+    text-align: center;
+    vertical-align: middle;
+    width: 150px; }
+    @media screen and (max-width: 500px) {
+      .partners .content li span {
+        width: 140px; } 
+        .footer-recommendations .recommendation-links li {
+          width: 80%;
+          padding: 0;
+          margin:0;
+          text-align: center;
+          display: inline-block;
+          border:0;
+          
+          
+          
+        }
+      }
+      .footer-container {
+  display: flex;              /* Koristi flexbox za raspored elemenata */
+  flex-wrap: wrap;            /* Dozvoljava prelamanje elemenata na sledeći red ako nema dovoljno prostora */
+  justify-content: center;    /* Centrira elemente u kontejneru po horizontali */
+  align-items: center;        /* Centrira elemente u kontejneru po vertikali */
+  gap: 10px;                  /* Dodaje prostor između elemenata */
+  padding: 20px;              /* Dodaje padding unutar .footer-container */
+}
+@media screen and (max-width: 1285px) {
+  .cards-wrapper {
+    grid-template-columns: 1fr 1fr;
+  } }
+
+
+
+
+
+
+    html {
+  box-sizing: border-box; }
+
+*, *::after, *::before {
+  box-sizing: inherit; }
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.9;
+  margin: 0;
+  padding-top: 70px;
+  width: auto; }
+
+h1,
+h2,
+h3,
+h4 {
+  clear: both;
+  color: #093a41;
+  font-weight: 500;
+  margin-top: 0; }
+
+h1 {
+  font-size: 2.25em;
+  padding-top: 1em; }
+  @media screen and (max-width: 769px) {
+    h1 {
+      margin-bottom: 20px; } }
+
+.clearfix::after {
+  clear: both;
+  content: "";
+  display: table; }
+
+a {
+  color: #0078c6;
+  text-decoration: none; }
+
+.button-face {
+  border-radius: 4px;
+  color: #4d5f69;
+  display: inline-block;
+  font-size: 1em;
+  font-weight: 500;
+  letter-spacing: 2px;
+  margin: .7em 0;
+  padding: .55em; }
+  .button-face:active, .button-face:hover, .button-face:focus {
+    text-decoration: none; }
+
+.button-face.green {
+  background-color: #4d5f69;
+  color: #fff; }
+.button-face.huge {
+  font-size: 1.2em;
+  padding: .55em 3em; }
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0; }
+
+ul.spip {
+  list-style-type: unset;
+  padding-left: 40px; }
+ul li {
+  margin-bottom: .5em; }
+
+p {
+  margin-bottom: .72em; }
+
+.content {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  margin: 52px auto;
+  padding: 0 1em 5em; }
+  .content::after {
+    clear: both;
+    content: "";
+    display: table; }
+  @media screen and (max-width: 999px) {
+    .content {
+      float: left;
+      display: block;
+      margin-right: 2.35765%;
+      width: 82.94039%;
+      margin-left: 8.5298%; }
+      .content:last-child {
+        margin-right: 0; } }
+  @media screen and (max-width: 769px) {
+    .content {
+      float: left;
+      display: block;
+      margin-right: 2.35765%;
+      width: 100%;
+      margin-left: 0%;
+      font-size: 14px;
+      margin-top: 25px;
+      padding: 0 1em 2em; }
+      .content:last-child {
+        margin-right: 0; } }
+  .content.with-sidenav, .content.rub66 {
+    margin-left: 0%;
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 82.94039%;
+    float: left; }
+    .content.with-sidenav:last-child, .content.rub66:last-child {
+      margin-right: 0; }
+    @media screen and (max-width: 769px) {
+      .content.with-sidenav, .content.rub66 {
+        margin-left: 0%;
+        float: left;
+        display: block;
+        margin-right: 2.35765%;
+        width: 100%; }
+        .content.with-sidenav:last-child, .content.rub66:last-child {
+          margin-right: 0; } }
+
+.mobile-only {
+  display: none; }
+  @media screen and (max-width: 769px) {
+    .mobile-only {
+      display: block; } }
+
+@media screen and (max-width: 769px) {
+  .desktop-only,
+  #wlp,
+  #wlp + table {
+    display: none; } }
+
+@media screen and (max-width: 769px) {
+  h1 {
+    font-size: 1.9em; }
+
+  h2 {
+    font-size: 1.5em; }
+
+  h3 {
+    font-size: 1.1em; } }
+.timestamp {
+  color: gray;
+  font-size: .9em; }
+
+iframe {
+  max-width: 100%; }
+
+.container-text img {
+  max-width: 100%; }
+
+.translations-container {
+  margin-left: 85.29804%;
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 31.76157%;
+  border: 1px solid #000;
+  float: right;
+  margin-bottom: 1em;
+  margin-left: 1em;
+  padding: 1em 2.2em; }
+  .translations-container:last-child {
+    margin-right: 0; }
+  .translations-container ul {
+    list-style-type: none;
+    padding-left: 0; }
+  .translations-container li {
+    line-height: normal;
+    padding-bottom: .8em; }
+
+.release-index {
+  margin: 1em 0; }
+
+.release::after {
+  clear: both;
+  content: "";
+  display: table; }
+.release h1 {
+  border-top: 1px solid #dedede; }
+.release:before {
+  display: block;
+  content: " ";
+  margin-top: -70px;
+  height: 70px;
+  visibility: hidden; }
+.release .leak-content img {
+  width: 100%; }
+.release h3 {
+  margin-bottom: .7em; }
+  .release h3:not(:first-of-type) {
+    margin-top: 1.5em; }
+
+.media-partners {
+  margin: 1em 0; }
+
+.leak-date {
+  margin-bottom: 2em; }
+
+.pagination li {
+  display: inline;
+  padding: 0.3em; }
+.pagination .current {
+  font-weight: bold; }
+
+#uniquer {
+  overflow-x: scroll; }
+
+.column-titles h2 {
+  margin: 30px 0; }
+
+.document-col, .analysis-col {
+  width: 50%;
+  float: left;
+  padding-left: 15px; }
+  .document-col::after, .analysis-col::after {
+    clear: both;
+    content: "";
+    display: table; }
+  .document-col img, .analysis-col img {
+    display: inline-block;
+    float: left;
+    margin-right: 10px;
+    width: 32px; }
+  .document-col .meta-info, .analysis-col .meta-info {
+    display: inline-block;
+    float: left;
+    width: 85%; }
+    .document-col .meta-info::after, .analysis-col .meta-info::after {
+      clear: both;
+      content: "";
+      display: table; }
+  .document-col .title, .analysis-col .title {
+    font-size: 1.2em;
+    line-height: 1.4em; }
+  .document-col .extra-information, .analysis-col .extra-information {
+    font-size: .9em; }
+  .document-col:hover a, .analysis-col:hover a {
+    color: #0078c6; }
+
+.release-section {
+  margin-top: 1em; }
+  .release-section h3 {
+    background-color: #ebebeb;
+    margin: 0;
+    padding-left: 15px; }
+  .release-section li:not(:last-child) {
+    border-bottom: 1px solid #ebebeb;
+    margin: 0; }
+  .release-section h4 {
+    font-size: 1.2em;
+    padding-left: 15px;
+    margin: 0.5em 0 0 0; }
+
+.document-information {
+  height: inherit;
+  padding: 15px 0; }
+  .document-information::after {
+    clear: both;
+    content: "";
+    display: table; }
+  .document-information a {
+    color: #333333; }
+
+.documents-release:before {
+  display: block;
+  content: " ";
+  margin-top: -70px;
+  height: 70px;
+  visibility: hidden; }
+
+.document .banner::after {
+  clear: both;
+  content: "";
+  display: table; }
+.document .title {
+  padding-top: 1em; }
+  .document .title h3 {
+    margin-bottom: 0; }
+  .document .title h1 {
+    line-height: 1.4em; }
+  .document .title .extra-information {
+    margin-bottom: 25px; }
+.document .leak-sidebar {
+  margin-top: 12em; }
+
+.article {
+  padding: .7em 0; }
+  .article::after {
+    clear: both;
+    content: "";
+    display: table; }
+  .article .info {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 74.41059%; }
+    .article .info:last-child {
+      margin-right: 0; }
+    @media screen and (max-width: 500px) {
+      .article .info {
+        float: left;
+        display: block;
+        margin-right: 38.19821%;
+        width: 100%; }
+        .article .info:last-child {
+          margin-right: 0; } }
+  .article .logo {
+    display: inline-block; }
+    .article .logo img {
+      width: 100px;
+      max-height: 80px; }
+      @media screen and (max-width: 500px) {
+        .article .logo img {
+          display: none; } }
+  .article:not(:last-child) {
+    border-bottom: 1px solid #ebebeb;
+    margin: 0; }
+
+.articles .title {
+  font-size: 1.2em;
+  line-height: 1.4em; }
+.articles .date {
+  font-size: .9em; }
+
+.emails {
+  display: table; }
+
+.table-hdr {
+  display: table-row;
+  font-weight: bold;
+  border-bottom: 1px solid black; }
+
+.field-1 {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 6.17215%; }
+  .field-1:last-child {
+    margin-right: 0; }
+
+.field-2 {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 57.35098%; }
+  .field-2:last-child {
+    margin-right: 0; }
+
+.field-3 {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 31.76157%; }
+  .field-3:last-child {
+    margin-right: 0; }
+
+.email-hdr {
+  padding-top: 3em;
+  display: table; }
+
+.hdr-row {
+  display: table-row; }
+
+.hdr-name {
+  display: table-cell;
+  text-align: right;
+  vertical-align: top; }
+
+.hdr-value {
+  display: table-cell;
+  padding-left: 1em; }
+
+.email {
+  padding: .7em 0; }
+  .email::after {
+    clear: both;
+    content: "";
+    display: table; }
+  .email .date, .email .subject, .email .sender {
+    display: table-cell;
+    font-size: .9em; }
+  .email:nth-child(odd) {
+    background: #ebebeb; }
+
+h1 {
+  margin-bottom: 0;
+  padding-top: 20px; }
+
+.title-area {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto; }
+  .title-area::after {
+    clear: both;
+    content: "";
+    display: table; }
+  .title-area img {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 23.23176%; }
+    .title-area img:last-child {
+      margin-right: 0; }
+    @media screen and (max-width: 769px) {
+      .title-area img {
+        display: none; } }
+  .title-area .leak-title {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 74.41059%;
+    display: inline-block;
+    font-weight: bold;
+    padding-top: 0; }
+    .title-area .leak-title:last-child {
+      margin-right: 0; }
+    @media screen and (max-width: 769px) {
+      .title-area .leak-title {
+        float: left;
+        display: block;
+        margin-right: 10.1484%;
+        width: 100%; }
+        .title-area .leak-title:last-child {
+          margin-right: 0; } }
+
+.leak-navigation {
+  margin-top: 1em;
+  border-bottom: 1px solid #dedede; }
+  .leak-navigation .active {
+    background-color: #ebebeb; }
+  .leak-navigation a {
+    color: #093a41; }
+    .leak-navigation a :after {
+      margin-left: 0.3em;
+      vertical-align: -5%;
+      font-size: 1em;
+      content: "\25BC"; }
+  .leak-navigation li {
+    display: inline-block;
+    font-weight: bold;
+    padding: .4em .9em;
+    margin: 0; }
+    .leak-navigation li:hover {
+      background-color: #ebebeb; }
+
+h2 {
+  margin-bottom: 5px; }
+
+.leak-content {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 65.88078%; }
+  .leak-content:last-child {
+    margin-right: 0; }
+  @media screen and (max-width: 769px) {
+    .leak-content {
+      float: left;
+      display: block;
+      margin-right: 10.1484%;
+      width: 100%; }
+      .leak-content:last-child {
+        margin-right: 0; } }
+
+.leak-sidebar {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 31.76157%;
+  padding-left: 2em;
+  margin-top: 14px; }
+  .leak-sidebar:last-child {
+    margin-right: 0; }
+  @media screen and (max-width: 769px) {
+    .leak-sidebar {
+      float: left;
+      display: block;
+      margin-right: 10.1484%;
+      width: 100%;
+      padding-left: 0;
+      padding-bottom: 2em; }
+      .leak-sidebar:last-child {
+        margin-right: 0; } }
+  .leak-sidebar ul {
+    margin-bottom: 40px; }
+
+.sidebar-section {
+  line-height: 1.4em;
+  margin-bottom: 1.5em; }
+  .sidebar-section::after {
+    clear: both;
+    content: "";
+    display: table; }
+  .sidebar-section img {
+    float: left;
+    margin-right: 10px;
+    width: 40px; }
+  .sidebar-section .sidebar-item {
+    float: left;
+    margin: .4em 0; }
+
+/*# sourceMappingURL=leak-styles.css.map */
+</style>
+<body>
+
+
+
+
+
+
+	
+<div id="submit_help_buttons" class="submit_elem">
+	<div class="container">
+		<div class="text-center">
+			<div class="submit_buttons btn-group" role="group">
+				<a href="#submit_help_contact" class="btn-wl btn-wl-empty">How to contact WikiLeaks?</a>
+				<a href="#submit_help_tor" class="btn-wl btn-wl-empty">What is Tor?</a>
+				<a href="#submit_help_tips" class="btn-wl btn-wl-empty">Tips for Sources</a>
+				<a href="#submit_help_after" class="btn-wl btn-wl-empty">After Submitting</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+  <div id="main">
+        
+
+<link href="/static/css/styles_topnav.css" rel="stylesheet">
+<link href="/static/css/styles_sidenav.css" rel="stylesheet">
+<div class="top-navigation">
+  <nav class="navbar">
+      <a href="#menu" class="mobile-only hot-dog nav-element">
+      </a>  
+
+      
+    <div  style="" class="nav-logo">
+      <a href="index.html">
+        <h1 style="display:flex; margin-top:-5px;margin-left:40px;">BPIKD</h1>
+      </a>
+      
+     
+    </div>
+    <div class="action-buttons">
+      <a class="button-face support-link" href="shop.html" target="_blank">Shop</a>
+      <a class="button-face donate-link" href="donate.html">Donate</a>
+      
+      <a class="button-face submit-link" href="submit.html">Submit</a>
+    </div>
+    <form class="global-search" method="get" action="advancedsearch.html">
+      <input type="text" name="q" id="search-bar" placeholder="Search">
+      <button class="btn-search" type="submit"></button>
+      <div id="searchResults" class="search-results"></div>
+    </form>
+    <div class="main-nav">
+
+        <ul class="first-level">
+
+            <li>
+              <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
+            </li>
+
+            <li>
+              <a class=" news-menu-item" href="/news.html">News</a>
+            </li>
+
+            <li>
+              <a class=" about-menu-item" href="/about.html">About</a>
+            </li>
+
+            <li>
+              <a class=" partners-menu-item" href="/partners.html">Partners</a>
+            </li>
+
+        </ul>
+
+    </div>
+  </nav>
+</div>
+<script>
+  // JavaScript to handle Donate click
+  document.querySelector('nav a[href="/donate"]').addEventListener('click', function(event) {
+      event.preventDefault(); // Prevents default link behavior
+      var popup = document.getElementById('donatePopup');
+      popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+  });
+  document.getElementById('closeBtn').addEventListener('click', function() {
+            document.getElementById('donatePopup').style.display = 'none';
+        });
+
+</script>
+<nav id="menu" class="side-nav rub">
+  <div class="menu-wrapper">
+     <a class="close-btn nav-element" style=" background: url('close-green.png') center center no-repeat transparent;
+background-size: 1.4em;
+display: inline-block;
+height: 50px;
+top: 0;
+width: 40px;
+" href=""></a>
+
+      <ul class="first-level">
+
+            <li>
+              <a class=" leaks-menu-item" href="/leaks.html">Leaks</a>
+            </li>
+
+            <li>
+              <a class=" news-menu-item" href="/news.html">News</a>
+            </li>
+
+            <li>
+              <a class=" about-menu-item" href="/about.html">About</a>
+
+          </li>
+
+          <li>
+            <a class=" partners-menu-item" href="/partners.html">Partners</a>
+
+          </li>
+
+      </ul>
+
+ 
+    <aside class="social mobile-only">
+      <ul>
+        <li>
+          <a href="https://www.facebook.com/wikileaks" class="nav-element" target="_blank" alt="Facebook">
+            <img class="img-responsive" src="fb-logo.png" alt="Facebook" title="Facebook page" />
+          </a>
+        </li>
+        <li>
+          <a href="https://twitter.com/wikileaks" class="nav-element" target="_blank" alt="Twitter">
+            <img class="img-responsive" src="twitter-logo.png" alt="Twitter" title="Twitter page" />
+          </a>
+        </li>
+      </ul>
+    </aside>
+  </div>
+</nav>
+
+
+
+    <div class="content">
+      <div class="leak-header">
+        <div class="title-area">
+          <h1 class="leak-title">Amazon Atlas</h1>
+          <img src="./logo@400.png"/>
+        </div>
+        <ul class="leak-navigation">
+          
+          
+            
+              
+              <a href="./releases/">
+                
+                <li class="active">Releases</li>
+              </a>
+            
+          
+            
+              
+              <a href="./document/">
+                
+                <li>Documents</li>
+              </a>
+            
+          
+            
+          
+            
+          
+	<a href="/amazon-atlas/map/"><li>Map</li></a>
+        </ul>
+      </div>
+      
+
+
+  <div class="releases">
+    
+      <div id="AmazonAtlas" class="release">
+        <h1>Ime i Prezime</h1>
+
+        <br>
+        <div class="leak-content">
+          <p>sdadsada</p>
+          
+        </div>
+
+        
+        <div class="leak-sidebar">
+          
+    
+    
+  
+  </div>
+
+          
+  <div class="sidebar-section">
+  
+  </div>
+        </div>
+      </div>
+    
+  </div>
+
+  
+
+    </div>
+  </div>
+
+  
+  
+
+  <link href="/static/css/styles_footer.css" rel="stylesheet">
+  <footer id="page-footer" class="footer-recommendations">
+    <div class="footer-wrapper">
+        <div  id="footer-content" class="recommendation-container">
+            
+        </div>
+    </div>
+  </footer>
+  
+  <script>
+    
+    function fetchAndDisplayFooter() {
+      fetch('/footer')
+      .then(response => response.json())
+      .then(footerItems => {
+          const footerContainer = document.getElementById('footer-content');
+          footerContainer.className = 'footer-container'; // Add this line
+          footerContainer.innerHTML = '';
+  
+          footerItems.forEach(item => {
+              const footerElement = document.createElement('div');
+              footerElement.className = 'footer-item';
+              footerElement.innerHTML = `
+                  <img src="${item.urlPath}" alt="Footer Image" style="
+                      display: block;
+                      margin: 0 auto;
+                      width: 130px;
+                      height: auto;
+                  "> 
+                  <p style="text-align: center; margin-top:40px; font-size:13px; max-width:200px;">${item.tekst}</p>
+              `;
+              footerContainer.appendChild(footerElement);
+          });
+      })
+          .catch(error => console.error('Došlo je do greške:', error));
+  }
+  
+  // Poziv funkcije prilikom učitavanja stranice
+  document.addEventListener("DOMContentLoaded", function() {
+      fetchAndDisplayFooter();
+  });
+  </script>
+  
+  
+  <script>
+      
+      function fetchOsobaMjeseca() {
+        fetch('/osobaMjeseca')
+          .then(response => response.json())
+          .then(osoba => {
+            
+            const baseUrl = '/uploads/media/images/';
+            const osobaMjesecaHTML = `
+              <div class="card-grid-space">
+                <div class="num"></div>
+                <a class="card" href="/podstranica/${osoba.ime}_${osoba.prezime}" style="--bg-img: url(${baseUrl}${osoba.slikaUrl})">
+                  <div>
+                    <h1>${osoba.ime} ${osoba.prezime}</h1>
+                    
+                  
+                    
+                  </div>
+                </a>
+              </div>
+            `;
+    
+            document.getElementById('osobaMjeseca').innerHTML = osobaMjesecaHTML;
+          })
+          .catch(error => console.error('Došlo je do greške:', error));
+      }
+      function fetchIstaknuteOsobe() {
+      fetch('/get_featured_persons')
+        .then(response => response.json())
+        .then(istaknuteOsobe => {
+          const baseUrl = '/uploads/media/images/';
+          let cardsHtml = '';
+  
+          istaknuteOsobe.forEach(osoba => {
+    cardsHtml += `
+      <div class="card-grid-space">
+        <div class="num"></div>
+        <a class="card" href="/podstranica/${osoba.id}" style=" --bg-img: url(${baseUrl}${osoba.slikaUrl})">
+          <div>
+            <h1>${osoba.ime} ${osoba.prezime}</h1>
+            
+            
+            
+          </div>
+        </a>
+      </div>
+    `;
+  });
+  
+          document.getElementById('istaknuteOsobe').innerHTML = cardsHtml;
+        })
+        .catch(error => console.error('Došlo je do greške:', error));
+    }
+    function generatePersonHTML(osoba) {
+    const baseUrl = '/uploads/media/images/';
+    const card = document.createElement('a'); // Change this to an anchor tag
+    card.className = 'card';
+    card.href = `/podstranica/${osoba.id}`; // Set the href attribute
+    card.style.setProperty('--bg-img', `url(${baseUrl}${osoba.slikaUrl})`);
+    card.innerHTML = `
+      <div>
+        <h1>${osoba.ime} ${osoba.prezime}</h1>
+      </div>
+    `;
+    return card;
+  }
+  
+  function setupInfiniteScroll(osobe) {
+    const container = document.getElementById('ostaleOsobe');
+    
+    container.addEventListener('scroll', function() {
+      // Check if scrolled to end
+      if (container.scrollWidth - container.scrollLeft === container.clientWidth) {
+        console.log('Scrolled to end of container');
+        const firstElement = container.firstChild;
+        container.appendChild(firstElement.cloneNode(true));
+      }
+    });
+  }
+  
+  function fetchNedavnoDodaneOsobe() {
+    fetch('/daj_sve')
+      .then(response => response.json())
+      .then(osobe => {
+        const container = document.getElementById('ostaleOsobe');
+        container.innerHTML = ''; // Clear existing content
+  
+        const gap = 25; // Razmak između karata
+  
+        osobe.forEach(osoba => {
+          const personCard = generatePersonHTML(osoba);
+          container.appendChild(personCard);
+        });
+  
+        // Postavljanje širine kontejnera
+        const totalWidth = osobe.length * (cardWidth + gap) + gap;
+        container.style.width = `${totalWidth}px`;
+        container.style.paddingLeft = `${gap/2}px`;
+        container.style.paddingRight = `${gap/2}px`;
+      })
+      .catch(error => console.error('Došlo je do greške:', error));
+  }
+  
+    // Poziv funkcije prilikom učitavanja stranice
+    fetchNedavnoDodaneOsobe();
+  
+    // Poziv funkcije prilikom učitavanja stranice
+    fetchIstaknuteOsobe();
+    
+      // Poziv funkcije prilikom učitavanja stranice
+      fetchOsobaMjeseca();
+      let searchTimeoutToken;
+  
+    function handleSearch() {
+      const searchTerm = document.getElementById('search-bar').value;
+  
+      clearTimeout(searchTimeoutToken); // Clear existing timeout
+  
+      if (searchTerm.length > 2) {
+        // Set a new timeout
+        searchTimeoutToken = setTimeout(() => {
+          fetch(`/search?q=${encodeURIComponent(searchTerm)}`)
+            .then(response => response.json())
+            .then(results => {
+              displaySearchResults(results);
+            })
+            .catch(error => console.error('Search error:', error));
+        }, 300); // Adjust 300ms to your liking
+      } else {
+        clearSearchResults();
+      }
+    }
+    function displaySearchResults(results) {
+    const resultsContainer = document.getElementById('searchResults');
+    resultsContainer.innerHTML = ''; // Clear existing results
+  
+    if (results.length === 0) {
+      // No results found
+      resultsContainer.innerHTML = '<div class="search-result-item">Nema ponuđenih osoba</div>';
+    } else {
+      // Display results
+      results.forEach(person => {
+        const personElement = document.createElement('div');
+        personElement.className = 'search-result-item';
+        personElement.innerHTML = `<a href="/podstranica/${person.ime}_${person.prezime}">${person.ime} ${person.prezime}</a>`;
+        resultsContainer.appendChild(personElement);
+      });
+    }
+  }
+  
+    // Function to clear search results
+    function clearSearchResults() {
+      document.getElementById('searchResults').innerHTML = '';
+    }
+  
+    // Event listener for search bar input
+    document.getElementById('search-bar').addEventListener('input', handleSearch);
+  
+    document.addEventListener("DOMContentLoaded", function() {
+      
+    const scrollContainer = document.getElementById('ostaleOsobe');
+    const scrollThreshold = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+  
+    // Funkcija koja resetuje scroll na početak
+    function resetScroll() {
+      if (scrollContainer.scrollLeft >= scrollThreshold) {
+        // Resetuje scroll na početak
+        scrollContainer.scrollLeft = 0;
+      }
+    }
+  
+    // Event listener za scroll događaj
+    scrollContainer.addEventListener('scroll', resetScroll);
+  });
+  
+    </script>
+    
+  </body>
+  </html>
+  
+  
+
+
+  
+</body>
+</html>

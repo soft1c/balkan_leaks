@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BIPKD | Admin</title>
+  <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+  <link rel="stylesheet" href="css/admin.css">
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    .layout-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+  gap:20px;
+}
+
+.body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #000; /* Black background */
+    background-color: #272242 ; /* GitHub dark mode background color */
+    color: #f4f4f4;; /* GitHub dark mode text color */
+  }
+
+  .layout-box {
+    width:100px;
+    height:200px;
+    text-align:center;
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid #30363D; /* GitHub dark mode border color */
+    background-color: #161B22; /* GitHub dark mode box color */
+    color: #C9D1D9; /* GitHub dark mode text color */
+    transition: all 0.3s ease; /* Transition effect */
+  }
+
+  .layout-box:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Hover effect */
+    background-color: #21262D; /* Slightly lighter on hover */
+  }
+
+.layout-box.large {
+  width:100px;
+  height:200px; /* Larger box for Person of the Month */
+}
+#personSelector div {
+  cursor: pointer;
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+}
+#personSelector div:hover {
+  background-color: #f0f0f0;
+}
+
+.ql-editor {
+  line-height: 1.5; /* ili bilo koja druga vrijednost koju želite */
+}
+
+#editor {
+  min-height: 9em; /* 3 (reda) * 1.5em (line-height) */
+}
+#aboutEditor {
+  min-height:20em;
+}
+.search-bar-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.search-input-edit {
+  width: 100%;
+  max-width: 500px; /* Maksimalna širina search bara */
+}
+
+.search-dropdown {
+  position: absolute;
+  width: 100%;
+  max-width: 500px; /* Mora odgovarati širini search bara */
+  box-shadow: 0px 4px 5px rgba(0,0,0,0.2); /* Stil za dropdown */
+  background-color: white;
+  z-index: 1000; /* Da se prikaže iznad ostalih elemenata */
+}
+.search-bar-container {
+  position: relative;
+  max-width: 500px; /* Maksimalna širina search bara */
+  margin: 0 auto; /* Centriranje */
+}
+
+.search-input-edit {
+  width: 100%; /* Širina unutar search-bar-containera */
+  /* Dodajte padding i border ako je potrebno */
+}
+
+.search-dropdown {
+  position: absolute;
+  top: 100%; /* Ovo će pomaknuti dropdown ispod search bara */
+  left: 0;
+  width: 100%; /* Dropdown će biti iste širine kao i search bar */
+  box-shadow: 0px 4px 5px rgba(0,0,0,0.2); /* Stil za dropdown */
+  background-color: white;
+  z-index: 1000; /* Da se prikaže iznad ostalih elemenata */
+  max-height: 300px; /* Maksimalna visina dropdowna */
+  overflow-y: auto; /* Omogući skrolanje unutar dropdowna ako je potrebno */
+  
+}
+  </style>
+</head>
+<body>
+  <div style="
+  background-color:#20222D ;"        class="top-navigation">
+    <nav class="navbar">
+        <a href="#menu" class="mobile-only hot-dog nav-element">
+        </a>
+      <div class="nav-logo">
+        
+          <h1 style="color:white;" >Admin panel</h1>
+        
+      </div>
+      <div class="action-buttons">
+        <button style="color:white; margin-top:15px;" id="odjava" class="button-face support-link" onclick="logout()">Log Out</button>
+      </div>
+      
+      <div class="main-nav">
+      </div>
+    </nav>
+  </div>
+  <script src="js/admin.js"></script>
+  <div style="
+  background-color: #20222D; " class="sidebar">
+    
+    <a href="#" class="tablink" onclick="openTab(event, 'AddPerson')">Add Person</a>
+    <a href="#" class="tablink" onclick="openTab(event, 'IPAddresses')">IP Addresses</a>
+    <a href="#" class="tablink" onclick="openTab(event, 'ManageLayout')">Page Layout</a>
+    <a href="#" class="tablink" onclick="openTab(event, 'EditPersons')">Edit Persons</a>
+    <a id="ManagePersonel1" href="#" class="tablink" onclick="openTab(event, 'ManagePersonel')" >Manage Staff</a>
+    <a href="#" class="tablink" onclick="openTab(event, 'ChangePassword')">Change Your Password</a>  
+    <a href="#" class="tablink" onclick="openTab(event, 'AddNews')">Add a news</a>
+    <a href="#" class="tablink" onclick="openTab(event, 'DeleteNews')">Delete News</a>
+
+    <a href="#" class="tablink" onclick="openTab(event, 'EditFooter')">Manage Footer</a>
+    <a href="#" class="tablink" onclick="openTab(event, 'AddSponsors')">Add Sponsors</a>
+    <a href="#" class="tablink" onclick="openTab(event, 'AboutUs')">Edit About Us</a>
+    <a href="#" class="tablink" onclick="openTab(event, 'Donate')">Manage Donate</a>
+    <a href="#" class="tablink" onclick="openTab(event, 'ManageShop')">Manage Shop</a>
+
+  
+  </div>
+  <div id="AddPerson" class="tabcontent">
+    <form id="AddPersonForm" action="/admin/dodaj" method="post" enctype="multipart/form-data">
+      <h1 style="color:black;">Add a Person</h1>
+      
+      <!-- Prvi red za sliku i polja za unos imena i prezimena -->
+      <div class="form-row top-row">
+        <div class="form-group image-upload-container">
+          <div class="image-upload-box" onclick="document.getElementById('slika').click()">
+            <p>Upload Picture</p>
+            <input type="file" id="slika" name="slika" accept="image/*" required onchange="previewImage(event)">
+            <img id="imagePreview" src="" alt="Image preview" style="display:none;">
+          </div>
+        </div>
+  
+        <div class="form-group name-fields">
+          <div>
+            <label for="ime">Name:</label>
+            <input type="text" name="ime" required>
+          </div>
+          <div>
+            <label for="prezime">Surname:</label>
+            <input type="text" name="prezime" required>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Drugi red za Quill editor -->
+      <div class="form-row text-editor-container" style="height: auto;">
+        <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+        <div id="editor"></div>
+        
+        <textarea name="opis1" id="hiddenOpis1" style="display:none;"></textarea>
+        <script>
+          var toolbarOptions = [
+          ['bold', 'italic', 'underline'],
+          [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+          [{ 'size': ['small', false, 'large', 'huge'] }],
+        
+          ['link'],
+          [{ 'color': [] }, { 'background': [] }],
+          [{ 'font': [] }],
+          [{ 'align': [] }]
+        ];
+        
+        var Link = Quill.import('formats/link');
+        
+        class MyLink extends Link {
+          static create(value) {
+            let node = super.create(value);
+            // Dodaje 'http://' ako link ne počinje sa 'http://' ili 'https://'
+            if (!value.startsWith('http://') && !value.startsWith('https://')) {
+              node.setAttribute('href', 'http://' + value);
+            }
+            return node;
+          }
+        }
+        
+        Quill.register(MyLink);
+        
+        var quill = new Quill('#editor', {
+          modules: {
+            toolbar: toolbarOptions
+          },
+          theme: 'snow'
+        });
+        
+        </script>
+      </div>
+
+  
+      <!-- Gumbi -->
+      <div class="form-row button-container">
+        <button type="submit" class="submit-button">Add Person</button>
+        <button type="button" class="submit-button" onclick="previewPerson()">Preview</button>
+      </div>
+    </form>
+  </div>
+  
+
+  
+  <div id="IPAddresses" class="tabcontent">
+    <div class="data-container">
+      <div id="ip-addresses" class="data-block">
+          <h2 style="color:black;">IP Addresses:</h2>
+          <ul id="ipList" class="scrollable-list"></ul>
+      </div>
+  
+      <div id="visit-stats" class="data-block">
+          <h2 style="color: black;">Visit Statistics:</h2>
+          <p id="dailyCount">Today's Visits: Loading...</p>
+          <p id="weeklyCount">Last Week's Visits: Loading...</p>
+          <p id="allTimeCount">Total Visits: Loading...</p>
+      </div>
+  </div>
+  </div>
+  
+
+
+  <div id="ManageLayout" class="tabcontent">
+    <h2>Manage Layout</h2>
+    <div class="layout-row">
+      <div id ="personOfTheMonth" class="layout-box large" onclick="openPersonSelector('personOfTheMonth',this)">
+        Person of the Month
+      </div>
+    </div>
+    <br><br>
+    <div class="layout-row">
+      <!-- Featured Persons -->
+      <div id="featuredPerson1" class="layout-box" onclick="openPersonSelector('featuredPerson1',this)">Featured 1</div>
+      <div id="featuredPerson2" class="layout-box" onclick="openPersonSelector('featuredPerson2',this)">Featured 2</div>
+      <div id="featuredPerson3" class="layout-box" onclick="openPersonSelector('featuredPerson3',this)">Featured 3</div>
+      <div id="featuredPerson4" class="layout-box" onclick="openPersonSelector('featuredPerson4',this)">Featured 4</div>
+    </div>
+  
+  <br><br>
+    <!-- Submit Button -->
+    <button type="button" class="submit-button" style="margin: 0 auto;"onclick="submitLayoutChanges()">Submit Layout</button>
+  </div>
+
+
+<div id="EditPersons" class="tabcontent">
+  
+  <h2>Edit Persons</h2>
+  
+  
+  <div class="search-bar-container">
+    <input type="text" id="searchInputEdit" placeholder="Search for a person..." class="search-input-edit">
+    <div id="searchDropdown" class="search-dropdown" style="display: none;"></div>
+  </div>
+  
+  <form id="editPersonForm" style="display:none;">
+    
+    <h1>Edit Person Details</h1>
+    <div class="form-row top-row">
+      <div class="form-group image-upload-container">
+        <div class="image-upload-box" onclick="document.getElementById('slikaEdit').click()">
+          <p>Upload Picture</p>
+          <input type="file" id="slikaEdit" name="slika" accept="image/*" required onchange="previewImage(event)">
+          <img id="slikaId" src="" alt="Image preview" style="display:none;">
+        </div>
+
+      </div>
+
+      <div class="form-group name-fields">
+        <div>
+          <label for="ime">Name:</label>
+          <input type="text" name="ime" id="imeEdit"required>
+        </div>
+        <div>
+          <label for="prezime">Surname:</label>
+          <input type="text" name="prezime" id="prezimeEdit" required>
+        </div>
+        <div class="checkbox-group">
+          <input type="checkbox" id="personOfTheMonth" name="personOfTheMonth">
+          <label for="personOfTheMonth">Person of the Month</label>
+      
+          <input type="checkbox" id="featuredPerson" name="featuredPerson" onclick="handleFeaturedPersonClick()">
+          <label for="featuredPerson">Featured Person</label>
+        </div>
+      </div>
+      <input type="hidden" id="replacedFeaturedPersonId" name="replacedFeaturedPersonId">
+
+<!-- Popup sa izdvojenim osobama -->
+<div id="featuredPersonPopup" style="display:none;">
+  <div class="layout-row">
+    <div class="featured-person" data-id="1" >Osoba 1</div>
+    <div class="featured-person" data-id="2" >Osoba 2</div>
+    <div class="featured-person" data-id="3" >Osoba 3</div>
+    <div class="featured-person" data-id="4" >Osoba 4</div>
+  </div>
+</div>
+       
+      
+      
+    </div>
+
+    <!-- Drugi red za Quill editor -->
+    <div class="form-row text-editor-container" style="height: auto;">
+      <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+      <div id="opisEdit"></div>
+      
+      <textarea name="opis" id="hiddenOpis" style="display:none;"></textarea>
+    </div>
+    
+    
+    
+    
+    
+    <div class="form-row button-container">
+      <button type="button" onclick="submitEditForm()" class="submit-button">Update Person</button>
+      <button type="button" onclick="deletePerson()" class="submit-button delete-button">Delete Person</button>
+    </div>
+    
+  </form>
+  <form id="uploadForm">
+    <input type="hidden" id="licnost" name="licnost">
+    <div class="form-group">
+      <label for="file">Upload Media:</label>
+      <input type="file" id="file" name="file" style="display: block;"required>
+      <select name="typeOfFile" id="typeOfFile" required>
+        <option value="image">Picture</option>
+        <option value="video">Video</option>
+        <option value="audio">Audio</option>
+        <option value="text">Text</option>
+      </select>
+    </div>
+    <button type="button" onclick="uploadMedia()" class="submit-button">Upload</button>
+  </form>
+</div>
+
+
+
+<div id="ManagePersonel" class="tabcontent">
+  <h1>Add a Moderator</h1>
+  <form id="addModeratorForm">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="modUsername">Username:</label>
+        <input type="text" id="modUsername" name="username" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="modPassword">Password:</label>
+        <input type="password" id="modPassword" name="password" required>
+      </div>
+      <div class="form-group">
+        <label for="modNickname">Nickname:</label>
+        <input type="text" id="modNickname" name="nickname" required>
+      </div>
+    </div>
+
+    <div class="form-row button-container">
+      <button type="button" onclick="addModerator()" class="submit-button">Add Moderator</button>
+    </div>
+  </form>
+
+
+  <h1>Delete a Moderator</h1>
+  <form id="deleteModeratorForm">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="moderatorSelect">Select Moderator:</label>
+        <select id="moderatorSelect" required></select>
+      </div>
+    </div>
+    <div class="form-row button-container">
+      <button type="button" onclick="deleteModerator()" class="submit-button">Delete Moderator</button>
+    </div>
+  </form>
+  <h1>Add an Admin</h1>
+  <form id="addAdminForm">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="adminUsername">Username:</label>
+        <input type="text" id="adminUsername" name="username" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="adminPassword">Password:</label>
+        <input type="password" id="adminPassword" name="password" required>
+      </div>
+
+      <div class="form-group">
+        <label for="adminNickname">Nickname:</label>
+        <input type="text" id="adminNickname" name="nickname" required>
+      </div>
+    </div>
+
+    <div class="form-row button-container">
+      <button type="button" onclick="addAdmin()" class="submit-button">Add Admin</button>
+    </div>
+  </form>
+
+  <h1>Delete an Admin</h1>
+  <form id="deleteAdminForm">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="adminSelect">Select Admin:</label>
+        <select id="adminSelect" required></select>
+      </div>
+    </div>
+    <div class="form-row button-container">
+      <button type="button" onclick="deleteAdmin()" class="submit-button">Delete Admin</button>
+    </div>
+  </form>
+
+</div>
+
+<div id="ChangePassword" class="tabcontent">
+  <h1>Change your password</h1>
+  <form id="changePasswordForm">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="currentPassword">Current password: </label>
+        <input type="password" id="currentPassword" name="currentPassword" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="newPassword">New password: </label>
+        <input type="password" id="newPassword" name="newPassword" required>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmNewPassword">Confirm new password: </label>
+        <input type="password" id="confirmNewPassword" name="confirmNewPassword" required>
+      </div>
+    </div>
+
+    <div class="form-row button-container">
+      <button type="button" onclick="changePassword()" class="submit-button">Change password</button>
+    </div>
+  </form>
+</div>
+
+<div id="AddNews" class="tabcontent">
+  <h1>Add News Article</h1>
+  <form id="addNewsForm">
+    <div class="form-group">
+      <label for="newsTitle">Title:</label>
+      <input type="text" id="newsTitle" name="title" required>
+    </div>
+    <div class="form-group text-editor-container">
+      <div id="newsEditor"></div>
+      <textarea name="content" id="hiddenContent" style="display:none;"></textarea>
+    </div>
+    <div class="form-row button-container">
+      <button type="button" onclick="submitNews()" class="submit-button">Publish News</button>
+    </div>
+  </form>
+</div>
+
+<div id="EditFooter" class="tabcontent">
+  <h1>Edit Footer</h1>
+  <div id="footerElements">
+      <div class="footer-element">
+          <form class="editFooterForm" id="editFooterForm1" data-footer-id="1">
+            <input type="hidden" name="footerId" value="1">
+
+              <label>Image:</label>
+              <input style="display:block;" type="file" name="footerImage" accept="image/*">
+              <img class="current-footer-image" src="" alt="Current Footer Image" style="max-width: 200px; max-height: 150px;">
+              <label>Text:</label>
+              <textarea name="footerText"></textarea>
+              <button type="button" onclick="submitFooterEdit(1)">Update Element</button>
+          </form>
+      </div>
+  </div>
+  <div id="footerElements">
+    <div class="footer-element">
+        <form class="editFooterForm" id="editFooterForm2" data-footer-id="2">
+          <input type="hidden" name="footerId" value="2">
+
+            <label>Image:</label>
+            <input style="display:block;" type="file" name="footerImage" accept="image/*">
+            <img class="current-footer-image" src="" alt="Current Footer Image" style="max-width: 200px; max-height: 150px;">
+            <label>Text:</label>
+            <textarea name="footerText"></textarea>
+            <button type="button" onclick="submitFooterEdit(2)"">Update Element</button>
+        </form>
+    </div>
+</div>
+<div id="footerElements">
+  <div class="footer-element">
+      <form class="editFooterForm" id="editFooterForm3" data-footer-id="3">
+        <input type="hidden" name="footerId" value="3">
+
+          <label>Image:</label>
+          <input style="display:block;" type="file" name="footerImage" accept="image/*">
+          <img class="current-footer-image" src="" alt="Current Footer Image" style="max-width: 200px; max-height: 150px;">
+          <label>Text:</label>
+          <textarea name="footerText"></textarea>
+          <button type="button" onclick="submitFooterEdit(3)">Update Element</button>
+      </form>
+  </div>
+</div>
+<div id="footerElements">
+  <div class="footer-element">
+      <form class="editFooterForm" id="editFooterForm4"  data-footer-id="4">
+        <input type="hidden" name="footerId" value="4">
+
+          <label>Image:</label>
+          <input style="display:block;" type="file" name="footerImage" accept="image/*">
+          <img class="current-footer-image" src="" alt="Current Footer Image" style="max-width: 200px; max-height: 150px;">
+          <label>Text:</label>
+          <textarea name="footerText"></textarea>
+          <button type="button" onclick="submitFooterEdit(4)">Update Element</button>
+      </form>
+  </div>
+</div>
+</div>
+
+<div id="AddSponsors" class="tabcontent">
+  <h1>Add a Sponsor</h1>
+  <form id="addSponsorForm">
+    <div class="form-group">
+      <label for="sponsorImage">Sponsor Image:</label>
+      <input style="display: block;" type="file" id="sponsorImage" name="image" accept="image/*" required>
+    </div>
+    <div class="form-group">
+      <label for="sponsorLink">Sponsor Link:</label>
+      <input type="text" id="sponsorLink" name="link" required>
+    </div>
+    <div class="form-row button-container">
+      <button type="button" onclick="addSponsor()" class="submit-button">Add Sponsor</button>
+    </div>
+    <br><br><br>
+    <div class="form-row">
+      <label for="sponsorSelect">Select Sponsor:</label>
+      <select id="sponsorSelect">
+      </select>
+    </div>
+    <div class="form-row button-container">
+      <button type="button" onclick="removeSponsor()" class="submit-button">Delete Sponsor</button>
+    </div>
+  </form>
+</div>
+<div id="AboutUs" class="tabcontent">
+  <h1>Edit About Page</h1>
+  <form id="editAboutForm">
+    <div class="form-group text-editor-container">
+      <div id="aboutEditor"></div>
+      <textarea name="text" id="hiddenAboutText" style="display:none;"></textarea>
+    </div>
+    <div class="form-row button-container">
+      <button type="button" class="submit-button" onclick="submitAboutForm()">Submit</button>
+    </div>
+  </form>
+</div>
+
+<div id="DeleteNews" class="tabcontent">
+  <h1>Delete News Article</h1>
+  <form id="deleteNewsForm">
+    <div class="form-group">
+      <label for="newsSelect">Select News Article:</label>
+      <select id="newsSelect" required>
+        <!-- Ovdje će se dinamički dodavati opcije -->
+      </select>
+    </div>
+    <div class="form-row button-container">
+      <button type="button" onclick="deleteNews()" class="submit-button">Delete News</button>
+    </div>
+  </form>
+</div>
+
+<div id="Donate" class="tabcontent">
+  <h1>Add Donation Method</h1>
+  <form id="addDonationMethodForm">
+    <div class="form-group">
+      <label for="donationLink">Donation Link:</label>
+      <input type="text" id="donationLink" name="link">
+    </div>
+    <div class="form-group">
+      <label for="qrImage">QR Code Image:</label>
+      <input style="display: block;" type="file" id="qrImage" name="qrImage" accept="image/*">
+    </div>
+    <div class="form-row button-container">
+      <button type="button" onclick="addDonationMethod()" class="submit-button">Add Donation Method</button>
+    </div>
+  </form>
+
+  <h2>Delete Donation Method</h2>
+    <div class="form-row">
+        <select id="donationMethodSelect"></select>
+        <button onclick="deleteDonationMethod()" class="submit-button">Delete Option</button>
+    </div>
+</div>
+
+<div id="ManageShop" class="tabcontent">
+  <h1>Manage Shop</h1>
+  <form id="addShopItemForm" enctype="multipart/form-data">
+      <div class="form-group">
+          <label for="productImage">Product Image:</label>
+          <input style="display: block;"type="file" id="productImage" name="slika" required>
+      </div>
+      <div class="form-group">
+          <label for="productName">Product Name:</label>
+          <input type="text" id="productName" name="naziv" required>
+      </div>
+      <div class="form-group">
+          <label for="productDescription">Description:</label>
+          <textarea id="productDescription" name="opis" required></textarea>
+      </div>
+      <div class="form-group">
+          <label for="productPrice">Price:</label>
+          <input type="text" id="productPrice" name="cijena" required>
+      </div>
+      <button type="button" onclick="addShopItem()">Add Product</button>
+  </form>
+  <h2>Delete Product</h2>
+  <div id="productList"></div>
+</div>
+
+
+<script src="js/admin.js"></script>
+<script>
+    var quillNews = new Quill('#newsEditor', {
+    modules: {
+      toolbar: toolbarOptions
+    },
+    theme: 'snow'
+  });
+  var quillAbout = new Quill('#aboutEditor', {
+  modules: {
+    toolbar: toolbarOptions
+  },
+  theme: 'snow'
+});
+</script>
+
+
+<script src="js/admin.js"></script>
+
+</body>
+</html>
