@@ -537,6 +537,20 @@
       </form>
   </div>
 </div>
+<div id="footerElements">
+  <div class="footer-element">
+      <form class="editFooterForm" id="editFooterForm5"  data-footer-id="5">
+        <input type="hidden" name="footerId" value="5">
+
+          <label>Image:</label>
+          <input style="display:block;" type="file" name="footerImage" accept="image/*">
+          <img class="current-footer-image" src="" alt="Current Footer Image" style="max-width: 200px; max-height: 150px;">
+          <label>Text:</label>
+          <textarea name="footerText"></textarea>
+          <button type="button" onclick="submitFooterEdit(5)">Update Element</button>
+      </form>
+  </div>
+</div>
 </div>
 
 <div id="AddSponsors" class="tabcontent">

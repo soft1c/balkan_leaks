@@ -480,53 +480,16 @@
 
 
 <script>
-var footerData = {
-  items: [
-    {
-      link: 'https://your-link-1.com',
-      imgSrc: 'logo2.png',
-      imgAlt: 'New Image 1',
-      text: 'Welcome to BPIKD, where transparency meets integrity.'
-    },
-    {
-      link: 'https://your-link-2.com',
-      imgSrc: 'logo2.png',
-      imgAlt: 'New Image 2',
-      text: 'At BPIKD, we believe in the power of information to shape a more accountable world.'
-    },
-    {
-      link: 'https://your-link-1.com',
-      imgSrc: 'logo2.png',
-      imgAlt: 'New Image 1',
-      text: '. We recognize the importance of revealing hidden truths, holding those in power accountable, and ensuring that information flows freely to the public.'
-    },
-    {
-      link: 'https://your-link-1.com',
-      imgSrc: 'logo2.png',
-      imgAlt: 'New Image 1',
-      text: 'At the heart of BPIKD lies a commitment to unveiling the untold stories, shedding light on matters that deserve public attention.'
-    },
-    {
-      link: 'https://your-link-1.com',
-      imgSrc: 'logo2.png',
-      imgAlt: 'New Image 1',
-      text: 'We envision a world where information is not just a commodity but a catalyst for positive change.'
-    },
-    // Add more items as needed
-  ]
-};
-
-window.onload = function() {
+function updateFooter(footerData) {
   var footer = document.getElementById('footer');
   var recommendationLinks = footer.getElementsByClassName('recommendation-links')[0];
-  var recommendations = recommendationLinks.getElementsByClassName('recommendation');
 
-  // Remove existing items
-  while (recommendations[0]) {
-    recommendations[0].parentNode.removeChild(recommendations[0]);
+  // Ukloni postojeće stavke
+  while (recommendationLinks.firstChild) {
+    recommendationLinks.removeChild(recommendationLinks.firstChild);
   }
 
-  // Add new items
+  // Dodaj nove stavke
   footerData.items.forEach(function(item) {
     var li = document.createElement('li');
     li.className = 'recommendation';
@@ -554,7 +517,26 @@ window.onload = function() {
     li.appendChild(a);
     recommendationLinks.appendChild(li);
   });
-};
+}
+
+fetch('/footer')
+  .then(response => response.json())
+  .then(data => {
+    let footerData = { items: [] };
+
+    data.forEach(item => {
+      footerData.items.push({
+        link: 'https://your-default-link.com', // Pretpostavljamo da link nije dostupan u originalnom JSON-u
+        imgSrc: '/'+item.urlPath,
+        imgAlt: 'Footer Image', // Pretpostavljamo da alt tekst nije dostupan u originalnom JSON-u
+        text: item.tekst
+      });
+    });
+
+    // Ažuriraj footer nakon što su podaci dohvaćeni
+    updateFooter(footerData);
+  })
+  .catch(error => console.error('Error fetching footer data:', error));
   </script>
 
 <script>
