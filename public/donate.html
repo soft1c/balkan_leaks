@@ -556,13 +556,14 @@ fetch('/footer')
   
           donationOptions.forEach(option => {
               const optionElement = document.createElement('div');
+
               optionElement.className = 'donation-option';
   
               let content = `<div class="donation-option-details">`;
               if(option.qr) {
                   content += `<img src="${option.qr}" alt="QR Code">`;
               }
-              content += `<div><strong>Link:</strong> ${option.link ? option.link : 'N/A'}</div></div>`;
+              content += `<div><strong>Link:</strong> ${option.link ? `<a href="${option.link}" target="_blank">${option.link}</a>` : 'N/A'}</div></div>`;
   
               optionElement.innerHTML = content;
               container.appendChild(optionElement);
