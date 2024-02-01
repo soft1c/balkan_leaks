@@ -7,13 +7,14 @@ let db = new sqlite3.Database('./baza.db', (err) => {
         throw err;
     } else {
 
-        //drop table dogadjaji
-        let query4="DROP TABLE IF EXISTS dogadjaji";
-        db.run(query4,(err)=>{
+        //alter table sponzori add column text Text
+        let query5="ALTER TABLE sponzori ADD COLUMN text TEXT";
+        db.run(query5,(err)=>{
             if(err){
                 console.log(err);
-            }else{console.log('obrisano');
-        }
+            }else{
+                console.log('izmjena');
+            }
         })
 
         //kreiraj tabelu dogadjaji koja ima naziv dogadjaja, opis, vrijeme i lokaciju

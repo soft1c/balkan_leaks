@@ -1027,17 +1027,17 @@ app.post('/change_password', (req, res) => {
     }
   
     const imageUrl = path.join('uploads', 'media', 'images', req.file.filename); // Relativna putanja slike
-    const linkUrl = req.body.link; // URL sponzora iz forme
-    console.log(linkUrl, imageUrl);
-    const query= `INSERT INTO sponzori (urlPath, link) VALUES (?, ?)`;
-    db.run(query, [imageUrl, linkUrl], function(err) {
+    const {link,text} = req.body; // URL sponzora iz forme
+    console.log(link, imageUrl);
+    const query= `INSERT INTO sponzori (urlPath, link, text) VALUES (?, ?,?)`;
+    db.run(query, [imageUrl, link, text], function(err) {
       if (err) {
         console.error(err.message);
         return res.status(500).send('Error adding sponsor');
       }
       console.log(`Row(s) updated: ${this.changes}`);
   
-      res.status(200).json({ message: 'Sponsor added successfully', imageUrl, linkUrl });
+      res.status(200).json({ message: 'Sponsor added successfully', imageUrl, link });
     });
   });
 
