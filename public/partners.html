@@ -89,6 +89,28 @@
     text-align: center;
     top: -40px;
     width: 80px; }
+
+    .sponsor-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px; /* Dodaje razmak između sponzora */
+}
+
+.sponsor-item a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit; /* Sprječava promjenu boje teksta linka */
+}
+
+.sponsor-text {
+  margin-left: 20px; /* Dodaje razmak između slike i teksta */
+}
+
+.sponsor-text h3 {
+  margin-top: 0;
+  margin-bottom: 5px; /* Razmak između imena sponzora i opisa */
+}
     </style>
 
 </head>
@@ -495,22 +517,26 @@ function fetchNedavnoDodaneOsobe() {
     });
   
     function fetchSponsors() {
-      fetch('/sponzori')
-        .then(response => response.json())
-        .then(sponsors => {
-          console.log('sponsors:', sponsors);
-          const sponsorsList = document.getElementById('sponsorsList');
-          
-          sponsorsList.innerHTML = sponsors.map(sponsor => `
-            <li>
-              <a href="${sponsor.link}" target="_blank">
-                <img src="${sponsor.urlPath}" alt="Sponsor Image" width='195' height='105' />
-              </a>
-            </li>
-          `).join('');
-        })
-        .catch(error => console.error('Error fetching sponsors:', error));
-    }
+  fetch('/sponzori')
+    .then(response => response.json())
+    .then(sponsors => {
+      const sponsorsList = document.getElementById('sponsorsList');
+      
+      sponsorsList.innerHTML = sponsors.map(sponsor => `
+        <li class="sponsor-item">
+          <a href="${sponsor.link}" target="_blank">
+            <img src="${sponsor.urlPath}" alt="Sponzor" width='195' height='105' />
+            <div class="sponsor-text">
+              
+              <p>${sponsor.text}</p>
+            </div>
+          </a>
+        </li>
+        <br>
+      `).join('');
+    })
+    .catch(error => console.error('Error fetching sponsors:', error));
+}
   </script>
   <script>
     function updateFooter(footerData) {
