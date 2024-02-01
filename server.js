@@ -1441,6 +1441,11 @@ app.get('/get_releases/:id', (req, res) => {
 });
 
 
+app.get('/documents/:id',(req,res)=>{
+  res.sendFile(path.join(__dirname, 'public', 'documents.html'));
+})
+
+
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

@@ -355,12 +355,9 @@ width: 40px;
                 <li>Documents</li>
               </a> 
               <div id="files-container">  
-                <div class="document-list" style="
- "> 
+                <div class="document-list" id="document-list" > 
                            
- <a href=""> <h1>OPCW-DOUMA - Release Part 1</h1> </a>
 
- <a href=""> <h1>OPCW-DOUMA - Release Part 2</h1> </a>
 
                </div>
                 <div id="releasesContainer"></div>
@@ -983,36 +980,30 @@ function fetchNedavnoDodaneOsobe() {
     function fetchAndDisplayReleases(osobaId) {
       
       console.log("za " ,osobaId);
-  fetch(`/get_releases/${osobaId}`)
+      fetch(`/get_releases/${osobaId}`)
     .then(response => response.json())
     .then(releases => {
-      // Koristimo getElementById umjesto querySelector
-      const releasesContainer = document.getElementById('releasesContainer');
+      console.log('eventi: ', releases);
+      const releasesContainer = document.getElementById('document-list');
       releasesContainer.innerHTML = ''; // Očistimo prethodne releases ako ih ima
 
       if (releases.length === 0) {
         releasesContainer.innerHTML = '<p>Nema dostupnih događaja za ovu osobu.</p>';
       } else {
         releases.forEach(release => {
-          const releaseElement = document.createElement('div');
-          releaseElement.className = 'release-item';
-          releaseElement.innerHTML = `
-            <div class="release-header">
-              <h2>${release.naziv}</h2>
-              <p><strong>Vrijeme:</strong> ${release.vrijeme}</p>
-              <p><strong>Lokacija:</strong> ${release.lokacija}</p>
-            </div>
-            <div class="release-body">
-              ${release.opis}
-            </div>
-          `;
-          releasesContainer.appendChild(releaseElement);
+          console.log(release);
+          // Kreiramo link (a element) umjesto div-a
+          const releaseLink = document.createElement('a');
+          releaseLink.href = `/documents/${release.event_name}`; // Postavljamo href da vodi na event stranicu
+          releaseLink.className = 'release-item';
+          releaseLink.innerHTML = `<h1>${release.naziv}</h1>`; // Koristimo naziv događaja za tekst linka
+
+          releasesContainer.appendChild(releaseLink);
         });
       }
     })
     .catch(error => console.error('Greška pri dohvatanju događaja:', error));
 }
-
   // Ovde treba da se stavi stvarni ID osobe
 
     </script>
