@@ -320,20 +320,50 @@ width: 40px;
           
             
               
-            <a href="../releases/" id="releases-link">
+          
                 
                 <li class="active">Releases</li>
-                <div id="releasesContainer"></div>
-              </a>
-            
 
-            
+                <style>      
               
-            <a href="../document/" id="documents-link">
+                .document-list {
+                 display: flex;
+                 flex-wrap: wrap;
+                 justify-content: center; 
+                 min-width: 500px; color: #333; font-size: 1.2em;  margin: 10px;   padding: 20px;  width: 500px; color:black;
+                 text-align: center;; 
+                
+                }
+                .document-list h1  {
+  border: 1px solid #ccc; font-size:24px; min-width: 500px; padding-bottom:20px;
+  margin-right:45px; transition: all 0.3s ease; /* This will make the changes happen smoothly over 0.3 seconds */
+                }
+
+                .document-list h1:hover {
+  color: red; /* Change the text color to red when hovered */
+  cursor: pointer; /* Change the cursor to a pointer when hovered */
+  text-decoration: underline; /* Add an underline when hovered */
+  transform: scale(1.1); /* Increase the size to 110% when hovered */
+}
+            
+                </style>
+            
+             
+
+            <a href="../../document/" id="documents-link">
                 
                 <li>Documents</li>
-              </a>
-              <div id="files-container">
+              </a> 
+              <div id="files-container">  
+                <div class="document-list" style="
+ "> 
+                           
+ <a href=""> <h1>OPCW-DOUMA - Release Part 1</h1> </a>
+
+ <a href=""> <h1>OPCW-DOUMA - Release Part 2</h1> </a>
+
+               </div>
+                <div id="releasesContainer"></div>
                 <h3 style="color:black;">Attached Files</h3>
                 <div id="file-filters">
                   <button  onclick="filterFiles('all')">All</button>
