@@ -1313,6 +1313,19 @@ app.post('/upload-media', upload.single('media'), (req, res) => {
   });
 });
 
+app.delete('/delete-event/:eventId', (req, res) => {
+  const { eventId } = req.params;
+
+  // Pretpostavljamo da imate funkciju db.run za izvršavanje SQL upita
+  db.run('DELETE FROM dogadjaji WHERE id = ?', [eventId], (err) => {
+      if (err) {
+          console.error('Error deleting event:', err);
+          return res.status(500).send('Error deleting event');
+      }
+      res.send({ message: 'Event deleted successfully', eventId: eventId });
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });

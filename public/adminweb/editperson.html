@@ -637,6 +637,14 @@ form {
                 
                     <button type="button" onclick="submitMedia()">Add Media</button>
                 </div>
+                <div class="delete-event-container">
+                  <h2>Delete Event</h2>
+                  <select id="deleteEventSelect">
+                      <option value="">Select an event to delete...</option>
+                      <!-- Opcije događaja će biti dinamički učitane -->
+                  </select>
+                  <button type="button" onclick="deleteEvent()">Delete Event</button>
+              </div>
                 </div>
                 
             </div>
@@ -725,9 +733,12 @@ form {
         .then(data => {
             const select = document.getElementById('eventSelect');
             const select2=document.getElementById('mediaEventSelect');
+            const select3=document.getElementById('deleteEventSelect');
             data.forEach(event => {
                 let option = new Option(event.naziv, event.id);
                 let option2=new Option(event.naziv,event.id);
+                let option3=new Option(event.naziv,event.id);
+                select3.add(option3);
                 select2.add(option2);
                 select.add(option);
             });
@@ -803,6 +814,24 @@ function submitMedia() {
     })
     .then(response => response.json())
     .then(data => console.log('Success:', data))
+    .catch(error => console.error('Error:', error));
+}
+
+function deleteEvent() {
+    const eventId = document.getElementById('deleteEventSelect').value;
+    if (!eventId) {
+        alert("Please select an event to delete.");
+        return;
+    }
+
+    fetch('/delete-event/' + eventId, {
+        method: 'DELETE'
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Event deleted successfully:', data);
+        // Ovdje možete dodati logiku za osvježavanje liste događaja ili prikazivanje poruke
+    })
     .catch(error => console.error('Error:', error));
 }
     </script>
