@@ -256,6 +256,7 @@
       <div class="content">
         <div style="object-fit: cover;">
           <h1>Co-publishers, Research Partners and Funders</h1> <br><br>
+          <div id="shopText"></div>
           <ul id="sponsorsList"></ul> <!-- Ovdje će biti prikazani sponzori -->
         </div>
       </div> <br><br><br><br><br><br>
@@ -539,6 +540,23 @@ function fetchNedavnoDodaneOsobe() {
 }
   </script>
   <script>
+    
+          function Text() {
+          fetch('/daj_tekst/shop')
+        .then(response => response.json())
+    .then(data => {
+      const introTextContainer = document.getElementById('shopText');
+      introTextContainer.innerHTML = `<p>${data[0].opis}</p>`; // Pretpostavka je da API vraća objekt s ključem 'text'
+      introTextContainer.style.textAlign = 'center';
+      introTextContainer.style.margin = '20px 0';
+      
+    })
+    .catch(error => console.error('Error fetching shop intro text:', error));
+};
+
+document.addEventListener("DOMContentLoaded", function() {
+  Text();
+});
     function updateFooter(footerData) {
       var footer = document.getElementById('footer');
       var recommendationLinks = footer.getElementsByClassName('recommendation-links')[0];

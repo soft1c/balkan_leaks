@@ -6,6 +6,18 @@ let db = new sqlite3.Database('./baza.db', (err) => {
         console.error(err.message);
         throw err;
     } else {
+        // DROP COLUMN LINK1 I LINK2 U FOOTER
+        
+
+        //kreiraj tabelu link koji ima samo dvije kolone koje se zovu link1 i link2
+        let query22="INSERT INTO link (link1,link2) VALUES ('https://www.facebook.com/','https://www.instagram.com/')";
+        db.run(query22,(err)=>{
+            if(err){
+                console.log(err);
+            }else{
+                console.log("ide gas");
+            }
+        })
 
         //alter table sponzori add column text Text
         //kreiraj tabelu sponzor_opis koja ima samo jedan red i jednu kolonu, koja se zove opis 
@@ -26,20 +38,7 @@ let db = new sqlite3.Database('./baza.db', (err) => {
             }
         });
 
-        db.run("DELETE FROM shop_opis WHERE id=2", (err) => {
-            if (err) {
-                console.log(err);
-            }else{
-                console.log('obrisano');
-            }
-        });
-        db.run("INSERT INTO sponzor_opis (opis) VALUES ('nsiyta')", (err) => {
-            if (err) {
-                console.log(err);
-            }else{
-                console.log('gotova baza');
-            }
-        });
+        
 
 
         //kreiraj tabelu dogadjaji koja ima naziv dogadjaja, opis, vrijeme i lokaciju
