@@ -1376,6 +1376,31 @@ app.get('/daj_tekst/shop',(req,res)=>{
 });
 
 
+app.post('/update/submit/link', (req, res) => {
+  const { id, link1 } = req.body;
+  const sql = `UPDATE submit_link SET link1 = ? WHERE id = ?`;
+
+  db.run(sql, [link1, id], function(err) {
+      if (err) {
+          console.error(err.message);
+          res.status(500).json({ message: 'Error updating submit link' });
+          return;
+      }
+      res.json({ message: 'Submit link updated successfully', changes: this.changes });
+  });
+});
+
+app.get('/submit_link', (req, res) => {
+  db.all('SELECT * FROM submit_link', (err, rows) => {
+    if(err){
+      console.error('Error retrieving submit link:', err.message);
+      res.status(500).send('Error retrieving submit link');
+    }else{
+      res.status(200).send(rows);
+    }
+  })}
+);
+
 
 
 app.listen(port, () => {

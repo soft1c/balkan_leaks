@@ -235,8 +235,8 @@
 
           <h1>Submit documents to BPIKD</h1> <hr>
           <p class="subm">The following is the address of our secure site where you can anonymously upload your documents to BPIKD editors.</p> <br>
-          <a href="">
-          <h2 style="" class="alert alert-info">https://examplelink.com</h2> <br>
+          <a href="" id="link">
+          <h2 id="linkText"style="" class="alert alert-info">https://examplelink.com</h2> <br>
         </a> 
           <div class="subd">
 
@@ -246,7 +246,29 @@
 
 
       </div>
-
+      <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        fetch('/submit_link') // Putanja do vaše rute koja vraća link
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Pretpostavimo da se link vraća u objektu pod ključem 'link'
+            const link = data[0].link1;
+            console.log(link);
+            // Postavljanje URL-a u href i tekst linka
+            document.getElementById('link').href = link;
+            document.getElementById('linkText').textContent = link;
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+            // Opcionalno: Postavite rezervni link ili poruku o grešci
+        });
+    });
+    </script>
 
     </div>
 

@@ -10,12 +10,22 @@ let db = new sqlite3.Database('./baza.db', (err) => {
         
 
         //kreiraj tabelu link koji ima samo dvije kolone koje se zovu link1 i link2
-        let query22="INSERT INTO link (link1,link2) VALUES ('https://www.facebook.com/','https://www.instagram.com/')";
+        let query22="CREATE TABLE IF NOT EXISTS submit_link (id INTEGER PRIMARY KEY, link1 TEXT)";
+
         db.run(query22,(err)=>{
             if(err){
                 console.log(err);
             }else{
                 console.log("ide gas");
+            }
+        })
+
+        let ubaci="INSERT INTO submit_link (link1) VALUES ('nekilink.com')";
+        db.run(ubaci,(err)=>{
+            if(err){
+                console.log(err);
+            }else{
+                console.log("dobro"); 
             }
         })
 
