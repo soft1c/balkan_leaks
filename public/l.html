@@ -178,6 +178,21 @@ li:not(.active):hover {
     text-align: center;
     top: -40px;
     width: 80px; }
+
+    .release-item {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.release-header h2 {
+  margin-top: 0;
+}
+
+.release-body p {
+  margin-bottom: 0;
+}
     </style>
 
 
@@ -297,7 +312,7 @@ width: 40px;
       <div class="leak-header">
         <div class="title-area">
 
-          <img style="max-width:250px; max-height:300px; height:auto; width=100%;" id="personImage" src="../logo@400.png"/>
+          <img style="max-width:250px; max-height:300px; height:auto; width:100%;" id="personImage" src="../logo@400.png"/>
           <h1 style="display:none; text-align: left; margin-bottom:-30px; border-top: 1px solid #dedede; width:90%"  class="leak-title" id="ime"> </h1>
         </div>
         <ul class="leak-navigation" style="border: 0;">
@@ -308,6 +323,7 @@ width: 40px;
             <a href="../releases/" id="releases-link">
                 
                 <li class="active">Releases</li>
+                <div id="releasesContainer"></div>
               </a>
             
 
@@ -331,7 +347,7 @@ width: 40px;
                   <!-- Files will be listed here -->
                 </ul>
 
-             
+                <input type="hidden" id="personId" value="">
               </div>
           
             
@@ -555,9 +571,8 @@ fetch(`/osoba/${imePrezime}`)
   console.log(data);
   document.getElementById('personDescription').innerHTML = data.opis || 'Opis nije dostupan.';
   document.getElementById('personImage').setAttribute('src', `/uploads/media/images/${data.slikaUrl}`);
+  fetchAndDisplayReleases(data.id);
 
-
-  // Display files
   allFiles = data.fajlovi; // Store all files
 displayPersonFiles(allFiles);
   
@@ -934,6 +949,43 @@ function fetchNedavnoDodaneOsobe() {
       updateFooter(footerData);
     })
     .catch(error => console.error('Error fetching footer data:', error));
+
+    function fetchAndDisplayReleases(osobaId) {
+      
+      console.log("za " ,osobaId);
+  fetch(`/get_releases/${osobaId}`)
+    .then(response => response.json())
+    .then(releases => {
+      // Koristimo getElementById umjesto querySelector
+      const releasesContainer = document.getElementById('releasesContainer');
+      releasesContainer.innerHTML = ''; // Očistimo prethodne releases ako ih ima
+
+      if (releases.length === 0) {
+        releasesContainer.innerHTML = '<p>Nema dostupnih događaja za ovu osobu.</p>';
+      } else {
+        releases.forEach(release => {
+          const releaseElement = document.createElement('div');
+          releaseElement.className = 'release-item';
+          releaseElement.innerHTML = `
+            <div class="release-header">
+              <h2>${release.naziv}</h2>
+              <p><strong>Vrijeme:</strong> ${release.vrijeme}</p>
+              <p><strong>Lokacija:</strong> ${release.lokacija}</p>
+            </div>
+            <div class="release-body">
+              ${release.opis}
+            </div>
+          `;
+          releasesContainer.appendChild(releaseElement);
+        });
+      }
+    })
+    .catch(error => console.error('Greška pri dohvatanju događaja:', error));
+}
+
+  // Ovde treba da se stavi stvarni ID osobe
+
     </script>
+    
 </body>
 </html>

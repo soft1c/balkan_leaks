@@ -1401,6 +1401,45 @@ app.get('/submit_link', (req, res) => {
   })}
 );
 
+app.get('/get_releases/:id', (req, res) => {
+  const idLjudi = req.params.id;
+
+  db.all(`SELECT d.id, d.naziv, d.opis, d.vrijeme, d.lokacija, f.tip, f.naziv AS nazivFajla
+          FROM dogadjaji d
+          JOIN ljudi_dogadjaji ld ON d.id = ld.id_dogadjaja
+          LEFT JOIN fileovi_dogadjaji f ON d.id = f.id_dogadjaja
+          WHERE ld.id_ljudi = ?
+          ORDER BY d.vrijeme;`, [idLjudi], (err, rows) => {
+      if (err) {
+          res.status(500).json({ error: err.message });
+          return;
+      }
+
+      // Transformišemo rezultate u strukturu koja grupiše događaje i njihove fajlove
+      const dogadjaji = {};
+      rows.forEach(row => {
+          if (!dogadjaji[row.id]) {
+              dogadjaji[row.id] = {
+                  id: row.id,
+                  naziv: row.naziv,
+                  opis: row.opis,
+                  vrijeme: row.vrijeme,
+                  lokacija: row.lokacija,
+                  fajlovi: []
+              };
+          }
+          if (row.tip && row.nazivFajla) {
+              dogadjaji[row.id].fajlovi.push({
+                  tip: row.tip,
+                  naziv: row.nazivFajla
+              });
+          }
+      });
+
+      res.json(Object.values(dogadjaji));
+  });
+});
+
 
 
 app.listen(port, () => {
