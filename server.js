@@ -1326,6 +1326,58 @@ app.delete('/delete-event/:eventId', (req, res) => {
   });
 });
 
+app.post('/shop/text',(req,res)=>{
+  let query='UPDATE shop_opis SET text = ?';
+  db.run(query,[req.body.text],(err)=>{
+    if(err){
+      console.error('Error updating text:', err.message);
+      res.status(500).send('Error updating text');
+    }else{
+      res.status(200).send('Text updated successfully');
+    }
+  })
+
+});
+
+app.post('/sponsors/text',(req,res)=>{
+  let query='UPDATE sponozir_opis SET text = ?';
+  db.run(query,[req.body.text],(err)=>{
+    if(err){
+      console.error('Error updating text:', err.message);
+      res.status(500).send('Error updating text');
+    }else{
+      res.status(200).send('Text updated successfully');
+    }
+  })
+
+});
+
+
+app.get('/daj_tekst/sponzori',(req,res)=>{
+  db.all('SELECT opis FROM sponzor_opis', (err, rows) => {
+    if(err){
+      console.error('Error retrieving text:', err.message);
+      res.status(500).send('Error retrieving text');
+    }else{
+      res.status(200).send(rows);
+    }
+  });
+});
+
+app.get('/daj_tekst/shop',(req,res)=>{
+  db.all('SELECT opis FROM shop_opis', (err, rows) => {
+    if(err){
+      console.error('Error retrieving text:', err.message);
+      res.status(500).send('Error retrieving text');
+    }else{
+      res.status(200).send(rows);
+    }
+  });
+});
+
+
+
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });

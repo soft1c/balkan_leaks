@@ -8,14 +8,39 @@ let db = new sqlite3.Database('./baza.db', (err) => {
     } else {
 
         //alter table sponzori add column text Text
-        let query5="ALTER TABLE sponzori ADD COLUMN text TEXT";
-        db.run(query5,(err)=>{
+        //kreiraj tabelu sponzor_opis koja ima samo jedan red i jednu kolonu, koja se zove opis 
+        let query7="CREATE TABLE IF NOT EXISTS sponzor_opis (id INTEGER PRIMARY KEY, opis TEXT)";
+        db.run(query7,(err)=>{
             if(err){
                 console.log(err);
             }else{
-                console.log('izmjena');
+                console.log('ok je ovo');
             }
-        })
+        });
+        let query8="CREATE TABLE IF NOT EXISTS shop_opis (id INTEGER PRIMARY KEY, opis TEXT)";
+        db.run(query8,(err)=>{
+            if(err){
+                console.log(err);
+            }else{
+                console.log('ok je i ovo');
+            }
+        });
+
+        db.run("DELETE FROM shop_opis WHERE id=2", (err) => {
+            if (err) {
+                console.log(err);
+            }else{
+                console.log('obrisano');
+            }
+        });
+        db.run("INSERT INTO sponzor_opis (opis) VALUES ('nsiyta')", (err) => {
+            if (err) {
+                console.log(err);
+            }else{
+                console.log('gotova baza');
+            }
+        });
+
 
         //kreiraj tabelu dogadjaji koja ima naziv dogadjaja, opis, vrijeme i lokaciju
         let query="CREATE TABLE IF NOT EXISTS dogadjaji (id INTEGER PRIMARY KEY,naziv TEXT, opis TEXT, vrijeme TEXT, lokacija TEXT)";
