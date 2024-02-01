@@ -365,11 +365,11 @@ header {
   padding-right:5px;
   max-height: 200px;
   overflow-y: auto;
-  border: 1px solid #dbdbdd;
+
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   z-index: 1000;
- margin-top:60px;
+
 }
 
 #searchResults.show {
@@ -579,32 +579,46 @@ header {
   </section>
 
 
-  <section id="istaknuteOsobe" style="gap: 15px; margin-top:-35px; " class="cards-wrapper">
+  <section id="istaknuteOsobe" style="gap: 15px; margin-top:-30px; " class="cards-wrapper">
     <!-- Istaknute osobe će biti dodane ovdje dinamički -->
   </section>
+ <style>
+  .container {
+  position: relative;
+}
 
+.button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+ </style>
   
 
 
+  <div class="container"> </div>
+  <button style="position:absolute; color:black; margin-top:20%; right:815px;" class="left" onclick="leftScroll()">
+    <i class="fas fa-angle-double-left"></i>
+  </button>
+</div>
 
-  
-  <div  style="margin-top:-35px;"  class="cards-container">
 
-    <button class="left" onclick="leftScroll()">
-      <i class="fas fa-angle-double-left"></i>
-    </button>
+  <div  style="margin-top:-35px; margin-bottom:75px"  class="cards-container">
+
+
     
     <div class="scrollmenu">
-      <section id="ostaleOsobe" class="cards-wrapper horizontal-scroll">
+      <section id="ostaleOsobe" style="margin-top:8px; " class="cards-wrapper horizontal-scroll" >
         <!-- Nedavno dodane osobe će biti dodane ovdje dinamički -->
       </section>
     </div>
     
-    <button class="right" onclick="rightScroll()">
-      <i class="fas fa-angle-double-right"></i>
-    </button>
-    
-  </div>
+
+  </div>     <button style="position: absolute; color:black; margin-top:20%; right:525px; " class="right" onclick="rightScroll()">
+    <i class="fas fa-angle-double-right"></i>
+  </button>
+  
 </div>   
 <script>document.addEventListener("DOMContentLoaded", function () {
   const scrollImages = document.querySelector(".scrollmenu");
@@ -632,14 +646,14 @@ header {
 
   function leftScroll() {
     scrollImages.scrollBy({
-      left: -183,
+      left: -147,
       behavior: "smooth"
     });
   }
 
   function rightScroll() {
     scrollImages.scrollBy({
-      left: 183,
+      left: 147,
       behavior: "smooth"
     });
   }
@@ -839,7 +853,7 @@ function fetchNedavnoDodaneOsobe() {
 
 
 
-<footer id="footer" class="footer-recommendations">
+<footer style="margin-top:7%;" id="footer" class="footer-recommendations">
   <div class="footer-wrapper">
     <div class="recommendation-container">
       <a href="#" class="top">Top</a>

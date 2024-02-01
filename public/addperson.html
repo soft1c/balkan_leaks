@@ -9,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="../img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,10 +25,10 @@
     <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap1.min.css" rel="stylesheet">
+    <link href="../css/bootstrap1.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="css/adminstyle.css" rel="stylesheet">
+    <link href="../css/adminstyle.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="favicon-32x32.png">
     <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
 
@@ -87,6 +87,9 @@
 }
 
 #editor {
+  min-height: 9em; /* 3 (reda) * 1.5em (line-height) */
+}
+#editor2 {
   min-height: 9em; /* 3 (reda) * 1.5em (line-height) */
 }
 #aboutEditor {
@@ -431,50 +434,44 @@ form {
 
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
-            <nav class="navbar bg-secondary navbar-dark">
-                <a href="../admin.html" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>BPIKD</h3>
-                </a>
-                <div class="d-flex align-items-center ms-4 mb-4">
-                    <div class="position-relative">
-                        <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                        <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
-                    </div>
-                    <div class="ms-3">
-                        <h6 class="mb-0">Ime Prez</h6>
-                        <span>Admin</span>
-                    </div>
-                </div>
-                <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Edit Subsites</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="button.html" class="dropdown-item">Add News</a>
-                            <a href="typography.html" class="dropdown-item">Add About-us</a>
-                            <a href="editsponsors.html" class="dropdown-item">Edit Sponsors</a>
-                            <a href="element.html" class="dropdown-item">Edit Shop</a>
-                            <a href="element.html" class="dropdown-item">Edit Donate</a>
-                            <a href="editsubmit.html" class="dropdown-item">Edit Submit</a>
-                        </div>
-                    </div>
-                    <a href="widget.html" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Add Person</a>
-                    <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Edit Person</a>
-                    <a href="managestuff.html" class="nav-item nav-link"><i class="fa fa-laptop me-2"></i>Manage Stuff</a>
-                    <a href="changepassword.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Change Password</a>
-                    <a href="statistics.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>View Statistic</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="signin.html" class="dropdown-item">Sign In</a>
-                            <a href="signup.html" class="dropdown-item">Sign Up</a>
-                            <a href="404.html" class="dropdown-item">404 Error</a>
-                            <a href="blank.html" class="dropdown-item">Blank Page</a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </div>
+          <nav class="navbar bg-secondary navbar-dark">
+              <a href="index.html" class="navbar-brand mx-4 mb-3">
+                  <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>BPIKD</h3>
+              </a>
+              <div class="d-flex align-items-center ms-4 mb-4">
+                  <div class="position-relative">
+                      <img class="rounded-circle" src="../img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                      <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+                  </div>
+                  <div class="ms-3">
+                      <h6 class="mb-0">Ime Prez</h6>
+                      <span>Admin</span>
+                  </div>
+              </div>
+              <div class="navbar-nav w-100">
+                  <a href="../admin.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                  <div class="nav-item dropdown">
+                      <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Edit Subsites</a>
+                      <div class="dropdown-menu bg-transparent border-0">
+                          <a href="addnews.html" class="dropdown-item ">Add News</a>
+    <a href="aboutus.html" class="dropdown-item ">Add About-US</a>
+                          <a href="editsponsors.html" class="dropdown-item">Edit Sponsors</a>
+                          <a href="editshop.html" class="dropdown-item">Edit Shop</a>
+                          <a href="editdonate.html" class="dropdown-item">Edit Donate</a>
+                          <a href="editsubmit.html" class="dropdown-item">Edit Submit</a>
+                          <a href="editfooter.html" class="dropdown-item">Edit Footer</a>
+                      </div>
+                  </div>
+                  <a href="addperson.html" class="nav-item nav-link  active"><i class="fa fa-th me-2"></i>Add Person</a>
+                  <a href="editperson.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Edit Person</a>
+                  <a href="managestuff.html" class="nav-item nav-link"><i class="fa fa-laptop me-2"></i>Manage Stuff</a>
+                  <a href="changepassword.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Change Password</a>
+                  <a href="statistics.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>View Statistic</a>
+
+                  </div>
+              </div>
+          </nav>
+      </div>
         <!-- Sidebar End -->
 
 
@@ -489,7 +486,10 @@ form {
                     <i class="fa fa-bars"></i>
                 </a>
                 <form style="max-width:500px; padding:0; margin: 0; background-color:black;" class="d-none d-md-flex ms-4">
-                    <input  class="form-control bg-dark border-0" type="search" placeholder="Search">
+                  <div class="search-bar-container">
+                    <input  class="form-control bg-dark border-0" type="search" id="searchInputEdit" placeholder="Search">
+                    <div id="searchDropdown" class="search-dropdown" style="display: none;"></div>
+                  </div>
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
@@ -500,7 +500,7 @@ form {
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                    <img class="rounded-circle" src="../img/user.jpg" alt="" style="width: 40px; height: 40px;">
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                         <small>15 minutes ago</small>
@@ -510,7 +510,7 @@ form {
                             <hr class="dropdown-divider">
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                    <img class="rounded-circle" src="../img/user.jpg" alt="" style="width: 40px; height: 40px;">
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                         <small>15 minutes ago</small>
@@ -520,7 +520,7 @@ form {
                             <hr class="dropdown-divider">
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                    <img class="rounded-circle" src="../img/user.jpg" alt="" style="width: 40px; height: 40px;">
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                         <small>15 minutes ago</small>
@@ -557,7 +557,7 @@ form {
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                            <img class="rounded-circle me-lg-2" src="../img/user.jpg" alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">John Doe</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
@@ -571,7 +571,7 @@ form {
             <!-- Navbar End -->
 
 
-            <!-- Blank Start -->
+            
             <div class="container-fluid pt-4 px-4">
                 <div class="row vh-100 bg-secondary rounded align-items-center justify-content-center mx-0">
                     <div class="col-md-6 text-center">
@@ -579,12 +579,12 @@ form {
                             <form id="AddPersonForm" action="/admin/dodaj" method="post" enctype="multipart/form-data">
                               <h1 style="color:black;">Add a Person</h1>
                               
-                              <!-- Prvi red za sliku i polja za unos imena i prezimena -->
+                              
                               <div class="form-row top-row">
                                 <div class="form-group image-upload-container">
                                   <div class="image-upload-box" onclick="document.getElementById('slika').click()">
                                     <p>Upload Picture</p>
-                                    <input type="file" id="slika" name="slika" accept="image/*" required onchange="previewImage(event)">
+                                    <input type="file" id="slika" name="slika" accept="image/*"  onchange="previewImage(event)">
                                     <img id="imagePreview" src="" alt="Image preview" style="display:none;">
                                   </div>
                                 </div>
@@ -640,6 +640,13 @@ form {
                                   },
                                   theme: 'snow'
                                 });
+                                var quill2 = new Quill('#editor2', {
+                                  modules: {
+                                    toolbar: toolbarOptions
+                                  },
+                                  theme: 'snow'
+                                });
+
                                 
                                 </script>
                               </div>
@@ -655,6 +662,116 @@ form {
                     </div>
                 </div>
             </div>
+            <div class="container-fluid pt-4 px-4">
+              <div class="row vh-100 bg-secondary rounded align-items-center justify-content-center mx-0">
+                  <div class="col-md-6 text-center">
+                      <div id="AddEvent" class="tabcontent">
+                          <form id="AddEventForm" action="/admin/dodaj-dogadjaj" method="post">
+                              <h1 style="color:black;">Add an Event</h1>
+          
+                              <!-- Prvi red za unos naziva, datuma i lokacije događaja -->
+                              <div class="form-row event-info-row">
+                                  <div class="form-group col-md-4">
+                                      <label for="nazivDogadjaja">Event Name:</label>
+                                      <input type="text" id="nazivDogadjaja" name="nazivDogadjaja" required>
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                      <label for="datumDogadjaja">Event Date:</label>
+                                      <input type="date" id="datumDogadjaja" name="datumDogadjaja" required>
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                      <label for="lokacijaDogadjaja">Location:</label>
+                                      <input type="text" id="lokacijaDogadjaja" name="lokacijaDogadjaja" required>
+                                  </div>
+                              </div>
+          
+                              <!-- Drugi red za Quill editor -->
+                              <div class="form-row text-editor-container" style="height: auto;">
+                                <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+                                  <div id="editor2"></div>
+                                  <textarea name="opisDogadjaja" id="hiddenOpisDogadjaja" style="display:none;"></textarea>
+                                  <script>
+                                    document.addEventListener('DOMContentLoaded',function(){
+                                      var toolbarOptions = [
+                                    ['bold', 'italic', 'underline'],
+                                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                                    [{ 'size': ['small', false, 'large', 'huge'] }],
+                                  
+                                    ['link'],
+                                    [{ 'color': [] }, { 'background': [] }],
+                                    [{ 'font': [] }],
+                                    [{ 'align': [] }]
+                                  ];
+                                  
+                                  var Link = Quill.import('formats/link');
+                                  
+                                  class MyLink extends Link {
+                                    static create(value) {
+                                      let node = super.create(value);
+                                      if (!value.startsWith('http://') && !value.startsWith('https://')) {
+                                        node.setAttribute('href', 'http://' + value);
+                                      }
+                                      return node;
+                                    }
+                                  }
+                                  
+                                  Quill.register(MyLink);
+                                  
+                
+                                  var quill2 = new Quill('#editor2', {
+                                    modules: {
+                                      toolbar: toolbarOptions
+                                    },
+                                    theme: 'snow'
+                                  });
+
+                                  document.getElementById('AddEventForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // Sprječava osnovno slanje forme
+
+        var nazivDogadjaja = document.getElementById('nazivDogadjaja').value;
+        var datumDogadjaja = document.getElementById('datumDogadjaja').value;
+        var lokacijaDogadjaja = document.getElementById('lokacijaDogadjaja').value;
+        var opisDogadjaja = quill2.root.innerHTML; // Sada bi quill2 trebao biti definiran
+
+        var formData = {
+            naziv: nazivDogadjaja,
+            vrijeme: datumDogadjaja,
+            lokacija: lokacijaDogadjaja,
+            opis: opisDogadjaja
+        };
+
+        fetch('/admin/dodaj-dogadjaj', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            // Ovdje možete dodati logiku za uspješno slanje, npr. prikazivanje poruke korisniku
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    });
+  
+                                    })
+                                  
+                                  </script>
+                              </div>
+          
+                              <!-- Gumbi -->
+                              <div class="form-row button-container">
+                                  <button type="submit" class="submit-button">Add Event</button>
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+          </div>
             <!-- Blank End -->
 
 
@@ -678,9 +795,9 @@ form {
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
     <!-- Template Javascript -->
-    <script src="js/adminpanel.js"></script>
-    <script src="js/admin.js"></script>
-    <script src="js/adminpanel.js"></script>
+    <script src="../js/adminpanel.js"></script>
+    <script src="../js/admin.js"></script>
+    <script src="../js/adminpanel.js"></script>
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script>
         var toolbarOptions = [
@@ -731,6 +848,8 @@ form {
       theme: 'snow'
     });
     </script>
+
+
 </body>
 
 </html>

@@ -27,7 +27,7 @@ a {
   border-radius: 10px;
   margin: 20px auto; /* Set margin to auto for horizontal centering */
   padding: 10px;
-  max-width: calc((7em + 4.17rem) * 6); /* Set the maximum width to accommodate 5 cards */
+  max-width: calc((7em + 1.17rem) * 6); /* Set the maximum width to accommodate 5 cards */
   justify-content: center; /* Center the cards horizontally */
 }
 
@@ -48,9 +48,9 @@ a {
   font-family: 'Heebo';
   --bg-filter-opacity: 0.18;
   background-image: linear-gradient(rgba(0,0,0,var(--bg-filter-opacity)),rgba(0,0,0,var(--bg-filter-opacity))), var(--bg-img);
-  height: 12em;
-  width: 7em;
-  font-size: 1.5em;
+  height: 170px;
+  width: 132px;
+  font-size: 1em;
   color: white;
   border-radius: 0.2em;
   padding: 1em;
@@ -85,9 +85,9 @@ a {
 .card h1 {
   text-align: center;
   margin: 0;
-  font-size: 1em;
-  line-height: 1.2em;
-  margin-top:200px;
+  font-size: 14px;
+  
+  margin-top:114px;
   
 }
 
