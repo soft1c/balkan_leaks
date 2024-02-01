@@ -1446,6 +1446,48 @@ app.get('/documents/:id',(req,res)=>{
 })
 
 
+app.get('/get_event_details/:eventname', (req, res) => {
+  const eventName = req.params.eventname;
+
+  const query = 'SELECT * FROM dogadjaji WHERE naziv = ?';
+
+  db.all(query, [eventName], (err, results) => {
+    if (err) {
+      console.error('Database error:', err);
+      res.status(500).send('Internal Server Error');
+      return;
+    }
+
+    if (results.length > 0) {
+      res.json(results);
+    } else {
+      res.status(404).send('Event not found');
+    }
+  });
+});
+
+app.get('/get_event_files/:eventId', (req, res) => {
+  const eventId = req.params.eventId;
+
+  // SQL upit koji dohvata fajlove za dati događaj
+  const query = 'SELECT * FROM fileovi_dogadjaji WHERE id_dogadjaja = ?';
+
+  db.all(query, [eventId], (err, results) => {
+    if (err) {
+      console.error('Database error:', err);
+      res.status(500).send('Internal Server Error');
+      return;
+    }
+
+    if (results.length > 0) {
+      res.json(results);
+    } else {
+      res.status(404).send('No files found for this event');
+    }
+  });
+});
+
+
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

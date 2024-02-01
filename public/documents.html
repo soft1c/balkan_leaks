@@ -314,92 +314,19 @@ width: 40px;
     </div>
   </nav>
 
-    <div class="content">
-      <div class="leak-header">
-        <div class="title-area">
-
-          <img style="max-width:250px; max-height:300px; height:auto; width:100%;" id="personImage" src="../logo@400.png"/>
-          <h1 style="display:none; text-align: left; margin-bottom:-30px; border-top: 1px solid #dedede; width:90%"  class="leak-title" id="ime"> </h1>
-        </div>
-        <ul class="leak-navigation" style="border: 0;">
-          
-          
-            
-              
-              <a href="/releases/">
-                
-                <li>Releases</li>
-              </a>
-            
-          
-            
-              
-              <a href="../../document/">
-                
-                <li class="active">Documents</li>
-              </a>
-            
-          
-            
-          
-            
-          
-        </ul>
-      </div>
-      
-  <div class="document">
-    <div class="leak-content">
-    <div class="banner">
-    <div class="title">
-      
-     
-      
-      <h1>correctly_redacted_emails_re_toxicology_minutes</h1>
-      <div class="extra-information">
-        
-      </div>
-      <div class="date">
-        
-      </div>
-      
+  <div class="content">
+    <div class="event-details">
+      <h1 id="eventTitle"></h1>
+      <p id="eventDescription"></p>
+      <p><strong>Date:</strong> <span id="eventDate"></span></p>
+      <p><strong>Location:</strong> <span id="eventLocation"></span></p>
+    </div>
+    <div class="event-files">
+      <h3>Related Files</h3>
+      <ul id="fileList"></ul>
     </div>
   </div>
 
-
-    <div class="summary">
-      
-    </div>
-    
-    <ul class="pagination" id="pagination">
-  
-  
-  
-    
-      <li class="current">
-    <a href="../../document/correctly_redacted_emails_re_toxicology_minutes/page-1/#pagination"   id="releasesContainer"></a>
-  </li>
-    
-  
-    
-  
-  </ul>
-
-
-  
-  </div>
-  <script type="text/javascript" src="../../highlighter/mootools-core-and-more.js"></script>
-<script type="text/javascript" src="../../highlighter/efatmarker.min.js"></script>
-<div id="efm-button">
-<div id="efm-menu">
-    <h3 style="margin:0 0 2px 0">e-Highlighter</h3>
-    <a id="efm-permalink" class="efm-need-highlight" href="" style="margin-bottom:0;padding-bottom:0;"></a>
-    <p style="margin-top:0;padding-top:0" class="efm-need-highlight">Click to send permalink to address bar, or right-click to copy permalink.</p>
-    <p style="margin:0.5em 0;padding:0;border-top:1px dotted #ccc;height:1px"></p>
-    <a id="efm-unhighlightall" class="efm-need-highlight">Un-highlight all</a>
-    <a id="efm-unhighlight">Un-highlight selection<span>u</span></a>
-    <a id="efm-highlight">Highlight selection<span>h</span></a>
-    </div>
-</div>
 <script type="text/javascript">
 
 (function(){
@@ -458,15 +385,7 @@ window.addEvent('domready', function(){
     });
 })();
 </script>
-    <div class="leak-sidebar">
-    <h2>Downloads</h2>
-  <div class="sidebar-section">
-    <a href="../../document/correctly_redacted_emails_re_toxicology_minutes/correctly_redacted_emails_re_toxicology_minutes.pdf">
-      <img src="../../img/pdf.png?h=638758a1"/>
-      correctly_redacted_emails_re_toxicology_minutes.pdf
-    </a>
-  </div>
-
+    
     
   <div class="sidebar-section">
   
@@ -565,85 +484,7 @@ this.querySelector('li').classList.add('active');
 document.getElementById('releases-link').querySelector('li').classList.remove('active');
 });
 </script>
-<script>
-    let allFiles = [];
-    // Use this function to fetch person data on page load
-    window.onload = function() {
-      const pathParts = window.location.pathname.split('/');
-    const imePrezime = pathParts[pathParts.length - 1];
-    fetch(`/osoba/${imePrezime}`)
-    .then(response => response.json())
-    .then(data => {
-      document.getElementById('ime').textContent = `${data.ime} ${data.prezime}`;
-      console.log(data);
-      document.getElementById('personDescription').innerHTML = data.opis || 'Opis nije dostupan.';
-      document.getElementById('personImage').setAttribute('src', `/uploads/media/images/${data.slikaUrl}`);
-      fetchAndDisplayReleases(data.id);
-    
-      allFiles = data.fajlovi; // Store all files
-    displayPersonFiles(allFiles);
-      
-    })
-    .catch(error => {
-      console.error('Error fetching person data:', error);
-      document.getElementById('ime').textContent = 'Error loading data.';
-      document.getElementById('personDescription').textContent = 'Could not retrieve person details.';
-    });
-    };
-    
-    function displayPersonFiles(files) {
-    const filesList = document.getElementById('files-list');
-    filesList.innerHTML = ''; // Clear existing list
-    
-    files.forEach(file => {
-    const listItem = document.createElement('li');
-    listItem.innerHTML = `
-    ${file.filePath} 
-    <a class="download-text" href="/uploads/media/${file.fileType}/${file.filePath}" download="${file.filePath}"></a>
-    
-    <div id="preview-${file.filePath}" class="file-preview"></div>
-    `;
-    filesList.appendChild(listItem);
-    });
-    }
-    function filterFiles(fileType) {
-    if (fileType === 'all') {
-    displayPersonFiles(allFiles);
-    } else {
-    const filteredFiles = allFiles.filter(file => file.fileType === fileType);
-    displayPersonFiles(filteredFiles);
-    }
-    }
-    function previewFile(type, filename) {
-    const previewDiv = document.getElementById(`preview-${filename}`);
-    
-    // Clear previous content
-    previewDiv.innerHTML = '';
-    
-    if (type === 'text') {
-    // For text files, fetch content and display the first few lines
-    fetch(`/uploads/media/text/${filename}`)
-    .then(response => response.text())
-    .then(text => {
-      previewDiv.innerHTML = `<p>${text.split('\n').slice(0, 5).join('<br>')}</p>`;
-      previewDiv.style.display = 'block';
-    });
-    } else if (type === 'video') {
-    // For video files, create a video player
-    previewDiv.innerHTML = `<video controls src="/uploads/media/video/${filename}"></video>`;
-    previewDiv.style.display = 'block';
-    } else if (type === 'audio') {
-    // For audio files, create an audio player
-    previewDiv.innerHTML = `<audio controls src="/uploads/media/audio/${filename}"></audio>`;
-    previewDiv.style.display = 'block';
-    } else if (type === 'images') {
-    // For image files, display the image
-    previewDiv.innerHTML = `<img src="/uploads/media/images/${filename}" alt="${filename}" style="max-width: 100%; height: auto;">`;
-    previewDiv.style.display = 'block';
-    }
-    }
-    
-    </script>
+
 
 
 <script>
@@ -714,89 +555,9 @@ document.getElementById('releases-link').querySelector('li').classList.remove('a
   }
 </script>
 <script>
-let allFiles = [];
-// Use this function to fetch person data on page load
-window.onload = function() {
-  const pathParts = window.location.pathname.split('/');
-const imePrezime = pathParts[pathParts.length - 1];
-fetch(`/osoba/${imePrezime}`)
-.then(response => response.json())
-.then(data => {
-  document.getElementById('ime').textContent = `${data.ime} ${data.prezime}`;
-  console.log(data);
-  document.getElementById('personDescription').innerHTML = data.opis || 'Opis nije dostupan.';
-  document.getElementById('personImage').setAttribute('src', `/uploads/media/images/${data.slikaUrl}`);
-  fetchAndDisplayReleases(data.id);
-
-  allFiles = data.fajlovi; // Store all files
-displayPersonFiles(allFiles);
-  
-})
-.catch(error => {
-  console.error('Error fetching person data:', error);
-  document.getElementById('ime').textContent = 'Error loading data.';
-  document.getElementById('personDescription').textContent = 'Could not retrieve person details.';
-});
-};
-
-function displayPersonFiles(files) {
-const filesList = document.getElementById('files-list');
-filesList.innerHTML = ''; // Clear existing list
-
-files.forEach(file => {
-const listItem = document.createElement('li');
-listItem.innerHTML = `
-${file.filePath} 
-<a class="download-text" href="/uploads/media/${file.fileType}/${file.filePath}" download="${file.filePath}"></a>
-
-<div id="preview-${file.filePath}" class="file-preview"></div>
-`;
-filesList.appendChild(listItem);
-});
-}
-function filterFiles(fileType) {
-if (fileType === 'all') {
-displayPersonFiles(allFiles);
-} else {
-const filteredFiles = allFiles.filter(file => file.fileType === fileType);
-displayPersonFiles(filteredFiles);
-}
-}
-function previewFile(type, filename) {
-const previewDiv = document.getElementById(`preview-${filename}`);
-
-// Clear previous content
-previewDiv.innerHTML = '';
-
-if (type === 'text') {
-// For text files, fetch content and display the first few lines
-fetch(`/uploads/media/text/${filename}`)
-.then(response => response.text())
-.then(text => {
-  previewDiv.innerHTML = `<p>${text.split('\n').slice(0, 5).join('<br>')}</p>`;
-  previewDiv.style.display = 'block';
-});
-} else if (type === 'video') {
-// For video files, create a video player
-previewDiv.innerHTML = `<video controls src="/uploads/media/video/${filename}"></video>`;
-previewDiv.style.display = 'block';
-} else if (type === 'audio') {
-// For audio files, create an audio player
-previewDiv.innerHTML = `<audio controls src="/uploads/media/audio/${filename}"></audio>`;
-previewDiv.style.display = 'block';
-} else if (type === 'images') {
-// For image files, display the image
-previewDiv.innerHTML = `<img src="/uploads/media/images/${filename}" alt="${filename}" style="max-width: 100%; height: auto;">`;
-previewDiv.style.display = 'block';
-}
-}
 
 </script>
-<script>
-function goBack() {
-  window.history.back();
-}
-</script>
+
 <script>
     // Initially hide the files-container
     document.getElementById('files-container').style.display = 'none';
@@ -1026,6 +787,16 @@ function fetchNedavnoDodaneOsobe() {
 
   document.addEventListener("DOMContentLoaded", function() {
     
+    function getEventNameFromUrl() {
+        const pathname = window.location.pathname;
+        const segments = pathname.split('/');
+        return segments.pop(); // Izvlači poslednji segment koji je naziv događaja
+    }
+
+
+const eventName = getEventNameFromUrl();
+fetchEventDetails(eventName);
+    
   const scrollContainer = document.getElementById('ostaleOsobe');
   const scrollThreshold = scrollContainer.scrollWidth - scrollContainer.clientWidth;
 
@@ -1138,7 +909,82 @@ function fetchNedavnoDodaneOsobe() {
     .catch(error => console.error('Greška pri dohvatanju događaja:', error));
 }
 
-  // Ovde treba da se stavi stvarni ID osobe
+function fetchEventDetails(eventId) {
+  console.log('fetcham');
+  fetch(`/get_event_details/${eventId}`)
+    .then(response => response.json())
+    .then(event => {
+    
+      console.log(event);
+      document.getElementById('eventTitle').textContent = event.naziv;
+      document.getElementById('eventDescription').innerHTML = event.opis;
+      document.getElementById('eventDate').textContent = event.vrijeme;
+      document.getElementById('eventLocation').textContent = event.lokacija;
+    })
+    .catch(error => console.error('Error fetching event details:', error));
+}
+
+function fetchEventFiles(eventId) {
+  console.log('fetcham fajlove');
+
+  fetch(`/get_event_files/${eventId}`)
+    .then(response => response.json())
+    .then(files => {
+      console.log(files);
+      const fileList = document.getElementById('fileList');
+      fileList.innerHTML = ''; // Clear existing list
+
+      files.forEach(file => {
+        const listItem = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = file.path; // path to the file for download
+        link.textContent = 'Download ' + file.name; // assuming 'name' is a property
+        link.download = true;
+
+        listItem.appendChild(link);
+        fileList.appendChild(listItem);
+      });
+    })
+    .catch(error => console.error('Error fetching event files:', error));
+}
+function fetchEventDetails(eventName) {
+  fetch(`/get_event_details/${eventName}`)
+    .then(response => response.json())
+    .then(event1 => {
+      let event=event1[0];
+      console.log(event);
+      document.getElementById('eventTitle').textContent = event.naziv;
+      document.getElementById('eventDescription').innerHTML = event.opis;
+      document.getElementById('eventDate').textContent = event.vrijeme;
+      document.getElementById('eventLocation').textContent = event.lokacija;
+      fetchEventFiles(event.id);
+    })
+    .catch(error => console.error('Error fetching event details:', error));
+}
+
+function fetchEventFiles(eventId) {
+  fetch(`/get_event_files/${eventId}`)
+    .then(response => response.json())
+    .then(files => {
+      console.log(files);
+      const fileList = document.getElementById('fileList');
+      fileList.innerHTML = ''; // Clear existing list
+
+      files.forEach(file => {
+        const listItem = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = file.path; // path to the file for download
+        link.textContent = 'Download ' + file.name; // assuming 'name' is a property
+        link.download = true;
+
+        listItem.appendChild(link);
+        fileList.appendChild(listItem);
+      });
+    })
+    .catch(error => console.error('Error fetching event files:', error));
+}
+
+
 
     </script>
 </body>
