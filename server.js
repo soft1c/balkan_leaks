@@ -1246,6 +1246,73 @@ app.post('/deleteDonationMethod', (req, res) => {
   })
 })
 
+app.post('/admin/dodaj-dogadjaj', (req, res) => {
+  const { naziv, opis, vrijeme, lokacija } = req.body;
+
+  // SQL upit za spremanje događaja, prilagodite prema vašoj bazi podataka
+  const query = 'INSERT INTO dogadjaji (naziv, opis, vrijeme, lokacija) VALUES (?, ?, ?, ?)';
+  
+  // Ovo je primjer, prilagodite izvršavanje upita vašoj implementaciji pristupa bazi
+  db.run(query, [naziv, opis, vrijeme, lokacija], (err) => {
+      if (err) {
+          console.error('Error inserting event:', err);
+          res.status(500).json({ error: 'Internal server error' });
+      } else {
+          res.json({ message: 'Event added successfully' });
+      }
+  });
+});
+
+
+app.get('/dogadjaji',(req,res)=>{
+  db.all('SELECT * FROM dogadjaji', (err, rows) => {
+    if(err){
+      console.error('Error retrieving news:', err.message);
+      res.status(500).send('Error retrieving news');
+    }else{
+      res.status(200).send(rows);
+    }
+  });
+})
+
+app.post('/save-persons-to-event', (req, res) => {
+  const { eventId, personIds } = req.body;
+
+  if (!eventId || !personIds || !Array.isArray(personIds)) {
+      return res.status(400).send('Missing data');
+  }
+
+  // Korištenje transakcija za spremanje svake osobe u odnosu na događaj
+  db.serialize(() => {
+      db.run("BEGIN TRANSACTION");
+      personIds.forEach((personId) => {
+          db.run("INSERT INTO ljudi_dogadjaji (id_ljudi, id_dogadjaja) VALUES (?, ?)", [personId, eventId], (err) => {
+              if (err) {
+                  console.error('Error saving to database:', err);
+                  db.run("ROLLBACK");
+                  return res.status(500).send('Error saving to database');
+              }
+          });
+      });
+      db.run("COMMIT");
+  });
+
+  res.send('Successfully saved');
+});
+
+app.post('/upload-media', upload.single('media'), (req, res) => {
+  const { eventId, mediaType } = req.body;
+  const mediaPath = '/uploads/media/'+mediaType+'/' + req.file.filename;
+
+  db.run('INSERT INTO fileovi_dogadjaji (id_dogadjaja, tip, naziv) VALUES (?, ?, ?)', [eventId, mediaType, mediaPath], (err) => {
+      if (err) {
+          console.error('Error saving file info to database:', err);
+          return res.status(500).send('Error saving to database');
+      }
+      res.send('File uploaded successfully');
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });

@@ -89,6 +89,9 @@
 #editor {
   min-height: 9em; /* 3 (reda) * 1.5em (line-height) */
 }
+#editor2 {
+  min-height: 9em; /* 3 (reda) * 1.5em (line-height) */
+}
 #aboutEditor {
   min-height:20em;
 }
@@ -564,7 +567,7 @@ form {
             <!-- Navbar End -->
 
 
-            <!-- Blank Start -->
+            
             <div class="container-fluid pt-4 px-4">
                 <div class="row vh-100 bg-secondary rounded align-items-center justify-content-center mx-0">
                     <div class="col-md-6 text-center">
@@ -572,7 +575,7 @@ form {
                             <form id="AddPersonForm" action="/admin/dodaj" method="post" enctype="multipart/form-data">
                               <h1 style="color:black;">Add a Person</h1>
                               
-                              <!-- Prvi red za sliku i polja za unos imena i prezimena -->
+                              
                               <div class="form-row top-row">
                                 <div class="form-group image-upload-container">
                                   <div class="image-upload-box" onclick="document.getElementById('slika').click()">
@@ -633,6 +636,13 @@ form {
                                   },
                                   theme: 'snow'
                                 });
+                                var quill2 = new Quill('#editor2', {
+                                  modules: {
+                                    toolbar: toolbarOptions
+                                  },
+                                  theme: 'snow'
+                                });
+
                                 
                                 </script>
                               </div>
@@ -648,6 +658,116 @@ form {
                     </div>
                 </div>
             </div>
+            <div class="container-fluid pt-4 px-4">
+              <div class="row vh-100 bg-secondary rounded align-items-center justify-content-center mx-0">
+                  <div class="col-md-6 text-center">
+                      <div id="AddEvent" class="tabcontent">
+                          <form id="AddEventForm" action="/admin/dodaj-dogadjaj" method="post">
+                              <h1 style="color:black;">Add an Event</h1>
+          
+                              <!-- Prvi red za unos naziva, datuma i lokacije događaja -->
+                              <div class="form-row event-info-row">
+                                  <div class="form-group col-md-4">
+                                      <label for="nazivDogadjaja">Event Name:</label>
+                                      <input type="text" id="nazivDogadjaja" name="nazivDogadjaja" required>
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                      <label for="datumDogadjaja">Event Date:</label>
+                                      <input type="date" id="datumDogadjaja" name="datumDogadjaja" required>
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                      <label for="lokacijaDogadjaja">Location:</label>
+                                      <input type="text" id="lokacijaDogadjaja" name="lokacijaDogadjaja" required>
+                                  </div>
+                              </div>
+          
+                              <!-- Drugi red za Quill editor -->
+                              <div class="form-row text-editor-container" style="height: auto;">
+                                <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+                                  <div id="editor2"></div>
+                                  <textarea name="opisDogadjaja" id="hiddenOpisDogadjaja" style="display:none;"></textarea>
+                                  <script>
+                                    document.addEventListener('DOMContentLoaded',function(){
+                                      var toolbarOptions = [
+                                    ['bold', 'italic', 'underline'],
+                                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                                    [{ 'size': ['small', false, 'large', 'huge'] }],
+                                  
+                                    ['link'],
+                                    [{ 'color': [] }, { 'background': [] }],
+                                    [{ 'font': [] }],
+                                    [{ 'align': [] }]
+                                  ];
+                                  
+                                  var Link = Quill.import('formats/link');
+                                  
+                                  class MyLink extends Link {
+                                    static create(value) {
+                                      let node = super.create(value);
+                                      if (!value.startsWith('http://') && !value.startsWith('https://')) {
+                                        node.setAttribute('href', 'http://' + value);
+                                      }
+                                      return node;
+                                    }
+                                  }
+                                  
+                                  Quill.register(MyLink);
+                                  
+                
+                                  var quill2 = new Quill('#editor2', {
+                                    modules: {
+                                      toolbar: toolbarOptions
+                                    },
+                                    theme: 'snow'
+                                  });
+
+                                  document.getElementById('AddEventForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // Sprječava osnovno slanje forme
+
+        var nazivDogadjaja = document.getElementById('nazivDogadjaja').value;
+        var datumDogadjaja = document.getElementById('datumDogadjaja').value;
+        var lokacijaDogadjaja = document.getElementById('lokacijaDogadjaja').value;
+        var opisDogadjaja = quill2.root.innerHTML; // Sada bi quill2 trebao biti definiran
+
+        var formData = {
+            naziv: nazivDogadjaja,
+            vrijeme: datumDogadjaja,
+            lokacija: lokacijaDogadjaja,
+            opis: opisDogadjaja
+        };
+
+        fetch('/admin/dodaj-dogadjaj', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            // Ovdje možete dodati logiku za uspješno slanje, npr. prikazivanje poruke korisniku
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    });
+  
+                                    })
+                                  
+                                  </script>
+                              </div>
+          
+                              <!-- Gumbi -->
+                              <div class="form-row button-container">
+                                  <button type="submit" class="submit-button">Add Event</button>
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+          </div>
             <!-- Blank End -->
 
 
@@ -724,6 +844,8 @@ form {
       theme: 'snow'
     });
     </script>
+
+
 </body>
 
 </html>

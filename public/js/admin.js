@@ -1266,3 +1266,4 @@ function setFeaturedPerson(personId) {
   document.getElementById('replacedFeaturedPersonId').value = personId;
   document.getElementById('featuredPersonPopup').style.display = 'none';
 }
+

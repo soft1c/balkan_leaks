@@ -6,7 +6,7 @@ const db=new sqlite3.Database('./baza.db',sqlite3.OPEN_READWRITE,(err)=>{
         throw err;
     }else{
         console.log('Connected to the SQLite ');
-        const query='SELECT * FROM footer';
+        const query='SELECT * FROM fileovi_dogadjaji';
         db.all(query,(err,rows)=>{
             if(err){
                 console.log(err);

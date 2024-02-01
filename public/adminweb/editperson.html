@@ -414,6 +414,18 @@ form {
   border-radius: 4px;
 }
 
+.persons-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.person-checkbox {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
 </style>
 
 </head>
@@ -597,8 +609,39 @@ form {
                             </form>
                           </div>
                     </div>
+                    <div class="event-selection-container">
+                      <h2>Select Event</h2>
+                      <select id="eventSelect" onchange="fetchAndDisplayPersons()">
+                          <option value="">Select an event...</option>
+                          <!-- Događaji će biti dinamički učitani -->
+                      </select>
+                      <div id="personsContainer" class="persons-container"></div>
+                      <button type="button" onclick="submitSelectedPersons()" class="submit-button">Submit Selection</button>
+                  </div>
+
+                  <div class="media-upload-container">
+                    <h2>Upload Media for Event</h2>
+                    <select id="mediaEventSelect">
+                        <option value="">Select an event...</option>
+                        <!-- Opcije događaja će biti dinamički učitane -->
+                    </select>
+                    
+                    <select id="mediaTypeSelect">
+                        <option value="images">Image</option>
+                        <option value="videos">Video</option>
+                        <option value="audio">Audio</option>
+                        <option value="text">Text</option>
+                    </select>
+                
+                    <input type="file" style='display:block;' id="mediaFileInput">
+                
+                    <button type="button" onclick="submitMedia()">Add Media</button>
                 </div>
+                </div>
+                
             </div>
+
+            
             <!-- Blank End -->
 
 
@@ -674,6 +717,94 @@ form {
       },
       theme: 'snow'
     });
+    </script>
+    <script>
+      function loadEvents() {
+    fetch('/dogadjaji')
+        .then(response => response.json())
+        .then(data => {
+            const select = document.getElementById('eventSelect');
+            const select2=document.getElementById('mediaEventSelect');
+            data.forEach(event => {
+                let option = new Option(event.naziv, event.id);
+                let option2=new Option(event.naziv,event.id);
+                select2.add(option2);
+                select.add(option);
+            });
+        })
+        .catch(error => console.error('Error loading events:', error));
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  loadEvents();
+  
+});
+function fetchAndDisplayPersons() {
+    const eventId = document.getElementById('eventSelect').value;
+    if (!eventId) {
+        document.getElementById('personsContainer').innerHTML = '';
+        return;
+    }
+
+    fetch('/ljudi')
+        .then(response => response.json())
+        .then(data => {
+            const container = document.getElementById('personsContainer');
+            container.innerHTML = '';
+
+            data.forEach(person => {
+                const personElement = document.createElement('div');
+                personElement.className = 'person-checkbox';
+                personElement.innerHTML = `
+                    <input type="checkbox" id="person-${person.id}" name="person" value="${person.id}">
+                    <label for="person-${person.id}">${person.ime} ${person.prezime}</label>
+                `;
+                container.appendChild(personElement);
+            });
+        })
+        .catch(error => console.error('Error loading persons:', error));
+}
+
+
+function submitSelectedPersons() {
+    const eventId = document.getElementById('eventSelect').value;
+    const selectedPersons = document.querySelectorAll('input[type="checkbox"]:checked');
+
+    let personIds = Array.from(selectedPersons).map(input => input.value);
+
+    fetch('/save-persons-to-event', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ eventId: eventId, personIds: personIds })
+    })
+    .then(response => response.json())
+    .then(data => console.log('Success:', data))
+    .catch(error => console.error('Error:', error));
+}
+
+function submitMedia() {
+    const eventId = document.getElementById('mediaEventSelect').value;
+    const mediaType = document.getElementById('mediaTypeSelect').value;
+    const mediaFile = document.getElementById('mediaFileInput').files[0];
+
+    if (!eventId || !mediaType || !mediaFile) {
+        alert("Please select an event, media type, and file.");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('eventId', eventId);
+    formData.append('mediaType', mediaType);
+    formData.append('media', mediaFile);
+
+    fetch('/upload-media', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => console.log('Success:', data))
+    .catch(error => console.error('Error:', error));
+}
     </script>
 </body>
 
