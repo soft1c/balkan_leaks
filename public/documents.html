@@ -973,8 +973,8 @@ function fetchEventFiles(eventId) {
       files.forEach(file => {
         const listItem = document.createElement('li');
         const link = document.createElement('a');
-        link.href = file.path; // path to the file for download
-        link.textContent = 'Download ' + file.name; // assuming 'name' is a property
+        link.href = file.naziv; // path to the file for download
+        link.textContent = 'Download ' + file.tip + " "+file.naziv; // assuming 'name' is a property
         link.download = true;
 
         listItem.appendChild(link);
