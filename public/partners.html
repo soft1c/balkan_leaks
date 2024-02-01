@@ -524,12 +524,12 @@ function fetchNedavnoDodaneOsobe() {
       const sponsorsList = document.getElementById('sponsorsList');
       
       sponsorsList.innerHTML = sponsors.map(sponsor => `
-        <li class="sponsor-item">
+        <li class="sponsor-item" style="margin-bottom:50px;">
           <a href="${sponsor.link}" target="_blank">
             <img src="${sponsor.urlPath}" alt="Sponzor" width='195' height='105' />
-            <div class="sponsor-text">
+            <div class="sponsor-text" style="font-weight:bold; ">
               
-              <p>${sponsor.text}</p>
+              <p style="font-family:'Helvetica Neue';">${sponsor.text}</p>
             </div>
           </a>
         </li>
@@ -539,82 +539,101 @@ function fetchNedavnoDodaneOsobe() {
     .catch(error => console.error('Error fetching sponsors:', error));
 }
   </script>
-  <script>
-    
-          function Text() {
-          fetch('/daj_tekst/shop')
-        .then(response => response.json())
-    .then(data => {
-      const introTextContainer = document.getElementById('shopText');
-      introTextContainer.innerHTML = `<p>${data[0].opis}</p>`; // Pretpostavka je da API vraća objekt s ključem 'text'
-      introTextContainer.style.textAlign = 'center';
-      introTextContainer.style.margin = '20px 0';
-      
-    })
-    .catch(error => console.error('Error fetching shop intro text:', error));
-};
-
-document.addEventListener("DOMContentLoaded", function() {
-  Text();
-});
-    function updateFooter(footerData) {
-      var footer = document.getElementById('footer');
-      var recommendationLinks = footer.getElementsByClassName('recommendation-links')[0];
-    
-      // Ukloni postojeće stavke
-      while (recommendationLinks.firstChild) {
-        recommendationLinks.removeChild(recommendationLinks.firstChild);
-      }
-    
-      // Dodaj nove stavke
-      footerData.items.forEach(function(item) {
-        var li = document.createElement('li');
-        li.className = 'recommendation';
-    
-        var a = document.createElement('a');
-        a.href = item.link;
-        a.target = '_blank';
-    
-        var div = document.createElement('div');
-        div.className = 'teaser';
-    
-        var img = document.createElement('img');
-        img.className = 'spip_logos';
-        img.src = item.imgSrc;
-        img.alt = item.imgAlt;
-        img.width = '360';
-        img.height = '240';
-    
-        var p = document.createElement('p');
-        p.innerHTML = item.text;
-    
-        div.appendChild(img);
-        a.appendChild(div);
-        a.appendChild(p);
-        li.appendChild(a);
-        recommendationLinks.appendChild(li);
-      });
+<script>
+  function updateFooter(footerData) {
+    var footer = document.getElementById('footer');
+    var recommendationLinks = footer.getElementsByClassName('recommendation-links')[0];
+  
+    // Ukloni postojeće stavke
+    while (recommendationLinks.firstChild) {
+      recommendationLinks.removeChild(recommendationLinks.firstChild);
     }
-    
-    fetch('/footer')
-      .then(response => response.json())
-      .then(data => {
-        let footerData = { items: [] };
-    
-        data.forEach(item => {
-          footerData.items.push({
-            link: 'https://your-default-link.com', // Pretpostavljamo da link nije dostupan u originalnom JSON-u
-            imgSrc: '/'+item.urlPath,
-            imgAlt: 'Footer Image', // Pretpostavljamo da alt tekst nije dostupan u originalnom JSON-u
-            text: item.tekst
-          });
+  
+    // Dodaj nove stavke
+    footerData.items.forEach(function(item) {
+      var li = document.createElement('li');
+      li.className = 'recommendation';
+  
+      var a = document.createElement('a');
+      a.href = item.link;
+      a.target = '_blank';
+  
+      var div = document.createElement('div');
+      div.className = 'teaser';
+  
+      var img = document.createElement('img');
+      img.className = 'spip_logos';
+      img.src = item.imgSrc;
+      img.alt = item.imgAlt;
+      img.width = '360';
+      img.height = '240';
+  
+      var p = document.createElement('p');
+      p.innerHTML = item.text;
+  
+      div.appendChild(img);
+      a.appendChild(div);
+      a.appendChild(p);
+      li.appendChild(a);
+      recommendationLinks.appendChild(li);
+    });
+  }
+  
+  fetch('/footer')
+    .then(response => response.json())
+    .then(data => {
+      let footerData = { items: [] };
+  
+      data.forEach(item => {
+        footerData.items.push({
+          link: 'https://your-default-link.com', // Pretpostavljamo da link nije dostupan u originalnom JSON-u
+          imgSrc: '/'+item.urlPath,
+          imgAlt: 'Footer Image', // Pretpostavljamo da alt tekst nije dostupan u originalnom JSON-u
+          text: item.tekst
         });
-    
-        // Ažuriraj footer nakon što su podaci dohvaćeni
-        updateFooter(footerData);
-      })
-      .catch(error => console.error('Error fetching footer data:', error));
-      </script>
+      });
+  
+      // Ažuriraj footer nakon što su podaci dohvaćeni
+      updateFooter(footerData);
+    })
+    .catch(error => console.error('Error fetching footer data:', error));
+
+    function fetchAndDisplayReleases(osobaId) {
+      
+      console.log("za " ,osobaId);
+  fetch(`/get_releases/${osobaId}`)
+    .then(response => response.json())
+    .then(releases => {
+      // Koristimo getElementById umjesto querySelector
+      const releasesContainer = document.getElementById('releasesContainer');
+      releasesContainer.innerHTML = ''; // Očistimo prethodne releases ako ih ima
+
+      if (releases.length === 0) {
+        releasesContainer.innerHTML = '<p>Nema dostupnih događaja za ovu osobu.</p>';
+      } else {
+        releases.forEach(release => {
+          const releaseElement = document.createElement('div');
+          releaseElement.className = 'release-item';
+          releaseElement.innerHTML = `
+            <div class="release-header">
+              <h2>${release.naziv}</h2>
+              <p><strong>Vrijeme:</strong> ${release.vrijeme}</p>
+              <p><strong>Lokacija:</strong> ${release.lokacija}</p>
+            </div>
+            <div class="release-body">
+              ${release.opis}
+            </div>
+          `;
+          releasesContainer.appendChild(releaseElement);
+        });
+      }
+    })
+    .catch(error => console.error('Greška pri dohvatanju događaja:', error));
+}
+
+  // Ovde treba da se stavi stvarni ID osobe
+
+    </script>
 </body>
 </html>
 
