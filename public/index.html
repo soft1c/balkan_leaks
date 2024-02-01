@@ -355,7 +355,7 @@ header {
 
 
 
-<style>
+
 
 #searchResults {
   
@@ -651,68 +651,80 @@ header {
   <script>
     
     function fetchOsobaMjeseca() {
-      fetch('/osobaMjeseca')
+    fetch('/osobaMjeseca')
         .then(response => response.json())
         .then(osoba => {
-          
-          const baseUrl = '/uploads/media/images/';
-          const osobaMjesecaHTML = `
-            <div class="card-grid-space">
-              <div class="num"></div>
-              <a class="card" href="/leaks/${osoba.ime}_${osoba.prezime}" style="--bg-img: url(${baseUrl}${osoba.slikaUrl})">
-                <div>
-                  <h1>${osoba.ime} ${osoba.prezime}</h1>
-                  
-                
-                  
+            const baseUrl = '/uploads/media/images/';
+            const cardStyle = osoba.slikaUrl ? `--bg-img: url(${baseUrl}${osoba.slikaUrl})` : 'background-color: #FFFFFF; color: black; display: flex; justify-content: center; align-items: center;';
+            const cardContent = osoba.slikaUrl ? `<h1>${osoba.ime} ${osoba.prezime}</h1>` : `<h1>${osoba.ime} ${osoba.prezime}</h1><p>Coming Soon</p>`;
+
+            const osobaMjesecaHTML = `
+                <div class="card-grid-space">
+                    <div class="num"></div>
+                    <a class="card" href="/leaks/${osoba.ime}_${osoba.prezime}" style="${cardStyle}">
+                        <div>
+                            ${cardContent}
+                        </div>
+                    </a>
                 </div>
-              </a>
-            </div>
-          `;
-  
-          document.getElementById('osobaMjeseca').innerHTML = osobaMjesecaHTML;
+            `;
+
+            document.getElementById('osobaMjeseca').innerHTML = osobaMjesecaHTML;
         })
         .catch(error => console.error('Došlo je do greške:', error));
-    }
-    function fetchIstaknuteOsobe() {
+}
+function fetchIstaknuteOsobe() {
     fetch('/get_featured_persons')
-      .then(response => response.json())
-      .then(istaknuteOsobe => {
-        const baseUrl = '/uploads/media/images/';
-        let cardsHtml = '';
+        .then(response => response.json())
+        .then(istaknuteOsobe => {
+            const baseUrl = '/uploads/media/images/';
+            let cardsHtml = '';
 
-        istaknuteOsobe.forEach(osoba => {
-  cardsHtml += `
-    <div class="card-grid-space">
-      <div class="num"></div>
-      <a class="card" href="/leaks/${osoba.ime}_${osoba.prezime}" style=" --bg-img: url(${baseUrl}${osoba.slikaUrl})">
+            istaknuteOsobe.forEach(osoba => {
+                const cardStyle = osoba.slikaUrl ? `--bg-img: url(${baseUrl}${osoba.slikaUrl})` : 'background-color: #FFFFFF; color: black; display: flex; justify-content: center; align-items: center;';
+                const cardContent = osoba.slikaUrl ? `<h1>${osoba.ime} ${osoba.prezime}</h1>` : `<h1>${osoba.ime} ${osoba.prezime}</h1><p>Coming Soon</p>`;
+
+                cardsHtml += `
+                    <div class="card-grid-space">
+                        <div class="num"></div>
+                        <a class="card" href="/leaks/${osoba.ime}_${osoba.prezime}" style="${cardStyle}">
+                            <div>
+                                ${cardContent}
+                            </div>
+                        </a>
+                    </div>
+                `;
+            });
+
+            document.getElementById('istaknuteOsobe').innerHTML = cardsHtml;
+        })
+        .catch(error => console.error('Došlo je do greške:', error));
+}
+
+function generatePersonHTML(osoba) {
+    const baseUrl = '/uploads/media/images/';
+    const card = document.createElement('a');
+    card.className = 'card';
+    card.href = `/leaks/${osoba.ime}_${osoba.prezime}`;
+
+    if (osoba.slikaUrl) {
+        card.style.setProperty('--bg-img', `url(${baseUrl}${osoba.slikaUrl})`);
+    } else {
+        card.style.backgroundColor = 'white';
+        card.style.color = 'black';
+        card.style.display = 'flex';
+        card.style.justifyContent = 'center';
+        card.style.alignItems = 'center';
+        card.style.height = '290px';
+    }
+
+    card.innerHTML = `
         <div>
-          <h1>${osoba.ime} ${osoba.prezime}</h1>
-          
-          
-          
+            <h1>${osoba.ime} ${osoba.prezime}</h1>
+            ${osoba.slikaUrl ? '' : '<p>Coming Soon</p>'}
         </div>
-      </a>
-    </div>
-  `;
-});
-
-        document.getElementById('istaknuteOsobe').innerHTML = cardsHtml;
-      })
-      .catch(error => console.error('Došlo je do greške:', error));
-  }
-  function generatePersonHTML(osoba) {
-  const baseUrl = '/uploads/media/images/';
-  const card = document.createElement('a'); // Change this to an anchor tag
-  card.className = 'card';
-  card.href = `/leaks/${osoba.ime}_${osoba.prezime}`; // Set the href attribute
-  card.style.setProperty('--bg-img', `url(${baseUrl}${osoba.slikaUrl})`);
-  card.innerHTML = `
-    <div>
-      <h1>${osoba.ime} ${osoba.prezime}</h1>
-    </div>
-  `;
-  return card;
+    `;
+    return card;
 }
 
 function setupInfiniteScroll(osobe) {
