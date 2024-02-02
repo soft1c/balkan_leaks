@@ -502,7 +502,7 @@
 }
 
 #editor {
-  min-height: 9em; /* 3 (reda) * 1.5em (line-height) */
+  min-height: 20em; /* 3 (reda) * 1.5em (line-height) */
 }
 #aboutEditor {
   min-height:20em;
@@ -550,7 +550,7 @@
   
 }
 
-}
+
         
         .form-row {
         display: flex;
@@ -694,7 +694,15 @@
       max-width: 100%;
       height: 150px; /* Set the height to be the same as the image upload box */
     }
-    
+    .ql-snow .ql-editor h1 {
+    font-size: 2em;
+    color: black;
+}
+
+.ql-snow * {
+    box-sizing: border-box;
+    color: black;
+}
   </style>
 
 </head>
@@ -854,6 +862,43 @@
                     </div>
                 </div> 
             </div>
+<style>
+  .submit-button {
+  /* Set the font size and weight */
+  font-size: 1.2em;
+  font-weight: bold;
+
+  /* Set the background and text color */
+  background-color: black; /* Green */
+  color: white;
+
+  /* Add some padding and border */
+  padding: 10px 24px;
+  border: none;
+  border-radius: 4px;
+  margin-bottom: 10px;
+    margin-left:850px;
+  /* Add some hover effect */
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: red; /* Darker green */
+}
+</style>
+<br><br><br>
+                                    <div id="AboutUs" style="margin-left:20%; margin-right:20%; margin-bottom:20%;" class="tabcontent">
+                            <h1>Edit Shop</h1> <br><br>
+                            <form style="background-color: white; color:black;" id="editAboutForm">
+                              <div class="form-group text-editor-container">
+                                <div style="min-height:20em;" id="shopEditor"></div>
+                                <textarea name="text" id="hiddenShopText" style="display:none; text-align: center;"></textarea>
+                              </div> <br>
+                              <div class="form-row button-container"> 
+                                <button type="button" class="submit-button" onclick="submitShopForm()">Submit</button> <br><br>
+                              </div>
+                            </form>
+                          </div>
             <!-- Blank End --> <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>// Assuming you have the visit counts
@@ -965,6 +1010,112 @@
     });
     </script>
 
+</script>
+<script>
+  var quillNews = new Quill('#newsEditor', {
+  modules: {
+    toolbar: toolbarOptions
+  },
+  theme: 'snow'
+});
+var quillAbout = new Quill('#aboutEditor', {
+modules: {
+  toolbar: toolbarOptions
+},
+theme: 'snow'
+});
+var quillShop = new Quill('#shopEditor', {
+modules: {
+  toolbar: toolbarOptions
+},
+theme: 'snow'
+});
+var quillSponsors = new Quill('#sponsorsEditor', {
+modules: {
+  toolbar: toolbarOptions
+},
+theme: 'snow'
+});
+</script>
+
+<script>
+function submitShopForm() {
+var aboutText = quillAbout.root.innerHTML; // Preuzmite sadržaj iz Quill editora
+
+fetch('/shop/text', {
+method: 'POST', // Metod zahtjeva
+headers: {
+'Content-Type': 'application/json', // Definiranje tipa sadržaja kao JSON
+},
+body: JSON.stringify({ text: aboutText }), // Slanje sadržaja kao JSON
+})
+.then(response => {
+if (response.ok) {
+return response.json(); // ili `response.text()` ako očekujete tekstualni odgovor
+}
+throw new Error('Network response was not ok.');
+})
+.then(data => {
+console.log(data); 
+// osvjezi ekran
+location.reload();
+})
+.catch(error => {
+console.error('There has been a problem with your fetch operation:', error);
+});
+}
+function submitSponsorsForm() {
+var aboutText = quillAbout.root.innerHTML; // Preuzmite sadržaj iz Quill editora
+
+fetch('/sponzori/text', {
+method: 'POST', // Metod zahtjeva
+headers: {
+'Content-Type': 'application/json', // Definiranje tipa sadržaja kao JSON
+},
+body: JSON.stringify({ text: aboutText }), // Slanje sadržaja kao JSON
+})
+.then(response => {
+if (response.ok) {
+return response.json(); // ili `response.text()` ako očekujete tekstualni odgovor
+}
+throw new Error('Network response was not ok.');
+})
+.then(data => {
+console.log(data); 
+// osvjezi ekran
+location.reload();
+})
+.catch(error => {
+console.error('There has been a problem with your fetch operation:', error);
+});
+}
+document.addEventListener('DOMContentLoaded', function() {
+fetchShopText();
+fetchSponsorsText();
+});
+
+function fetchShopText() {
+fetch('/daj_tekst/shop')
+  .then(response => response.json())
+  .then(data => {
+      if (data && data.length > 0) {
+          quillShop.root.innerHTML = data[0].opis;
+      }
+  })
+  .catch(error => console.error('Error fetching shop text:', error));
+}
+
+function fetchSponsorsText() {
+fetch('/daj_tekst/sponzori')
+  .then(response => response.json())
+  .then(data => {
+      if (data && data.length > 0) {
+          quillSponsors.root.innerHTML = data[0].opis;
+      }
+  })
+  .catch(error => console.error('Error fetching sponsors text:', error));
+}
+</script>
 
 
 

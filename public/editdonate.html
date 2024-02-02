@@ -694,7 +694,10 @@
       max-width: 100%;
       height: 150px; /* Set the height to be the same as the image upload box */
     }
-    
+    .ql-snow .ql-editor h1 {
+    font-size: 2em;
+    color: black;
+}
   </style>
 
 </head>
@@ -738,6 +741,7 @@
                           <a href="editdonate.html" class="dropdown-item active">Edit Donate</a>
                           <a href="editsubmit.html" class="dropdown-item">Edit Submit</a>
                           <a href="editfooter.html" class="dropdown-item">Edit Footer</a>
+                          <a href="pagelayout.html" class="dropdown-item">Page Layout</a>
                       </div>
                   </div>
                   <a href="addperson.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Add Person</a>
@@ -790,7 +794,7 @@
                 <div style="padding-bottom: 70%;" class="row vh-100 bg-secondary rounded align-items-center justify-content-center mx-0">
                     <div class="col-md-6 text-center">        
 
-                        <div id="Donate" class="tabcontent">
+                        <div style="margin-top:150px; margin-bottom:-150px;" id="Donate" class="tabcontent">
                             <h1 style="color:black;">Add Donation Method</h1>
                             <form id="addDonationMethodForm">
                               <div class="form-group">
@@ -826,40 +830,7 @@
                 </div> 
             </div>
 
-            <div id="editSubmitLink" class="container-fluid pt-4 px-4">
-              <div class="bg-secondary rounded align-items-center justify-content-center mx-0 p-4">
-                  <h2 style="color:black;">Edit Submit Link</h2>
-                  <form id="editSubmitLinkForm">
-                      <div class="form-group">
-                          <textarea id="submitLinkTextarea" name="link1" class="form-control" rows="3"></textarea>
-                      </div> <br>
-                      <button type="button" onclick="updateSubmitLink()" class="btn btn-primary">Submit</button>
-                  </form>
-              </div>
-          </div>
-          <script>
-            function updateSubmitLink() {
-                var submitLink = document.getElementById('submitLinkTextarea').value;
-                fetch('/update/submit/link', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ id: 1, link1: submitLink }),
-                })
-                .then(response => {
-                    if (response.ok) {
-                        alert('Submit link updated successfully.');
-                        return response.json();
-                    }
-                    throw new Error('Request failed.');
-                })
-                .catch(error => {
-                    console.error('Error updating submit link:', error);
-                    alert('Error updating submit link.');
-                });
-            }
-        </script>
+
             <!-- Blank End --> <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>// Assuming you have the visit counts

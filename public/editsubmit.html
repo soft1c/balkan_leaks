@@ -7,7 +7,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-
+    <link href="https://cdn.quilljs.com/1.1.6/quill.snow.css" rel="stylesheet">
     <!-- Favicon -->
     <link href="../img/favicon.ico" rel="icon">
 
@@ -439,7 +439,10 @@
 }
 
 
-
+.ql-snow .ql-editor h1 {
+    font-size: 2em;
+    color: black;
+}
 
 
 
@@ -584,17 +587,17 @@
               <div class="navbar-nav w-100">
                 <a href="../admin.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                 <div class="nav-item dropdown">
-                  <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Edit Subsites</a>
-                  <div class="dropdown-menu bg-transparent border-0">
-                      <a href="addnews.html" class="dropdown-item">Add News</a>
-                    <a href="aboutus.html" class="dropdown-item ">Edit About-us</a>
-                      <a href="editsponsors.html" class="dropdown-item">Edit Sponsors</a>
-                      <a href="editshop.html" class="dropdown-item">Edit Shop</a>
-                      <a href="editdonate.html" class="dropdown-item">Edit Donate</a>
-                      <a href="editsubmit.html" class="dropdown-item">Edit Submit</a>
-                      <a href="editfooter.html" class="dropdown-item">Edit Footer</a>
-                      <a href="pagelayout.html" class="dropdown-item">Page Layout</a>
-                  </div>
+                    <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Edit Subsites</a>
+                    <div class="dropdown-menu bg-transparent border-0">
+                        <a href="addnews.html" class="dropdown-item">Add News</a>
+                      <a href="aboutus.html" class="dropdown-item ">Edit About-us</a>
+                        <a href="editsponsors.html" class="dropdown-item">Edit Sponsors</a>
+                        <a href="editshop.html" class="dropdown-item">Edit Shop</a>
+                        <a href="editdonate.html" class="dropdown-item">Edit Donate</a>
+                        <a href="editsubmit.html" class="dropdown-item active">Edit Submit</a>
+                        <a href="editfooter.html" class="dropdown-item">Edit Footer</a>
+                        <a href="pagelayout.html" class="dropdown-item">Page Layout</a>
+                    </div>
                 </div>
                 <a href="addperson.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Add Person</a>
                 <a href="editperson.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Edit Person</a>
@@ -639,148 +642,46 @@
                 </div>
             </nav>
             <!-- Navbar End -->
-<style>
-         .tabcontent {
-            margin-left: 200px;
-            margin-top:50px;
-            padding: 20px;
 
-          }
-          #EditFooter {
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-#EditFooter h1 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 20px;
-}
-
-#footerElements {
-
-  gap: 20px;
-}
-
-.footer-element {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-.editFooterForm label {
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-.editFooterForm input[type="file"],
-.editFooterForm textarea {
-  margin-top: 5px;
-  width: 100%;
-  text-align: center;
-}
-
-.editFooterForm button {
-  margin-top: 10px;
-  padding: 5px 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.editFooterForm button:hover {
-  background-color: #0056b3;
-}
-.editFooterForm img {
-  display: block;
-  margin: 0 auto;
-}
-</style>
 
             <!-- Blank Start -->
             <div  class="container-fluid pt-4 px-4">
-                <div style="padding-bottom: 95%;" class="row vh-100 bg-secondary rounded align-items-center justify-content-center mx-0">
+                <div style="padding-bottom: 8%;" class="row vh-100 bg-secondary rounded align-items-center justify-content-center mx-0">
                     <div class="col-md-6 text-center">        
-                        <div id="EditFooter" style="background-color: white;" class="tabcontent">
-                            <h1>Edit Footer</h1>
-                            <div id="footerElements">
-                                <div class="footer-element">
-                                    <form class="editFooterForm" id="editFooterForm1" data-footer-id="1">
-                                      <input type="hidden" name="footerId" value="1">
-                          
-                                        <label>Image:</label>
-                                        <input style="display:block;" type="file" name="footerImage" accept="image/*">
-                                        <img class="current-footer-image" src="" alt="Current Footer Image" style="max-width: 200px; max-height: 150px;">
-                                        <label>Text:</label>
-                                        <textarea name="footerText"></textarea>
-                                        <button type="button" onclick="submitFooterEdit(1)">Update Element</button>
-                                    </form>
-                                </div>
-                            </div>
-                            <div id="footerElements">
-                              <div class="footer-element">
-                                  <form class="editFooterForm" id="editFooterForm2" data-footer-id="2">
-                                    <input type="hidden" name="footerId" value="2">
-                          
-                                      <label>Image:</label>
-                                      <input style="display:block;" type="file" name="footerImage" accept="image/*">
-                                      <img class="current-footer-image" src="" alt="Current Footer Image" style="max-width: 200px; max-height: 150px;">
-                                      <label>Text:</label>
-                                      <textarea name="footerText"></textarea>
-                                      <button type="button" onclick="submitFooterEdit(2)"">Update Element</button>
-                                  </form>
-                              </div>
-                          </div>
-                          <div id="footerElements">
-                            <div class="footer-element">
-                                <form class="editFooterForm" id="editFooterForm3" data-footer-id="3">
-                                  <input type="hidden" name="footerId" value="3">
-                          
-                                    <label>Image:</label>
-                                    <input style="display:block;" type="file" name="footerImage" accept="image/*">
-                                    <img class="current-footer-image" src="" alt="Current Footer Image" style="max-width: 200px; max-height: 150px;">
-                                    <label>Text:</label>
-                                    <textarea name="footerText"></textarea>
-                                    <button type="button" onclick="submitFooterEdit(3)">Update Element</button>
+                        <div id="editSubmitLink" class="container-fluid pt-4 px-4">
+                            <div class="bg-secondary rounded align-items-center justify-content-center mx-0 p-4">
+                                <h2 style="color:white;">Edit Submit Link</h2>
+                                <form id="editSubmitLinkForm">
+                                    <div class="form-group">
+                                        <textarea id="submitLinkTextarea" name="link1" class="form-control" rows="1" style="color:whitesmoke; text-align: center;">https://www.examplelink.com</textarea>
+                                    </div> <br>
+                                    <button type="button" onclick="updateSubmitLink()" class="btn btn-primary">Submit</button>
                                 </form>
                             </div>
-                          </div>
-                          <div id="footerElements">
-                            <div class="footer-element">
-                                <form class="editFooterForm" id="editFooterForm4"  data-footer-id="4">
-                                  <input type="hidden" name="footerId" value="4">
-                          
-                                    <label>Image:</label>
-                                    <input style="display:block;" type="file" name="footerImage" accept="image/*">
-                                    <img class="current-footer-image" src="" alt="Current Footer Image" style="max-width: 200px; max-height: 150px;">
-                                    <label>Text:</label>
-                                    <textarea name="footerText"></textarea>
-                                    <button type="button" onclick="submitFooterEdit(4)">Update Element</button>
-                                </form>
-                            </div>
-                          </div>
-                          <div id="footerElements">
-                            <div class="footer-element">
-                                <form class="editFooterForm" id="editFooterForm5"  data-footer-id="5">
-                                  <input type="hidden" name="footerId" value="5">
-                          
-                                    <label>Image:</label>
-                                    <input style="display:block;" type="file" name="footerImage" accept="image/*">
-                                    <img class="current-footer-image" src="" alt="Current Footer Image" style="max-width: 200px; max-height: 150px;">
-                                    <label>Text:</label>
-                                    <textarea name="footerText"></textarea>
-                                    <button type="button" onclick="submitFooterEdit(5)">Update Element</button>
-                                </form>
-                            </div>
-                          </div>
-                          </div>
+                        </div>
+                        <script>
+                          function updateSubmitLink() {
+                              var submitLink = document.getElementById('submitLinkTextarea').value;
+                              fetch('/update/submit/link', {
+                                  method: 'POST',
+                                  headers: {
+                                      'Content-Type': 'application/json',
+                                  },
+                                  body: JSON.stringify({ id: 1, link1: submitLink }),
+                              })
+                              .then(response => {
+                                  if (response.ok) {
+                                      alert('Submit link updated successfully.');
+                                      return response.json();
+                                  }
+                                  throw new Error('Request failed.');
+                              })
+                              .catch(error => {
+                                  console.error('Error updating submit link:', error);
+                                  alert('Error updating submit link.');
+                              });
+                          }
+                      </script>
                     </div>
                 </div> 
             </div>
@@ -851,7 +752,7 @@
         [{ 'list': 'ordered'}, { 'list': 'bullet' }],
         [{ 'size': ['small', false, 'large', 'huge'] }],
       
-        ['link'],
+        ['link', 'image'],
         [{ 'color': [] }, { 'background': [] }],
         [{ 'font': [] }],
         [{ 'align': [] }]

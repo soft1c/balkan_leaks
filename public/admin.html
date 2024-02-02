@@ -244,7 +244,13 @@ header .current-date{
 .days li:not(.active):hover::before{
   background: #f2f2f2;
 }
-  </style>
+ 
+@media screen (max-width:900px ) {
+  #watch{
+    display: none;
+  }
+}
+
 </style>
 
 </head>
@@ -280,15 +286,17 @@ header .current-date{
                 <div class="navbar-nav w-100">
                     <a href="admin.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Edit Subsites</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="addnews.html" class="dropdown-item">Add News</a>
-                            <a href="aboutus.html" class="dropdown-item">Add About-us</a>
-                            <a href="editsponsors.html" class="dropdown-item">Edit Sponsors</a>
-                            <a href="editshop.html" class="dropdown-item">Edit Shop</a>
-                            <a href="editdonate.html" class="dropdown-item">Edit Donate</a>
-                            <a href="editsubmit.html" class="dropdown-item">Edit Submit</a>
-                        </div>
+                      <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Edit Subsites</a>
+                      <div class="dropdown-menu bg-transparent border-0">
+                          <a href="addnews.html" class="dropdown-item">Add News</a>
+                        <a href="aboutus.html" class="dropdown-item ">Edit About-us</a>
+                          <a href="editsponsors.html" class="dropdown-item">Edit Sponsors</a>
+                          <a href="editshop.html" class="dropdown-item">Edit Shop</a>
+                          <a href="editdonate.html" class="dropdown-item">Edit Donate</a>
+                          <a href="editsubmit.html" class="dropdown-item">Edit Submit</a>
+                          <a href="editfooter.html" class="dropdown-item">Edit Footer</a>
+                          <a href="pagelayout.html" class="dropdown-item ">Page Layout</a>
+                      </div>
                     </div>
                     <a href="addperson.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Add Person</a>
                     <a href="editperson.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Edit Person</a>
@@ -306,6 +314,8 @@ header .current-date{
 </script>
 
         <div class="content">
+
+          
             <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
                     <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
@@ -339,9 +349,10 @@ header .current-date{
 
 
 
+<div class="watch" >
+            <iframe style="margin-left:1450px;" src="https://free.timeanddate.com/clock/i984nyhm/n691/tlba/fn6/fs16/fc900/tc000/fti/bas3/bat8/bacfff/pa8/tt0/tw1/th1/ta1/tb4" frameborder="0" width="216" height="64"></iframe>
 
-
-
+          </div>
 
             <!-- Widgets Start -->
             <div style="justify-content: center;" class="container-fluid pt-4 px-4">
