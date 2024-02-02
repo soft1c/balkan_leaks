@@ -1494,6 +1494,7 @@ app.get('/n/:name',(req,res)=>{
 
 
 app.get('/daj_vijest/:name',(req,res)=>{
+
   console.log(req.params.name);
   let query = "SELECT * FROM vijesti WHERE naziv = ?";
   db.all(query, [req.params.name], (err, results) => {
@@ -1507,6 +1508,34 @@ app.get('/daj_vijest/:name',(req,res)=>{
   })
 });
 
+app.get('/get_footer_links',(req,res)=>{
+  console.log('trazim');
+  let query="SELECT * FROM link  WHERE id=1";
+  db.all(query, (err, results) => {
+    if (err) {
+      console.error('Database error:', err);
+      res.status(500).send('Internal Server Error');
+      return;
+    }else{
+
+      return res.json(results);
+    }
+  })
+});
+
+app.post('/update_footer_links',(req,res)=>{
+  console.log('azuriram');
+  let query="UPDATE link SET link1=?, link2=? WHERE id=1";
+  db.all(query, [req.body.link1, req.body.link2], (err, results) => {
+    if (err) {
+      console.error('Database error:', err);
+      res.status(500).send('Internal Server Error');
+      return;
+    }else{
+      return res.json(results);
+    }
+  })
+});
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

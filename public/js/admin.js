@@ -6,6 +6,38 @@ document.addEventListener('DOMContentLoaded', function() {
   fetchSponsors();
   loadDonationMethods();
   loadShopItems();
+  uzictaj_footer();
+  document.getElementById('updateFooterLinksForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Sprečavanje standardnog submitovanja forme
+
+    const formData = {
+        link1: document.getElementById('link1').value,
+        link2: document.getElementById('link2').value
+    };
+
+    // Slanje podataka koristeći fetch
+    fetch('/update_footer_links', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Success:', data);
+        alert('Links updated successfully!');
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('Error updating links');
+    });
+});
   fetch('/footer')
     .then(response => response.json())
     .then(footerData => {
@@ -1266,4 +1298,18 @@ function setFeaturedPerson(personId) {
   document.getElementById('replacedFeaturedPersonId').value = personId;
   document.getElementById('featuredPersonPopup').style.display = 'none';
 }
+
+
+function uzictaj_footer() {
+  console.log("ucitavam");
+  fetch('/get_footer_links')
+    .then(response => response.json())
+    .then(data => {
+      data=data[0];
+        document.getElementById('link1').value = data.link1;
+        document.getElementById('link2').value = data.link2;
+    })
+    .catch(error => console.error('Error fetching footer links:', error))
+  }
+
 

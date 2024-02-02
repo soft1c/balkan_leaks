@@ -9,7 +9,7 @@ let db = new sqlite3.Database('./baza.db', (err) => {
         // DROP COLUMN LINK1 I LINK2 U FOOTER
         
 
-        //kreiraj tabelu link koji ima samo dvije kolone koje se zovu link1 i link2
+        
         let query22="CREATE TABLE IF NOT EXISTS submit_link (id INTEGER PRIMARY KEY, link1 TEXT)";
 
         db.run(query22,(err)=>{
@@ -20,12 +20,13 @@ let db = new sqlite3.Database('./baza.db', (err) => {
             }
         })
 
-        let ubaci="INSERT INTO submit_link (link1) VALUES ('nekilink.com')";
-        db.run(ubaci,(err)=>{
-            if(err){
-                console.log(err);
+        //update table vijesti set naziv where id = 1
+        let query23="UPDATE vijesti SET naziv = ? WHERE id = ?";
+        db.run(query23, ["Press Release Regarding Julian Assange's Case Management Hearing", 1], (err) => {
+            if (err) {
+                console.error(err.message);
             }else{
-                console.log("dobro"); 
+                console.log("ok");
             }
         })
 
