@@ -213,10 +213,10 @@
 		<div class="content">
 			
       <div class="news-text">
-            <h1>Vijest 1 TEST</h1>
+            <h1 id="naslov">Vijest 1 TEST</h1>
             <hr>
             
-            <p>blablablablabla softa voli dobre velike sise</p>
+            <div id="vijest"></div>
 
 
     </div>
@@ -302,32 +302,41 @@
 
 <script>
   // Function to fetch news articles from the server
-  function fetchNewsArticles() {
-      fetch('/vijesti')
-          .then(response => response.json())
-          .then(newsArticles => {
-            console.log(newsArticles);
-              const newsContainer = document.getElementById('newsContainer');
-              newsContainer.innerHTML = ''; // Clear existing content
-
-              // Iterate over each news article and create HTML elements
-              newsArticles.forEach(article => {
-                  const listItem = document.createElement('li');
-                  listItem.innerHTML = `
-                      <h3 class="title"><a ${article.naziv}>${article.naziv}</a></h3>
-                      
-                      <div class="introduction">${article.tekst.substring(0, 200)}...</div>
-                  `;
-                  newsContainer.appendChild(listItem);
-              });
-          })
-          .catch(error => console.error('Error fetching news:', error));
-  }
+ 
 
   // Call the function on page load
   document.addEventListener("DOMContentLoaded", fetchNewsArticles);
 </script>
 <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Funkcija za izvlačenje naziva vijesti iz URL-a
+    function getNewsNameFromUrl() {
+        const urlSegments = window.location.pathname.split('/');
+        return urlSegments[urlSegments.length - 1]; // Pretpostavka da je naziv vijesti poslednji segment
+    }
+
+    // Funkcija za fetch-ovanje i prikazivanje podataka o vijesti
+    function fetchAndDisplayNews(newsName) {
+        fetch(`/daj_vijest/${newsName}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+              console.log(data);
+              
+                document.getElementById('naslov').textContent = data.naziv;
+                document.getElementById('vijest').innerHTML = data.tekst;
+            })
+            .catch(error => console.error('Fetch error:', error));
+    }
+
+    const newsName = getNewsNameFromUrl();
+    console.log(newsName);
+    fetchAndDisplayNews(newsName);
+});
     
     function fetchOsobaMjeseca() {
       fetch('/osobaMjeseca')
@@ -407,37 +416,10 @@ function setupInfiniteScroll(osobe) {
   });
 }
 
-function fetchNedavnoDodaneOsobe() {
-  fetch('/daj_sve')
-    .then(response => response.json())
-    .then(osobe => {
-      const container = document.getElementById('ostaleOsobe');
-      container.innerHTML = ''; // Clear existing content
 
-      const gap = 25; // Razmak između karata
-
-      osobe.forEach(osoba => {
-        const personCard = generatePersonHTML(osoba);
-        container.appendChild(personCard);
-      });
-
-      // Postavljanje širine kontejnera
-      const totalWidth = osobe.length * (cardWidth + gap) + gap;
-      container.style.width = `${totalWidth}px`;
-      container.style.paddingLeft = `${gap/2}px`;
-      container.style.paddingRight = `${gap/2}px`;
-    })
-    .catch(error => console.error('Došlo je do greške:', error));
-}
 
   // Poziv funkcije prilikom učitavanja stranice
-  fetchNedavnoDodaneOsobe();
-
-  // Poziv funkcije prilikom učitavanja stranice
-  fetchIstaknuteOsobe();
   
-    // Poziv funkcije prilikom učitavanja stranice
-    fetchOsobaMjeseca();
     let searchTimeoutToken;
 
     function handleSearch() {

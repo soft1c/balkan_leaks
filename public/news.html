@@ -320,14 +320,15 @@
 
               // Iterate over each news article and create HTML elements
               newsArticles.forEach(article => {
-                  const listItem = document.createElement('li');
-                  listItem.innerHTML = `
-                      <h3 class="title"><a ${article.naziv}>${article.naziv}</a></h3>
-                      
-                      <div class="introduction">${article.tekst.substring(0, 200)}...</div>
-                  `;
-                  newsContainer.appendChild(listItem);
-              });
+    const listItem = document.createElement('li');
+    listItem.innerHTML = `
+        <a href="/n/${article.naziv}" class="article">
+            <h3 class="title">${article.naziv}</h3>
+            <div class="introduction">${article.tekst.substring(0, 200)}...</div>
+        </a>
+    `;
+    newsContainer.appendChild(listItem);
+});
           })
           .catch(error => console.error('Error fetching news:', error));
   }

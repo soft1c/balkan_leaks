@@ -1488,6 +1488,25 @@ app.get('/get_event_files/:eventId', (req, res) => {
 });
 
 
+app.get('/n/:name',(req,res)=>{
+  res.sendFile(path.join(__dirname, 'public', 'n.html'));
+});
+
+
+app.get('/daj_vijest/:name',(req,res)=>{
+  console.log(req.params.name);
+  let query = "SELECT * FROM vijesti WHERE naziv = ?";
+  db.all(query, [req.params.name], (err, results) => {
+    if (err) {
+      console.error('Database error:', err);
+      res.status(500).send('Internal Server Error');
+      return;
+    }else{
+      return res.json(results[0]);
+    }
+  })
+});
+
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
