@@ -200,6 +200,64 @@
     .release-body p {
       margin-bottom: 0;
     }
+    .container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.eventDescription {
+  /* Your existing styles for eventDescription */
+  flex: 1; /* This will make the eventDescription take up the remaining space */
+}
+
+.sidebar {
+  position:absolute;
+  top:227px;
+  width:370px;
+  margin-left: 1092px;
+
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+
+}
+
+.sidebar ul li {
+
+  
+  margin-bottom: 3  0px; /* Adjust as needed */
+}
+
+.sidebar ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+
+  width: 35px; /* Adjust as needed */
+  height: 50px; /* Adjust as needed */
+  background-image: url('/docs.png');
+  background-size: cover;
+}
+
+.sidebar ul li a {
+  margin-left:20px;
+  color: black; /* Adjust as needed */
+  text-decoration: none;
+  padding: 3%;
+  font-size: 1.3em;
+  color: #0078c6;
+  width:360px;
+ 
+}
+
+.sidebar ul li a:hover {
+  color: red; /* Adjust as needed */
+}
         </style>
 </head>
 
@@ -314,19 +372,29 @@ width: 40px;
     </div>
   </nav>
 
-  <div class="content">
+<style>
+
+</style>
+
+
+  <div  class="contain">
+  <div style="margin-bottom:500px;" class="content">
     <div class="event-details">
-      <h1 id="eventTitle"></h1>
+      <h1 id="eventTitle"></h1> 
+      <hr>       <p style="font-style: italic;"><strong></strong> <span style="font-size: italic;" id="eventDate"> <i></i> </span></p>
       <p id="eventDescription"></p>
-      <p><strong>Date:</strong> <span id="eventDate"></span></p>
+     
       <p><strong>Location:</strong> <span id="eventLocation"></span></p>
-    </div>
+    </div> 
+
+    <div class="sidebar">      
     <div class="event-files">
-      <h3>Related Files</h3>
+      <h3 style="margin-left:30px;">Related Files</h3>
       <ul id="fileList"></ul>
     </div>
   </div>
-
+</div>
+</div>
 <script type="text/javascript">
 
 (function(){
@@ -887,7 +955,7 @@ fetchEventDetails(eventName);
       releasesContainer.innerHTML = ''; // Očistimo prethodne releases ako ih ima
 
       if (releases.length === 0) {
-        releasesContainer.innerHTML = '<p>Nema dostupnih događaja za ovu osobu.</p>';
+        releasesContainer.innerHTML = '<p></p>';
       } else {
         releases.forEach(release => {
           const releaseElement = document.createElement('div');
