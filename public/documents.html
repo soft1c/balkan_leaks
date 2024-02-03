@@ -992,29 +992,6 @@ function fetchEventDetails(eventId) {
     .catch(error => console.error('Error fetching event details:', error));
 }
 
-function fetchEventFiles(eventId) {
-  console.log('fetcham fajlove');
-
-  fetch(`/get_event_files/${eventId}`)
-    .then(response => response.json())
-    .then(files => {
-      console.log(files);
-      const fileList = document.getElementById('fileList');
-      fileList.innerHTML = ''; // Clear existing list
-
-      files.forEach(file => {
-        const listItem = document.createElement('li');
-        const link = document.createElement('a');
-        link.href = file.path; // path to the file for download
-        link.textContent = 'Download ' + file.name; // assuming 'name' is a property
-        link.download = true;
-
-        listItem.appendChild(link);
-        fileList.appendChild(listItem);
-      });
-    })
-    .catch(error => console.error('Error fetching event files:', error));
-}
 function fetchEventDetails(eventName) {
   fetch(`/get_event_details/${eventName}`)
     .then(response => response.json())
@@ -1031,19 +1008,26 @@ function fetchEventDetails(eventName) {
 }
 
 function fetchEventFiles(eventId) {
+  console.log('fetcham fajlove');
+
   fetch(`/get_event_files/${eventId}`)
     .then(response => response.json())
     .then(files => {
       console.log(files);
       const fileList = document.getElementById('fileList');
-      fileList.innerHTML = ''; // Clear existing list
+      fileList.innerHTML = '';
 
       files.forEach(file => {
         const listItem = document.createElement('li');
         const link = document.createElement('a');
-        link.href = file.naziv; // path to the file for download
-        link.textContent = 'Download ' + file.tip + " "+file.naziv; // assuming 'name' is a property
-        link.download = true;
+        link.href = file.naziv;
+
+        // Ekstraktujemo samo naziv fajla
+        const fileName = file.naziv.split('/').pop();
+
+        // Ovdje koristimo samo naziv fajla za tekst linka
+        link.textContent = fileName;
+        link.download = fileName;
 
         listItem.appendChild(link);
         fileList.appendChild(listItem);
@@ -1051,6 +1035,7 @@ function fetchEventFiles(eventId) {
     })
     .catch(error => console.error('Error fetching event files:', error));
 }
+
 
 
 
