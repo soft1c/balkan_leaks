@@ -213,69 +213,160 @@ body, html {
         
     </main>
 
-    <footer id="page-footer" class="footer-recommendations">
-        <div class="footer-wrapper">
-          <div class="recommendation-container">
-    
-            <br><br><br>
-              <ul class="recommendation-links">
-                      <li class="recommendation">
-                          <a href="https://our.wikileaks.org" target="_blank">
-                              <div class="teaser">
-                                  <img class="spip_logos" alt="" src="logo2.png" width="360" height="240">
-                              </div>
-                              <p></p><p>BPIKD Research Community - user contributed research based on documents published by BPIKD. 
-      </p><p></p>
-                          </a>
-                      </li>
-                  
-                      <li class="recommendation">
-                          <a href="https://www.torproject.org/" target="_blank">
-                              <div class="teaser">
-                                  <img class="spip_logos" alt="" src="https://wikileaks.org/IMG/arton401.png" width="360" height="240">
-                              </div>
-                              <p></p><p>Tor is an encrypted anonymising network that makes it harder to intercept internet communications, or see where communications are coming from or going to.
-      </p><p></p>
-                          </a>
-                      </li>
-                  
-                      <li class="recommendation">
-                          <a href="https://tails.boum.org/" target="_blank">
-                              <div class="teaser">
-                                  <img class="spip_logos" alt="" src="https://wikileaks.org/IMG/arton405.png" width="360" height="240">
-                              </div>
-                              <p></p><p> Tails is a live operating system, that you can start on almost any computer from a DVD, USB stick, or SD card. It aims at preserving your privacy and anonymity.
-      </p><p></p>
-                          </a>
-                      </li>
-                  
-                      <li class="recommendation">
-                          <a href="https://www.couragefound.org/" target="_blank">
-                              <div class="teaser">
-                                  <img class="spip_logos" alt="" src="https://wikileaks.org/IMG/arton404.png" width="360" height="240">
-                              </div>
-                              <p></p><p>The Courage Foundation is an international organisation that supports those who risk life or liberty to make significant contributions to the historical record.
-      </p><p></p>
-                          </a>
-                      </li>
-                  
-                      <li class="recommendation">
-                          <a href="https://www.bitcoin.org/" target="_blank">
-                              <div class="teaser">
-                                  <img class="spip_logos" alt="" src="https://wikileaks.org/IMG/arton403.png" width="360" height="240">
-                              </div>
-                              <p></p><p>Bitcoin uses peer-to-peer technology to operate with no central authority or banks; managing transactions and the issuing of bitcoins is carried out collectively by the network.
-      </p><p></p>
-                          </a>
-                      </li>
-                  
-              </ul>
-            
-    
-          </div>
+    <footer style="margin-top:7%;" id="footer" class="footer-recommendations">
+      <div class="footer-wrapper">
+        <div class="recommendation-container">
+          <a href="#" class="top">Top</a>
+          
+            <ul class="recommendation-links">
+                    <li class="recommendation">
+                        <a href="https://our.wikileaks.org" target="_blank">
+                            <div class="teaser">
+                                <img class="spip_logos" alt="" src="/IMG/arton666.png" width="360" height="240" />
+                            </div>
+                            <p><p>
+    </p></p>
+                        </a>
+                    </li>
+                </li>
+                    <li class="recommendation">
+                        <a href="https://www.torproject.org/" target="_blank">
+                            <div class="teaser">
+                                <img class="spip_logos" alt="" src="/IMG/arton401.png" width="360" height="240" />
+                            </div>
+                            <p><p>
+    </p></p>
+                        </a>
+                    </li>
+                </li>
+                    <li class="recommendation">
+                        <a href="https://tails.boum.org/" target="_blank">
+                            <div class="teaser">
+                                <img class="spip_logos" alt="" src="/IMG/arton405.png" width="360" height="240" />
+                            </div>
+                            <p><p> 
+    </p></p>
+                        </a>
+                    </li>
+                </li>
+                    <li class="recommendation">
+                        <a href="https://www.couragefound.org/" target="_blank">
+                            <div class="teaser">
+                                <img class="spip_logos" alt="" src="/IMG/arton404.png" width="360" height="240" />
+                            </div>
+                            <p><p>
+                        </a>
+                    </li>
+                </li>
+                    <li class="recommendation">
+                        <a href="https://www.bitcoin.org/" target="_blank">
+                            <div class="teaser">
+                                <img class="spip_logos" alt="" src="/IMG/arton403.png" width="360" height="240" />
+                            </div>
+                            <p><p>
+    </p></p>
+                        </a>
+                    </li>
+                </li>
+            </ul>
+          
+          <ul class="social-links">
+            <li>
+              <a href="" target="_blank" alt="Facebook" id="link1">
+                <img src="fb-logo1.png" alt="Facebook" title="Facebook page" />
+              </a>
+            </li>
+            <li>
+              <a href="" target="_blank" alt="Twitter" id="link2">
+                <img src="tg-logo.png" alt="Twitter" title="Twitter page" />
+              </a>
+            </li>
+          </ul>
         </div>
-      </footer>
+      </div>
+    </footer>
 </div>
+<script>
+  function updateFooter(footerData) {
+    var footer = document.getElementById('footer');
+    var recommendationLinks = footer.getElementsByClassName('recommendation-links')[0];
+  
+    // Ukloni postojeće stavke
+    while (recommendationLinks.firstChild) {
+      recommendationLinks.removeChild(recommendationLinks.firstChild);
+    }
+  
+    // Dodaj nove stavke
+    footerData.items.forEach(function(item) {
+      var li = document.createElement('li');
+      li.className = 'recommendation';
+  
+      var a = document.createElement('a');
+      a.href = item.link;
+      a.target = '_blank';
+  
+      var div = document.createElement('div');
+      div.className = 'teaser';
+  
+      var img = document.createElement('img');
+      img.className = 'spip_logos';
+      img.src = item.imgSrc;
+      img.alt = item.imgAlt;
+      img.width = '360';
+      img.height = '240';
+  
+      var p = document.createElement('p');
+      p.innerHTML = item.text;
+  
+      div.appendChild(img);
+      a.appendChild(div);
+      a.appendChild(p);
+      li.appendChild(a);
+      recommendationLinks.appendChild(li);
+    });
+  }
+  
+  fetch('/footer')
+    .then(response => response.json())
+    .then(data => {
+      let footerData = { items: [] };
+  
+      data.forEach(item => {
+        footerData.items.push({
+          link: 'https://your-default-link.com', // Pretpostavljamo da link nije dostupan u originalnom JSON-u
+          imgSrc: '/'+item.urlPath,
+          imgAlt: 'Footer Image', // Pretpostavljamo da alt tekst nije dostupan u originalnom JSON-u
+          text: item.tekst
+        });
+      });
+  
+      // Ažuriraj footer nakon što su podaci dohvaćeni
+      updateFooter(footerData);
+    })
+    .catch(error => console.error('Error fetching footer data:', error));
+    function linkovi() {
+    fetch('/get_footer_links')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+          data=data[0];
+            // Ažuriranje href atributa za social links
+            const facebookLinkElement = document.getElementById('link1');
+            const twitterLinkElement = document.getElementById('link2');
 
+            if (facebookLinkElement && data.link1) {
+                facebookLinkElement.href = data.link1;
+            }
+            if (twitterLinkElement && data.link2) {
+                twitterLinkElement.href = data.link2;
+            }
+        })
+        .catch(error => console.error('Error fetching footer links:', error));
+};
+    </script>
 </body>
 </html>

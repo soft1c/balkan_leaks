@@ -330,9 +330,10 @@
 </script>
 
 <link href="/static/css/styles_footer.css" rel="stylesheet">
-<footer id="page-footer" class="footer-recommendations">
+<link href="/static/css/styles_footer.css" rel="stylesheet">
+<footer id="footer" class="footer-recommendations">
   <div class="footer-wrapper">
-    <div id="footer-content" class="recommendation-container">
+    <div class="recommendation-container">
       <a href="#" class="top">Top</a>
       
         <ul class="recommendation-links">
@@ -341,7 +342,7 @@
                         <div class="teaser">
                             <img class="spip_logos" alt="" src="/IMG/arton666.png" width="360" height="240" />
                         </div>
-                        <p><p>WL Research Community - user contributed research based on documents published by WikiLeaks. 
+                        <p><p>
 </p></p>
                     </a>
                 </li>
@@ -351,7 +352,7 @@
                         <div class="teaser">
                             <img class="spip_logos" alt="" src="/IMG/arton401.png" width="360" height="240" />
                         </div>
-                        <p><p>Tor is an encrypted anonymising network that makes it harder to intercept internet communications, or see where communications are coming from or going to.
+                        <p><p>
 </p></p>
                     </a>
                 </li>
@@ -361,7 +362,7 @@
                         <div class="teaser">
                             <img class="spip_logos" alt="" src="/IMG/arton405.png" width="360" height="240" />
                         </div>
-                        <p><p> Tails is a live operating system, that you can start on almost any computer from a DVD, USB stick, or SD card. It aims at preserving your privacy and anonymity.
+                        <p><p> 
 </p></p>
                     </a>
                 </li>
@@ -371,8 +372,7 @@
                         <div class="teaser">
                             <img class="spip_logos" alt="" src="/IMG/arton404.png" width="360" height="240" />
                         </div>
-                        <p><p>The Courage Foundation is an international organisation that supports those who risk life or liberty to make significant contributions to the historical record.
-</p></p>
+                        <p><p>
                     </a>
                 </li>
             </li>
@@ -381,7 +381,7 @@
                         <div class="teaser">
                             <img class="spip_logos" alt="" src="/IMG/arton403.png" width="360" height="240" />
                         </div>
-                        <p><p>Bitcoin uses peer-to-peer technology to operate with no central authority or banks; managing transactions and the issuing of bitcoins is carried out collectively by the network.
+                        <p><p>
 </p></p>
                     </a>
                 </li>
@@ -391,18 +391,286 @@
       <ul class="social-links">
         <li>
           <a href="https://www.facebook.com/wikileaks" target="_blank" alt="Facebook">
-            <img src="/static/img/fb-logo.png" alt="Facebook" title="Facebook page" />
+            <img src="fb-logo1.png" alt="Facebook" title="Facebook page" />
           </a>
         </li>
         <li>
           <a href="https://twitter.com/wikileaks" target="_blank" alt="Twitter">
-            <img src="/static/img/twitter-logo.png" alt="Twitter" title="Twitter page" />
+            <img src="tg-logo.png" alt="Twitter" title="Twitter page" />
           </a>
         </li>
       </ul>
     </div>
   </div>
 </footer>
+
+
+
+<script>
+function updateFooter(footerData) {
+  var footer = document.getElementById('footer');
+  var recommendationLinks = footer.getElementsByClassName('recommendation-links')[0];
+
+  // Ukloni postojeće stavke
+  while (recommendationLinks.firstChild) {
+    recommendationLinks.removeChild(recommendationLinks.firstChild);
+  }
+
+  // Dodaj nove stavke
+  footerData.items.forEach(function(item) {
+    var li = document.createElement('li');
+    li.className = 'recommendation';
+
+    var a = document.createElement('a');
+    a.href = item.link;
+    a.target = '_blank';
+
+    var div = document.createElement('div');
+    div.className = 'teaser';
+
+    var img = document.createElement('img');
+    img.className = 'spip_logos';
+    img.src = item.imgSrc;
+    img.alt = item.imgAlt;
+    img.width = '360';
+    img.height = '240';
+
+    var p = document.createElement('p');
+    p.innerHTML = item.text;
+
+    div.appendChild(img);
+    a.appendChild(div);
+    a.appendChild(p);
+    li.appendChild(a);
+    recommendationLinks.appendChild(li);
+  });
+}
+
+fetch('/footer')
+  .then(response => response.json())
+  .then(data => {
+    let footerData = { items: [] };
+
+    data.forEach(item => {
+      footerData.items.push({
+        link: 'https://your-default-link.com', // Pretpostavljamo da link nije dostupan u originalnom JSON-u
+        imgSrc: '/'+item.urlPath,
+        imgAlt: 'Footer Image', // Pretpostavljamo da alt tekst nije dostupan u originalnom JSON-u
+        text: item.tekst
+      });
+    });
+
+    // Ažuriraj footer nakon što su podaci dohvaćeni
+    updateFooter(footerData);
+  })
+  .catch(error => console.error('Error fetching footer data:', error));
+  </script>
+
+<script>
+  function fetchDonationOptions() {
+      fetch('/donate')
+      .then(response => response.json())
+      .then(donationOptions => {
+          const container = document.getElementById('donationOptions');
+          container.innerHTML = ''; // Očisti prethodne opcije
+  
+          donationOptions.forEach(option => {
+              const optionElement = document.createElement('div');
+
+              optionElement.className = 'donation-option';
+  
+              let content = `<div class="donation-option-details">`;
+              if(option.qr) {
+                  content += `<img src="${option.qr}" alt="QR Code">`;
+              }
+              content += `<div><strong>Link:</strong> ${option.link ? `<a href="${option.link}" target="_blank">${option.link}</a>` : 'N/A'}</div></div>`;
+  
+              optionElement.innerHTML = content;
+              container.appendChild(optionElement);
+          });
+      })
+      .catch(error => console.error('Error fetching donation options:', error));
+  }
+  
+  // Pokrenite funkciju prilikom učitavanja stranice
+  document.addEventListener('DOMContentLoaded', fetchDonationOptions);
+  </script>
+  <script>
+    
+    function fetchOsobaMjeseca() {
+      fetch('/osobaMjeseca')
+        .then(response => response.json())
+        .then(osoba => {
+          
+          const baseUrl = '/uploads/media/images/';
+          const osobaMjesecaHTML = `
+            <div class="card-grid-space">
+              <div class="num"></div>
+              <a class="card" href="/leaks/${osoba.ime}_${osoba.prezime}" style="--bg-img: url(${baseUrl}${osoba.slikaUrl})">
+                <div>
+                  <h1>${osoba.ime} ${osoba.prezime}</h1>
+                  
+                
+                  
+                </div>
+              </a>
+            </div>
+          `;
+  
+          document.getElementById('osobaMjeseca').innerHTML = osobaMjesecaHTML;
+        })
+        .catch(error => console.error('Došlo je do greške:', error));
+    }
+    function fetchIstaknuteOsobe() {
+    fetch('/get_featured_persons')
+      .then(response => response.json())
+      .then(istaknuteOsobe => {
+        const baseUrl = '/uploads/media/images/';
+        let cardsHtml = '';
+
+        istaknuteOsobe.forEach(osoba => {
+  cardsHtml += `
+    <div class="card-grid-space">
+      <div class="num"></div>
+      <a class="card" href="/leaks/${osoba.ime}_${osoba.prezime}" style=" --bg-img: url(${baseUrl}${osoba.slikaUrl})">
+        <div>
+          <h1>${osoba.ime} ${osoba.prezime}</h1>
+          
+          
+          
+        </div>
+      </a>
+    </div>
+  `;
+});
+
+        document.getElementById('istaknuteOsobe').innerHTML = cardsHtml;
+      })
+      .catch(error => console.error('Došlo je do greške:', error));
+  }
+  function generatePersonHTML(osoba) {
+  const baseUrl = '/uploads/media/images/';
+  const card = document.createElement('a'); // Change this to an anchor tag
+  card.className = 'card';
+  card.href = `/leaks/${osoba.ime}_${osoba.prezime}`; // Set the href attribute
+  card.style.setProperty('--bg-img', `url(${baseUrl}${osoba.slikaUrl})`);
+  card.innerHTML = `
+    <div>
+      <h1>${osoba.ime} ${osoba.prezime}</h1>
+    </div>
+  `;
+  return card;
+}
+
+function setupInfiniteScroll(osobe) {
+  const container = document.getElementById('ostaleOsobe');
+  
+  container.addEventListener('scroll', function() {
+    // Check if scrolled to end
+    if (container.scrollWidth - container.scrollLeft === container.clientWidth) {
+      console.log('Scrolled to end of container');
+      const firstElement = container.firstChild;
+      container.appendChild(firstElement.cloneNode(true));
+    }
+  });
+}
+
+function fetchNedavnoDodaneOsobe() {
+  fetch('/daj_sve')
+    .then(response => response.json())
+    .then(osobe => {
+      const container = document.getElementById('ostaleOsobe');
+      container.innerHTML = ''; // Clear existing content
+
+      const gap = 15; // Razmak između karata
+
+      osobe.forEach(osoba => {
+        const personCard = generatePersonHTML(osoba);
+        container.appendChild(personCard);
+      });
+
+      // Postavljanje širine kontejnera
+      const totalWidth = osobe.length * (cardWidth + gap) + gap;
+      container.style.width = `${totalWidth}px`;
+      container.style.paddingLeft = `${gap/2}px`;
+      container.style.paddingRight = `${gap/2}px`;
+    })
+    .catch(error => console.error('Došlo je do greške:', error));
+}
+
+  // Poziv funkcije prilikom učitavanja stranice
+  fetchNedavnoDodaneOsobe();
+
+  // Poziv funkcije prilikom učitavanja stranice
+  fetchIstaknuteOsobe();
+  
+    // Poziv funkcije prilikom učitavanja stranice
+    fetchOsobaMjeseca();
+    let searchTimeoutToken;
+
+  function handleSearch() {
+    const searchTerm = document.getElementById('search-bar').value;
+
+    clearTimeout(searchTimeoutToken); // Clear existing timeout
+
+    if (searchTerm.length > 2) {
+      // Set a new timeout
+      searchTimeoutToken = setTimeout(() => {
+        fetch(`/search?q=${encodeURIComponent(searchTerm)}`)
+          .then(response => response.json())
+          .then(results => {
+            displaySearchResults(results);
+          })
+          .catch(error => console.error('Search error:', error));
+      }, 300); // Adjust 300ms to your liking
+    } else {
+      clearSearchResults();
+    }
+  }
+  function displaySearchResults(results) {
+  const resultsContainer = document.getElementById('searchResults');
+  resultsContainer.innerHTML = ''; 
+
+  if (results.length === 0) {
+    // No results found
+    r//esultsContainer.innerHTML = '<div class="search-result-item">Nema ponuđenih osoba</div>';
+  } else {
+    // Display results
+    results.forEach(person => {
+      const personElement = document.createElement('div');
+      personElement.className = 'search-result-item';
+      personElement.innerHTML = `<a href="/leaks/${person.ime}_${person.prezime}">${person.ime} ${person.prezime} </a>`;
+      resultsContainer.appendChild(personElement);
+    });
+  }
+}
+
+  // Function to clear search results
+  function clearSearchResults() {
+    document.getElementById('searchResults').innerHTML = '';
+  }
+
+  // Event listener for search bar input
+  document.getElementById('search-bar').addEventListener('input', handleSearch);
+
+  document.addEventListener("DOMContentLoaded", function() {
+    
+  const scrollContainer = document.getElementById('ostaleOsobe');
+  const scrollThreshold = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+
+  // Funkcija koja resetuje scroll na početak
+  function resetScroll() {
+    if (scrollContainer.scrollLeft >= scrollThreshold) {
+      // Resetuje scroll na početak
+      scrollContainer.scrollLeft = 0;
+    }
+  }
+
+  // Event listener za scroll događaj
+  scrollContainer.addEventListener('scroll', resetScroll);
+});
+
+  </script>
 
 <script>
     function fetchAndDisplayFooter() {

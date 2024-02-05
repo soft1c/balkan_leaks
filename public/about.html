@@ -283,7 +283,7 @@
 <br><br><br><br><br><br>
 
 <link href="/static/css/styles_footer.css" rel="stylesheet">
-<footer id="footer" class="footer-recommendations">
+<footer style="margin-top:7%;" id="footer" class="footer-recommendations">
   <div class="footer-wrapper">
     <div class="recommendation-container">
       <a href="#" class="top">Top</a>
@@ -342,12 +342,12 @@
       
       <ul class="social-links">
         <li>
-          <a href="https://www.facebook.com/wikileaks" target="_blank" alt="Facebook">
+          <a href="" target="_blank" alt="Facebook" id="link1">
             <img src="fb-logo1.png" alt="Facebook" title="Facebook page" />
           </a>
         </li>
         <li>
-          <a href="https://twitter.com/wikileaks" target="_blank" alt="Twitter">
+          <a href="" target="_blank" alt="Twitter" id="link2">
             <img src="tg-logo.png" alt="Twitter" title="Twitter page" />
           </a>
         </li>
@@ -641,6 +641,29 @@ function fetchNedavnoDodaneOsobe() {
       updateFooter(footerData);
     })
     .catch(error => console.error('Error fetching footer data:', error));
+    function linkovi() {
+    fetch('/get_footer_links')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+          data=data[0];
+            // Ažuriranje href atributa za social links
+            const facebookLinkElement = document.getElementById('link1');
+            const twitterLinkElement = document.getElementById('link2');
+
+            if (facebookLinkElement && data.link1) {
+                facebookLinkElement.href = data.link1;
+            }
+            if (twitterLinkElement && data.link2) {
+                twitterLinkElement.href = data.link2;
+            }
+        })
+        .catch(error => console.error('Error fetching footer links:', error));
+};
     </script>
   
 </body>
