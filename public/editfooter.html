@@ -612,7 +612,7 @@
         <!-- Content Start -->
         <div class="content">
             <!-- Navbar Start -->
-            <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
+            <nav class="navbar navbar-expand bg-secondary navbar-dark  fixed sticky-top px-4 py-0">
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
                     <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
                 </a>
@@ -703,10 +703,9 @@
   margin: 0 auto;
 }
 </style>
-
             <!-- Blank Start -->
             <div  class="container-fluid pt-4 px-4">
-                <div style="padding-bottom: 95%;" class="row vh-100 bg-secondary rounded align-items-center justify-content-center mx-0">
+                <div style="padding-bottom: 95%;" class="row vh-100 bg-black rounded align-items-center justify-content-center mx-0">
                     <div class="col-md-6 text-center">        
                         <div id="EditFooter" style="background-color: white;" class="tabcontent">
                             <h1>Edit Footer</h1>
@@ -724,6 +723,7 @@
                                     </form>
                                 </div>
                             </div>
+                            <br>
                             <div id="footerElements">
                               <div class="footer-element">
                                   <form class="editFooterForm" id="editFooterForm2" data-footer-id="2">
@@ -734,10 +734,11 @@
                                       <img class="current-footer-image" src="" alt="Current Footer Image" style="max-width: 200px; max-height: 150px;">
                                       <label>Text:</label>
                                       <textarea name="footerText"></textarea>
-                                      <button type="button" onclick="submitFooterEdit(2)"">Update Element</button>
+                                      <button type="button" onclick="submitFooterEdit(2)">Update Element</button>
                                   </form>
                               </div>
                           </div>
+                          <br></br>
                           <div id="footerElements">
                             <div class="footer-element">
                                 <form class="editFooterForm" id="editFooterForm3" data-footer-id="3">
@@ -752,6 +753,7 @@
                                 </form>
                             </div>
                           </div>
+                          <br>
                           <div id="footerElements">
                             <div class="footer-element">
                                 <form class="editFooterForm" id="editFooterForm4"  data-footer-id="4">
@@ -766,6 +768,7 @@
                                 </form>
                             </div>
                           </div>
+                          <br>
                           <div id="footerElements">
                             <div class="footer-element">
                                 <form class="editFooterForm" id="editFooterForm5"  data-footer-id="5">
@@ -781,6 +784,7 @@
                             </div>
                           </div>
                           </div>
+                          <br>
                           <div class="update-links-form">
                             <h2>Update Links</h2>
                             <form id="updateFooterLinksForm">
@@ -788,16 +792,20 @@
                                     <label for="link1">Link 1:</label>
                                     <input type="text" id="link1" name="link1">
                                 </div>
+                                <br>
                                 <div>
                                     <label for="link2">Link 2:</label>
                                     <input type="text" id="link2" name="link2">
                                 </div>
+                                <br>
                                 <button type="submit">Submit</button>
                             </form>
+                            <br>
                         </div>
                     </div>
                 </div> 
             </div>
+            <br>
             <!-- Blank End --> <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>// Assuming you have the visit counts
