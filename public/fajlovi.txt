@@ -1,0 +1,12 @@
+<h3 style="color:black;">Attached Files</h3>
+<div id="file-filters">
+  <button  onclick="filterFiles('all')">All</button>
+  <button  onclick="filterFiles('text')">Text</button>
+  <button  onclick="filterFiles('video')">Video</button>
+  <button  onclick="filterFiles('audio')">Audio</button>
+  <button  onclick="filterFiles('image')">Images</button>
+</div>
+
+<ul id="files-list" class="">
+  <!-- Files will be listed here -->
+</ul>

@@ -345,7 +345,7 @@ width: 40px;
   color: red; /* Change the text color to red when hovered */
   cursor: pointer; /* Change the cursor to a pointer when hovered */
   text-decoration: underline; /* Add an underline when hovered */
-  transform: scale(1.1); /* Increase the size to 110% when hovered */
+  /* Increase the size to 110% when hovered */
 }
             
                 </style>
@@ -356,19 +356,16 @@ width: 40px;
                 
                 <li>Documents</li>
               </a> 
-              <div id="files-container">  
+              <div id="files-container" style="margin-bottom:8%; margin-toppusp'-1%">  
 
-                <div id="releasesContainer"></div>
-                <h3 style="color:black;">Attached Files</h3>
-                <div id="file-filters">
-                  <button  onclick="filterFiles('all')">All</button>
-                  <button  onclick="filterFiles('text')">Text</button>
-                  <button  onclick="filterFiles('video')">Video</button>
-                  <button  onclick="filterFiles('audio')">Audio</button>
-                  <button  onclick="filterFiles('image')">Images</button>
+                <div class="document-list" id="document-list" > 
+
+
                 </div>
+                <div id="releasesContainer"></div>
+
               
-                <ul id="files-list" class="">
+                <ul style="display:none;" id="files-list" class="">
                   <!-- Files will be listed here -->
                 </ul>
 
@@ -378,17 +375,10 @@ width: 40px;
             
           
             
-          
-        </ul>
-      </div>
+    
 
   <div class="releases" >
 
-    <div class="document-list" id="document-list" > 
-                           
-
-
-    </div>
       <div  class="release">
        
  
@@ -999,7 +989,8 @@ function fetchNedavnoDodaneOsobe() {
           const releaseLink = document.createElement('a');
           releaseLink.href = `/documents/${release.naziv}`; // Postavljamo href da vodi na event stranicu
           releaseLink.className = 'release-item';
-          releaseLink.innerHTML = `<h1>${release.naziv}</h1>`; // Koristimo naziv događaja za tekst linka
+          releaseLink.innerHTML = `<h1 ">${release.naziv}</h1>`; // Koristimo naziv događaja za tekst linka
+          releaseLink.innerHTML = `<img src="/docs.png" alt="Image Icon" style="width: 32px; height: auto; margin-right: 510px; margin-top:20px; margin-bottom:-40px;"> <h1 style="text-align: left; margin-left:50px; position: relative; top:20px; font-size:17px;" >${release.naziv}</h1>`;
 
           releasesContainer.appendChild(releaseLink);
         });
@@ -1010,6 +1001,162 @@ function fetchNedavnoDodaneOsobe() {
   // Ovde treba da se stavi stvarni ID osobe
 
     </script>
+    <script>
+      <script>
+  function updateFooter(footerData) {
+    var footer = document.getElementById('footer');
+    var recommendationLinks = footer.getElementsByClassName('recommendation-links')[0];
+  
+    // Ukloni postojeće stavke
+    while (recommendationLinks.firstChild) {
+      recommendationLinks.removeChild(recommendationLinks.firstChild);
+    }
+  
+    // Dodaj nove stavke
+    footerData.items.forEach(function(item) {
+      var li = document.createElement('li');
+      li.className = 'recommendation';
+  
+      var a = document.createElement('a');
+      a.href = item.link;
+      a.target = '_blank';
+  
+      var div = document.createElement('div');
+      div.className = 'teaser';
+  
+      var img = document.createElement('img');
+      img.className = 'spip_logos';
+      img.src = item.imgSrc;
+      img.alt = item.imgAlt;
+      img.width = '360';
+      img.height = '240';
+  
+      var p = document.createElement('p');
+      p.innerHTML = item.text;
+  
+      div.appendChild(img);
+      a.appendChild(div);
+      a.appendChild(p);
+      li.appendChild(a);
+      recommendationLinks.appendChild(li);
+    });
+  }
+  
+  fetch('/footer')
+    .then(response => response.json())
+    .then(data => {
+      let footerData = { items: [] };
+  
+      data.forEach(item => {
+        footerData.items.push({
+          link: 'https://your-default-link.com', // Pretpostavljamo da link nije dostupan u originalnom JSON-u
+          imgSrc: '/'+item.urlPath,
+          imgAlt: 'Footer Image', // Pretpostavljamo da alt tekst nije dostupan u originalnom JSON-u
+          text: item.tekst
+        });
+      });
+  
+      // Ažuriraj footer nakon što su podaci dohvaćeni
+      updateFooter(footerData);
+    })
+    .catch(error => console.error('Error fetching footer data:', error));
+
+    function fetchAndDisplayReleases(osobaId) {
+      
+      console.log("za " ,osobaId);
+  fetch(`/get_releases/${osobaId}`)
+    .then(response => response.json())
+    .then(releases => {
+      // Koristimo getElementById umjesto querySelector
+      const releasesContainer = document.getElementById('releasesContainer');
+      releasesContainer.innerHTML = ''; // Očistimo prethodne releases ako ih ima
+
+      if (releases.length === 0) {
+        releasesContainer.innerHTML = '<p></p>';
+      } else {
+        releases.forEach(release => {
+          const releaseElement = document.createElement('div');
+          releaseElement.className = 'release-item';
+          releaseElement.innerHTML = `
+            <div class="release-header">
+              <h2>${release.naziv}</h2>
+              <p><strong>Vrijeme:</strong> ${release.vrijeme}</p>
+              <p><strong>Lokacija:</strong> ${release.lokacija}</p>
+            </div>
+            <div class="release-body">
+              ${release.opis}
+            </div>
+          `;
+          releasesContainer.appendChild(releaseElement);
+        });
+      }
+    })
+    .catch(error => console.error('Greška pri dohvatanju događaja:', error));
+}
+
+function fetchEventDetails(eventId) {
+  console.log('fetcham');
+  fetch(`/get_event_details/${eventId}`)
+    .then(response => response.json())
+    .then(event => {
     
+      console.log(event);
+      document.getElementById('eventTitle').textContent = event.naziv;
+      document.getElementById('eventDescription').innerHTML = event.opis;
+      document.getElementById('eventDate').textContent = event.vrijeme;
+      document.getElementById('eventLocation').textContent = event.lokacija;
+    })
+    .catch(error => console.error('Error fetching event details:', error));
+}
+
+function fetchEventDetails(eventName) {
+  fetch(`/get_event_details/${eventName}`)
+    .then(response => response.json())
+    .then(event1 => {
+      let event=event1[0];
+      console.log(event);
+      document.getElementById('eventTitle').textContent = event.naziv;
+      document.getElementById('eventDescription').innerHTML = event.opis;
+      document.getElementById('eventDate').textContent = event.vrijeme;
+      document.getElementById('eventLocation').textContent = event.lokacija;
+      fetchEventFiles(event.id);
+    })
+    .catch(error => console.error('Error fetching event details:', error));
+}
+
+function fetchEventFiles(eventId) {
+  console.log('fetcham fajlove');
+
+  fetch(`/get_event_files/${eventId}`)
+    .then(response => response.json())
+    .then(files => {
+      console.log(files);
+      const fileList = document.getElementById('fileList');
+      fileList.innerHTML = '';
+
+      files.forEach(file => {
+        const listItem = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = file.naziv;
+
+        // Ekstraktujemo samo naziv fajla
+        const fileName = file.naziv.split('/').pop();
+
+        // Ovdje koristimo samo naziv fajla za tekst linka
+        link.textContent = fileName;
+        link.download = fileName;
+
+        listItem.appendChild(link);
+        fileList.appendChild(listItem);
+      });
+    })
+    .catch(error => console.error('Error fetching event files:', error));
+}
+
+
+
+
+    </script>
+    </script>
 </body>
 </html>
