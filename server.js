@@ -301,7 +301,10 @@ app.post('/upload/:type', upload.single('file'), (req, res) => {
 app.post('/admin/dodaj', upload.single('slika'), (req, res) => {
   const { ime, prezime, opis1 } = req.body;
   console.log(req.body);
-  const slikaUrl = req.file ? req.file.filename : null;
+  let slikaUrl = req.file ? req.file.filename : null;
+  if(slikaUrl===null){
+    slikaUrl="cmsoon.png";
+  }
 
   // Log statements for debugging
   console.log('Dodavanje nove osobe:', ime, prezime, slikaUrl, opis1);
