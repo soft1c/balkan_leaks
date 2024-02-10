@@ -52,7 +52,7 @@ li:not(.active):hover {
   padding-right:5px;
   max-height: 200px;
   overflow-y: auto;
-  border: 1px solid #dbdbdd;
+  border: 0px solid #dbdbdd;
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   z-index: 1000;
@@ -123,7 +123,7 @@ li:not(.active):hover {
   padding-right:5px;
   max-height: 200px;
   overflow-y: auto;
-  border: 1px solid #dbdbdd;
+  border: 0px solid #dbdbdd;
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   z-index: 1000;
@@ -180,10 +180,14 @@ li:not(.active):hover {
     width: 80px; }
 
     .release-item {
-  margin-bottom: 20px;
+  margin-bottom: 1px;
   padding: 15px;
 
   border-radius: 5px;
+}
+.release-item:last-child {
+  /* Apply a different margin-bottom to the last release-item */
+  margin-bottom: 90px;
 }
 
 .release-header h2 {
@@ -193,6 +197,11 @@ li:not(.active):hover {
 .release-body p {
   margin-bottom: 0;
 }
+
+
+
+
+
     </style>
 
 
@@ -329,12 +338,14 @@ width: 40px;
                 .document-list {
                  display: flex;
                  flex-wrap: wrap;
-                 justify-content: center; 
-                 min-width: 500px; color: #333;   margin: 10px;   padding: 20px;  width: 500px; color:black;
+                 justify-content: left; 
+                 min-width: 100px; color: #333;   margin: 10px;   padding: 20px;  width: 500px; color:black;
                  text-align: left;
                  margin-bottom: -125px;
                 margin-top:-25px;  display: grid;
   grid-auto-flow: row;
+  margin-left:-45px;
+
                 }
                 .document-list h1  { color:#007bff;
   font-size:22px; min-width: 500px; margin-bottom:-20px; margin-top:-30px;
@@ -348,6 +359,18 @@ width: 40px;
   /* Increase the size to 110% when hovered */
 }
             
+.release-item {
+  /* Add transition for smooth hover effect */
+  transition: transform 0.3s ease;
+}
+
+.release-item:hover {
+  /* Scale and add shadow on hover */
+  transform: scale(1.05);
+  color:#007bff;
+}
+
+
                 </style>
             
              
@@ -356,7 +379,7 @@ width: 40px;
                 
                 <li>Documents</li>
               </a> 
-              <div id="files-container" style="margin-bottom:8%; margin-toppusp'-1%">  
+              <div id="files-container" style="margin-bottom:1%; margin-toppusp'-1%">  
 
                 <div class="document-list" id="document-list" > 
 
@@ -384,8 +407,9 @@ width: 40px;
  
 <br>
 
-        <div style="width:90%" class="leak-content">
-          <h2 id="eventTitle"></h2>
+        <div style="width:90%; margin-top:-3%;" class="leak-content">
+          
+          <h2 style="" id="eventTitle"></h2>
 <p id="eventDescription"></p>
 <p id="eventDate"></p>
 <p id="eventLocation"></p>
@@ -1054,5 +1078,8 @@ function fetchEventFiles(eventId) {
 
     </script>
     
+
+    
+
 </body>
 </html>
